@@ -1,15 +1,14 @@
 package integration.mtp;
 
 import com.codeborne.selenide.ex.ElementNotFound;
+import integration.mtp.pom.widget.CommonFramePage;
+import integration.mtp.pom.widget.ServicesPage;
 import org.junit.jupiter.api.Test;
 
-import integration.mtp.pom.pagefactory.CommonFramePage;
-import integration.mtp.pom.pagefactory.ServicesPage;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.codeborne.selenide.Selenide.page;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PageFactoryTest extends BaseMtpTest {
+public class WidgetTest extends BaseMtpTest {
     final CommonFramePage commonFramePage = page(CommonFramePage.class);
     final ServicesPage servicesPage = page(ServicesPage.class);
 
@@ -17,7 +16,7 @@ public class PageFactoryTest extends BaseMtpTest {
     void userNavigateToQualityAssurance() {
         commonFramePage.shouldLoadRequired();
         commonFramePage.mainMenu.servicesLnk.hover();
-        commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        commonFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
         servicesPage.shouldLoadRequired();
     }
@@ -26,9 +25,9 @@ public class PageFactoryTest extends BaseMtpTest {
     void badSelectorError() {
         commonFramePage.shouldLoadRequired();
         commonFramePage.mainMenu.servicesLnk.hover();
-        commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        commonFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
         servicesPage.shouldLoadRequired();
-        assertThrows(ElementNotFound.class, () -> servicesPage.badSelector.click());
+        assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
     }
 }

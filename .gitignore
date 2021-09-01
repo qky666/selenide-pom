@@ -23,5 +23,6 @@
 hs_err_pid*
 
 # selenide-pom
-target/downloads
-target/reports
+build
+target
+.gradle

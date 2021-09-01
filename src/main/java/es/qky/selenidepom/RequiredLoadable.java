@@ -43,7 +43,7 @@ public interface RequiredLoadable {
                         } else if (element instanceof By byElement) {
                             $(byElement).shouldBe(visible, timeout);
                         } else if (element instanceof ElementsContainer elementsContainer) {
-                            // Do not want to use a deprecated method
+                            // Do not want to use deprecated method getSelf
                             // elementsContainer.getSelf().shouldBe(visible, timeout);
                             objectShouldLoadRequired(elementsContainer, timeout);
                         }
