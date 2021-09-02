@@ -1,6 +1,11 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
     id 'java'
+    id 'java-library'
+    id 'idea'
+    id 'jacoco'
+    id 'maven-publish'
+    id 'com.github.spotbugs' version '4.7.3'
 }
 
 group 'es.qky'
