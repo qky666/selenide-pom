@@ -36,10 +36,16 @@ test {
     useJUnitPlatform()
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
+//javadoc {
+//    if(JavaVersion.current().isJava9Compatible()) {
+//        options.addBooleanOption('html5', true)
+//    }
+//}
+
+//java {
+//    withJavadocJar()
+//    withSourcesJar()
+//}
 
 publishing {
     publications {
@@ -75,15 +81,9 @@ publishing {
             name = 'GitHubPackages'
             url = 'https://maven.pkg.github.com/qky666/selenide-pom'
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
             }
         }
-    }
-}
-
-javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
     }
 }
