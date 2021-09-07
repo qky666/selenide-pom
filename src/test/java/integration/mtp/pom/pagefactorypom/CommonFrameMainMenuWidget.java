@@ -1,4 +1,4 @@
-package integration.mtp.pom.pagefactory;
+package integration.mtp.pom.pagefactorypom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Widget;
@@ -9,8 +9,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class CommonFrameMainMenuServicesDropdownWidget extends Widget {
-    @FindBy(css = "a[data-principal='Aseguramiento de la calidad']")
+public class CommonFrameMainMenuWidget extends Widget {
     @Required
-    public SelenideElement qualityAssuranceLnk;
+    @FindBy(css = "li#servicios_menu")
+    public SelenideElement servicesLnk;
+
+    @FindBy(css = "div.dropdown-servicios")
+    public CommonFrameMainMenuServicesDropdownWidget servicesPopUp;
 }

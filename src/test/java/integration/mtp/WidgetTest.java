@@ -1,8 +1,8 @@
 package integration.mtp;
 
 import com.codeborne.selenide.ex.ElementNotFound;
-import integration.mtp.pom.widget.CommonFramePage;
-import integration.mtp.pom.widget.ServicesPage;
+import integration.mtp.pom.widgetpom.CommonFramePage;
+import integration.mtp.pom.widgetpom.ServicesPage;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.page;

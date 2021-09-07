@@ -1,4 +1,4 @@
-package integration.mtp.pom.simple;
+package integration.mtp.pom.simplepom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Page;

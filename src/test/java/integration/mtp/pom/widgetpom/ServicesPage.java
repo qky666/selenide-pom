@@ -1,4 +1,4 @@
-package integration.mtp.pom.customshouldloadrequirederror;
+package integration.mtp.pom.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
@@ -15,10 +15,11 @@ public class ServicesPage extends CommonFramePage {
     public SelenideElement principal = $("div.servicios-principal");
     @Required
     public final SelenideElement titleTxt = $("h1.h2");
+    public final SelenideElement badSelector = $("bad-selector");
 
     @Override
     public void shouldLoadRequired(Duration timeout) {
         super.shouldLoadRequired(timeout);
-        titleTxt.shouldHave(text("Aseguramiento de la calidad error"), timeout);
+        titleTxt.shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

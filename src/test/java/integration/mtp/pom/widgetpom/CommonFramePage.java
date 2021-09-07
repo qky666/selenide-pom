@@ -1,4 +1,4 @@
-package integration.mtp.pom.customshouldloadrequirederror;
+package integration.mtp.pom.widgetpom;
 
 import es.qky.selenidepom.Page;
 import es.qky.selenidepom.Required;

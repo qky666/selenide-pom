@@ -1,9 +1,11 @@
 package integration.mtp;
 
 import com.codeborne.selenide.ex.ElementShould;
-import integration.mtp.pom.customshouldloadrequirederror.CommonFramePage;
-import integration.mtp.pom.customshouldloadrequirederror.ServicesPage;
+import integration.mtp.pom.customshouldloadrequirederrorpom.CommonFramePage;
+import integration.mtp.pom.customshouldloadrequirederrorpom.ServicesPage;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.page;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,7 +16,7 @@ public class CustomShouldLoadRequiredErrorTest extends BaseMtpTest {
 
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
-        commonFramePage.shouldLoadRequired();
+        commonFramePage.shouldLoadRequired(Duration.ofSeconds(3));
         commonFramePage.mainMenu.servicesLnk.hover();
         commonFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 

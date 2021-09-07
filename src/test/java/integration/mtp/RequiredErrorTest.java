@@ -1,7 +1,7 @@
 package integration.mtp;
 
-import integration.mtp.pom.requirederror.CommonFramePage;
-import integration.mtp.pom.requirederror.ServicesPage;
+import integration.mtp.pom.requirederrorpom.CommonFramePage;
+import integration.mtp.pom.requirederrorpom.ServicesPage;
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.ex.ElementNotFound;
 

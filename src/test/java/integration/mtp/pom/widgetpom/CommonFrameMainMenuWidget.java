@@ -1,4 +1,4 @@
-package integration.mtp.pom.requirederror;
+package integration.mtp.pom.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
