@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_001. Refactor Required.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_002. Trying JitPack" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -270,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631086555626</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="20210908_002. Trying JitPack">
+      <created>1631093281438</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1631093281438</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,7 +298,8 @@
     <MESSAGE value="20210903_004. Update Gradle config" />
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
     <MESSAGE value="20210908_001. Refactor Required." />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_001. Refactor Required." />
+    <MESSAGE value="20210908_002. Trying JitPack" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_002. Trying JitPack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
