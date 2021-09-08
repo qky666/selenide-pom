@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_005. Trying JitPack">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_006. Trying JitPack">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jitpack.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +47,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="selenide-pom" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -62,7 +72,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -91,7 +101,7 @@
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [test]">
+  <component name="RunManager" selected="Gradle.selenide-pom [build]">
     <configuration name="PageFactoryTest.userNavigateToQualityAssurance" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -113,7 +123,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="selenide-pom [jacocoTestCoverageVerification]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="selenide-pom [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -124,7 +134,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jacocoTestCoverageVerification" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -134,7 +144,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="selenide-pom [jacocoTestReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="selenide-pom [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -145,7 +155,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jacocoTestReport" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -199,11 +209,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.selenide-pom [build]" />
         <item itemvalue="Gradle.selenide-pom [test]" />
+        <item itemvalue="Gradle.selenide-pom [clean]" />
         <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.PageFactoryTest.userNavigateToQualityAssurance" />
-        <item itemvalue="Gradle.selenide-pom [jacocoTestReport]" />
-        <item itemvalue="Gradle.selenide-pom [jacocoTestCoverageVerification]" />
       </list>
     </recent_temporary>
   </component>
@@ -300,7 +310,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631096116158</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="20210908_006. Trying JitPack">
+      <created>1631096787071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1631096787071</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,7 +346,8 @@
     <MESSAGE value="20210908_003. Trying JitPack" />
     <MESSAGE value="20210908_004. Trying JitPack" />
     <MESSAGE value="20210908_005. Trying JitPack" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_005. Trying JitPack" />
+    <MESSAGE value="20210908_006. Trying JitPack" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_006. Trying JitPack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

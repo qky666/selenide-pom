@@ -42,7 +42,7 @@ public interface RequiredLoadable {
     }
 
     @CheckReturnValue
-    private static void objectShouldLoadRequired(Object object, Duration timeout) {
+    static void objectShouldLoadRequired(Object object, Duration timeout) {
         Set<String> processedNames = new HashSet<>();
 
         Class<?> currentClass = object.getClass();
@@ -58,14 +58,14 @@ public interface RequiredLoadable {
                 if (field.isAnnotationPresent(Required.class)) {
                     try {
                         Object element = field.get(object);
-                        if (element instanceof By byElement) {
-                            $(byElement).shouldBe(visible, timeout);
-                        } else if (element instanceof SelenideElement selenideElement) {
-                            selenideElement.shouldBe(visible, timeout);
-                        } else if (element instanceof ElementsContainer elementsContainer) {
+                        if (element instanceof By) {
+                            $((By) element).shouldBe(visible, timeout);
+                        } else if (element instanceof SelenideElement) {
+                            ((SelenideElement) element).shouldBe(visible, timeout);
+                        } else if (element instanceof ElementsContainer) {
                             // Do not want to use deprecated method getSelf
                             // elementsContainer.getSelf().shouldBe(visible, timeout);
-                            objectShouldLoadRequired(elementsContainer, timeout);
+                            objectShouldLoadRequired(element, timeout);
                         }
                     } catch (IllegalAccessException ignored) {
                     }
