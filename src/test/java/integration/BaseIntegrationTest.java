@@ -12,7 +12,8 @@ import static com.codeborne.selenide.Selenide.open;
 public abstract class BaseIntegrationTest {
     @BeforeAll
     static void setUpBrowser() {
-        Configuration.startMaximized = true;
+//        Configuration.startMaximized = true;
+        Configuration.headless = true;
     }
 
     @BeforeEach
