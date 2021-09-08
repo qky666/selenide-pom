@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_003. Trying JitPack">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_004. Trying JitPack">
+      <change afterPath="$PROJECT_DIR$/jitpack.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +80,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/config/checkstyle" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -283,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631093310424</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="20210908_004. Trying JitPack">
+      <created>1631094744278</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1631094744278</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,7 +320,8 @@
     <MESSAGE value="20210908_001. Refactor Required." />
     <MESSAGE value="20210908_002. Trying JitPack" />
     <MESSAGE value="20210908_003. Trying JitPack" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_003. Trying JitPack" />
+    <MESSAGE value="20210908_004. Trying JitPack" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_004. Trying JitPack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
