@@ -4,27 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210907_001. Documentation and small changes in tests">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_001. Refactor Required.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Page.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/PageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/PageFactoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +39,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="selenide-pom" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -100,7 +89,7 @@
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [test]">
+  <component name="RunManager" selected="Gradle.selenide-pom [publish]">
     <configuration name="PageFactoryTest.userNavigateToQualityAssurance" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -164,7 +153,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="selenide-pom [spotbugsTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="selenide-pom [publish]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -175,7 +164,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="spotbugsTest" />
+            <option value="publish" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -208,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.selenide-pom [test]" />
         <item itemvalue="Gradle.PageFactoryTest.userNavigateToQualityAssurance" />
         <item itemvalue="Gradle.selenide-pom [jacocoTestReport]" />
         <item itemvalue="Gradle.selenide-pom [jacocoTestCoverageVerification]" />
-        <item itemvalue="Gradle.selenide-pom [spotbugsTest]" />
       </list>
     </recent_temporary>
   </component>
@@ -274,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631016821845</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="20210908_001. Refactor Required.">
+      <created>1631086555626</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1631086555626</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -298,7 +294,8 @@
     <MESSAGE value="20210903_003. Recreate .idea directory again" />
     <MESSAGE value="20210903_004. Update Gradle config" />
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210907_001. Documentation and small changes in tests" />
+    <MESSAGE value="20210908_001. Refactor Required." />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_001. Refactor Required." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
