@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_006. Trying JitPack">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_007. Changed to jdk 1.8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jitpack.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,8 +206,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.selenide-pom [build]" />
-        <item itemvalue="Gradle.selenide-pom [test]" />
         <item itemvalue="Gradle.selenide-pom [clean]" />
+        <item itemvalue="Gradle.selenide-pom [test]" />
         <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.PageFactoryTest.userNavigateToQualityAssurance" />
       </list>
@@ -317,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631096787071</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="20210908_007. Changed to jdk 1.8">
+      <created>1631098462662</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1631098462662</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -347,7 +350,8 @@
     <MESSAGE value="20210908_004. Trying JitPack" />
     <MESSAGE value="20210908_005. Trying JitPack" />
     <MESSAGE value="20210908_006. Trying JitPack" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_006. Trying JitPack" />
+    <MESSAGE value="20210908_007. Changed to jdk 1.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_007. Changed to jdk 1.8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

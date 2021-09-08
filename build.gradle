@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'com.github.qky666'
-version '0.1.0'
+version '0.1.1'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -41,16 +41,16 @@ test {
     useJUnitPlatform()
 }
 
-//javadoc {
-//    if(JavaVersion.current().isJava9Compatible()) {
-//        options.addBooleanOption('html5', true)
-//    }
-//}
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
 
-//java {
-//    withJavadocJar()
-//    withSourcesJar()
-//}
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
 
 publishing {
     publications {
