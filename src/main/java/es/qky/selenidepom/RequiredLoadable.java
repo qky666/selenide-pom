@@ -1,5 +1,6 @@
 package es.qky.selenidepom;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -21,12 +22,23 @@ import java.util.Set;
 public interface RequiredLoadable {
     /**
      * When method shouldLoadRequired is called, all fields this @Required annotation are checked if visible.
+     * You can override this method to add some extra functionality (custom additional checks).
      *
      * @param timeout The timeout for waiting to elements to become visible.
      */
     @CheckReturnValue
     default void shouldLoadRequired(Duration timeout) {
         objectShouldLoadRequired(this, timeout);
+    }
+
+    /**
+     * All fields with @Required annotation are checked if visible, with default timeout (Selenide Configuration).
+     * You usually override shouldLoadRequired(Duration timeout) instead of this method,
+     * unless you need to change the default timeout.
+     */
+    @CheckReturnValue
+    default void shouldLoadRequired() {
+        this.shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
     }
 
     @CheckReturnValue

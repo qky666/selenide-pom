@@ -12,16 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.codeborne.selenide.Selenide.page;
 
 public class PageFactoryTest extends BaseMtpTest {
-    final CommonFramePage commonFramePage = page(CommonFramePage.class);
-    final ServicesPage servicesPage = page(ServicesPage.class);
-
     @Test
     void userNavigateToQualityAssurance() {
+        CommonFramePage commonFramePage = page(CommonFramePage.class);
         commonFramePage.shouldLoadRequired();
         commonFramePage.mainMenu.servicesLnk.hover();
         commonFramePage.mainMenu.servicesPopUp.shouldLoadRequired();
         commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
 
+        ServicesPage servicesPage = page(ServicesPage.class);
         servicesPage.shouldLoadRequired();
         servicesPage.mainMenu.servicesLnk.hover();
         commonFramePage.mainMenu.servicesPopUp.shouldLoadRequired(Duration.ofSeconds(2));
@@ -29,10 +28,12 @@ public class PageFactoryTest extends BaseMtpTest {
 
     @Test
     void badSelectorError() {
+        CommonFramePage commonFramePage = page(CommonFramePage.class);
         commonFramePage.shouldLoadRequired();
         commonFramePage.mainMenu.servicesLnk.hover();
         commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
 
+        ServicesPage servicesPage = page(ServicesPage.class);
         servicesPage.shouldLoadRequired();
         assertThrows(ElementNotFound.class, () -> servicesPage.badSelector.click());
     }

@@ -9,15 +9,14 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RequiredErrorTest extends BaseMtpTest {
-    final CommonFramePage commonFramePage = page(CommonFramePage.class);
-    final ServicesPage servicesPage = page(ServicesPage.class);
-
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
+        CommonFramePage commonFramePage = page(CommonFramePage.class);
         commonFramePage.shouldLoadRequired();
         commonFramePage.mainMenu.servicesLnk.hover();
         commonFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
+        ServicesPage servicesPage = page(ServicesPage.class);
         assertThrows(ElementNotFound.class, servicesPage::shouldLoadRequired);
     }
 }

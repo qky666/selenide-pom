@@ -1,15 +1,15 @@
 package integration.mtp.pom.simplepom;
 
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Page;
 import es.qky.selenidepom.Required;
+import es.qky.selenidepom.RequiredLoadable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static com.codeborne.selenide.Selenide.$;
 
 @ParametersAreNonnullByDefault
-public class CommonFramePage extends Page {
+public class CommonFramePage implements RequiredLoadable {
     @Required
     public final SelenideElement mainMenu = $("div.custom-menu");
     @Required
