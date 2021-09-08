@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_002. Trying JitPack" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_003. Trying JitPack">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +88,7 @@
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [publish]">
+  <component name="RunManager" selected="Gradle.selenide-pom [test]">
     <configuration name="PageFactoryTest.userNavigateToQualityAssurance" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -193,8 +196,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.selenide-pom [test]" />
+        <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.PageFactoryTest.userNavigateToQualityAssurance" />
         <item itemvalue="Gradle.selenide-pom [jacocoTestReport]" />
         <item itemvalue="Gradle.selenide-pom [jacocoTestCoverageVerification]" />
@@ -273,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631093281438</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="20210908_003. Trying JitPack">
+      <created>1631093310423</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1631093310424</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -299,7 +309,8 @@
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
     <MESSAGE value="20210908_001. Refactor Required." />
     <MESSAGE value="20210908_002. Trying JitPack" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_002. Trying JitPack" />
+    <MESSAGE value="20210908_003. Trying JitPack" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210908_003. Trying JitPack" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

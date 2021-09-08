@@ -11,6 +11,9 @@ plugins {
 group 'com.github.qky666'
 version '0.1.0'
 
+sourceCompatibility = 16
+targetCompatibility = 16
+
 repositories {
     mavenCentral()
 }
