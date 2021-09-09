@@ -3,14 +3,14 @@ package integration.mtp.pom.requirederrorpom;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredLoadable;
+import es.qky.selenidepom.RequiredContainer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static com.codeborne.selenide.Selenide.$;
 
 @ParametersAreNonnullByDefault
-public class CommonFrameMainMenuWidget extends ElementsContainer implements RequiredLoadable {
+public class CommonFrameMainMenuWidget extends ElementsContainer implements RequiredContainer {
     @Required
     public final SelenideElement servicesLnk = $("li#servicios_menu");
     public final SelenideElement servicesPopUp = $("div.dropdown-servicios");

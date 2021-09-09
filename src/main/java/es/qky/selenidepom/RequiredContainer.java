@@ -19,7 +19,7 @@ import java.util.Set;
  * Object with fields that can have @Required annotation.
  */
 @ParametersAreNonnullByDefault
-public interface RequiredLoadable {
+public interface RequiredContainer {
     /**
      * When method shouldLoadRequired is called, all fields this @Required annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
