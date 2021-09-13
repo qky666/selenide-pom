@@ -4,28 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210909_001. Refactor">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210913_001. Refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/ServicesPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,7 +339,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631189382535</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="20210913_001. Refactor">
+      <created>1631523042722</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1631523042723</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -391,7 +379,8 @@
     <MESSAGE value="20210908_007. Changed to jdk 1.8" />
     <MESSAGE value="20210908_008. 0.1.1. Add javadoc.jar" />
     <MESSAGE value="20210909_001. Refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210909_001. Refactor" />
+    <MESSAGE value="20210913_001. Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210913_001. Refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
