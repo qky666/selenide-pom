@@ -8,10 +8,10 @@ import org.openqa.selenium.support.FindBy;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
 public class CommonFrameMainMenuServicesDropdownWidget extends ElementsContainer implements RequiredContainer {
-    @FindBy(css = "a[data-principal='Aseguramiento de la calidad']")
-    @Required
+    @Required @FindBy(css = "a[data-principal='Aseguramiento de la calidad']")
     public SelenideElement qualityAssuranceLnk;
 }

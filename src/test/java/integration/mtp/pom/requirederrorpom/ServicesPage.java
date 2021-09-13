@@ -9,15 +9,13 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
+
 @ParametersAreNonnullByDefault
 public class ServicesPage extends CommonFramePage {
-    @Required
-    public SelenideElement principal = $("div.servicios-principal");
-    @Required
-    public final SelenideElement titleTxt = $("h1.h2");
+    @Required public SelenideElement principal = $("div.servicios-principal");
+    @Required public final SelenideElement titleTxt = $("h1.h2");
     // badSelector generates an error in shouldLoadRequired
-    @Required
-    public SelenideElement badSelector = $("bad-selector");
+    @Required public SelenideElement badSelector = $("bad-selector");
 
     @Override
     public void shouldLoadRequired(Duration timeout) {

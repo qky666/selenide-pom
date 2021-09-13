@@ -9,7 +9,5 @@ import org.openqa.selenium.support.FindBy;
 
 @ParametersAreNonnullByDefault
 public class CommonFramePage implements RequiredContainer {
-    @Required
-    @FindBy(css = "div.custom-menu")
-    public CommonFrameMainMenuWidget mainMenu;
+    @Required @FindBy(css = "div.custom-menu") public CommonFrameMainMenuWidget mainMenu;
 }

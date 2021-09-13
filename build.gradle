@@ -1,4 +1,6 @@
 //file:noinspection GroovyAssignabilityCheck
+//file:noinspection GrUnresolvedAccess
+//file:noinspection GroovyUnusedAssignment
 plugins {
     id 'java'
     id 'java-library'
@@ -9,7 +11,8 @@ plugins {
 }
 
 group 'com.github.qky666'
-version '0.1.2-SNAPSHOT'
+version '0.1.2'
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

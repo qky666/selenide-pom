@@ -4,20 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210908_008. 0.1.1. Add javadoc.jar">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210909_001. Refactor">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredLoadable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuServicesDropdownWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFrameMainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/pagefactorypom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/ServicesPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,14 +83,18 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="ProjectId" id="1xXJ1a84bmyujtZrJiiMsmMNnHo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -96,19 +108,20 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/config/checkstyle" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [build]">
+  <component name="RunManager" selected="Gradle.selenide-pom [test]">
     <configuration name="PageFactoryTest.userNavigateToQualityAssurance" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -216,9 +229,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.selenide-pom [test]" />
         <item itemvalue="Gradle.selenide-pom [build]" />
         <item itemvalue="Gradle.selenide-pom [clean]" />
-        <item itemvalue="Gradle.selenide-pom [test]" />
         <item itemvalue="Gradle.selenide-pom [publish]" />
         <item itemvalue="Gradle.PageFactoryTest.userNavigateToQualityAssurance" />
       </list>
@@ -338,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631099494826</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="20210909_001. Refactor">
+      <created>1631189382535</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1631189382535</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -370,7 +390,8 @@
     <MESSAGE value="20210908_006. Trying JitPack" />
     <MESSAGE value="20210908_007. Changed to jdk 1.8" />
     <MESSAGE value="20210908_008. 0.1.1. Add javadoc.jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210908_008. 0.1.1. Add javadoc.jar" />
+    <MESSAGE value="20210909_001. Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210909_001. Refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
