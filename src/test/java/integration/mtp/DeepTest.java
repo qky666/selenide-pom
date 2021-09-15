@@ -3,15 +3,15 @@ package integration.mtp;
 import com.codeborne.selenide.ex.ElementNotFound;
 import org.junit.jupiter.api.Test;
 
-import integration.mtp.pom.pagefactorypom.CommonFramePage;
-import integration.mtp.pom.pagefactorypom.ServicesPage;
+import integration.mtp.pom.deeppom.CommonFramePage;
+import integration.mtp.pom.deeppom.ServicesPage;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.codeborne.selenide.Selenide.page;
 
-public class PageFactoryTest extends BaseMtpTest {
+public class DeepTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssurance() {
         CommonFramePage commonFramePage = page(CommonFramePage.class);

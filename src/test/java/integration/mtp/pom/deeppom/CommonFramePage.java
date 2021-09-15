@@ -1,4 +1,4 @@
-package integration.mtp.pom.pagefactorypom;
+package integration.mtp.pom.deeppom;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

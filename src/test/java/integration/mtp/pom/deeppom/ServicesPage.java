@@ -1,4 +1,4 @@
-package integration.mtp.pom.pagefactorypom;
+package integration.mtp.pom.deeppom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -12,9 +12,7 @@ import java.time.Duration;
 @ParametersAreNonnullByDefault
 public class ServicesPage extends CommonFramePage {
     @Required @FindBy(css = "div.servicios-principal") public SelenideElement principal;
-
     @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
-
     @FindBy(css = "bad-selector") public SelenideElement badSelector;
 
     @Override
