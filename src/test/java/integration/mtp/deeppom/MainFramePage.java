@@ -1,4 +1,4 @@
-package integration.mtp.pom.deeppom;
+package integration.mtp.deeppom;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -8,6 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 
 @ParametersAreNonnullByDefault
-public class CommonFramePage implements RequiredContainer {
-    @Required @FindBy(css = "div.custom-menu") public CommonFrameMainMenuWidget mainMenu;
+public class MainFramePage implements RequiredContainer {
+    @Required @FindBy(css = "div.custom-menu") public MainMenuWidget mainMenu;
 }

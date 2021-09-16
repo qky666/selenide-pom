@@ -1,4 +1,4 @@
-package integration.mtp.pom.requirederrorpom;
+package integration.mtp.customshouldloadrequirederrorpom;
 
 import es.qky.selenidepom.Required;
 import es.qky.selenidepom.RequiredContainer;
@@ -8,6 +8,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 
 @ParametersAreNonnullByDefault
-public class CommonFramePage implements RequiredContainer {
-    @Required @FindBy(css = "div.custom-menu") public CommonFrameMainMenuWidget mainMenu;
+public class MainFramePage implements RequiredContainer {
+    @Required @FindBy(css = "div.custom-menu") public MainMenuWidget mainMenu;
 }

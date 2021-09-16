@@ -1,4 +1,4 @@
-package integration.mtp.pom.deeppom;
+package integration.mtp.deeppom;
 
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class CommonFrameMainMenuWidget extends ElementsContainer implements RequiredContainer {
-    @Required @FindBy(css = "li#servicios_menu") public SelenideElement servicesLnk;
-    @FindBy(css = "div.dropdown-servicios") public CommonFrameMainMenuServicesDropdownWidget servicesPopUp;
+public class MainMenuServicesDropdownWidget extends ElementsContainer implements RequiredContainer {
+    @Required @FindBy(css = "a[data-principal='Aseguramiento de la calidad']")
+    public SelenideElement qualityAssuranceLnk;
 }

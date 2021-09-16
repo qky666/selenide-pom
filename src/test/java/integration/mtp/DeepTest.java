@@ -3,8 +3,8 @@ package integration.mtp;
 import com.codeborne.selenide.ex.ElementNotFound;
 import org.junit.jupiter.api.Test;
 
-import integration.mtp.pom.deeppom.CommonFramePage;
-import integration.mtp.pom.deeppom.ServicesPage;
+import integration.mtp.deeppom.MainFramePage;
+import integration.mtp.deeppom.ServicesPage;
 
 import java.time.Duration;
 
@@ -14,24 +14,24 @@ import static com.codeborne.selenide.Selenide.page;
 public class DeepTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssurance() {
-        CommonFramePage commonFramePage = page(CommonFramePage.class);
-        commonFramePage.shouldLoadRequired();
-        commonFramePage.mainMenu.servicesLnk.hover();
-        commonFramePage.mainMenu.servicesPopUp.shouldLoadRequired();
-        commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        MainFramePage mainFramePage = page(MainFramePage.class);
+        mainFramePage.shouldLoadRequired();
+        mainFramePage.mainMenu.servicesLnk.hover();
+        mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
 
         ServicesPage servicesPage = page(ServicesPage.class);
         servicesPage.shouldLoadRequired();
         servicesPage.mainMenu.servicesLnk.hover();
-        commonFramePage.mainMenu.servicesPopUp.shouldLoadRequired(Duration.ofSeconds(2));
+        mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired(Duration.ofSeconds(2));
     }
 
     @Test
     void badSelectorError() {
-        CommonFramePage commonFramePage = page(CommonFramePage.class);
-        commonFramePage.shouldLoadRequired();
-        commonFramePage.mainMenu.servicesLnk.hover();
-        commonFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        MainFramePage mainFramePage = page(MainFramePage.class);
+        mainFramePage.shouldLoadRequired();
+        mainFramePage.mainMenu.servicesLnk.hover();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
 
         ServicesPage servicesPage = page(ServicesPage.class);
         servicesPage.shouldLoadRequired();

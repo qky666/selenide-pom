@@ -1,4 +1,4 @@
-package integration.mtp.pom.customshouldloadrequirederrorpom;
+package integration.mtp.requirederrorpom;
 
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class CommonFrameMainMenuWidget extends ElementsContainer implements RequiredContainer {
+public class MainMenuWidget extends ElementsContainer implements RequiredContainer {
     @Required @FindBy(css = "li#servicios_menu") public SelenideElement servicesLnk;
     @FindBy(css = "div.dropdown-servicios") public SelenideElement servicesPopUp;
     @FindBy(css = "div.dropdown-servicios a[data-principal='Aseguramiento de la calidad']")

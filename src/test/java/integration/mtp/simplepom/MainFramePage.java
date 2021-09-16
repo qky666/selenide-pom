@@ -1,4 +1,4 @@
-package integration.mtp.pom.simplepom;
+package integration.mtp.simplepom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 
 @ParametersAreNonnullByDefault
-public class CommonFramePage implements RequiredContainer {
+public class MainFramePage implements RequiredContainer {
     @Required public final SelenideElement mainMenu = $("div.custom-menu");
     @Required public final SelenideElement mainMenuServicesLnk = mainMenu.$("li#servicios_menu");
     public final SelenideElement mainMenuServicesPopUp = mainMenu.$("div.dropdown-servicios");

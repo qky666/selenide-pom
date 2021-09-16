@@ -1,20 +1,20 @@
-package integration.mtp.pom.widgetpom;
+package integration.mtp.nopagefactorypom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
-import org.openqa.selenium.support.FindBy;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
 
 
 @ParametersAreNonnullByDefault
-public class ServicesPage extends CommonFramePage {
-    @Required @FindBy(css = "div.servicios-principal") public SelenideElement principal;
-    @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
-    @FindBy(css = "bad-selector") public SelenideElement badSelector;
+public class ServicesPage extends MainFramePage {
+    @Required public final SelenideElement principal = $("div.servicios-principal");
+    @Required public final SelenideElement titleTxt = $("h1.h2");
+    public final SelenideElement badSelector = $("bad-selector");
 
     @Override
     public void shouldLoadRequired(Duration timeout) {
