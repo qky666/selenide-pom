@@ -14,5 +14,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class MainMenuWidget extends ElementsContainer implements RequiredContainer {
     @Required @FindBy(css = "li#servicios_menu") public SelenideElement servicesLnk;
     @FindBy(css = "div.dropdown-servicios") public SelenideElement servicesPopUp;
-    @FindBy(css = "div.dropdown-servicios a[data-principal='Aseguramiento de la calidad']") public SelenideElement servicesPopUpQualityAssuranceLnk;
+    @FindBy(css = "div.dropdown-servicios a[data-principal='Aseguramiento de la calidad']")
+    public SelenideElement servicesPopUpQualityAssuranceLnk;
 }

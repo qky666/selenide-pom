@@ -1,4 +1,4 @@
-package integration.mtp.requirederrorpom;
+package integration.mtp.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
@@ -11,15 +11,13 @@ import static com.codeborne.selenide.Condition.text;
 
 
 @ParametersAreNonnullByDefault
-public class ServicesPage extends MainFramePage {
+public class ServicesShouldLoadRequiredErrorPage extends MainFramePage {
     @Required @FindBy(css = "div.servicios-principal") public SelenideElement principal;
     @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
-    // badSelector generates an error in shouldLoadRequired
-    @Required @FindBy(css = "bad-selector") public SelenideElement badSelector;
 
     @Override
     public void shouldLoadRequired(Duration timeout) {
         super.shouldLoadRequired(timeout);
-        titleTxt.shouldHave(text("Aseguramiento de la calidad"));
+        titleTxt.shouldHave(text("Aseguramiento de la calidad con error"), timeout);
     }
 }

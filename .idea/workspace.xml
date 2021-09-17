@@ -4,36 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="v0.1.4. Fixed pom">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="v0.1.5. Added Widget class">
+      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/customshouldloadrequirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/deeppom/CommonFrameMainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/deeppom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/deeppom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/requirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFrameMainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/CommonFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/pom/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainFramePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainMenuWidget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainFramePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainMenuWidget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +54,42 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="selenide-pom" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="publishing" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -109,11 +134,11 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/integration/mtp/pom/nopagefactory" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -123,129 +148,6 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="integration.mtp" />
     </key>
-  </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [test]">
-    <configuration name="NoPageFactoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;integration.mtp.NoPageFactoryTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="selenide-pom [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="selenide-pom [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="selenide-pom [publish]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="publish" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="selenide-pom [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Gradle.NoPageFactoryTest" />
-      <item itemvalue="Gradle.selenide-pom [build]" />
-      <item itemvalue="Gradle.selenide-pom [clean]" />
-      <item itemvalue="Gradle.selenide-pom [publish]" />
-      <item itemvalue="Gradle.selenide-pom [test]" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.selenide-pom [test]" />
-        <item itemvalue="Gradle.NoPageFactoryTest" />
-        <item itemvalue="Gradle.selenide-pom [build]" />
-        <item itemvalue="Gradle.selenide-pom [clean]" />
-        <item itemvalue="Gradle.selenide-pom [publish]" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -389,7 +291,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631728407766</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="v0.1.5. Added Widget class">
+      <created>1631794131527</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1631794131528</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -425,7 +334,8 @@
     <MESSAGE value="20210913_001. Refactor" />
     <MESSAGE value="v0.1.3. Changed Selenide dependency to api" />
     <MESSAGE value="v0.1.4. Fixed pom" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.1.4. Fixed pom" />
+    <MESSAGE value="v0.1.5. Added Widget class" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.1.5. Added Widget class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
