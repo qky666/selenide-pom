@@ -11,16 +11,16 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.page;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WidgetTest extends BaseMtpTest {
-    MainFramePage mainFramePage = page(MainFramePage.class);
-    ServicesPage servicesPage = page(ServicesPage.class);
-    ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = page(ServicesShouldLoadRequiredErrorPage.class);
-    ServicesRequiredErrorPage servicesRequiredErrorPage = page(ServicesRequiredErrorPage.class);
+    final MainFramePage mainFramePage = page(MainFramePage.class);
+    final ServicesPage servicesPage = page(ServicesPage.class);
+    final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = page(ServicesShouldLoadRequiredErrorPage.class);
+    final ServicesRequiredErrorPage servicesRequiredErrorPage = page(ServicesRequiredErrorPage.class);
 
     @Test
-    void userNavigateToQualityAssurance() {
+    void userNavigateToQualityAssurance() throws Throwable {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
@@ -29,7 +29,7 @@ public class WidgetTest extends BaseMtpTest {
     }
 
     @Test
-    void badSelectorError() {
+    void badSelectorError() throws Throwable {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
@@ -39,7 +39,7 @@ public class WidgetTest extends BaseMtpTest {
     }
 
     @Test
-    void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
+    void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() throws Throwable {
         mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
@@ -47,11 +47,23 @@ public class WidgetTest extends BaseMtpTest {
     }
 
     @Test
-    void userNavigateToQualityAssuranceWithBadSelectorRequired() {
+    void userNavigateToQualityAssuranceWithBadSelectorRequired() throws Throwable {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
         assertThrows(ElementNotFound.class, servicesRequiredErrorPage::shouldLoadRequired);
+    }
+
+    @Test
+    void userForgotClick() throws Throwable {
+        mainFramePage.shouldLoadRequired();
+        mainFramePage.mainMenu.servicesLnk.hover();
+        // User forgot to click Quality Assurance link
+
+        assertFalse(servicesPage.hasAlreadyLoadedRequired());
+        assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
+        assertThrows(ElementNotFound.class, servicesPage::shouldLoadRequired);
+        assertThrows(ElementNotFound.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
     }
 }

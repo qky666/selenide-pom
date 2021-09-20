@@ -10,10 +10,10 @@ import java.time.Duration;
 
 
 @ParametersAreNonnullByDefault
-public class ServicesPage extends MainFramePage {
+public class ServicesRequiredErrorPage extends MainFramePage {
     @Required @FindBy(css = "div.servicios-principal") public SelenideElement principal;
     @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
-    @FindBy(css = "bad-selector") public SelenideElement badSelector;
+    @Required @FindBy(css = "bad-selector") public SelenideElement badSelector;
 
     @Override
     public void shouldLoadRequired(Duration timeout) throws Throwable {

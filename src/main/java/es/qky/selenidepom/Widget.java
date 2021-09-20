@@ -12,11 +12,13 @@ public abstract class Widget extends ElementsContainer implements RequiredContai
     private SelenideElement self;
 
     @SuppressWarnings("unused")
+    @CheckReturnValue
     public Widget() {
         // Add this constructor to maintain some compatibility with ElementsContainer
         super();
     }
 
+    @CheckReturnValue
     public Widget(SelenideElement self) {
         super();
         this.self = self;

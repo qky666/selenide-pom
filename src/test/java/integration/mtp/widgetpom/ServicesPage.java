@@ -17,7 +17,7 @@ public class ServicesPage extends MainFramePage {
     @FindBy(css = "bad-selector") public SelenideElement badSelector;
 
     @Override
-    public void shouldLoadRequired(Duration timeout) {
+    public void shouldLoadRequired(Duration timeout) throws Throwable {
         super.shouldLoadRequired(timeout);
         titleTxt.shouldHave(text("Aseguramiento de la calidad"), timeout);
     }

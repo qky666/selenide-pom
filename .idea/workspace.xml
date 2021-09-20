@@ -4,25 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="v0.1.5. Added Widget class">
-      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="v0.1.6. Tests refactor">
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/CustomShouldLoadRequiredErrorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/RequiredErrorTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainFramePage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/MainMenuWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/customshouldloadrequirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainFramePage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/MainMenuWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/requirederrorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,8 +149,108 @@
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="integration.mtp.deeppom" />
+      <recent name="integration.mtp.nopagefactorypom" />
+      <recent name="integration.mtp.simplepom" />
       <recent name="integration.mtp" />
     </key>
+  </component>
+  <component name="RunManager" selected="JUnit.mtp">
+    <configuration name="DeepTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DeepTest.userForgotClick" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
+      <option name="METHOD_NAME" value="userForgotClick" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NoPageFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.NoPageFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NoPageFactoryTest.userForgotClick" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.NoPageFactoryTest" />
+      <option name="METHOD_NAME" value="userForgotClick" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleTest.userForgotClick" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.SimpleTest" />
+      <option name="METHOD_NAME" value="userForgotClick" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.mtp" />
+      <item itemvalue="JUnit.NoPageFactoryTest" />
+      <item itemvalue="JUnit.DeepTest" />
+      <item itemvalue="JUnit.DeepTest.userForgotClick" />
+      <item itemvalue="JUnit.NoPageFactoryTest.userForgotClick" />
+      <item itemvalue="JUnit.SimpleTest.userForgotClick" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SimpleTest.userForgotClick" />
+        <item itemvalue="JUnit.NoPageFactoryTest.userForgotClick" />
+        <item itemvalue="JUnit.DeepTest.userForgotClick" />
+        <item itemvalue="JUnit.DeepTest" />
+        <item itemvalue="JUnit.NoPageFactoryTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -298,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631794131528</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="v0.1.6. Tests refactor">
+      <created>1631873214880</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1631873214880</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -335,17 +445,7 @@
     <MESSAGE value="v0.1.3. Changed Selenide dependency to api" />
     <MESSAGE value="v0.1.4. Fixed pom" />
     <MESSAGE value="v0.1.5. Added Widget class" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.1.5. Added Widget class" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.codeborne/selenide/5.24.0/4ab045217331957441d907972927169868083306/selenide-5.24.0-sources.jar!/com/codeborne/selenide/impl/SelenidePageFactory.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="v0.1.6. Tests refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.1.6. Tests refactor" />
   </component>
 </project>

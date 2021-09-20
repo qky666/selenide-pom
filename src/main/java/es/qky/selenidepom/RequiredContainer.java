@@ -25,33 +25,63 @@ import java.util.Set;
 
 
 /**
- * Object with fields that can have @Required annotation.
+ * Object with fields and methods (without parameters) that can have @Required annotation.
  */
 @ParametersAreNonnullByDefault
 public interface RequiredContainer {
     /**
-     * When method shouldLoadRequired is called, all fields this @Required annotation are checked if visible.
+     * When shouldLoadRequired is called, all fields and methods (without parameters) with @Required annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
      *
      * @param timeout The timeout for waiting to elements to become visible.
+     * @throws Throwable Error can occur during validations (mostly, validation failures).
      */
     @CheckReturnValue
-    default void shouldLoadRequired(Duration timeout) {
+    default void shouldLoadRequired(Duration timeout) throws Throwable {
         objectShouldLoadRequired(this, timeout);
     }
 
     /**
-     * All fields with @Required annotation are checked if visible, with default timeout (Selenide Configuration).
-     * You usually override shouldLoadRequired(Duration timeout) instead of this method,
-     * unless you need to change the default timeout.
+     * All fields and methods (without parameters) with @Required annotation are checked if visible, using default timeout (Selenide Configuration).
+     * You usually override shouldLoadRequired(Duration timeout) instead of this method, unless you need to change the default timeout.
+     *
+     * @throws Throwable Error can occur during validations (mostly, validation failures).
      */
     @CheckReturnValue
-    default void shouldLoadRequired() {
-        this.shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
+    default void shouldLoadRequired() throws Throwable {
+        shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
+    }
+
+    /**
+     * Returns true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     * You usually will not have to override this method.
+     *
+     * @param timeout The timeout for waiting to elements to become visible.
+     * @return true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     */
+    @CheckReturnValue
+    default boolean hasLoadedRequired(Duration timeout) {
+        try {
+            shouldLoadRequired(timeout);
+        } catch (Throwable e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
+     * You usually will not have to override this method.
+     *
+     * @return true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
+     */
+    @CheckReturnValue
+    default boolean hasAlreadyLoadedRequired() {
+        return hasLoadedRequired(Duration.ZERO);
     }
 
     @CheckReturnValue
-    static void objectShouldLoadRequired(Object object, Duration timeout) {
+    static void objectShouldLoadRequired(Object object, Duration timeout) throws Throwable {
         Set<String> processedFields = new HashSet<>();
         Set<String> processedMethods = new HashSet<>();
 
@@ -96,7 +126,8 @@ public interface RequiredContainer {
         }
     }
 
-    static void elementShouldLoad(Object element, Duration timeout) {
+    @CheckReturnValue
+    static void elementShouldLoad(Object element, Duration timeout) throws Throwable {
         if (element instanceof By) {
             $((By) element).shouldBe(visible, timeout);
         } else if (element instanceof SelenideElement) {
@@ -107,9 +138,8 @@ public interface RequiredContainer {
             Widget widget = (Widget) element;
             widget.getSelf().shouldBe(visible, timeout);
             widget.shouldLoadRequired(timeout);
-        }else if (element instanceof ElementsContainer) {
-            // Do not want to use deprecated method getSelf, but I would use if it was not deprecated
-            // elementsContainer.getSelf().shouldBe(visible, timeout);
+        } else if (element instanceof ElementsContainer) {
+            ((ElementsContainer) element).getSelf().shouldBe(visible, timeout);
             objectShouldLoadRequired(element, timeout);
         } else if (element instanceof RequiredContainer) {
             ((RequiredContainer) element).shouldLoadRequired(timeout);

@@ -16,7 +16,7 @@ public class ServicesShouldLoadRequiredErrorPage extends MainFramePage {
     @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
 
     @Override
-    public void shouldLoadRequired(Duration timeout) {
+    public void shouldLoadRequired(Duration timeout) throws Throwable {
         super.shouldLoadRequired(timeout);
         titleTxt.shouldHave(text("Aseguramiento de la calidad con error"), timeout);
     }
