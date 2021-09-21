@@ -2,6 +2,7 @@ package integration.mtp.nopagefactorypom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
+import es.qky.selenidepom.RequiredError;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.Duration;
@@ -17,7 +18,7 @@ public class ServicesPage extends MainFramePage {
     public final SelenideElement badSelector = $("bad-selector");
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws Throwable {
+    public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
         titleTxt.shouldHave(text("Aseguramiento de la calidad"), timeout);
     }

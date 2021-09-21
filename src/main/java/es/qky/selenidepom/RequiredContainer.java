@@ -15,11 +15,13 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.webdriver;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,21 +36,24 @@ public interface RequiredContainer {
      * You can override this method to add some extra functionality (custom additional checks).
      *
      * @param timeout The timeout for waiting to elements to become visible.
-     * @throws Throwable Error can occur during validations (mostly, validation failures).
+     * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     @CheckReturnValue
-    default void shouldLoadRequired(Duration timeout) throws Throwable {
-        objectShouldLoadRequired(this, timeout);
+    default void shouldLoadRequired(Duration timeout) throws RequiredError {
+        ArrayList<Throwable> errors = objectShouldLoadRequired(this, timeout);
+        if (errors.size() > 0) {
+            throw new RequiredError(errors);
+        }
     }
 
     /**
      * All fields and methods (without parameters) with @Required annotation are checked if visible, using default timeout (Selenide Configuration).
      * You usually override shouldLoadRequired(Duration timeout) instead of this method, unless you need to change the default timeout.
      *
-     * @throws Throwable Error can occur during validations (mostly, validation failures).
+     * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     @CheckReturnValue
-    default void shouldLoadRequired() throws Throwable {
+    default void shouldLoadRequired() throws RequiredError {
         shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
     }
 
@@ -61,12 +66,7 @@ public interface RequiredContainer {
      */
     @CheckReturnValue
     default boolean hasLoadedRequired(Duration timeout) {
-        try {
-            shouldLoadRequired(timeout);
-        } catch (Throwable e) {
-            return false;
-        }
-        return true;
+        return objectShouldLoadRequired(this, timeout).size() == 0;
     }
 
     /**
@@ -76,12 +76,13 @@ public interface RequiredContainer {
      * @return true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
      */
     @CheckReturnValue
-    default boolean hasAlreadyLoadedRequired() {
-        return hasLoadedRequired(Duration.ZERO);
-    }
+    default boolean hasAlreadyLoadedRequired() {return hasLoadedRequired(Duration.ZERO);}
 
     @CheckReturnValue
-    static void objectShouldLoadRequired(Object object, Duration timeout) throws Throwable {
+    @Nonnull
+    static ArrayList<Throwable> objectShouldLoadRequired(Object object, Duration timeout) {
+        ArrayList<Throwable> errors = new ArrayList<>();
+        Duration effectiveTimeout = Duration.from(timeout);
         Set<String> processedFields = new HashSet<>();
         Set<String> processedMethods = new HashSet<>();
 
@@ -99,7 +100,10 @@ public interface RequiredContainer {
                 if (field.isAnnotationPresent(Required.class)) {
                     try {
                         Object element = field.get(object);
-                        elementShouldLoad(element, timeout);
+                        errors.addAll(elementShouldLoad(element, effectiveTimeout));
+                        if (!effectiveTimeout.isZero() && errors.size() > 0) {
+                            effectiveTimeout = Duration.ZERO;
+                        }
                     } catch (IllegalAccessException ignored) {
                     }
                 }
@@ -116,38 +120,64 @@ public interface RequiredContainer {
                 if (method.isAnnotationPresent(Required.class)) {
                     try {
                         Object element = method.invoke(object);
-                        elementShouldLoad(element, timeout);
+                        errors.addAll(elementShouldLoad(element, effectiveTimeout));
+                        if (!effectiveTimeout.isZero() && errors.size() > 0) {
+                            effectiveTimeout = Duration.ZERO;
+                        }
                     } catch (InvocationTargetException | IllegalAccessException ignored) {
                     }
                 }
             }
-
             currentClass = currentClass.getSuperclass();
         }
+        return errors;
     }
 
     @CheckReturnValue
-    static void elementShouldLoad(Object element, Duration timeout) throws Throwable {
+    @Nonnull
+    static ArrayList<Throwable> elementShouldLoad(Object element, Duration timeout) {
+        ArrayList<Throwable> errors = new ArrayList<>();
         if (element instanceof By) {
-            $((By) element).shouldBe(visible, timeout);
+            try {
+                $((By) element).shouldBe(visible, timeout);
+            } catch (Throwable e) {
+                errors.add(e);
+            }
         } else if (element instanceof SelenideElement) {
-            ((SelenideElement) element).shouldBe(visible, timeout);
+            try {
+                ((SelenideElement) element).shouldBe(visible, timeout);
+            } catch (Throwable e) {
+                errors.add(e);
+            }
         } else if (element instanceof ElementsCollection) {
-            ((ElementsCollection) element).shouldBe(anyMatch("At least one element is visible", WebElement::isDisplayed));
-        } else if (element instanceof Widget) {
-            Widget widget = (Widget) element;
-            widget.getSelf().shouldBe(visible, timeout);
-            widget.shouldLoadRequired(timeout);
+            try {
+                ((ElementsCollection) element).shouldBe(anyMatch("At least one element is visible", WebElement::isDisplayed), timeout);
+            } catch (Throwable e) {
+                errors.add(e);
+            }
         } else if (element instanceof ElementsContainer) {
-            ((ElementsContainer) element).getSelf().shouldBe(visible, timeout);
-            objectShouldLoadRequired(element, timeout);
+            boolean lookInside = true;
+            try {
+                ((ElementsContainer) element).getSelf().shouldBe(visible, timeout);
+            } catch (Throwable e) {
+                errors.add(e);
+                lookInside = false;
+            }
+            if (lookInside) {
+                errors.addAll(objectShouldLoadRequired(element, timeout));
+            }
         } else if (element instanceof RequiredContainer) {
-            ((RequiredContainer) element).shouldLoadRequired(timeout);
+            errors.addAll(objectShouldLoadRequired(element, timeout));
         } else if (element instanceof WebElement) {
             WebDriverWait wait = new WebDriverWait(webdriver().object(), timeout.getSeconds());
-            wait.until(ExpectedConditions.visibilityOf((WebElement) element));
+            try {
+                wait.until(ExpectedConditions.visibilityOf((WebElement) element));
+            } catch (Throwable e) {
+                errors.add(e);
+            }
         } else {
-            objectShouldLoadRequired(element, timeout);
+            errors.addAll(objectShouldLoadRequired(element, timeout));
         }
+        return errors;
     }
 }

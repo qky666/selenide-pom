@@ -1,5 +1,6 @@
 package integration.mtp;
 
+import es.qky.selenidepom.RequiredError;
 import integration.mtp.deeppom.MainFramePage;
 import integration.mtp.deeppom.ServicesPage;
 import integration.mtp.deeppom.ServicesRequiredErrorPage;
@@ -10,9 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.codeborne.selenide.Selenide.page;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeepTest extends BaseMtpTest {
     final MainFramePage mainFramePage = page(MainFramePage.class);
@@ -21,7 +21,7 @@ public class DeepTest extends BaseMtpTest {
     final ServicesRequiredErrorPage servicesRequiredErrorPage = page(ServicesRequiredErrorPage.class);
 
     @Test
-    void userNavigateToQualityAssurance() throws Throwable {
+    void userNavigateToQualityAssurance() {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired();
@@ -33,7 +33,7 @@ public class DeepTest extends BaseMtpTest {
     }
 
     @Test
-    void badSelectorError() throws Throwable {
+    void badSelectorError() {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
@@ -43,7 +43,7 @@ public class DeepTest extends BaseMtpTest {
     }
 
     @Test
-    void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() throws Throwable {
+    void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
         mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
@@ -51,23 +51,24 @@ public class DeepTest extends BaseMtpTest {
     }
 
     @Test
-    void userNavigateToQualityAssuranceWithBadSelectorRequired() throws Throwable {
+    void userNavigateToQualityAssuranceWithBadSelectorRequired() {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
 
-        assertThrows(ElementNotFound.class, servicesRequiredErrorPage::shouldLoadRequired);
+        RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
+        assertEquals(1, error.getErrors().size());
     }
 
     @Test
-    void userForgotClick() throws Throwable {
+    void userForgotClick() {
         mainFramePage.shouldLoadRequired();
         mainFramePage.mainMenu.servicesLnk.hover();
         // User forgot to click Quality Assurance link
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());
         assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
-        assertThrows(ElementNotFound.class, servicesPage::shouldLoadRequired);
-        assertThrows(ElementNotFound.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
+        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
     }
 }

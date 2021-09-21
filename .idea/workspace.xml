@@ -5,11 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210920_001. Added some test steps">
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,8 +117,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="3" />
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -140,7 +164,38 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.mtp">
-    <configuration name="NoPageFactoryTest.userForgotClick" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeepTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
+      <option name="METHOD_NAME" value="userNavigateToQualityAssuranceWithBadSelectorRequired" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NoPageFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
@@ -150,13 +205,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration.mtp" />
       <option name="MAIN_CLASS_NAME" value="integration.mtp.NoPageFactoryTest" />
-      <option name="METHOD_NAME" value="userForgotClick" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleTest.userForgotClick" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SimpleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
@@ -166,8 +220,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration.mtp" />
       <option name="MAIN_CLASS_NAME" value="integration.mtp.SimpleTest" />
-      <option name="METHOD_NAME" value="userForgotClick" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -187,53 +240,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WidgetTest.badSelectorError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.WidgetTest" />
-      <option name="METHOD_NAME" value="badSelectorError" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WidgetTest.userNavigateToQualityAssurance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.WidgetTest" />
-      <option name="METHOD_NAME" value="userNavigateToQualityAssurance" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="JUnit.mtp" />
-      <item itemvalue="JUnit.NoPageFactoryTest.userForgotClick" />
-      <item itemvalue="JUnit.SimpleTest.userForgotClick" />
       <item itemvalue="JUnit.WidgetTest" />
-      <item itemvalue="JUnit.WidgetTest.userNavigateToQualityAssurance" />
-      <item itemvalue="JUnit.WidgetTest.badSelectorError" />
+      <item itemvalue="JUnit.DeepTest" />
+      <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
+      <item itemvalue="JUnit.NoPageFactoryTest" />
+      <item itemvalue="JUnit.SimpleTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WidgetTest.badSelectorError" />
         <item itemvalue="JUnit.WidgetTest" />
-        <item itemvalue="JUnit.WidgetTest.userNavigateToQualityAssurance" />
-        <item itemvalue="JUnit.SimpleTest.userForgotClick" />
-        <item itemvalue="JUnit.NoPageFactoryTest.userForgotClick" />
+        <item itemvalue="JUnit.SimpleTest" />
+        <item itemvalue="JUnit.NoPageFactoryTest" />
+        <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
+        <item itemvalue="JUnit.DeepTest" />
       </list>
     </recent_temporary>
   </component>
@@ -400,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632138843868</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="20210920_001. Added some test steps">
+      <created>1632141326544</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1632141326544</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

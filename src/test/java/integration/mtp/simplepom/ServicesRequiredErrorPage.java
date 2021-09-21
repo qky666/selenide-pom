@@ -3,6 +3,7 @@ package integration.mtp.simplepom;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
+import es.qky.selenidepom.RequiredError;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.Duration;
@@ -19,7 +20,7 @@ public class ServicesRequiredErrorPage extends MainFramePage {
 
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws Throwable {
+    public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
         titleTxt.shouldHave(Condition.text("Aseguramiento de la calidad"), timeout);
     }

@@ -1,5 +1,6 @@
 package integration.mtp;
 
+import es.qky.selenidepom.RequiredError;
 import integration.mtp.widgetpom.MainFramePage;
 import integration.mtp.widgetpom.ServicesPage;
 import integration.mtp.widgetpom.ServicesRequiredErrorPage;
@@ -21,29 +22,27 @@ public class WidgetTest extends BaseMtpTest {
     final ServicesRequiredErrorPage servicesRequiredErrorPage = page(ServicesRequiredErrorPage.class);
 
     @BeforeEach
-    void acceptCookies() throws Throwable {
+    void acceptCookies() {
         mainFramePage.shouldLoadRequired();
-        if (mainFramePage.cookiesBanner.hasAlreadyLoadedRequired()) {
-            mainFramePage.cookiesBanner.acceptCookies();
-        }
+        mainFramePage.cookiesBanner.acceptCookiesIfDisplayed();
     }
 
     @Test
-    void userNavigateToQualityAssurance() throws Throwable {
+    void userNavigateToQualityAssurance() {
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
         servicesPage.shouldLoadRequired();
-        servicesPage.cookiesBanner.acceptCookies();
+        servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
     }
 
     @Test
-    void badSelectorError() throws Throwable {
+    void badSelectorError() {
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
         servicesPage.shouldLoadRequired();
-        servicesPage.cookiesBanner.acceptCookies();
+        servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
         assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
     }
 
@@ -59,7 +58,8 @@ public class WidgetTest extends BaseMtpTest {
         mainFramePage.mainMenu.servicesLnk.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
 
-        assertThrows(ElementNotFound.class, servicesRequiredErrorPage::shouldLoadRequired);
+        RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
+        assertEquals(2, error.getErrors().size());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class WidgetTest extends BaseMtpTest {
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());
         assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
-        assertThrows(ElementNotFound.class, servicesPage::shouldLoadRequired);
-        assertThrows(ElementNotFound.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
+        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
     }
 }

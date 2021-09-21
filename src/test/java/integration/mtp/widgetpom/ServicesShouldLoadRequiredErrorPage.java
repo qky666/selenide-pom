@@ -2,6 +2,7 @@ package integration.mtp.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
+import es.qky.selenidepom.RequiredError;
 import org.openqa.selenium.support.FindBy;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -16,7 +17,7 @@ public class ServicesShouldLoadRequiredErrorPage extends MainFramePage {
     @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws Throwable {
+    public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
         titleTxt.shouldHave(text("Aseguramiento de la calidad con error"), timeout);
     }

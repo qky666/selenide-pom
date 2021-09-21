@@ -2,6 +2,7 @@ package integration.mtp.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
 import es.qky.selenidepom.Required;
+import es.qky.selenidepom.RequiredError;
 import es.qky.selenidepom.Widget;
 import org.openqa.selenium.support.FindBy;
 
@@ -22,16 +23,24 @@ public class CookiesBanner extends Widget {
 
     @SuppressWarnings("unused")
     @Override
-    public void shouldLoadRequired(Duration timeout) throws Throwable {
+    public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
         cookiesTextTxt.shouldHave(text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."));
     }
 
     @SuppressWarnings("unused")
     @CheckReturnValue
-    public void acceptCookies() throws Throwable {
+    public void acceptCookies() {
         shouldLoadRequired();
         acceptLnk.click();
         getSelf().should(disappear);
+    }
+
+    @SuppressWarnings("unused")
+    @CheckReturnValue
+    public void acceptCookiesIfDisplayed() {
+        if (getSelf().isDisplayed()) {
+            acceptCookies();
+        }
     }
 }
