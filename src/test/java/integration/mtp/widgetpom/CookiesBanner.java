@@ -17,22 +17,22 @@ import static com.codeborne.selenide.Condition.text;
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
 public class CookiesBanner extends Widget {
-    @Required @FindBy(css = "span#cn-notice-text") public SelenideElement cookiesTextTxt;
-    @Required @FindBy(css = "a#cn-accept-cookie") public SelenideElement acceptLnk;
-    @Required @FindBy(css = "a#cn-close-notice") public SelenideElement closeLnk;
+    @Required @FindBy(css = "span#cn-notice-text") public SelenideElement cookiesText;
+    @Required @FindBy(css = "a#cn-accept-cookie") public SelenideElement accept;
+    @Required @FindBy(css = "a#cn-close-notice") public SelenideElement close;
 
     @SuppressWarnings("unused")
     @Override
     public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
-        cookiesTextTxt.shouldHave(text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."));
+        cookiesText.shouldHave(text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."));
     }
 
     @SuppressWarnings("unused")
     @CheckReturnValue
     public void acceptCookies() {
         shouldLoadRequired();
-        acceptLnk.click();
+        accept.click();
         getSelf().should(disappear);
     }
 

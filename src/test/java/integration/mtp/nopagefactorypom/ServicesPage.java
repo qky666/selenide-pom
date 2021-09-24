@@ -14,12 +14,12 @@ import static com.codeborne.selenide.Selenide.$;
 @ParametersAreNonnullByDefault
 public class ServicesPage extends MainFramePage {
     @Required public final SelenideElement principal = $("div.servicios-principal");
-    @Required public final SelenideElement titleTxt = $("h1.h2");
+    @Required public final SelenideElement title = $("h1.h2");
     public final SelenideElement badSelector = $("bad-selector");
 
     @Override
     public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
-        titleTxt.shouldHave(text("Aseguramiento de la calidad"), timeout);
+        title.shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

@@ -14,7 +14,7 @@ public class MainMenuWidget extends Widget {
         super(self);
     }
 
-    @Required public SelenideElement getServicesLnk() {return getSelf().$("li#servicios_menu");}
-    public SelenideElement getServicesPopUp() {return getSelf().$("div.dropdown-servicios");}
-    public SelenideElement getServicesPopUpQualityAssuranceLnk() {return getServicesPopUp().$("a[data-principal='Aseguramiento de la calidad']");}
+    @Required public SelenideElement services() {return getSelf().$("li#servicios_menu");}
+    public SelenideElement servicesPopUp() {return getSelf().$("div.dropdown-servicios");}
+    public SelenideElement servicesPopUpQualityAssurance() {return servicesPopUp().$("a[data-principal='Aseguramiento de la calidad']");}
 }

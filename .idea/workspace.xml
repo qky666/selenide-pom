@@ -4,25 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210920_001. Added some test steps">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210921_001. v0.1.8. Added RequiredError. Changed RequiredContainer to report multiple errors at once.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
@@ -157,14 +164,15 @@
       <recent name="$PROJECT_DIR$/config/checkstyle" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="es.qky.selenidepom" />
+      <recent name="integration.mtp" />
       <recent name="integration.mtp.deeppom" />
       <recent name="integration.mtp.nopagefactorypom" />
       <recent name="integration.mtp.simplepom" />
-      <recent name="integration.mtp" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.mtp">
-    <configuration name="DeepTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeepTest.userNavigateToQualityAssurance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
@@ -174,12 +182,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration.mtp" />
       <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="userNavigateToQualityAssurance" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeleteThisFileTest.playing" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
@@ -188,8 +197,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeepTest" />
-      <option name="METHOD_NAME" value="userNavigateToQualityAssuranceWithBadSelectorRequired" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.DeleteThisFileTest" />
+      <option name="METHOD_NAME" value="playing" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -210,22 +219,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.SimpleTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WidgetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WidgetTest.myTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
@@ -235,26 +229,43 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration.mtp" />
       <option name="MAIN_CLASS_NAME" value="integration.mtp.WidgetTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="myTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WidgetTest.userNavigateToQualityAssurance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="integration.mtp.WidgetTest" />
+      <option name="METHOD_NAME" value="userNavigateToQualityAssurance" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="JUnit.mtp" />
-      <item itemvalue="JUnit.WidgetTest" />
-      <item itemvalue="JUnit.DeepTest" />
-      <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
       <item itemvalue="JUnit.NoPageFactoryTest" />
-      <item itemvalue="JUnit.SimpleTest" />
+      <item itemvalue="JUnit.DeleteThisFileTest.playing" />
+      <item itemvalue="JUnit.WidgetTest.myTest" />
+      <item itemvalue="JUnit.WidgetTest.userNavigateToQualityAssurance" />
+      <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssurance" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WidgetTest" />
-        <item itemvalue="JUnit.SimpleTest" />
+        <item itemvalue="JUnit.WidgetTest.userNavigateToQualityAssurance" />
+        <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssurance" />
+        <item itemvalue="JUnit.WidgetTest.myTest" />
+        <item itemvalue="JUnit.DeleteThisFileTest.playing" />
         <item itemvalue="JUnit.NoPageFactoryTest" />
-        <item itemvalue="JUnit.DeepTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
-        <item itemvalue="JUnit.DeepTest" />
       </list>
     </recent_temporary>
   </component>
@@ -428,7 +439,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632141326544</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="20210921_001. v0.1.8. Added RequiredError. Changed RequiredContainer to report multiple errors at once.">
+      <created>1632223701672</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1632223701672</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -468,6 +486,7 @@
     <MESSAGE value="v0.1.6. Tests refactor" />
     <MESSAGE value="v0.1.7. Added hasLoadedRequired and hasAlreadyLoadedRequired methods to RequiredContainer" />
     <MESSAGE value="20210920_001. Added some test steps" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210920_001. Added some test steps" />
+    <MESSAGE value="20210921_001. v0.1.8. Added RequiredError. Changed RequiredContainer to report multiple errors at once." />
+    <option name="LAST_COMMIT_MESSAGE" value="20210921_001. v0.1.8. Added RequiredError. Changed RequiredContainer to report multiple errors at once." />
   </component>
 </project>

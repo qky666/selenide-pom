@@ -23,20 +23,24 @@ public class DeepTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssurance() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.servicesLnk.hover();
+        mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired();
-        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssurance.click();
+        assertEquals(
+                "div.custom-menu/div.dropdown-servicios/a[data-principal='Aseguramiento de la calidad']",
+                mainFramePage.mainMenu.servicesPopUp.qualityAssurance.getSearchCriteria()
+        );
 
         servicesPage.shouldLoadRequired();
-        servicesPage.mainMenu.servicesLnk.hover();
+        servicesPage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired(Duration.ofSeconds(2));
     }
 
     @Test
     void badSelectorError() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
         assertThrows(ElementNotFound.class, () -> servicesPage.badSelector.click());
@@ -45,16 +49,16 @@ public class DeepTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
         mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssurance.click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUp.qualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUp.qualityAssurance.click();
 
         RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         assertEquals(1, error.getErrors().size());
@@ -63,7 +67,7 @@ public class DeepTest extends BaseMtpTest {
     @Test
     void userForgotClick() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.servicesLnk.hover();
+        mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());

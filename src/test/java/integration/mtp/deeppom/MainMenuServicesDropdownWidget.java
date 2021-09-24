@@ -13,5 +13,5 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class MainMenuServicesDropdownWidget extends ElementsContainer implements RequiredContainer {
     @Required @FindBy(css = "a[data-principal='Aseguramiento de la calidad']")
-    public SelenideElement qualityAssuranceLnk;
+    public SelenideElement qualityAssurance;
 }

@@ -22,8 +22,8 @@ public class NoPageFactoryTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssurance() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.getServicesLnk().hover();
-        mainFramePage.mainMenu.getServicesPopUpQualityAssuranceLnk().click();
+        mainFramePage.mainMenu.services().hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         servicesPage.shouldLoadRequired();
     }
@@ -31,8 +31,8 @@ public class NoPageFactoryTest extends BaseMtpTest {
     @Test
     void badSelectorError() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.getServicesLnk().hover();
-        mainFramePage.mainMenu.getServicesPopUpQualityAssuranceLnk().click();
+        mainFramePage.mainMenu.services().hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         servicesPage.shouldLoadRequired();
         assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
@@ -41,16 +41,16 @@ public class NoPageFactoryTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
         mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
-        mainFramePage.mainMenu.getServicesLnk().hover();
-        mainFramePage.mainMenu.getServicesPopUpQualityAssuranceLnk().click();
+        mainFramePage.mainMenu.services().hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.getServicesLnk().hover();
-        mainFramePage.mainMenu.getServicesPopUpQualityAssuranceLnk().click();
+        mainFramePage.mainMenu.services().hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         assertEquals(1, error.getErrors().size());
@@ -59,7 +59,7 @@ public class NoPageFactoryTest extends BaseMtpTest {
     @Test
     void userForgotClick() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenu.getServicesLnk().hover();
+        mainFramePage.mainMenu.services().hover();
         // User forgot to click Quality Assurance link
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());

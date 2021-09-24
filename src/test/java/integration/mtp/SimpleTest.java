@@ -23,8 +23,8 @@ public class SimpleTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssurance() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenuServicesLnk.hover();
-        mainFramePage.mainMenuServicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenuServices.hover();
+        mainFramePage.mainMenuServicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
     }
@@ -32,8 +32,8 @@ public class SimpleTest extends BaseMtpTest {
     @Test
     void badSelectorError() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenuServicesLnk.hover();
-        mainFramePage.mainMenuServicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenuServices.hover();
+        mainFramePage.mainMenuServicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
         assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
@@ -42,16 +42,16 @@ public class SimpleTest extends BaseMtpTest {
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
         mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
-        mainFramePage.mainMenuServicesLnk.hover();
-        mainFramePage.mainMenuServicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenuServices.hover();
+        mainFramePage.mainMenuServicesPopUpQualityAssurance.click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenuServicesLnk.hover();
-        mainFramePage.mainMenuServicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenuServices.hover();
+        mainFramePage.mainMenuServicesPopUpQualityAssurance.click();
 
         RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         assertEquals(1, error.getErrors().size());
@@ -60,7 +60,7 @@ public class SimpleTest extends BaseMtpTest {
     @Test
     void userForgotClick() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.mainMenuServicesLnk.hover();
+        mainFramePage.mainMenuServices.hover();
         // User forgot to click Quality Assurance link
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());

@@ -29,17 +29,21 @@ public class WidgetTest extends BaseMtpTest {
 
     @Test
     void userNavigateToQualityAssurance() {
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
         servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
+        assertEquals(
+                "div.cookie-notice-container/a#cn-accept-cookie",
+                servicesPage.cookiesBanner.accept.getSearchCriteria()
+        );
     }
 
     @Test
     void badSelectorError() {
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
         servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
@@ -48,15 +52,15 @@ public class WidgetTest extends BaseMtpTest {
 
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
-        mainFramePage.mainMenu.servicesLnk.hover();
-        mainFramePage.mainMenu.servicesPopUpQualityAssuranceLnk.click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         RequiredError error = assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         assertEquals(2, error.getErrors().size());
@@ -64,7 +68,7 @@ public class WidgetTest extends BaseMtpTest {
 
     @Test
     void userForgotClick() {
-        mainFramePage.mainMenu.servicesLnk.hover();
+        mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
         assertFalse(servicesPage.hasAlreadyLoadedRequired());

@@ -13,12 +13,12 @@ import java.time.Duration;
 @ParametersAreNonnullByDefault
 public class ServicesRequiredErrorPage extends MainFramePage {
     @Required @FindBy(css = "div.servicios-principal") public SelenideElement principal;
-    @Required @FindBy(css = "h1.h2") public SelenideElement titleTxt;
+    @Required @FindBy(css = "h1.h2") public SelenideElement title;
     @Required @FindBy(css = "bad-selector") public SelenideElement badSelector;
 
     @Override
     public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);
-        titleTxt.shouldHave(Condition.text("Aseguramiento de la calidad"), timeout);
+        title.shouldHave(Condition.text("Aseguramiento de la calidad"), timeout);
     }
 }

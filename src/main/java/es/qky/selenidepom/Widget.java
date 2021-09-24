@@ -4,30 +4,41 @@ import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.reflect.Field;
 
+
+/**
+ * ElementsContainer with a constructor that sets 'self' field.
+ */
 @ParametersAreNonnullByDefault
 public abstract class Widget extends ElementsContainer implements RequiredContainer {
-    private SelenideElement self;
-
     @SuppressWarnings("unused")
     @CheckReturnValue
     public Widget() {
-        // Add this constructor to maintain some compatibility with ElementsContainer
+        // Empty constructor to maintain some compatibility with ElementsContainer
         super();
     }
 
     @CheckReturnValue
     public Widget(SelenideElement self) {
         super();
-        this.self = self;
-    }
 
-    @Nonnull
-    @Override
-    @CheckReturnValue
-    public SelenideElement getSelf() {
-        return self;
+        // Set self
+        Class<?> superclass = Widget.class.getSuperclass();
+        Field field = null;
+        try {
+            field = superclass.getDeclaredField("self");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        assert field != null;
+        field.setAccessible(true);
+        try {
+            field.set(this, self);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        assert field.isAccessible();
     }
 }

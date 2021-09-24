@@ -12,6 +12,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
 public class MainMenuWidget extends ElementsContainer implements RequiredContainer {
-    @Required @FindBy(css = "li#servicios_menu") public SelenideElement servicesLnk;
+    @Required @FindBy(css = "li#servicios_menu") public SelenideElement services;
     @FindBy(css = "div.dropdown-servicios") public MainMenuServicesDropdownWidget servicesPopUp;
 }
