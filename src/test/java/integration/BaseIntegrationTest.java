@@ -8,13 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
-
 public abstract class BaseIntegrationTest {
-
     @BeforeAll
-    static void setUpBrowser() {
+    static void setUp() {
+        // Selenide configuration
         Configuration.startMaximized = !Configuration.headless;
-//        Configuration.timeout = 4000;
+        // Configuration.timeout = 4000;
         Configuration.versatileSetValue = true;
     }
 
@@ -24,7 +23,7 @@ public abstract class BaseIntegrationTest {
     }
 
     @AfterEach
-    void closeBrowser(){
+    void closeBrowser() {
         closeWebDriver();
     }
 }

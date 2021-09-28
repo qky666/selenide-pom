@@ -7,11 +7,12 @@ plugins {
     id 'idea'
     id 'jacoco'
     id 'maven-publish'
-    id 'com.github.spotbugs' version '4.7.3'
+    id 'com.github.spotbugs' version '4.7.6'
+    id 'io.freefair.lombok' version '6.2.0'
 }
 
 group 'com.github.qky666'
-version '0.1.9'
+version '0.2.0'
 
 
 sourceCompatibility = 1.8
@@ -22,12 +23,12 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.0'
+    junitVersion = '5.8.1'
 }
 
 dependencies {
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation "com.codeborne:selenide:5.24.3"
+    implementation "com.codeborne:selenide:5.24.4"
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation "org.slf4j:slf4j-simple:1.7.32"
@@ -43,7 +44,7 @@ test {
 }
 
 javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
+    if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
 }

@@ -7,15 +7,15 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import lombok.val;
+import lombok.var;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,11 +23,9 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 /**
  * Object with fields and methods (without parameters) that can have @Required annotation.
  */
-@ParametersAreNonnullByDefault
 public interface RequiredContainer {
     /**
      * When shouldLoadRequired is called, all fields and methods (without parameters) with @Required annotation are checked if visible.
@@ -36,9 +34,8 @@ public interface RequiredContainer {
      * @param timeout The timeout for waiting to elements to become visible.
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
-    @CheckReturnValue
     default void shouldLoadRequired(Duration timeout) throws RequiredError {
-        List<Throwable> errors = objectShouldLoadRequired(this, timeout);
+        val errors = objectShouldLoadRequired(this, timeout);
         if (errors.size() > 0) {
             throw new RequiredError(errors);
         }
@@ -50,7 +47,6 @@ public interface RequiredContainer {
      *
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
-    @CheckReturnValue
     default void shouldLoadRequired() throws RequiredError {
         shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
     }
@@ -74,15 +70,17 @@ public interface RequiredContainer {
      * @return true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
      */
     @CheckReturnValue
-    default boolean hasAlreadyLoadedRequired() {return hasLoadedRequired(Duration.ZERO);}
+    default boolean hasAlreadyLoadedRequired() {
+        return hasLoadedRequired(Duration.ZERO);
+    }
 
     @CheckReturnValue
     @Nonnull
     static List<Throwable> objectShouldLoadRequired(Object object, Duration timeout) {
-        List<Throwable> errors = new ArrayList<>();
-        Duration effectiveTimeout = Duration.from(timeout);
-        Set<String> processedFields = Collections.synchronizedSet(new HashSet<>());
-        Set<String> processedMethods = Collections.synchronizedSet(new HashSet<>());
+        val errors = new ArrayList<Throwable>();
+        var effectiveTimeout = Duration.from(timeout);
+        val processedFields = Collections.synchronizedSet(new HashSet<String>());
+        val processedMethods = Collections.synchronizedSet(new HashSet<String>());
 
         Class<?> currentClass = object instanceof Class<?> ? (Class<?>) object : object.getClass();
         while (currentClass != Object.class) {
@@ -95,7 +93,7 @@ public interface RequiredContainer {
                     .collect(Collectors.toList());
             for (Field field : fields) {
                 try {
-                    Object element = field.get(object);
+                    val element = field.get(object);
                     errors.addAll(elementShouldLoad(element, effectiveTimeout));
                     if (!effectiveTimeout.isZero() && errors.size() > 0) {
                         effectiveTimeout = Duration.ZERO;
@@ -113,7 +111,7 @@ public interface RequiredContainer {
                     .collect(Collectors.toList());
             for (Method method : methods) {
                 try {
-                    Object element = method.invoke(object);
+                    val element = method.invoke(object);
                     errors.addAll(elementShouldLoad(element, effectiveTimeout));
                     if (!effectiveTimeout.isZero() && errors.size() > 0) {
                         effectiveTimeout = Duration.ZERO;
@@ -130,7 +128,7 @@ public interface RequiredContainer {
     @CheckReturnValue
     @Nonnull
     static List<Throwable> elementShouldLoad(Object element, Duration timeout) {
-        List<Throwable> errors = new ArrayList<>();
+        val errors = new ArrayList<Throwable>();
         if (element instanceof By) {
             try {
                 Selenide.$((By) element).shouldBe(Condition.visible, timeout);
@@ -150,7 +148,7 @@ public interface RequiredContainer {
                 errors.add(e);
             }
         } else if (element instanceof ElementsContainer) {
-            boolean lookInside = true;
+            var lookInside = true;
             try {
                 ((ElementsContainer) element).getSelf().shouldBe(Condition.visible, timeout);
             } catch (Throwable e) {
@@ -163,7 +161,7 @@ public interface RequiredContainer {
         } else if (element instanceof RequiredContainer) {
             errors.addAll(objectShouldLoadRequired(element, timeout));
         } else if (element instanceof WebElement) {
-            WebDriverWait wait = new WebDriverWait(Selenide.webdriver().object(), timeout.getSeconds());
+            val wait = new WebDriverWait(Selenide.webdriver().object(), timeout.getSeconds());
             try {
                 wait.until(ExpectedConditions.visibilityOf((WebElement) element));
             } catch (Throwable e) {

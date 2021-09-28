@@ -6,7 +6,6 @@ import java.lang.annotation.Target;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.ElementType;
 
-
 /**
  * Every field or method (with no parameters) with @Required annotation in a Page or a Widget will be checked
  * if visible when shouldLoadRequired method is called.
