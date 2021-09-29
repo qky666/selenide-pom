@@ -5,7 +5,13 @@ import es.qky.selenidepom.Required;
 import es.qky.selenidepom.Widget;
 import lombok.Getter;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class MainMenuWidget extends Widget {
+    public MainMenuWidget() {
+        this($("div.custom-menu"));
+    }
+
     @Getter(lazy = true, onMethod_ = {@Required})
     private final SelenideElement services = getSelf().$("li#servicios_menu");
     @Getter(lazy = true)

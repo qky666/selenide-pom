@@ -10,8 +10,13 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
 
 public class CookiesBannerWidget extends Widget {
+    public CookiesBannerWidget() {
+        this($("div.cookie-notice-container"));
+    }
+
     @Getter(lazy = true, onMethod_ = {@Required})
     private final SelenideElement cookiesText = getSelf().$("span#cn-notice-text");
     @Getter(lazy = true, onMethod_ = {@Required})

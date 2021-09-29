@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210928_001. v0.2.0">
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/ConstructorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesRequiredErrorPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/package-info.java" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20210929_001. v0.2.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -442,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632822039893</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="20210929_001. v0.2.1">
+      <created>1632893853377</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1632893853378</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,7 +461,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="20210902_001. Gradle plugins" />
     <MESSAGE value="20210903_001. GitHub Packages Gradle config" />
     <MESSAGE value="20210903_002. Recreate .idea directory" />
     <MESSAGE value="20210903_003. Recreate .idea directory again" />
@@ -484,6 +485,7 @@
     <MESSAGE value="20210921_001. v0.1.8. Added RequiredError. Changed RequiredContainer to report multiple errors at once." />
     <MESSAGE value="20210924_001. v0.1.9" />
     <MESSAGE value="20210928_001. v0.2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210928_001. v0.2.0" />
+    <MESSAGE value="20210929_001. v0.2.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="20210929_001. v0.2.1" />
   </component>
 </project>
