@@ -21,7 +21,7 @@ public class RequiredError extends UIAssertionError {
      */
     @CheckReturnValue
     public RequiredError(List<Throwable> errors) {
-        super(WebDriverRunner.driver(), "Required elements not found in page: " + errors.size() + " errors. See suppressed errors");
+        super("Required elements not found in page: " + errors.size() + " errors. See suppressed errors");
         this.errors = errors;
         errors.forEach(this::addSuppressed);
     }

@@ -11,10 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 public abstract class BaseIntegrationTest {
     @BeforeAll
     static void setUp() {
-        // Selenide configuration
-        Configuration.startMaximized = !Configuration.headless;
-        // Configuration.timeout = 4000;
-        Configuration.versatileSetValue = true;
+         Configuration.timeout = 5000;
     }
 
     @BeforeEach

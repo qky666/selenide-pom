@@ -7,8 +7,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import lombok.val;
 import lombok.var;
+import lombok.val;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -161,7 +161,7 @@ public interface RequiredContainer {
         } else if (element instanceof RequiredContainer) {
             errors.addAll(objectShouldLoadRequired(element, timeout));
         } else if (element instanceof WebElement) {
-            val wait = new WebDriverWait(Selenide.webdriver().object(), timeout.getSeconds());
+            val wait = new WebDriverWait(Selenide.webdriver().object(), timeout);
             try {
                 wait.until(ExpectedConditions.visibilityOf((WebElement) element));
             } catch (Throwable e) {
