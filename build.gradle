@@ -12,7 +12,7 @@ plugins {
 }
 
 group 'com.github.qky666'
-version '0.3.0'
+version '0.3.1'
 
 
 sourceCompatibility = 1.8
@@ -28,7 +28,7 @@ ext {
 
 dependencies {
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation "com.codeborne:selenide:6.0.1"
+    implementation "com.codeborne:selenide:6.0.3"
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation "org.slf4j:slf4j-simple:1.7.32"
