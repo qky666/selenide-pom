@@ -1,6 +1,5 @@
 package es.qky.selenidepom;
 
-import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.UIAssertionError;
 
 import javax.annotation.CheckReturnValue;
