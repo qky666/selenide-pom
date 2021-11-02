@@ -8,11 +8,12 @@ plugins {
     id 'jacoco'
     id 'maven-publish'
     id 'com.github.spotbugs' version '4.7.9'
-    id 'io.freefair.lombok' version "6.2.0"
+    id 'io.freefair.lombok' version '6.2.0'
+    id 'com.github.ben-manes.versions' version '0.39.0'
 }
 
 group 'com.github.qky666'
-version '0.3.2'
+version '0.3.3'
 
 
 sourceCompatibility = 1.8

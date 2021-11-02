@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211026_001. v0.3.0">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211102_001. v0.3.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +33,22 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="selenide-pom" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="selenide-pom" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -66,9 +80,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -109,7 +120,28 @@
       <recent name="integration.mtp.simplepom" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.mtp">
+  <component name="RunManager" selected="Gradle.selenide-pom [dependencyUpdates]">
+    <configuration name="selenide-pom [dependencyUpdates]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencyUpdates" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="selenide-pom [spotbugsTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -177,22 +209,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LazyTest.userNavigateToQualityAssurance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.LazyTest" />
-      <option name="METHOD_NAME" value="userNavigateToQualityAssurance" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -207,18 +223,18 @@
     <list>
       <item itemvalue="Gradle.selenide-pom [spotbugsTest]" />
       <item itemvalue="JUnit.mtp" />
-      <item itemvalue="JUnit.LazyTest.userNavigateToQualityAssurance" />
       <item itemvalue="JUnit.LazyTest" />
       <item itemvalue="JUnit.ConstructorTest" />
       <item itemvalue="JUnit.ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
+      <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
         <item itemvalue="Gradle.selenide-pom [spotbugsTest]" />
         <item itemvalue="JUnit.ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
         <item itemvalue="JUnit.ConstructorTest" />
         <item itemvalue="JUnit.LazyTest" />
-        <item itemvalue="JUnit.LazyTest.userNavigateToQualityAssurance" />
       </list>
     </recent_temporary>
   </component>
@@ -427,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632912466193</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="20211102_001. v0.3.2">
+      <created>1635850278868</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1635850278868</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -444,7 +467,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="20210903_002. Recreate .idea directory" />
     <MESSAGE value="20210903_003. Recreate .idea directory again" />
     <MESSAGE value="20210903_004. Update Gradle config" />
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
@@ -469,6 +491,7 @@
     <MESSAGE value="20210928_001. v0.2.0" />
     <MESSAGE value="20210929_001. v0.2.1" />
     <MESSAGE value="20210929_002. Default self values" />
-    <option name="LAST_COMMIT_MESSAGE" value="20210929_002. Default self values" />
+    <MESSAGE value="20211102_001. v0.3.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="20211102_001. v0.3.2" />
   </component>
 </project>
