@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211102_001. v0.3.2">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211102_002. v0.3.3. Added Gradle Versions Plugin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +121,7 @@
       <recent name="integration.mtp.simplepom" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.selenide-pom [dependencyUpdates]">
+  <component name="RunManager" selected="JUnit.mtp">
     <configuration name="selenide-pom [dependencyUpdates]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -222,11 +223,11 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.selenide-pom [spotbugsTest]" />
+      <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
       <item itemvalue="JUnit.mtp" />
       <item itemvalue="JUnit.LazyTest" />
       <item itemvalue="JUnit.ConstructorTest" />
       <item itemvalue="JUnit.ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
-      <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
     </list>
     <recent_temporary>
       <list>
@@ -450,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635850278868</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="20211102_002. v0.3.3. Added Gradle Versions Plugin">
+      <created>1635852404998</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1635852404998</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -467,7 +475,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="20210903_003. Recreate .idea directory again" />
     <MESSAGE value="20210903_004. Update Gradle config" />
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
     <MESSAGE value="20210908_001. Refactor Required." />
@@ -492,6 +499,7 @@
     <MESSAGE value="20210929_001. v0.2.1" />
     <MESSAGE value="20210929_002. Default self values" />
     <MESSAGE value="20211102_001. v0.3.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="20211102_001. v0.3.2" />
+    <MESSAGE value="20211102_002. v0.3.3. Added Gradle Versions Plugin" />
+    <option name="LAST_COMMIT_MESSAGE" value="20211102_002. v0.3.3. Added Gradle Versions Plugin" />
   </component>
 </project>
