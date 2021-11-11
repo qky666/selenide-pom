@@ -1,8 +1,8 @@
 package integration.mtp.simplepom;
 
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredContainer;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredContainer;
 
 import static com.codeborne.selenide.Selenide.$;
 

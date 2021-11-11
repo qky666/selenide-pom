@@ -1,6 +1,6 @@
 package integration.mtp;
 
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.RequiredError;
 import integration.mtp.deeppom.MainFramePage;
 import integration.mtp.deeppom.ServicesPage;
 import integration.mtp.deeppom.ServicesRequiredErrorPage;

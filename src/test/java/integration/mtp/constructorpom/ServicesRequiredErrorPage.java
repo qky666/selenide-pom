@@ -1,8 +1,8 @@
 package integration.mtp.constructorpom;
 
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredError;
 
 import java.time.Duration;
 

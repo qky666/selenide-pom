@@ -1,6 +1,6 @@
 package integration.mtp;
 
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.RequiredError;
 import integration.mtp.lazypom.MainFramePage;
 import integration.mtp.lazypom.ServicesPage;
 import integration.mtp.lazypom.ServicesRequiredErrorPage;

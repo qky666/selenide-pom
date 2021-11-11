@@ -1,4 +1,4 @@
-package es.qky.selenidepom;
+package com.github.qky666.selenidepom;
 
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;

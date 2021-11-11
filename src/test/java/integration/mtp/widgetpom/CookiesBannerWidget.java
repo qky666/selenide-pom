@@ -1,9 +1,9 @@
 package integration.mtp.widgetpom;
 
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredError;
-import es.qky.selenidepom.Widget;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.Widget;
 import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;

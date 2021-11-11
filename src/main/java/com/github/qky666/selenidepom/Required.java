@@ -1,4 +1,4 @@
-package es.qky.selenidepom;
+package com.github.qky666.selenidepom;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

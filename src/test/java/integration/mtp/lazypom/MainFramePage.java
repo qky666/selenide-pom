@@ -1,7 +1,7 @@
 package integration.mtp.lazypom;
 
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredContainer;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredContainer;
 import lombok.Getter;
 
 public class MainFramePage implements RequiredContainer {

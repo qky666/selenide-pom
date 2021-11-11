@@ -1,8 +1,8 @@
 package integration.mtp.lazypom;
 
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.Widget;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.Widget;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;

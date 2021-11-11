@@ -2,7 +2,7 @@ package integration.mtp;
 
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.RequiredError;
 import integration.mtp.constructorpom.MainFramePage;
 import integration.mtp.constructorpom.ServicesPage;
 import integration.mtp.constructorpom.ServicesRequiredErrorPage;

@@ -1,7 +1,7 @@
 package integration.mtp;
 
 import com.codeborne.selenide.Selenide;
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.RequiredError;
 import integration.mtp.widgetpom.MainFramePage;
 import integration.mtp.widgetpom.ServicesPage;
 import integration.mtp.widgetpom.ServicesRequiredErrorPage;

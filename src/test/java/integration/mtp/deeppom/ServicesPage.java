@@ -2,8 +2,8 @@ package integration.mtp.deeppom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import es.qky.selenidepom.Required;
-import es.qky.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredError;
 import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;

@@ -1,4 +1,4 @@
 @ParametersAreNonnullByDefault
-package es.qky.selenidepom;
+package com.github.qky666.selenidepom;
 
 import javax.annotation.ParametersAreNonnullByDefault;

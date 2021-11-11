@@ -4,10 +4,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211102_002. v0.3.3. Added Gradle Versions Plugin">
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211103_001. v0.3.4. Updated README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Required.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/Required.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/RequiredContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/RequiredError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/RequiredError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/Widget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/Widget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/qky/selenidepom/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/ConstructorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/ConstructorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/LazyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/LazyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -458,7 +502,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635852404998</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="20211103_001. v0.3.4. Updated README.md">
+      <created>1635945600538</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1635945600538</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +526,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="20210903_004. Update Gradle config" />
     <MESSAGE value="20210907_001. Documentation and small changes in tests" />
     <MESSAGE value="20210908_001. Refactor Required." />
     <MESSAGE value="20210908_002. Trying JitPack" />
@@ -500,6 +550,7 @@
     <MESSAGE value="20210929_002. Default self values" />
     <MESSAGE value="20211102_001. v0.3.2" />
     <MESSAGE value="20211102_002. v0.3.3. Added Gradle Versions Plugin" />
-    <option name="LAST_COMMIT_MESSAGE" value="20211102_002. v0.3.3. Added Gradle Versions Plugin" />
+    <MESSAGE value="20211103_001. v0.3.4. Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="20211103_001. v0.3.4. Updated README.md" />
   </component>
 </project>
