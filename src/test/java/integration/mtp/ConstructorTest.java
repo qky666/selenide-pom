@@ -70,9 +70,9 @@ public class ConstructorTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
-        Assertions.assertFalse(servicesPage.hasAlreadyLoadedRequired());
-        Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
+        Assertions.assertFalse(servicesPage.hasLoadedRequired());
+        Assertions.assertFalse(servicesPage.hasLoadedRequiredWithTimeout(Duration.ofMillis(100)));
         Assertions.assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
-        Assertions.assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        Assertions.assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequiredWithTimeout(Duration.ofMillis(100)));
     }
 }

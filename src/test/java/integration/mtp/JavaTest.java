@@ -1,19 +1,19 @@
 package integration.mtp;
 
-import com.github.qky666.selenidepom.RequiredError;
-import integration.mtp.lazypom.MainFramePage;
-import integration.mtp.lazypom.ServicesPage;
-import integration.mtp.lazypom.ServicesRequiredErrorPage;
-import integration.mtp.lazypom.ServicesShouldLoadRequiredErrorPage;
-import com.codeborne.selenide.ex.ElementShould;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.ex.ElementShould;
+import com.github.qky666.selenidepom.RequiredError;
+import integration.mtp.javapom.MainFramePage;
+import integration.mtp.javapom.ServicesPage;
+import integration.mtp.javapom.ServicesRequiredErrorPage;
+import integration.mtp.javapom.ServicesShouldLoadRequiredErrorPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-public class LazyTest extends BaseMtpTest {
+public class JavaTest extends BaseMtpTest {
     final MainFramePage mainFramePage = new MainFramePage();
     final ServicesPage servicesPage = new ServicesPage();
     final ServicesRequiredErrorPage servicesRequiredErrorPage = new ServicesRequiredErrorPage();
@@ -22,44 +22,44 @@ public class LazyTest extends BaseMtpTest {
     @BeforeEach
     void acceptCookies() {
         mainFramePage.shouldLoadRequired();
-        mainFramePage.getCookiesBanner().acceptCookiesIfDisplayed();
+        mainFramePage.cookiesBanner.acceptCookiesIfDisplayed();
     }
 
     @Test
     void userNavigateToQualityAssurance() {
-        mainFramePage.getMainMenu().getServices().hover();
-        mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
-        servicesPage.getCookiesBanner().acceptCookiesIfDisplayed();
+        servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
         Assertions.assertEquals(
                 "div.cookie-notice-container/a#cn-accept-cookie",
-                servicesPage.getCookiesBanner().getAccept().getSearchCriteria()
+                servicesPage.cookiesBanner.accept.getSearchCriteria()
         );
     }
 
     @Test
     void badSelectorError() {
-        mainFramePage.getMainMenu().getServices().hover();
-        mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         servicesPage.shouldLoadRequired();
-        servicesPage.getCookiesBanner().acceptCookiesIfDisplayed();
-        Assertions.assertThrows(ElementNotFound.class, servicesPage.getBadSelector()::click);
+        servicesPage.cookiesBanner.acceptCookiesIfDisplayed();
+        Assertions.assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
-        mainFramePage.getMainMenu().getServices().hover();
-        mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         Assertions.assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
 
     @Test
     void userNavigateToQualityAssuranceWithBadSelectorRequired() {
-        mainFramePage.getMainMenu().getServices().hover();
-        mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
+        mainFramePage.mainMenu.services.hover();
+        mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
         RequiredError error = Assertions.assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         Assertions.assertEquals(2, error.getErrors().size());
@@ -67,7 +67,7 @@ public class LazyTest extends BaseMtpTest {
 
     @Test
     void userForgotClick() {
-        mainFramePage.getMainMenu().getServices().hover();
+        mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
         Assertions.assertFalse(servicesPage.hasLoadedRequired());

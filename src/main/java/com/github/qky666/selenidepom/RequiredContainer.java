@@ -7,8 +7,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import lombok.var;
-import lombok.val;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,59 +27,58 @@ import java.util.stream.Collectors;
  */
 public interface RequiredContainer {
     /**
-     * When shouldLoadRequired is called, all fields and methods (without parameters) with @Required annotation are checked if visible.
+     * All fields and methods (without parameters) with @Required annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
      *
      * @param timeout The timeout for waiting to elements to become visible.
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
-    default void shouldLoadRequired(Duration timeout) throws RequiredError {
-        val errors = objectShouldLoadRequired(this, timeout);
-        if (errors.size() > 0) {
+    default void shouldLoadRequiredWithTimeout(Duration timeout) throws RequiredError {
+        final List<Throwable> errors = objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout));
+        if (!errors.isEmpty()) {
             throw new RequiredError(errors);
         }
     }
 
     /**
-     * All fields and methods (without parameters) with @Required annotation are checked if visible, using default timeout (Selenide Configuration).
-     * You usually override shouldLoadRequired(Duration timeout) instead of this method, unless you need to change the default timeout.
+     * All fields and methods (without parameters) with @Required annotation are checked if visible, using the default timeout (taken from Selenide Configuration).
+     * You usually override {@link #shouldLoadRequiredWithTimeout(Duration timeout) shouldLoadRequiredWithTimeout} instead, unless you need to change the default timeout.
      *
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     default void shouldLoadRequired() throws RequiredError {
-        shouldLoadRequired(Duration.ofMillis(Configuration.timeout));
+        shouldLoadRequiredWithTimeout(Duration.ofMillis(Configuration.timeout));
     }
 
     /**
-     * Returns true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     * Returns true if {@link #shouldLoadRequiredWithTimeout(Duration timeout) shouldLoadRequiredWithTimeout(timeout)} returns without throwing any exception, false otherwise.
      * You usually will not have to override this method.
      *
      * @param timeout The timeout for waiting to elements to become visible.
-     * @return true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     * @return true if {@link #shouldLoadRequiredWithTimeout(Duration timeout) shouldLoadRequiredWithTimeout(timeout)} returns without throwing any exception, false otherwise.
      */
     @CheckReturnValue
-    default boolean hasLoadedRequired(Duration timeout) {
-        return objectShouldLoadRequired(this, timeout).size() == 0;
+    default boolean hasLoadedRequiredWithTimeout(Duration timeout) {
+        return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout)).isEmpty();
     }
 
     /**
-     * Returns true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
+     * Returns true if {@link #shouldLoadRequiredWithTimeout(Duration timeout) shouldLoadRequiredWithTimeout(Duration.ZERO)} returns without throwing any exception, false otherwise.
      * You usually will not have to override this method.
      *
-     * @return true if shouldLoadRequired(Duration.ZERO) returns without throwing any WebDriverException, false in otherwise.
+     * @return true if {@link #shouldLoadRequiredWithTimeout(Duration timeout) shouldLoadRequiredWithTimeout(Duration.ZERO)} returns without throwing any exception, false otherwise.
      */
     @CheckReturnValue
-    default boolean hasAlreadyLoadedRequired() {
-        return hasLoadedRequired(Duration.ZERO);
+    default boolean hasLoadedRequired() {
+        return hasLoadedRequiredWithTimeout(Duration.ZERO);
     }
 
     @CheckReturnValue
     @Nonnull
-    static List<Throwable> objectShouldLoadRequired(Object object, Duration timeout) {
-        val errors = new ArrayList<Throwable>();
-        var effectiveTimeout = Duration.from(timeout);
-        val processedFields = Collections.synchronizedSet(new HashSet<String>());
-        val processedMethods = Collections.synchronizedSet(new HashSet<String>());
+    static List<Throwable> objectShouldLoadRequired(Object object, LocalDateTime end) {
+        List<Throwable> errors = new ArrayList<>();
+        Set<String> processedFields = Collections.synchronizedSet(new HashSet<>());
+        Set<String> processedMethods = Collections.synchronizedSet(new HashSet<>());
 
         Class<?> currentClass = object instanceof Class<?> ? (Class<?>) object : object.getClass();
         while (currentClass != Object.class) {
@@ -93,11 +91,8 @@ public interface RequiredContainer {
                     .collect(Collectors.toList());
             for (Field field : fields) {
                 try {
-                    val element = field.get(object);
-                    errors.addAll(elementShouldLoad(element, effectiveTimeout));
-                    if (!effectiveTimeout.isZero() && errors.size() > 0) {
-                        effectiveTimeout = Duration.ZERO;
-                    }
+                    Object element = field.get(object);
+                    errors.addAll(elementShouldLoad(element, end));
                 } catch (IllegalAccessException ignored) {
                 }
             }
@@ -111,11 +106,8 @@ public interface RequiredContainer {
                     .collect(Collectors.toList());
             for (Method method : methods) {
                 try {
-                    val element = method.invoke(object);
-                    errors.addAll(elementShouldLoad(element, effectiveTimeout));
-                    if (!effectiveTimeout.isZero() && errors.size() > 0) {
-                        effectiveTimeout = Duration.ZERO;
-                    }
+                    Object element = method.invoke(object);
+                    errors.addAll(elementShouldLoad(element, end));
                 } catch (InvocationTargetException | IllegalAccessException ignored) {
                 }
             }
@@ -127,49 +119,47 @@ public interface RequiredContainer {
 
     @CheckReturnValue
     @Nonnull
-    static List<Throwable> elementShouldLoad(Object element, Duration timeout) {
-        val errors = new ArrayList<Throwable>();
+    static List<Throwable> elementShouldLoad(Object element, LocalDateTime end) {
+        Duration timeout = Duration.between(LocalDateTime.now(), end);
+        if (timeout.isNegative()) {
+            timeout = Duration.ZERO;
+        }
         if (element instanceof By) {
             try {
                 Selenide.$((By) element).shouldBe(Condition.visible, timeout);
             } catch (Throwable e) {
-                errors.add(e);
+                return Collections.singletonList(e);
             }
         } else if (element instanceof SelenideElement) {
             try {
                 ((SelenideElement) element).shouldBe(Condition.visible, timeout);
             } catch (Throwable e) {
-                errors.add(e);
+                return Collections.singletonList(e);
             }
         } else if (element instanceof ElementsCollection) {
             try {
                 ((ElementsCollection) element).shouldBe(CollectionCondition.anyMatch("At least one element is visible", WebElement::isDisplayed), timeout);
             } catch (Throwable e) {
-                errors.add(e);
+                return Collections.singletonList(e);
             }
         } else if (element instanceof ElementsContainer) {
-            var lookInside = true;
             try {
                 ((ElementsContainer) element).getSelf().shouldBe(Condition.visible, timeout);
+                return objectShouldLoadRequired(element, end);
             } catch (Throwable e) {
-                errors.add(e);
-                lookInside = false;
-            }
-            if (lookInside) {
-                errors.addAll(objectShouldLoadRequired(element, timeout));
+                return Collections.singletonList(e);
             }
         } else if (element instanceof RequiredContainer) {
-            errors.addAll(objectShouldLoadRequired(element, timeout));
+            return objectShouldLoadRequired(element, end);
         } else if (element instanceof WebElement) {
-            val wait = new WebDriverWait(Selenide.webdriver().object(), timeout);
             try {
-                wait.until(ExpectedConditions.visibilityOf((WebElement) element));
+                new WebDriverWait(Selenide.webdriver().object(), timeout).until(ExpectedConditions.visibilityOf((WebElement) element));
             } catch (Throwable e) {
-                errors.add(e);
+                return Collections.singletonList(e);
             }
         } else {
-            errors.addAll(objectShouldLoadRequired(element, timeout));
+            return objectShouldLoadRequired(element, end);
         }
-        return errors;
+        return Collections.emptyList();
     }
 }

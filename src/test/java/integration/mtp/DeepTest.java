@@ -33,7 +33,7 @@ public class DeepTest extends BaseMtpTest {
 
         servicesPage.shouldLoadRequired();
         servicesPage.mainMenu.services.hover();
-        mainFramePage.mainMenu.servicesPopUp.shouldLoadRequired(Duration.ofSeconds(2));
+        mainFramePage.mainMenu.servicesPopUp.shouldLoadRequiredWithTimeout(Duration.ofSeconds(2));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class DeepTest extends BaseMtpTest {
 
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
-        mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
+        mainFramePage.shouldLoadRequiredWithTimeout(Duration.ofSeconds(3));
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUp.qualityAssurance.click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
@@ -70,9 +70,9 @@ public class DeepTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
-        assertFalse(servicesPage.hasAlreadyLoadedRequired());
-        assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
+        assertFalse(servicesPage.hasLoadedRequired());
+        assertFalse(servicesPage.hasLoadedRequiredWithTimeout(Duration.ofMillis(100)));
         assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
-        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequiredWithTimeout(Duration.ofMillis(100)));
     }
 }

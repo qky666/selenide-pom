@@ -3,7 +3,7 @@ package integration.mtp.lazypom;
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.Required;
 import com.github.qky666.selenidepom.RequiredError;
-import com.github.qky666.selenidepom.Widget;
+import com.github.qky666.selenidepom.ElementsContainerWidget;
 import lombok.Getter;
 
 import java.time.Duration;
@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
-public class CookiesBannerWidget extends Widget {
+public class CookiesBannerWidget extends ElementsContainerWidget {
     public CookiesBannerWidget() {
         this($("div.cookie-notice-container"));
     }
@@ -29,8 +29,8 @@ public class CookiesBannerWidget extends Widget {
     }
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws RequiredError {
-        super.shouldLoadRequired(timeout);
+    public void shouldLoadRequiredWithTimeout(Duration timeout) throws RequiredError {
+        super.shouldLoadRequiredWithTimeout(timeout);
         getCookiesText().shouldHave(text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."));
     }
 

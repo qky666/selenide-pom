@@ -41,7 +41,7 @@ public class SimpleTest extends BaseMtpTest {
 
     @Test
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError() {
-        mainFramePage.shouldLoadRequired(Duration.ofSeconds(3));
+        mainFramePage.shouldLoadRequiredWithTimeout(Duration.ofSeconds(3));
         mainFramePage.mainMenuServices.hover();
         mainFramePage.mainMenuServicesPopUpQualityAssurance.click();
         assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
@@ -63,9 +63,9 @@ public class SimpleTest extends BaseMtpTest {
         mainFramePage.mainMenuServices.hover();
         // User forgot to click Quality Assurance link
 
-        assertFalse(servicesPage.hasAlreadyLoadedRequired());
-        assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
+        assertFalse(servicesPage.hasLoadedRequired());
+        assertFalse(servicesPage.hasLoadedRequiredWithTimeout(Duration.ofMillis(100)));
         assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
-        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequiredWithTimeout(Duration.ofMillis(100)));
     }
 }

@@ -17,8 +17,8 @@ public class ServicesShouldLoadRequiredErrorPage extends MainFramePage {
     private final SelenideElement title = $("h1.h2");
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws RequiredError {
-        super.shouldLoadRequired(timeout);
+    public void shouldLoadRequiredWithTimeout(Duration timeout) throws RequiredError {
+        super.shouldLoadRequiredWithTimeout(timeout);
         getTitle().shouldHave(text("Aseguramiento de la calidad con error"), timeout);
     }
 }

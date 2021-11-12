@@ -1,4 +1,4 @@
-package integration.mtp.constructorpom;
+package integration.mtp.javapom;
 
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.Required;
