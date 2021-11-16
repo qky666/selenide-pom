@@ -13,6 +13,7 @@ import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 
+
 /**
  * Object with properties that can have @Required annotation.
  */
@@ -46,12 +47,41 @@ interface RequiredContainer {
     companion object {
         private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime): List<Throwable> {
             val errors = mutableListOf<Throwable>()
-            obj::class.memberProperties.forEach {
+            val objKlass = obj::class
+
+            // Kotlin properties
+            objKlass.memberProperties.forEach {
                 it.isAccessible = true
                 if (it.hasAnnotation<Required>()) {
                     val element = it.javaGetter?.invoke(obj) ?: it.javaField?.get(obj)
                     errors.addAll(elementShouldLoad(element, end))
                 }
+            }
+
+            val processedFields = mutableSetOf<String>()
+            val processedMethods = mutableSetOf<String>()
+            var currentClass: Class<*>? = obj.javaClass
+            while (currentClass != null) {
+                // Java fields
+                val fields = currentClass.declaredFields
+                    .filter {
+                        it.isAccessible = true
+                        processedFields.add(it.name)
+                    }.filter { it.isAnnotationPresent(Required::class.java) }
+                for (field in fields) {
+                    errors.addAll(elementShouldLoad(field.get(obj), end))
+
+                }
+                // Java methods
+                val methods = currentClass.declaredMethods
+                    .filter {
+                        it.isAccessible = true
+                        processedMethods.add(it.name)
+                    }.filter { it.isAnnotationPresent(Required::class.java) }
+                for (method in methods) {
+                    errors.addAll(elementShouldLoad(method.invoke(obj), end))
+                }
+                currentClass = currentClass.superclass
             }
             return errors
         }

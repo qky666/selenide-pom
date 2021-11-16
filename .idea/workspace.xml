@@ -5,25 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211112_001. v0.4.0. Renamed old Widget class to ElementsContainerWidget. created new Widget class. Created new JavaTest test class.">
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinScripting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/ElementsContainerWidget.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/Required.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredContainer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredError.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/Widget.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.backup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/ElementsContainerWidget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/Required.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/RequiredContainer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/RequiredError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/Widget.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/qky666/selenidepom/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredContainer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
