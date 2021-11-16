@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.kotlin
 
 import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.SelenideElement
@@ -9,8 +9,7 @@ import com.codeborne.selenide.SelenideElement
 @Suppress("LeakingThis")
 abstract class ElementsContainerWidget() : ElementsContainer(), RequiredContainer {
     constructor(self: SelenideElement) : this() {
-
-        // Set self
+    // Set self
         val superclass: Class<*> = ElementsContainerWidget::class.java.superclass
         val field = superclass.getDeclaredField("self")
         field.isAccessible = true

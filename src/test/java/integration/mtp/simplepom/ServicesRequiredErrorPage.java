@@ -2,8 +2,8 @@ package integration.mtp.simplepom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.kotlin.Required;
+import com.github.qky666.selenidepom.kotlin.RequiredError;
 
 import java.time.Duration;
 

@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.kotlin
 
 /**
  * Every property, field or method (no parameters) with @Required annotation in a RequiredContainer will be checked

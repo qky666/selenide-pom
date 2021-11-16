@@ -1,11 +1,11 @@
 package integration.mtp.constructorpom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.ElementsContainerWidget;
+import com.github.qky666.selenidepom.kotlin.Required;
+import com.github.qky666.selenidepom.kotlin.Widget;
 
 @SuppressWarnings("unused")
-public class MainMenuWidget extends ElementsContainerWidget {
+public class MainMenuWidget extends Widget {
     @Required public final SelenideElement services;
     public final SelenideElement servicesPopUp;
     public final SelenideElement servicesPopUpQualityAssurance;

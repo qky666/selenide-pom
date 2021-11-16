@@ -1,12 +1,12 @@
 package integration.mtp.simplepom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredContainer;
+import com.github.qky666.selenidepom.kotlin.Page;
+import com.github.qky666.selenidepom.kotlin.Required;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class MainFramePage implements RequiredContainer {
+public class MainFramePage extends Page {
     @Required
     public final SelenideElement mainMenu = $("div.custom-menu");
     @Required

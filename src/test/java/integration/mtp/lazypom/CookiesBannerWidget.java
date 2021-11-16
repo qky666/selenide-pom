@@ -1,9 +1,9 @@
 package integration.mtp.lazypom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredError;
-import com.github.qky666.selenidepom.ElementsContainerWidget;
+import com.github.qky666.selenidepom.kotlin.Required;
+import com.github.qky666.selenidepom.kotlin.RequiredError;
+import com.github.qky666.selenidepom.kotlin.Widget;
 import lombok.Getter;
 
 import java.time.Duration;
@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
-public class CookiesBannerWidget extends ElementsContainerWidget {
+public class CookiesBannerWidget extends Widget {
     public CookiesBannerWidget() {
         this($("div.cookie-notice-container"));
     }

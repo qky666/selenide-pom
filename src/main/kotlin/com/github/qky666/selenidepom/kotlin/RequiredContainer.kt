@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.kotlin
 
 import com.codeborne.selenide.*
 import org.openqa.selenium.By
@@ -19,29 +19,38 @@ import kotlin.reflect.jvm.javaGetter
  */
 interface RequiredContainer {
     /**
-     * When shouldLoadRequired is called, all properties with @Required annotation are checked if visible.
+     * When shouldLoadRequiredAfterTimeout is called, all properties with @Required annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
      *
-     * @param timeout The timeout for waiting to elements to become visible. Default value: timeout (Selenide Configuration).
+     * @param timeout The timeout for waiting to elements to become visible.
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     @Throws(RequiredError::class)
-    fun shouldLoadRequired(timeout: Duration = Duration.ofMillis(Configuration.timeout)) {
+    fun shouldLoadRequiredWithTimeout(timeout: Duration) {
         val errors = objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout))
         if (errors.isNotEmpty()) {
             throw RequiredError(errors)
         }
     }
 
+    @Throws(RequiredError::class)
+    fun shouldLoadRequired() {
+        return shouldLoadRequiredWithTimeout(Duration.ofMillis(Configuration.timeout))
+    }
+
     /**
      * Returns true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
      * You usually will not have to override this method.
      *
-     * @param timeout The timeout for waiting to elements to become visible. Default value: Duration.ZERO.
+     * @param timeout The timeout for waiting to elements to become visible.
      * @return true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
      */
-    fun hasLoadedRequired(timeout: Duration = Duration.ZERO): Boolean {
+    fun hasLoadedRequiredWithTimeout(timeout: Duration): Boolean {
         return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout)).isEmpty()
+    }
+
+    fun hasLoadedRequired(): Boolean {
+        return hasLoadedRequiredWithTimeout(Duration.ZERO)
     }
 
     companion object {

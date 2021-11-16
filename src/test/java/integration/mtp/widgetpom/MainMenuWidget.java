@@ -1,13 +1,12 @@
 package integration.mtp.widgetpom;
 
-import com.codeborne.selenide.ElementsContainer;
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredContainer;
+import com.github.qky666.selenidepom.kotlin.ElementsContainerWidget;
+import com.github.qky666.selenidepom.kotlin.Required;
 import org.openqa.selenium.support.FindBy;
 
 @SuppressWarnings("unused")
-public class MainMenuWidget extends ElementsContainer implements RequiredContainer {
+public class MainMenuWidget extends ElementsContainerWidget {
     @Required
     @FindBy(css = "li#servicios_menu")
     public SelenideElement services;

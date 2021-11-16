@@ -1,6 +1,6 @@
 package integration.mtp;
 
-import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.kotlin.RequiredError;
 import integration.mtp.nopagefactorypom.MainFramePage;
 import integration.mtp.nopagefactorypom.ServicesPage;
 import integration.mtp.nopagefactorypom.ServicesRequiredErrorPage;

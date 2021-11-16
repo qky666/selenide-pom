@@ -1,10 +1,10 @@
 package integration.mtp.nopagefactorypom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.ElementsContainerWidget;
+import com.github.qky666.selenidepom.kotlin.Required;
+import com.github.qky666.selenidepom.kotlin.Widget;
 
-public class MainMenuWidget extends ElementsContainerWidget {
+public class MainMenuWidget extends Widget {
     @Required
     public SelenideElement services() {
         return getSelf().$("li#servicios_menu");

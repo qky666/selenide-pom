@@ -1,9 +1,9 @@
 package integration.mtp.javapom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredError;
-import com.github.qky666.selenidepom.Widget;
+import com.github.qky666.selenidepom.kotlin.Required;
+import com.github.qky666.selenidepom.kotlin.RequiredError;
+import com.github.qky666.selenidepom.kotlin.Widget;
 
 import java.time.Duration;
 
@@ -36,11 +36,11 @@ public class CookiesBannerWidget extends Widget {
     public void acceptCookies() {
         shouldLoadRequired();
         accept.click();
-        self.should(disappear);
+        getSelf().should(disappear);
     }
 
     public void acceptCookiesIfDisplayed() {
-        if (self.isDisplayed()) {
+        if (getSelf().isDisplayed()) {
             acceptCookies();
         }
     }

@@ -11,6 +11,7 @@ plugins {
     val kotlinVersion = "1.5.31"
 
     kotlin("jvm") version kotlinVersion
+    id("io.freefair.lombok") version "6.3.0"
 //    application
 }
 

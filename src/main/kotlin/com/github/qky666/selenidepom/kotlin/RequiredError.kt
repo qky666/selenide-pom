@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.kotlin
 
 import com.codeborne.selenide.ex.UIAssertionError
 
