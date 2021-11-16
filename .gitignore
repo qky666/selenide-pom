@@ -313,4 +313,4 @@ gradle-app.setting
 
 
 # selenide-pom
-gradle.properties
+gradle.properties.backup
