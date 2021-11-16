@@ -311,6 +311,5 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,gradle,intellij,eclipse,windows,macos,linux
 
-
 # selenide-pom
-gradle.properties
+# Nothing, by now
