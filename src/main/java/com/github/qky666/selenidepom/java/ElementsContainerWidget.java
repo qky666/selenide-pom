@@ -8,7 +8,7 @@ import javax.annotation.CheckReturnValue;
 import java.lang.reflect.Field;
 
 /**
- * ElementsContainer with a constructor that sets 'self' field.
+ * {@link ElementsContainer} with a constructor that sets 'self' field.
  */
 @NoArgsConstructor
 public abstract class ElementsContainerWidget extends ElementsContainer implements RequiredContainer {

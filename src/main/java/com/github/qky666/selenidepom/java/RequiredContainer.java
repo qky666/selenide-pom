@@ -23,14 +23,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Object with fields and methods (without parameters) that can have {@link Required} annotation.
+ * Instances of this interface can have fields or methods (without parameters) that can be annotated with
+ * {@link Required}.
  */
 public interface RequiredContainer {
     /**
      * All fields and methods (without parameters) with {@link Required} annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
      *
-     * @param timeout The timeout for waiting to elements to become visible.
+     * @param timeout The timeout waiting for elements to become visible.
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     default void shouldLoadRequired(Duration timeout) throws RequiredError {

@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.SelenideElement
 
 /**
- * ElementsContainer with a constructor that sets 'self' field.
+ * [ElementsContainer] with a constructor that sets 'self' field.
  */
 @Suppress("LeakingThis")
 abstract class ElementsContainerWidget() : ElementsContainer(), RequiredContainer {

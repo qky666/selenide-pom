@@ -8,10 +8,9 @@ import java.lang.annotation.ElementType;
 import java.time.Duration;
 
 /**
- * Every field or method (with no parameters) with this annotation in a
+ * Every field or method (without parameters) annotated in a class that implements
  * {@link com.github.qky666.selenidepom.java.RequiredContainer} will be checked if visible when
- * {@link com.github.qky666.selenidepom.java.RequiredContainer#shouldLoadRequired(Duration)} or
- * {@link com.github.qky666.selenidepom.java.RequiredContainer#shouldLoadRequired()} method is called.
+ * one of the methods defined in the interface is called.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

@@ -14,14 +14,14 @@ import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 
 /**
- * Object with properties that can have @Required annotation.
+ * Instances of this interface can have properties that can be annotated with [Required].
  */
 interface RequiredContainer {
     /**
-     * When shouldLoadRequiredAfterTimeout is called, all properties with @Required annotation are checked if visible.
+     * All properties with [Required] annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
      *
-     * @param timeout The timeout for waiting to elements to become visible.
+     * @param timeout The timeout waiting for elements to become visible.
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     @Throws(RequiredError::class)
@@ -33,11 +33,11 @@ interface RequiredContainer {
     }
 
     /**
-     * Returns true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
      * You usually will not have to override this method.
      *
-     * @param timeout The timeout for waiting to elements to become visible.
-     * @return true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
+     * @param timeout The timeout waiting for elements to become visible.
+     * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
      */
     fun hasLoadedRequired(timeout: Duration = Duration.ZERO): Boolean {
         return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout)).isEmpty()
