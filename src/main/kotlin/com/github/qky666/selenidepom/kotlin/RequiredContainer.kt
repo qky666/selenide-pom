@@ -13,7 +13,6 @@ import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 
-
 /**
  * Object with properties that can have @Required annotation.
  */
@@ -26,16 +25,11 @@ interface RequiredContainer {
      * @throws RequiredError Error can occur during validations (mostly, validation failures).
      */
     @Throws(RequiredError::class)
-    fun shouldLoadRequiredWithTimeout(timeout: Duration) {
+    fun shouldLoadRequired(timeout: Duration = Duration.ofMillis(Configuration.timeout)) {
         val errors = objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout))
         if (errors.isNotEmpty()) {
             throw RequiredError(errors)
         }
-    }
-
-    @Throws(RequiredError::class)
-    fun shouldLoadRequired() {
-        return shouldLoadRequiredWithTimeout(Duration.ofMillis(Configuration.timeout))
     }
 
     /**
@@ -45,12 +39,8 @@ interface RequiredContainer {
      * @param timeout The timeout for waiting to elements to become visible.
      * @return true if shouldLoadRequired(timeout) returns without throwing any WebDriverException, false in otherwise.
      */
-    fun hasLoadedRequiredWithTimeout(timeout: Duration): Boolean {
+    fun hasLoadedRequired(timeout: Duration = Duration.ZERO): Boolean {
         return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout)).isEmpty()
-    }
-
-    fun hasLoadedRequired(): Boolean {
-        return hasLoadedRequiredWithTimeout(Duration.ZERO)
     }
 
     companion object {
@@ -65,32 +55,6 @@ interface RequiredContainer {
                     val element = it.javaGetter?.invoke(obj) ?: it.javaField?.get(obj)
                     errors.addAll(elementShouldLoad(element, end))
                 }
-            }
-
-            val processedFields = mutableSetOf<String>()
-            val processedMethods = mutableSetOf<String>()
-            var currentClass: Class<*>? = obj.javaClass
-            while (currentClass != null) {
-                // Java fields
-                val fields = currentClass.declaredFields
-                    .filter {
-                        it.isAccessible = true
-                        processedFields.add(it.name)
-                    }.filter { it.isAnnotationPresent(Required::class.java) }
-                for (field in fields) {
-                    errors.addAll(elementShouldLoad(field.get(obj), end))
-
-                }
-                // Java methods
-                val methods = currentClass.declaredMethods
-                    .filter {
-                        it.isAccessible = true
-                        processedMethods.add(it.name)
-                    }.filter { it.isAnnotationPresent(Required::class.java) }
-                for (method in methods) {
-                    errors.addAll(elementShouldLoad(method.invoke(obj), end))
-                }
-                currentClass = currentClass.superclass
             }
             return errors
         }

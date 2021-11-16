@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="es.qky.selenidepom.Required" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="com.github.qky666.selenidepom.kotlin.Required" />
+      <item index="1" class="java.lang.String" itemvalue="es.qky.selenidepom.Required" />
     </list>
     <writeAnnotations>
       <writeAnnotation name="org.openqa.selenium.support.FindAll" />

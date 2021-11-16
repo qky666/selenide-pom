@@ -4,29 +4,92 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211116_003. v0.5.0">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/Page.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="4f272ec6-bb25-493c-b95e-ebd8a94974dc" name="Changes" comment="20211116_004. v0.5.0">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/MainMenuWidget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/MainFramePage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/MainFramePage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/MainFramePage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/BaseIntegrationTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/BaseMtpTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/KotlinTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/CookiesBannerWidget.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/MainFramePage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/MainMenuWidget.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/ServicesPage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/ServicesRequiredErrorPage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/ServicesShouldLoadRequiredErrorPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/mtp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/mtp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.backup" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/ElementsContainerWidget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/ElementsContainerWidget.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/RequiredContainer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/CookiesBannerWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/Page.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/Required.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/Required.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/RequiredContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/RequiredContainer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/RequiredError.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/RequiredError.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/Widget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/qky666/selenidepom/kotlin/Widget.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/BaseIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/BaseIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/BaseMtpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/BaseMtpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/ConstructorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/ConstructorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/DeepTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/DeepTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/JavaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/JavaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/LazyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/LazyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/NoPageFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/NoPageFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/SimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/SimpleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/WidgetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/WidgetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/MainMenuWidget.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/simplepom/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainFramePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuServicesDropdownWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/MainMenuServicesDropdownWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/deeppom/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/deeppom/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/MainFramePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/constructorpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/javapom/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/javapom/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/lazypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/lazypom/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/github/qky666/selenidepom/test/kotlin/mtp/pom/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainFramePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/nopagefactorypom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/nopagefactorypom/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/simplepom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/simplepom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/simplepom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/simplepom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/CookiesBannerWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/CookiesBannerWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainFramePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/MainFramePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/MainMenuWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/MainMenuWidget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/ServicesPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/ServicesRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/widgetpom/ServicesShouldLoadRequiredErrorPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/qky666/selenidepom/test/java/mtp/package-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,11 +128,6 @@
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="help" type="c8890929:TasksNode$1" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="selenide-pom" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -101,9 +159,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
@@ -120,33 +175,57 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/kotlin/kotlin/integration/mtp" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/kotlin/kotlin/integration/mtp" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/test/java/integration/mtp/javapom" />
       <recent name="$PROJECT_DIR$/src/test/java/integration/mtp/constructorpom" />
       <recent name="$PROJECT_DIR$/src/test/java/integration/mtp/widgetpom" />
-      <recent name="$PROJECT_DIR$/src/test/java/integration/mtp/simplepom" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.github.qky666.selenidepom" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.qky666.selenidepom.test.kotlin" />
+      <recent name="com.github.qky666.selenidepom.test.kotlin.mtp" />
+      <recent name="kotlin.integration.mtp" />
+      <recent name="kotlin.integration" />
       <recent name="integration.mtp" />
-      <recent name="com.github.qky666.selenidepom" />
-      <recent name="es.qky.selenidepom" />
-      <recent name="integration.mtp.deeppom" />
-      <recent name="integration.mtp.nopagefactorypom" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.NoPageFactoryTest">
+  <component name="RunManager" selected="JUnit.SimpleTest.badSelectorError">
+    <configuration name="selenide-pom [dependencyUpdates]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencyUpdates" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="ConstructorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
@@ -162,64 +241,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ConstructorTest.badSelectorError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="KotlinTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenide-pom.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
+          <option name="PATTERN" value="com.github.qky666.selenidepom.test.kotlin.mtp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.ConstructorTest" />
+      <option name="PACKAGE_NAME" value="com.github.qky666.selenidepom.test.kotlin.mtp" />
+      <option name="MAIN_CLASS_NAME" value="com.github.qky666.selenidepom.test.kotlin.mtp.KotlinTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KotlinTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kotlin.integration.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kotlin.integration.mtp" />
+      <option name="MAIN_CLASS_NAME" value="kotlin.integration.mtp.KotlinTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleTest.badSelectorError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="selenide-pom.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.qky666.selenidepom.test.java.mtp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.qky666.selenidepom.test.java.mtp" />
+      <option name="MAIN_CLASS_NAME" value="com.github.qky666.selenidepom.test.java.mtp.SimpleTest" />
       <option name="METHOD_NAME" value="badSelectorError" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.ConstructorTest" />
-      <option name="METHOD_NAME" value="userNavigateToQualityAssuranceWithBadSelectorRequired" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LazyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.LazyTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NoPageFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenide-pom.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.mtp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration.mtp" />
-      <option name="MAIN_CLASS_NAME" value="integration.mtp.NoPageFactoryTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -236,20 +299,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
       <item itemvalue="JUnit.mtp" />
-      <item itemvalue="JUnit.LazyTest" />
       <item itemvalue="JUnit.ConstructorTest" />
-      <item itemvalue="JUnit.ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
-      <item itemvalue="JUnit.ConstructorTest.badSelectorError" />
-      <item itemvalue="JUnit.NoPageFactoryTest" />
+      <item itemvalue="JUnit.KotlinTest" />
+      <item itemvalue="JUnit.KotlinTest (1)" />
+      <item itemvalue="JUnit.SimpleTest.badSelectorError" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.NoPageFactoryTest" />
+        <item itemvalue="JUnit.SimpleTest.badSelectorError" />
+        <item itemvalue="Gradle.selenide-pom [dependencyUpdates]" />
+        <item itemvalue="JUnit.KotlinTest (1)" />
+        <item itemvalue="JUnit.KotlinTest" />
         <item itemvalue="JUnit.ConstructorTest" />
-        <item itemvalue="JUnit.ConstructorTest.badSelectorError" />
-        <item itemvalue="JUnit.ConstructorTest.userNavigateToQualityAssuranceWithBadSelectorRequired" />
-        <item itemvalue="JUnit.LazyTest" />
       </list>
     </recent_temporary>
   </component>
@@ -536,5 +599,9 @@
     <MESSAGE value="20211111_001. v0.3.5. Moved to com.github.qky666 package" />
     <MESSAGE value="20211112_001. v0.4.0. Renamed old Widget class to ElementsContainerWidget. created new Widget class. Created new JavaTest test class." />
     <option name="LAST_COMMIT_MESSAGE" value="20211112_001. v0.4.0. Renamed old Widget class to ElementsContainerWidget. created new Widget class. Created new JavaTest test class." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
