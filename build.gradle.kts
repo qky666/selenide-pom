@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.5.1"
+version = "0.5.2"
 
 repositories {
     mavenCentral()
@@ -10,6 +10,8 @@ repositories {
 plugins {
     val kotlinVersion = "1.5.31"
 
+    `java-library`
+    `maven-publish`
     kotlin("jvm") version kotlinVersion
     id("io.freefair.lombok") version "6.3.0"
     id("com.github.ben-manes.versions") version "0.39.0"
