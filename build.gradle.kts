@@ -8,7 +8,7 @@ repositories {
 }
 
 plugins {
-    val kotlinVersion = "1.5.31"
+    val kotlinVersion = "1.6.0"
 
     `java-library`
     `maven-publish`
@@ -30,7 +30,7 @@ publishing {
 }
 
 dependencies {
-    val kotlinVersion = "1.5.31"
+    val kotlinVersion = "1.6.0"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
