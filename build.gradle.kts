@@ -17,6 +17,18 @@ plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.qky666"
+            artifactId = "selenide-pom"
+            version = "0.5.2"
+
+            from(components["java"])
+        }
+    }
+}
+
 dependencies {
     val kotlinVersion = "1.5.31"
 
