@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.5.0"
+version = "0.5.1"
 
 repositories {
     mavenCentral()
 }
 
 plugins {
-    val kotlinVersion = "1.6.0"
+    val kotlinVersion = "1.5.31"
 
     kotlin("jvm") version kotlinVersion
     id("io.freefair.lombok") version "6.3.0"
@@ -16,7 +16,7 @@ plugins {
 }
 
 dependencies {
-    val kotlinVersion = "1.6.0"
+    val kotlinVersion = "1.5.31"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
