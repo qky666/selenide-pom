@@ -13,21 +13,18 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class CookiesBannerWidget extends Widget {
-    public CookiesBannerWidget() {
-        this($("div.cookie-notice-container"));
-    }
 
-    @Getter(lazy = true, onMethod_ = {@Required})
-    private final SelenideElement cookiesText = self.$("span#cn-notice-text");
-    @Getter(lazy = true, onMethod_ = {@Required})
-    private final SelenideElement accept = self.$("a#cn-accept-cookie");
-    @Getter(lazy = true, onMethod_ = {@Required})
-    private final SelenideElement close = self.$("a#cn-close-notice");
+    // Fields
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement cookiesText = self.$("span#cn-notice-text");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement accept = self.$("a#cn-accept-cookie");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement close = self.$("a#cn-close-notice");
 
-    public CookiesBannerWidget(SelenideElement self) {
-        super(self);
-    }
+    // Constructors
+    public CookiesBannerWidget() {this($("div.cookie-notice-container"));}
 
+    public CookiesBannerWidget(SelenideElement self) {super(self);}
+
+    // Methods
     @Override
     public void shouldLoadRequired(Duration timeout) throws RequiredError {
         super.shouldLoadRequired(timeout);

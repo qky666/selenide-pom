@@ -5,8 +5,8 @@ import com.github.qky666.selenidepom.java.Required;
 import lombok.Getter;
 
 public class MainFramePage implements RequiredContainer {
-    @Getter(lazy = true, onMethod_ = {@Required})
-    private final MainMenuWidget mainMenu = new MainMenuWidget();
-    @Getter(lazy = true)
-    private final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget();
+
+    // Fields
+    @Getter(lazy = true, onMethod_ = {@Required}) private final MainMenuWidget mainMenu = new MainMenuWidget();
+    @Getter(lazy = true) private final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget();
 }

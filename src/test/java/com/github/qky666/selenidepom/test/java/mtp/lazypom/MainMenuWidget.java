@@ -8,18 +8,15 @@ import lombok.Getter;
 import static com.codeborne.selenide.Selenide.$;
 
 public class MainMenuWidget extends Widget {
-    public MainMenuWidget() {
-        this($("div.custom-menu"));
-    }
 
-    public MainMenuWidget(SelenideElement self) {
-        super(self);
-    }
+    // Fields
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement services = self.$("li#servicios_menu");
+    @Getter(lazy = true) private final SelenideElement servicesPopUp = self.$("div.dropdown-servicios");
+    @Getter(lazy = true) private final SelenideElement servicesPopUpQualityAssurance = getServicesPopUp().$("a[data-principal='Aseguramiento de la calidad']");
 
-    @Getter(lazy = true, onMethod_ = {@Required})
-    private final SelenideElement services = self.$("li#servicios_menu");
-    @Getter(lazy = true)
-    private final SelenideElement servicesPopUp = self.$("div.dropdown-servicios");
-    @Getter(lazy = true)
-    private final SelenideElement servicesPopUpQualityAssurance = self.$("div.dropdown-servicios a[data-principal='Aseguramiento de la calidad']");
+    //Constructors
+    public MainMenuWidget() {this($("div.custom-menu"));}
+
+    public MainMenuWidget(SelenideElement self) {super(self);}
+
 }
