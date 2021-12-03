@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -27,6 +29,9 @@ import java.util.stream.Collectors;
  * {@link Required}.
  */
 public interface RequiredContainer {
+
+    Logger logger = LoggerFactory.getLogger(RequiredContainer.class);
+
     /**
      * All fields and methods (without parameters) with {@link Required} annotation are checked if visible.
      * You can override this method to add some extra functionality (custom additional checks).
@@ -88,12 +93,10 @@ public interface RequiredContainer {
         Class<?> currentClass = object instanceof Class<?> ? (Class<?>) object : object.getClass();
         while (currentClass != Object.class) {
             // Fields
-            List<Field> fields = Arrays.stream(currentClass.getDeclaredFields())
-                    .filter(field -> {
-                        field.setAccessible(true);
-                        return processedFields.add(field.getName());
-                    }).filter(field -> field.isAnnotationPresent(Required.class))
-                    .collect(Collectors.toList());
+            List<Field> fields = Arrays.stream(currentClass.getDeclaredFields()).filter(field -> {
+                field.setAccessible(true);
+                return processedFields.add(field.getName());
+            }).filter(field -> field.isAnnotationPresent(Required.class)).collect(Collectors.toList());
             for (Field field : fields) {
                 try {
                     Object element = field.get(object);
@@ -103,12 +106,10 @@ public interface RequiredContainer {
             }
 
             // Methods
-            List<Method> methods = Arrays.stream(currentClass.getDeclaredMethods())
-                    .filter(method -> {
-                        method.setAccessible(true);
-                        return processedMethods.add(method.getName());
-                    }).filter(method -> method.isAnnotationPresent(Required.class))
-                    .collect(Collectors.toList());
+            List<Method> methods = Arrays.stream(currentClass.getDeclaredMethods()).filter(method -> {
+                method.setAccessible(true);
+                return processedMethods.add(method.getName());
+            }).filter(method -> method.isAnnotationPresent(Required.class)).collect(Collectors.toList());
             for (Method method : methods) {
                 try {
                     Object element = method.invoke(object);
@@ -132,24 +133,44 @@ public interface RequiredContainer {
         if (element instanceof By) {
             try {
                 Selenide.$((By) element).shouldBe(Condition.visible, timeout);
+                logger.info("Checked element is visible (By): " + element.toString().replaceAll("\\n", "\\\\n"));
             } catch (Throwable e) {
                 return Collections.singletonList(e);
             }
         } else if (element instanceof SelenideElement) {
             try {
                 ((SelenideElement) element).shouldBe(Condition.visible, timeout);
+                logger.info("Checked element is visible (SelenideElement): " + element.toString().replaceAll("\\n", "\\\\n"));
             } catch (Throwable e) {
                 return Collections.singletonList(e);
             }
         } else if (element instanceof ElementsCollection) {
             try {
                 ((ElementsCollection) element).shouldBe(CollectionCondition.anyMatch("At least one element is visible", WebElement::isDisplayed), timeout);
+                logger.info("Checked at least one element is visible (ElementsCollection): " + element.toString().replaceAll("\\n", "\\\\n"));
+            } catch (Throwable e) {
+                return Collections.singletonList(e);
+            }
+        } else if (element instanceof ElementsContainerWidget) {
+            try {
+                ((ElementsContainerWidget) element).getSelf().shouldBe(Condition.visible, timeout);
+                logger.info("Checked element is visible (ElementsContainerWidget): " + ((ElementsContainerWidget) element).getSelf().toString().replaceAll("\\n", "\\\\n"));
+                return objectShouldLoadRequired(element, end);
             } catch (Throwable e) {
                 return Collections.singletonList(e);
             }
         } else if (element instanceof ElementsContainer) {
             try {
                 ((ElementsContainer) element).getSelf().shouldBe(Condition.visible, timeout);
+                logger.info("Checked element is visible (ElementsContainer): " + ((ElementsContainer) element).getSelf().toString().replaceAll("\\n", "\\\\n"));
+                return objectShouldLoadRequired(element, end);
+            } catch (Throwable e) {
+                return Collections.singletonList(e);
+            }
+        } else if (element instanceof Widget) {
+            try {
+                ((Widget) element).self.shouldBe(Condition.visible, timeout);
+                logger.info("Checked element is visible (Widget): " + ((Widget) element).self.toString().replaceAll("\\n", "\\\\n"));
                 return objectShouldLoadRequired(element, end);
             } catch (Throwable e) {
                 return Collections.singletonList(e);
@@ -159,6 +180,7 @@ public interface RequiredContainer {
         } else if (element instanceof WebElement) {
             try {
                 new WebDriverWait(Selenide.webdriver().object(), timeout).until(ExpectedConditions.visibilityOf((WebElement) element));
+                logger.info("Checked element is visible (WebElement): " + element.toString().replaceAll("\\n", "\\\\n"));
             } catch (Throwable e) {
                 return Collections.singletonList(e);
             }

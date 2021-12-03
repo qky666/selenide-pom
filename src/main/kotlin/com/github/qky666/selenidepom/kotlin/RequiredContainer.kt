@@ -12,6 +12,9 @@ import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * Instances of this interface can have properties that can be annotated with [Required].
@@ -66,26 +69,63 @@ interface RequiredContainer {
                 null -> return listOf()
                 is By -> try {
                     Selenide.element(element).shouldBe(Condition.visible, timeout)
+                    logger.info { "Checked element is visible (By): ${element.toString().replace("\n", "\\n")}" }
                 } catch (e: Throwable) {
                     return listOf(e)
                 }
                 is SelenideElement -> try {
                     element.shouldBe(Condition.visible, timeout)
+                    logger.info {
+                        "Checked element is visible (SelenideElement): ${
+                            element.toString().replace("\n", "\\n")
+                        }"
+                    }
                 } catch (e: Throwable) {
                     return listOf(e)
                 }
                 is ElementsCollection -> try {
                     element.shouldBe(
                         CollectionCondition.anyMatch(
-                            "At least one element is visible",
-                            WebElement::isDisplayed
+                            "At least one element is visible", WebElement::isDisplayed
                         ), timeout
                     )
+                    logger.info {
+                        "Checked at least one element is visible (ElementsCollection): ${
+                            element.toString().replace("\n", "\\n")
+                        }"
+                    }
                 } catch (e: Throwable) {
                     return listOf(e)
                 }
+                is ElementsContainerWidget -> return try {
+                    element.self.shouldBe(Condition.visible, timeout)
+                    logger.info {
+                        "Checked element is visible (ElementsContainerWidget): ${
+                            element.self.toString().replace("\n", "\\n")
+                        }"
+                    }
+                    objectShouldLoadRequired(element, end)
+                } catch (e: Throwable) {
+                    listOf(e)
+                }
                 is ElementsContainer -> return try {
                     element.self.shouldBe(Condition.visible, timeout)
+                    logger.info {
+                        "Checked element is visible (ElementsContainer): ${
+                            element.self.toString().replace("\n", "\\n")
+                        }"
+                    }
+                    objectShouldLoadRequired(element, end)
+                } catch (e: Throwable) {
+                    listOf(e)
+                }
+                is Widget -> return try {
+                    element.self.shouldBe(Condition.visible, timeout)
+                    logger.info {
+                        "Checked element is visible (Widget): ${
+                            element.self.toString().replace("\n", "\\n")
+                        }"
+                    }
                     objectShouldLoadRequired(element, end)
                 } catch (e: Throwable) {
                     listOf(e)
@@ -95,6 +135,7 @@ interface RequiredContainer {
                     WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
                         ExpectedConditions.visibilityOf(element)
                     )
+                    logger.info { "Checked element is visible (WebElement): ${element.toString().replace("\n", "\\n")}" }
                 } catch (e: Throwable) {
                     return listOf(e)
                 }
