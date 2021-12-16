@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.mtp.lazypom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.java.Required;
-import com.github.qky666.selenidepom.java.Widget;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.Widget;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -10,8 +10,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class MainMenuWidget extends Widget {
 
     // Fields
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement services = self.$("li#servicios_menu");
-    @Getter(lazy = true) private final SelenideElement servicesPopUp = self.$("div.dropdown-servicios");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement services = getSelf().$("li#servicios_menu");
+    @Getter(lazy = true) private final SelenideElement servicesPopUp = getSelf().$("div.dropdown-servicios");
     @Getter(lazy = true) private final SelenideElement servicesPopUpQualityAssurance = getServicesPopUp().$("a[data-principal='Aseguramiento de la calidad']");
 
     //Constructors

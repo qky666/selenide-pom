@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.mtp.constructorpom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.java.Required;
-import com.github.qky666.selenidepom.java.RequiredError;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredError;
 
 import java.time.Duration;
 
@@ -15,8 +15,8 @@ public class ServicesPage extends MainFramePage {
     public final SelenideElement badSelector = $("bad-selector");
 
     @Override
-    public void shouldLoadRequired(Duration timeout) throws RequiredError {
-        super.shouldLoadRequired(timeout);
+    public void shouldLoadRequired(Duration timeout, String pomVersion) throws RequiredError {
+        super.shouldLoadRequired(timeout, pomVersion);
         title.shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

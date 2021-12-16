@@ -4,8 +4,8 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom
 
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.Selenide
-import com.github.qky666.selenidepom.kotlin.Required
-import com.github.qky666.selenidepom.kotlin.Widget
+import com.github.qky666.selenidepom.Required
+import com.github.qky666.selenidepom.Widget
 
 class MainMenuWidget(override val self: SelenideElement = Selenide.element("div.custom-menu")) : Widget(self) {
     @Required val services = self.find("li#servicios_menu")

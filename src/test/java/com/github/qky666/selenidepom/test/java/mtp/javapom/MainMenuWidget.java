@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.mtp.javapom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.java.Required;
-import com.github.qky666.selenidepom.java.Widget;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.Widget;
 
 import static com.codeborne.selenide.Selenide.$;
 

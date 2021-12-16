@@ -1,9 +1,9 @@
 package com.github.qky666.selenidepom.test.java.mtp.lazypom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.java.Required;
-import com.github.qky666.selenidepom.java.RequiredError;
-import com.github.qky666.selenidepom.java.Widget;
+import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.Widget;
 import lombok.Getter;
 
 import java.time.Duration;
@@ -15,31 +15,24 @@ import static com.codeborne.selenide.Selenide.$;
 public class CookiesBannerWidget extends Widget {
 
     // Fields
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement cookiesText = self.$("span#cn-notice-text");
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement accept = self.$("a#cn-accept-cookie");
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement close = self.$("a#cn-close-notice");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement cookiesText = getSelf().$("div.cli-bar-message");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement accept = getSelf().$("a#cookie_action_close_header");
 
     // Constructors
-    public CookiesBannerWidget() {this($("div.cookie-notice-container"));}
+    public CookiesBannerWidget() {this($("div#cookie-law-info-bar"));}
 
     public CookiesBannerWidget(SelenideElement self) {super(self);}
 
     // Methods
     @Override
-    public void shouldLoadRequired(Duration timeout) throws RequiredError {
-        super.shouldLoadRequired(timeout);
-        getCookiesText().shouldHave(text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."));
+    public void shouldLoadRequired(Duration timeout, String pomVersion) throws RequiredError {
+        super.shouldLoadRequired(timeout, pomVersion);
+        getCookiesText().shouldHave(text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)"));
     }
 
     public void acceptCookies() {
         shouldLoadRequired();
         getAccept().click();
-        self.should(disappear);
-    }
-
-    public void acceptCookiesIfDisplayed() {
-        if (self.isDisplayed()) {
-            acceptCookies();
-        }
+        getSelf().should(disappear);
     }
 }

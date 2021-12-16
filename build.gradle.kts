@@ -1,14 +1,26 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.6.0"
+version = "0.7.0"
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.qky666"
+            artifactId = "selenide-pom"
+            version = "0.7.0"
+
+            from(components["java"])
+        }
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 plugins {
-    val kotlinVersion = "1.6.0"
+    val kotlinVersion = "1.6.10"
 
     `java-library`
     `maven-publish`
@@ -17,20 +29,8 @@ plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.qky666"
-            artifactId = "selenide-pom"
-            version = "0.6.0"
-
-            from(components["java"])
-        }
-    }
-}
-
 dependencies {
-    val kotlinVersion = "1.6.0"
+    val kotlinVersion = "1.6.10"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
@@ -41,7 +41,7 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
 
     // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
-    implementation("io.github.microutils:kotlin-logging:2.1.0")
+    implementation("io.github.microutils:kotlin-logging:2.1.20")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
 }
@@ -52,4 +52,6 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
+    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }

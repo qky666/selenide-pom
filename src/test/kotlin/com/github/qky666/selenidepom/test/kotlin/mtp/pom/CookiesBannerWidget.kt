@@ -3,34 +3,27 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.Selenide
-import com.github.qky666.selenidepom.kotlin.Required
-import com.github.qky666.selenidepom.kotlin.RequiredError
-import com.github.qky666.selenidepom.kotlin.Widget
+import com.github.qky666.selenidepom.Required
+import com.github.qky666.selenidepom.RequiredError
+import com.github.qky666.selenidepom.Widget
 import java.time.Duration
 import kotlin.Throws
 
-class CookiesBannerWidget(override val self: SelenideElement = Selenide.element("div.cookie-notice-container")) :
+class CookiesBannerWidget(override val self: SelenideElement = Selenide.element("div#cookie-law-info-bar")) :
     Widget(self) {
 
-    @Required val cookiesText = self.find("span#cn-notice-text")
-    @Required val accept = self.find("a#cn-accept-cookie")
-    @Required val close = self.find("a#cn-close-notice")
+    @Required val cookiesText = self.find("div.cli-bar-message")
+    @Required val accept = self.find("a#cookie_action_close_header")
 
     @Throws(RequiredError::class)
-    override fun shouldLoadRequired(timeout: Duration) {
-        super.shouldLoadRequired(timeout)
-        cookiesText.shouldHave(Condition.text("Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestra web. Si sigues utilizando este sitio asumiremos que estás de acuerdo."))
+    override fun shouldLoadRequired(timeout: Duration, pomVersion: String) {
+        super.shouldLoadRequired(timeout, pomVersion)
+        cookiesText.shouldHave(Condition.text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)"))
     }
 
     fun acceptCookies() {
         shouldLoadRequired()
         accept.click()
         self.should(Condition.disappear)
-    }
-
-    fun acceptCookiesIfDisplayed() {
-        if (self.isDisplayed) {
-            acceptCookies()
-        }
     }
 }
