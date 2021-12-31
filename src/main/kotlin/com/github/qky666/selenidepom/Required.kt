@@ -1,7 +1,7 @@
 package com.github.qky666.selenidepom
 
 /**
- * Every field, property or method (without paramenters) annotated in a [Page] subclass will be checked if visible
+ * Every field, property or method (without parameters) annotated in a [Page] subclass will be checked if visible
  * when [Page.shouldLoadRequired] or [Page.hasLoadedRequired] is called.
  *
  * @property value Represents 'when' the element is required.
