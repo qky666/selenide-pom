@@ -7,16 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.time.LocalDateTime
-import kotlin.reflect.full.hasAnnotation
-import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 import mu.KotlinLogging
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
-import kotlin.reflect.full.findAnnotations
-import kotlin.reflect.full.functions
+import kotlin.reflect.KClass
+import kotlin.reflect.full.*
 
 private val logger = KotlinLogging.logger {}
 
@@ -58,52 +56,79 @@ abstract class Page {
     }
 
     companion object {
+        private fun appendSuperKlassToList(klass: KClass<*>, list: MutableList<KClass<*>>): List<KClass<*>> {
+            list.addAll(klass.superclasses)
+            return klass.superclasses
+        }
+
+        private fun getAllSuperKlass(klass: KClass<*>): List<KClass<*>> {
+            val all = mutableListOf(klass)
+            var appended = appendSuperKlassToList(klass, all)
+            while (appended.isNotEmpty()) {
+                val newAppended = mutableListOf<KClass<*>>()
+                for (newKlass in appended) {
+                    newAppended.addAll(appendSuperKlassToList(newKlass, all))
+                }
+                appended = newAppended
+            }
+            return all
+        }
+
         @OptIn(ExperimentalStdlibApi::class)
         private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
 
-            // Properties (Kotlin) and Fields (Java)
-            objKlass.memberProperties.forEach {
-                try {
-                    it.isAccessible = true
-                } catch (ignored: Exception) {
-                    logger.warn { "Cannot make accessible $it" }
-                    return@forEach
-                }
-                if (it.hasAnnotation<Required>()) {
-                    val annotationValues = it.findAnnotations(Required::class).map { annotation -> annotation.value }
-                    if (annotationValues.contains("") || annotationValues.contains(pomVersion)) {
-                        var element = it.javaGetter?.invoke(obj) ?: it.javaField?.get(obj)
-                        if (element is AtomicReference<*>) {
-                            // Using @Getter(lazy=true). Use getter method
-                            element = objKlass.members.first { member ->
-                                member.name == "get" + it.name.replaceFirstChar { first ->
-                                    if (first.isLowerCase()) first.titlecase(Locale.getDefault()) else first.toString()
-                                }
-                            }.call(obj)
-                        }
-                        errors.addAll(elementShouldLoad(element, end, pomVersion))
+            val allKlass = getAllSuperKlass(objKlass)
+            val processedNames = mutableListOf<String>()
+            for (currentKlass in allKlass) {
+                // Properties (Kotlin) and Fields (Java)
+                currentKlass.memberProperties.forEach {
+                    try {
+                        it.isAccessible = true
+                    } catch (ignored: Exception) {
+                        logger.warn { "Cannot make accessible $it" }
+                        return@forEach
                     }
+                    if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
+                        val annotationValues =
+                            it.findAnnotations(Required::class).map { annotation -> annotation.value }
+                        if (annotationValues.contains("") || annotationValues.contains(pomVersion)) {
+                            var element = it.javaGetter?.invoke(obj) ?: it.javaField?.get(obj)
+                            if (element is AtomicReference<*>) {
+                                // Using @Getter(lazy=true). Use getter method
+                                element = currentKlass.members.first { member ->
+                                    member.name == "get" + it.name.replaceFirstChar { first ->
+                                        if (first.isLowerCase()) first.titlecase(Locale.getDefault()) else first.toString()
+                                    }
+                                }.call(obj)
+                            }
+                            errors.addAll(elementShouldLoad(element, end, pomVersion))
+                        }
+                    }
+                    processedNames.add(it.name)
+                }
+
+                // Methods
+                currentKlass.functions.forEach {
+                    try {
+                        it.isAccessible = true
+                    } catch (ignored: Exception) {
+                        logger.warn { "Cannot make accessible $it" }
+                        return@forEach
+                    }
+                    if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
+                        val annotationValues =
+                            it.findAnnotations(Required::class).map { annotation -> annotation.value }
+                        if (annotationValues.contains("") || annotationValues.contains(pomVersion)) {
+                            val element = it.call(obj)
+                            errors.addAll(elementShouldLoad(element, end, pomVersion))
+                        }
+                    }
+                    processedNames.add(it.name)
                 }
             }
 
-            // Methods
-            objKlass.functions.forEach {
-                try {
-                    it.isAccessible = true
-                } catch (ignored: Exception) {
-                    logger.warn { "Cannot make accessible $it" }
-                    return@forEach
-                }
-                if (it.hasAnnotation<Required>()) {
-                    val annotationValues = it.findAnnotations(Required::class).map { annotation -> annotation.value }
-                    if (annotationValues.contains("") || annotationValues.contains(pomVersion)) {
-                        val element = it.call(obj)
-                        errors.addAll(elementShouldLoad(element, end, pomVersion))
-                    }
-                }
-            }
             return errors
         }
 
