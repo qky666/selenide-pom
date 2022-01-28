@@ -82,6 +82,7 @@ abstract class Page {
         private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
+            val objKlassName: String = objKlass.simpleName ?: "null"
 
             val allKlass = getAllSuperKlass(objKlass)
             val processedNames = mutableListOf<String>()
@@ -107,7 +108,7 @@ abstract class Page {
                                     }
                                 }.call(obj)
                             }
-                            errors.addAll(elementShouldLoad(element, end, pomVersion))
+                            errors.addAll(elementShouldLoad(element, end, pomVersion, objKlassName, it.name))
                         }
                     }
                     processedNames.add(it.name)
@@ -126,7 +127,7 @@ abstract class Page {
                             it.findAnnotations(Required::class).map { annotation -> annotation.value }
                         if (annotationValues.contains("") || annotationValues.contains(pomVersion)) {
                             val element = it.call(obj)
-                            errors.addAll(elementShouldLoad(element, end, pomVersion))
+                            errors.addAll(elementShouldLoad(element, end, pomVersion, objKlassName, it.name))
                         }
                     }
                     processedNames.add(it.name)
@@ -136,21 +137,27 @@ abstract class Page {
             return errors
         }
 
-        private fun elementShouldLoad(element: Any?, end: LocalDateTime, pomVersion: String): List<Throwable> {
+        private fun elementShouldLoad(
+            element: Any?, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
+        ): List<Throwable> {
             val signedTimeout: Duration = Duration.between(LocalDateTime.now(), end)
             val timeout: Duration = if (signedTimeout.isNegative) Duration.ZERO else signedTimeout
             when (element) {
                 null -> return listOf()
                 is By -> try {
                     Selenide.element(element).shouldBe(Condition.visible, timeout)
-                    logger.info { "Checked element is visible (By): ${element.toString().replace("\n", "\\n")}" }
+                    logger.info {
+                        "Checked element $elementName in $klassName is visible (By): ${
+                            element.toString().replace("\n", "\\n")
+                        }"
+                    }
                 } catch (e: Throwable) {
                     return listOf(e)
                 }
                 is SelenideElement -> try {
                     element.shouldBe(Condition.visible, timeout)
                     logger.info {
-                        "Checked element is visible (SelenideElement): ${
+                        "Checked element $elementName in $klassName is visible (SelenideElement): ${
                             element.toString().replace("\n", "\\n")
                         }"
                     }
@@ -164,7 +171,7 @@ abstract class Page {
                         ), timeout
                     )
                     logger.info {
-                        "Checked at least one element is visible (ElementsCollection): ${
+                        "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
                             element.toString().replace("\n", "\\n")
                         }"
                     }
@@ -174,7 +181,7 @@ abstract class Page {
                 is ElementsContainer -> return try {
                     element.self.shouldBe(Condition.visible, timeout)
                     logger.info {
-                        "Checked element is visible (ElementsContainer): ${
+                        "Checked element $elementName in $klassName is visible (ElementsContainer): ${
                             element.self.toString().replace("\n", "\\n")
                         }"
                     }
@@ -185,7 +192,7 @@ abstract class Page {
                 is Widget -> return try {
                     element.self.shouldBe(Condition.visible, timeout)
                     logger.info {
-                        "Checked element is visible (Widget): ${
+                        "Checked element $elementName in $klassName is visible (Widget): ${
                             element.self.toString().replace("\n", "\\n")
                         }"
                     }
@@ -199,7 +206,7 @@ abstract class Page {
                         ExpectedConditions.visibilityOf(element)
                     )
                     logger.info {
-                        "Checked element is visible (WebElement): ${
+                        "Checked element $elementName in $klassName is visible (WebElement): ${
                             element.toString().replace("\n", "\\n")
                         }"
                     }
