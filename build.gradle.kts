@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.8.5"
+version = "0.8.6"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.8.5"
+            version = "0.8.6"
 
             from(components["java"])
         }
@@ -20,29 +20,29 @@ repositories {
 }
 
 plugins {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.6.21"
 
     `java-library`
     `maven-publish`
     kotlin("jvm") version kotlinVersion
-    id("io.freefair.lombok") version "6.4.1"
+    id("io.freefair.lombok") version "6.4.3"
     id("com.github.ben-manes.versions") version "0.42.0"
 }
 
 dependencies {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.6.21"
     val jUnitVersion = "5.8.2"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation("com.codeborne:selenide:6.3.4")
+    implementation("com.codeborne:selenide:6.5.2")
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation("org.slf4j:slf4j-simple:1.7.36")
 
     // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation("io.github.microutils:kotlin-logging:2.1.23")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
