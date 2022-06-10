@@ -20,23 +20,23 @@ repositories {
 }
 
 plugins {
-    val kotlinVersion = "1.6.21"
+    val kotlinVersion = "1.7.0"
 
     `java-library`
     `maven-publish`
     kotlin("jvm") version kotlinVersion
-    id("io.freefair.lombok") version "6.4.3"
+    id("io.freefair.lombok") version "6.4.3.1"
     id("com.github.ben-manes.versions") version "0.42.0"
 }
 
 dependencies {
-    val kotlinVersion = "1.6.21"
+    val kotlinVersion = "1.7.0"
     val jUnitVersion = "5.8.2"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation("com.codeborne:selenide:6.5.2")
+    implementation("com.codeborne:selenide:6.6.2")
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation("org.slf4j:slf4j-simple:1.7.36")
