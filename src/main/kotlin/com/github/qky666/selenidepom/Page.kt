@@ -78,7 +78,6 @@ abstract class Page {
             return all
         }
 
-        @OptIn(ExperimentalStdlibApi::class)
         private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class

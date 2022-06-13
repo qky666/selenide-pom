@@ -18,3 +18,5 @@ class ServicesPage : MainFramePage() {
         title.shouldHave(Condition.text("Aseguramiento de la calidad"), timeout)
     }
 }
+
+val servicesPage = ServicesPage()

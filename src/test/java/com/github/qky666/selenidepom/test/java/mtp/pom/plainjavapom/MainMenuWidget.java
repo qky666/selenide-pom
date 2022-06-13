@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class MainMenuWidget extends Widget {
     @Required public final SelenideElement services;
-    public final SelenideElement servicesPopUp;
+    @SuppressWarnings("unused") public final SelenideElement servicesPopUp;
     public final SelenideElement servicesPopUpQualityAssurance;
 
     public MainMenuWidget() {

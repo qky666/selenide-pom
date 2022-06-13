@@ -7,10 +7,10 @@ import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
 import com.github.qky666.selenidepom.RequiredError
 import com.github.qky666.selenidepom.SPConfig
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.MainFramePage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.ServicesPage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.ServicesRequiredErrorPage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.ServicesShouldLoadRequiredErrorPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.mainFramePage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesRequiredErrorPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesShouldLoadRequiredErrorPage
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
@@ -20,11 +20,6 @@ import org.openqa.selenium.chrome.ChromeOptions
 import java.time.Duration
 
 class MtpKotlinTest {
-    val mainFramePage = MainFramePage()
-    val servicesPage = ServicesPage()
-    val servicesRequiredErrorPage = ServicesRequiredErrorPage()
-    val servicesShouldLoadRequiredErrorPage = ServicesShouldLoadRequiredErrorPage()
-
     companion object {
         @JvmStatic
         fun desktopBrowserConfigSource(): List<String> {

@@ -20,3 +20,5 @@ class ServicesRequiredErrorPage : MainFramePage() {
         title.shouldHave(Condition.text("Aseguramiento de la calidad"))
     }
 }
+
+val servicesRequiredErrorPage = ServicesRequiredErrorPage()

@@ -17,3 +17,5 @@ class ServicesShouldLoadRequiredErrorPage : MainFramePage() {
         title.shouldHave(Condition.text("Aseguramiento de la calidad con error"), timeout)
     }
 }
+
+val servicesShouldLoadRequiredErrorPage = ServicesShouldLoadRequiredErrorPage()

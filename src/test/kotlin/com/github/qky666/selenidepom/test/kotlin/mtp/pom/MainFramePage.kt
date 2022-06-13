@@ -10,3 +10,5 @@ open class MainFramePage : Page() {
     val mobileMenu = MobileMenuWidget()
     val cookiesBanner = CookiesBannerWidget()
 }
+
+val mainFramePage = MainFramePage()
