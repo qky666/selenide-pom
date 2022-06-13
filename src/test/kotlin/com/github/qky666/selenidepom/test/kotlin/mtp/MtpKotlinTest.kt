@@ -1,5 +1,6 @@
 package com.github.qky666.selenidepom.test.kotlin.mtp
 
+import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.ex.ElementNotFound
@@ -153,8 +154,9 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
         mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
         mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.click()
+        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         servicesPage.shouldLoadRequired()
         Assertions.assertEquals(
             "div#cookie-law-info-bar/a#cookie_action_close_header", servicesPage.cookiesBanner.accept.searchCriteria
@@ -168,8 +170,9 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
         mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
         mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.click()
+        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         servicesPage.shouldLoadRequired()
         Assertions.assertThrows(ElementNotFound::class.java) { servicesPage.badSelector.click() }
     }
@@ -181,8 +184,9 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
         mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
         mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.click()
+        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         Assertions.assertThrows(ElementShould::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
     }
 
@@ -193,8 +197,9 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
         mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
         mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.click()
+        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         val error =
             Assertions.assertThrows(RequiredError::class.java) { servicesRequiredErrorPage.shouldLoadRequired() }
         Assertions.assertEquals(2, error.suppressed.size)
@@ -207,6 +212,7 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
         mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
         mainFramePage.mobileMenu.services.click()
         // User forgot to click Quality Assurance link
         Assertions.assertFalse(servicesPage.hasLoadedRequired())

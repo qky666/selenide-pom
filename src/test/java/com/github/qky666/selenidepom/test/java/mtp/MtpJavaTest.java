@@ -1,5 +1,6 @@
 package com.github.qky666.selenidepom.test.java.mtp;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
 import com.github.qky666.selenidepom.RequiredError;
@@ -92,8 +93,9 @@ public class MtpJavaTest extends BaseMtpTest {
         acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         mainFramePage.getMobileMenu().shouldLoadRequired();
+        mainFramePage.getMobileMenu().shouldBeCollapsed();
         mainFramePage.getMobileMenu().getServices().click();
-        mainFramePage.getMobileMenu().getServicesQualityAssurance().click();
+        mainFramePage.getMobileMenu().getServicesQualityAssurance().shouldBe(Condition.visible).click();
 
         servicesPage.shouldLoadRequired();
         Assertions.assertEquals(
@@ -109,8 +111,9 @@ public class MtpJavaTest extends BaseMtpTest {
         acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         mainFramePage.getMobileMenu().shouldLoadRequired();
+        mainFramePage.getMobileMenu().shouldBeCollapsed();
         mainFramePage.getMobileMenu().getServices().click();
-        mainFramePage.getMobileMenu().getServicesQualityAssurance().click();
+        mainFramePage.getMobileMenu().getServicesQualityAssurance().shouldBe(Condition.visible).click();
 
         servicesPage.shouldLoadRequired();
         Assertions.assertThrows(ElementNotFound.class, servicesPage.getBadSelector()::click);
@@ -123,8 +126,9 @@ public class MtpJavaTest extends BaseMtpTest {
         acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         mainFramePage.getMobileMenu().shouldLoadRequired();
+        mainFramePage.getMobileMenu().shouldBeCollapsed();
         mainFramePage.getMobileMenu().getServices().click();
-        mainFramePage.getMobileMenu().getServicesQualityAssurance().click();
+        mainFramePage.getMobileMenu().getServicesQualityAssurance().shouldBe(Condition.visible).click();
 
         Assertions.assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
     }
@@ -136,8 +140,9 @@ public class MtpJavaTest extends BaseMtpTest {
         acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         mainFramePage.getMobileMenu().shouldLoadRequired();
+        mainFramePage.getMobileMenu().shouldBeCollapsed();
         mainFramePage.getMobileMenu().getServices().click();
-        mainFramePage.getMobileMenu().getServicesQualityAssurance().click();
+        mainFramePage.getMobileMenu().getServicesQualityAssurance().shouldBe(Condition.visible).click();
 
         RequiredError error = Assertions.assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
         Assertions.assertEquals(2, error.getSuppressed().length);
@@ -150,6 +155,7 @@ public class MtpJavaTest extends BaseMtpTest {
         acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         mainFramePage.getMobileMenu().shouldLoadRequired();
+        mainFramePage.getMobileMenu().shouldBeCollapsed();
         mainFramePage.getMobileMenu().getServices().click();
         // User forgot to click Quality Assurance link
 
