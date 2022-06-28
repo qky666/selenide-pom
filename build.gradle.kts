@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.8.6"
+version = "0.8.7"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.8.6"
+            version = "0.8.7"
 
             from(components["java"])
         }
@@ -25,7 +25,7 @@ plugins {
     `java-library`
     `maven-publish`
     kotlin("jvm") version kotlinVersion
-    id("io.freefair.lombok") version "6.4.3.1"
+    id("io.freefair.lombok") version "6.5.0.2"
     id("com.github.ben-manes.versions") version "0.42.0"
 }
 
@@ -36,7 +36,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
     // https://mvnrepository.com/artifact/com.codeborne/selenide
-    implementation("com.codeborne:selenide:6.6.3")
+    implementation("com.codeborne:selenide:6.6.5")
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation("org.slf4j:slf4j-simple:1.7.36")
