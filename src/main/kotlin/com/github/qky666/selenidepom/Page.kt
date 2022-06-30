@@ -59,6 +59,7 @@ abstract class Page {
         return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion).isEmpty()
     }
 
+    @Suppress("unused")
     companion object {
         private fun appendSuperKlassToList(klass: KClass<*>, list: MutableList<KClass<*>>): List<KClass<*>> {
             list.addAll(klass.superclasses)

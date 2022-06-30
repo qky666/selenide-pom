@@ -2,7 +2,6 @@ package com.github.qky666.selenidepom.test.kotlin.mtp
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
 import com.github.qky666.selenidepom.RequiredError
@@ -15,8 +14,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import org.openqa.selenium.MutableCapabilities
-import org.openqa.selenium.chrome.ChromeOptions
 import java.time.Duration
 
 class MtpKotlinTest {
@@ -33,44 +30,17 @@ class MtpKotlinTest {
     }
 
     private fun setUpBrowser(browserConfig: String) {
-        if (browserConfig.equals("chrome", ignoreCase = true)) {
-            setUpChrome()
-        } else if (browserConfig.equals("firefox", ignoreCase = true)) {
-            setUpFirefox()
-        } else if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
-            setUpChromeMobile()
+        SPConfig.resetSelenideConfig()
+        val config = SPConfig.getSelenideConfig()
+        if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
+            SPConfig.addMobileEmulation()
+            SPConfig.setPomVersion("mobile")
         } else {
-            throw RuntimeException("Unknown browserConfig: $browserConfig")
+            config.browser(browserConfig)
+            SPConfig.setPomVersion("desktop")
         }
-        val selenideConfig = SPConfig.getSelenideConfig()
-        selenideConfig.baseUrl("https://mtp.es")
-
-        WebDriverRunner.setWebDriver(SPConfig.webDriverFactory.createWebDriver(selenideConfig, null, null))
-        Selenide.open(selenideConfig.baseUrl())
-    }
-
-    private fun setUpChrome() {
-        val selenideConfig = SPConfig.getSelenideConfig()
-        selenideConfig.browser("chrome")
-        selenideConfig.browserCapabilities(MutableCapabilities())
-        SPConfig.setPomVersion("desktop")
-    }
-
-    private fun setUpFirefox() {
-        val selenideConfig = SPConfig.getSelenideConfig()
-        selenideConfig.browser("firefox")
-        selenideConfig.browserCapabilities(MutableCapabilities())
-        SPConfig.setPomVersion("desktop")
-    }
-
-    private fun setUpChromeMobile() {
-        val selenideConfig = SPConfig.getSelenideConfig()
-        selenideConfig.browser("chrome")
-        val chromeOptions = ChromeOptions()
-        chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to "Nexus 5"))
-        val newCapabilities = chromeOptions.merge(selenideConfig.browserCapabilities())
-        selenideConfig.browserCapabilities(newCapabilities)
-        SPConfig.setPomVersion("mobile")
+        SPConfig.setWebDriver()
+        Selenide.open("")
     }
 
     fun acceptCookies() {

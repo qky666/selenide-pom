@@ -1,7 +1,11 @@
 package com.github.qky666.selenidepom
 
 import com.codeborne.selenide.SelenideConfig
+import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.webdriver.WebDriverFactory
+import org.openqa.selenium.Proxy
+import org.openqa.selenium.chrome.ChromeOptions
+import java.io.File
 import java.io.FileReader
 import java.io.IOException
 import java.util.Properties
@@ -20,11 +24,7 @@ object SPConfig {
     private const val fileName = "selenide-pom.properties"
     private const val defaultPomVersion = "default"
     private val properties = Properties()
-
-    /**
-     * A Selenide [com.codeborne.selenide.webdriver.WebDriverFactory] instance. May be util in multithreading environments
-     */
-    val webDriverFactory = WebDriverFactory()
+    private val webDriverFactory = WebDriverFactory()
 
     init {
         try {
@@ -35,8 +35,7 @@ object SPConfig {
 
     private val pomVersion: ThreadLocal<String> = ThreadLocal.withInitial {
         System.getProperty(
-            "selenide-pom.pomVersion",
-            properties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+            "selenide-pom.pomVersion", properties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
         )
     }
 
@@ -56,6 +55,7 @@ object SPConfig {
      *
      * @param value The new value.
      */
+    @Suppress("unused")
     fun setPomVersion(value: String) {
         pomVersion.set(value)
     }
@@ -66,7 +66,7 @@ object SPConfig {
      * Returns the selenideConfig (thread local value).
      * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties and Selenide properties file
      *
-     * @return default pomVersion.
+     * @return thread local selenideConfig.
      */
     fun getSelenideConfig(): SelenideConfig {
         return selenideConfig.get()
@@ -80,5 +80,37 @@ object SPConfig {
     @Suppress("unused")
     fun setSelenideConfig(value: SelenideConfig) {
         selenideConfig.set(value)
+    }
+
+    /**
+     * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance
+     */
+    fun addMobileEmulation(deviceName: String = "Nexus 5") {
+        val config = selenideConfig.get()
+        config.browser("chrome")
+        val chromeOptions = ChromeOptions()
+        chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to deviceName))
+        val newCapabilities = chromeOptions.merge(config.browserCapabilities())
+        config.browserCapabilities(newCapabilities)
+    }
+
+    /**
+     * Creates a new WebDriver based on thread local selenideConfig configuration
+     * and tells Selenide to use this instance.
+     *
+     * @param proxy Proxy passed to webDriverFactory.createWebDriver, usually left to null
+     * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually left to null
+     */
+    fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
+        val driver = webDriverFactory.createWebDriver(selenideConfig.get(), proxy, browserDownloadsFolder)
+        WebDriverRunner.setWebDriver(driver)
+    }
+
+    /**
+     * Resets current thread selenideConfig to the default [com.codeborne.selenide.Configuration] obtained
+     * from System properties and Selenide properties file
+     */
+    fun resetSelenideConfig() {
+        selenideConfig.set(SelenideConfig())
     }
 }
