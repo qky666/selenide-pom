@@ -31,12 +31,11 @@ class MtpKotlinTest {
 
     private fun setUpBrowser(browserConfig: String) {
         SPConfig.resetSelenideConfig()
-        val config = SPConfig.getSelenideConfig()
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
             SPConfig.addMobileEmulation()
             SPConfig.setPomVersion("mobile")
         } else {
-            config.browser(browserConfig)
+            SPConfig.getSelenideConfig().browser(browserConfig)
             SPConfig.setPomVersion("desktop")
         }
         SPConfig.setWebDriver()

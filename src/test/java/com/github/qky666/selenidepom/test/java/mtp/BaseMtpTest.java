@@ -23,12 +23,11 @@ public abstract class BaseMtpTest {
     protected void setUpBrowser(String browserConfig) {
         SPConfig spConfig = SPConfig.INSTANCE;
         spConfig.resetSelenideConfig();
-        SelenideConfig config = spConfig.getSelenideConfig();
         if (browserConfig.equals("chromeMobile")) {
             spConfig.addMobileEmulation("Nexus 5");
             spConfig.setPomVersion("mobile");
         } else {
-            config.browser(browserConfig);
+            spConfig.getSelenideConfig().browser(browserConfig);
             spConfig.setPomVersion("desktop");
         }
         spConfig.setWebDriver(null, null);
