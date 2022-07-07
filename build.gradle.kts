@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.9.1"
+version = "0.9.2"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.9.1"
+            version = "0.9.2"
 
             from(components["java"])
         }
@@ -63,5 +63,5 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 //    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
-    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+//    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }

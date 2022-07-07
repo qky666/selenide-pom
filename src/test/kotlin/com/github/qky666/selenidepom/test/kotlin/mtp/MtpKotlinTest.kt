@@ -30,15 +30,11 @@ class MtpKotlinTest {
     }
 
     private fun setUpBrowser(browserConfig: String) {
-        SPConfig.resetSelenideConfig()
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
-            SPConfig.addMobileEmulation()
-            SPConfig.setPomVersion("mobile")
+            SPConfig.setupBasicMobileBrowser()
         } else {
-            SPConfig.getSelenideConfig().browser(browserConfig)
-            SPConfig.setPomVersion("desktop")
+            SPConfig.setupBasicDesktopBrowser(browserConfig)
         }
-        SPConfig.setWebDriver()
         Selenide.open("")
     }
 

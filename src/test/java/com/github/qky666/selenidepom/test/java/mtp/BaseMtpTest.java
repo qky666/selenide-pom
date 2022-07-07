@@ -1,7 +1,6 @@
 package com.github.qky666.selenidepom.test.java.mtp;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideConfig;
 import com.github.qky666.selenidepom.SPConfig;
 import org.junit.jupiter.api.AfterEach;
 
@@ -22,15 +21,11 @@ public abstract class BaseMtpTest {
 
     protected void setUpBrowser(String browserConfig) {
         SPConfig spConfig = SPConfig.INSTANCE;
-        spConfig.resetSelenideConfig();
         if (browserConfig.equals("chromeMobile")) {
-            spConfig.addMobileEmulation("Nexus 5");
-            spConfig.setPomVersion("mobile");
+            spConfig.setupBasicMobileBrowser(SPConfig.defaultDeviceName, SPConfig.defaultMobilePomVersion);
         } else {
-            spConfig.getSelenideConfig().browser(browserConfig);
-            spConfig.setPomVersion("desktop");
+            spConfig.setupBasicDesktopBrowser(browserConfig, SPConfig.defaultDesktopPomVersion);
         }
-        spConfig.setWebDriver(null, null);
         Selenide.open("");
     }
 

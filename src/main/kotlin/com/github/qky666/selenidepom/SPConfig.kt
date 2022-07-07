@@ -23,12 +23,15 @@ import java.util.Properties
 object SPConfig {
     private const val fileName = "selenide-pom.properties"
     private const val defaultPomVersion = "default"
+    const val defaultDesktopPomVersion = "desktop"
+    const val defaultMobilePomVersion = "mobile"
+    const val defaultDeviceName = "Nexus 5"
     private val properties = Properties()
     private val webDriverFactory = WebDriverFactory()
 
     init {
         try {
-            properties.load(FileReader(fileName))
+            properties.load(FileReader(ClassLoader.getSystemResource(fileName).file))
         } catch (ignored: IOException) {
         }
     }
@@ -42,7 +45,7 @@ object SPConfig {
     /**
      * Returns the default pomVersion (thread local value) used in [Page.shouldLoadRequired] and [Page.hasLoadedRequired] methods.
      * Default value: "selenide-pom.pomVersion" System property if defined, "selenide-pom.pomVersion" value in selenide-pom.properties if defined,
-     * or "default" in other case.
+     * or [defaultPomVersion] in other case.
      *
      * @return the pomVersion.
      */
@@ -68,6 +71,7 @@ object SPConfig {
      *
      * @return thread local selenideConfig.
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     fun getSelenideConfig(): SelenideConfig {
         return selenideConfig.get()
     }
@@ -83,9 +87,10 @@ object SPConfig {
     }
 
     /**
-     * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance
+     * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance.
      */
-    fun addMobileEmulation(deviceName: String = "Nexus 5") {
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun addMobileEmulation(deviceName: String = defaultDeviceName) {
         val config = selenideConfig.get()
         config.browser("chrome")
         val chromeOptions = ChromeOptions()
@@ -101,6 +106,7 @@ object SPConfig {
      * @param proxy Proxy passed to webDriverFactory.createWebDriver, usually left to null
      * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually left to null
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
         val driver = webDriverFactory.createWebDriver(selenideConfig.get(), proxy, browserDownloadsFolder)
         WebDriverRunner.setWebDriver(driver)
@@ -112,5 +118,43 @@ object SPConfig {
      */
     fun resetSelenideConfig() {
         selenideConfig.set(SelenideConfig())
+        setPomVersion(
+            System.getProperty(
+                "selenide-pom.pomVersion", properties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+            )
+        )
+    }
+
+    /**
+     * Creates a new basic desktop WebDriver of type 'browser' based on thread local selenideConfig configuration,
+     * tells Selenide to use this instance, and sets the default pomVersion to use.
+     *
+     * @param browser The type of WebDriver to create (chrome, firefox, edge, etc.)
+     * @param pomVersion The default pomVersion to use
+     */
+    fun setupBasicDesktopBrowser(
+        browser: String = getSelenideConfig().browser(),
+        pomVersion: String = defaultDesktopPomVersion
+    ) {
+        resetSelenideConfig()
+        getSelenideConfig().browser(browser)
+        setPomVersion(pomVersion)
+        setWebDriver()
+    }
+
+    /**
+     * Creates a new basic mobile WebDriver based on thread local selenideConfig configuration
+     * and adds mobile emulation using the given deviceName to it, tells Selenide to use this instance,
+     * and sets the default pomVersion to use.
+     *
+     * @param deviceName The type of WebDriver to create (chrome, firefox, edge, etc.)
+     * @param pomVersion The default pomVersion to use
+     */
+    fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, pomVersion: String = defaultMobilePomVersion) {
+        resetSelenideConfig()
+        getSelenideConfig().browser("chrome")
+        addMobileEmulation(deviceName)
+        setPomVersion(pomVersion)
+        setWebDriver()
     }
 }
