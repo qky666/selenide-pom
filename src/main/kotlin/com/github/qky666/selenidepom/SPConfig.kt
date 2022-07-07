@@ -6,9 +6,7 @@ import com.codeborne.selenide.webdriver.WebDriverFactory
 import org.openqa.selenium.Proxy
 import org.openqa.selenium.chrome.ChromeOptions
 import java.io.File
-import java.io.FileReader
-import java.io.IOException
-import java.util.Properties
+import java.util.*
 
 
 /**
@@ -26,19 +24,19 @@ object SPConfig {
     const val defaultDesktopPomVersion = "desktop"
     const val defaultMobilePomVersion = "mobile"
     const val defaultDeviceName = "Nexus 5"
-    private val properties = Properties()
+    private val fileProperties = Properties()
     private val webDriverFactory = WebDriverFactory()
 
     init {
-        try {
-            properties.load(FileReader(ClassLoader.getSystemResource(fileName).file))
-        } catch (ignored: IOException) {
+        val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(fileName)
+        if (inputStream != null) {
+            fileProperties.load(inputStream)
         }
     }
 
     private val pomVersion: ThreadLocal<String> = ThreadLocal.withInitial {
         System.getProperty(
-            "selenide-pom.pomVersion", properties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+            "selenide-pom.pomVersion", fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
         )
     }
 
@@ -120,7 +118,7 @@ object SPConfig {
         selenideConfig.set(SelenideConfig())
         setPomVersion(
             System.getProperty(
-                "selenide-pom.pomVersion", properties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+                "selenide-pom.pomVersion", fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
             )
         )
     }
