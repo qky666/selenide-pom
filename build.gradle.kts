@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.9.3"
+version = "0.9.4"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.9.3"
+            version = "0.9.4"
 
             from(components["java"])
         }
@@ -20,7 +20,7 @@ repositories {
 }
 
 plugins {
-    val kotlinVersion = "1.7.0"
+    val kotlinVersion = "1.7.10"
 
     `java-library`
     `maven-publish`
@@ -30,7 +30,7 @@ plugins {
 }
 
 dependencies {
-    val kotlinVersion = "1.7.0"
+    val kotlinVersion = "1.7.10"
     val jUnitVersion = "5.8.2"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
