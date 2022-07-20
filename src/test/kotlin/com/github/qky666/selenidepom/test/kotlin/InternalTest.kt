@@ -9,7 +9,7 @@ class InternalTest {
     fun verifyPomVersionFromPropertiesFile() {
         System.clearProperty("selenide-pom.pomVersion")
         SPConfig.resetSelenideConfig()
-        val defaultPomVersion = SPConfig.getPomVersion()
+        val defaultPomVersion = SPConfig.pomVersion
         Assertions.assertEquals("filePomVersion", defaultPomVersion)
     }
 }

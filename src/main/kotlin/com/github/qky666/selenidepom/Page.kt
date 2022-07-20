@@ -34,7 +34,7 @@ abstract class Page {
     @Throws(RequiredError::class)
     @JvmOverloads
     open fun shouldLoadRequired(
-        timeout: Duration = Duration.ofMillis(Configuration.timeout), pomVersion: String = SPConfig.getPomVersion()
+        timeout: Duration = Duration.ofMillis(Configuration.timeout), pomVersion: String = SPConfig.pomVersion
     ) {
         val className = this::class.simpleName
         logger.info { "Starting shouldLoadRequired in $className" }
@@ -53,7 +53,7 @@ abstract class Page {
      */
     @Suppress("BooleanMethodIsAlwaysInverted")
     @JvmOverloads
-    fun hasLoadedRequired(timeout: Duration = Duration.ZERO, pomVersion: String = SPConfig.getPomVersion()): Boolean {
+    fun hasLoadedRequired(timeout: Duration = Duration.ZERO, pomVersion: String = SPConfig.pomVersion): Boolean {
         val className = this::class.simpleName
         logger.info { "Starting hasLoadedRequired in $className" }
         return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion).isEmpty()
