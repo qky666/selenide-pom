@@ -22,9 +22,9 @@ public abstract class BaseMtpTest {
     protected void setUpBrowser(String browserConfig) {
         SPConfig spConfig = SPConfig.INSTANCE;
         if (browserConfig.equals("chromeMobile")) {
-            spConfig.setupBasicMobileBrowser(SPConfig.defaultDeviceName, SPConfig.defaultMobilePomVersion);
+            spConfig.setupBasicMobileBrowser();
         } else {
-            spConfig.setupBasicDesktopBrowser(browserConfig, SPConfig.defaultDesktopPomVersion);
+            spConfig.setupBasicDesktopBrowser(browserConfig);
         }
         Selenide.open("");
     }

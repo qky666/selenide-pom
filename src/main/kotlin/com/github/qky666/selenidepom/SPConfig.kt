@@ -21,9 +21,9 @@ import java.util.*
 object SPConfig {
     private const val fileName = "selenide-pom.properties"
     private const val defaultPomVersion = "default"
-    const val defaultDesktopPomVersion = "desktop"
-    const val defaultMobilePomVersion = "mobile"
-    const val defaultDeviceName = "Nexus 5"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultDesktopPomVersion = "desktop"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultMobilePomVersion = "mobile"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultDeviceName = "Nexus 5"
     private val fileProperties = Properties()
     private val webDriverFactory = WebDriverFactory()
 
@@ -88,6 +88,7 @@ object SPConfig {
      * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance.
      */
     @Suppress("MemberVisibilityCanBePrivate")
+    @JvmOverloads
     fun addMobileEmulation(deviceName: String = defaultDeviceName) {
         val config = selenideConfig.get()
         config.browser("chrome")
@@ -105,6 +106,7 @@ object SPConfig {
      * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually left to null
      */
     @Suppress("MemberVisibilityCanBePrivate")
+    @JvmOverloads
     fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
         val driver = webDriverFactory.createWebDriver(selenideConfig.get(), proxy, browserDownloadsFolder)
         WebDriverRunner.setWebDriver(driver)
@@ -130,6 +132,7 @@ object SPConfig {
      * @param browser The type of WebDriver to create (chrome, firefox, edge, etc.)
      * @param pomVersion The default pomVersion to use
      */
+    @JvmOverloads
     fun setupBasicDesktopBrowser(
         browser: String = getSelenideConfig().browser(),
         pomVersion: String = defaultDesktopPomVersion
@@ -148,6 +151,7 @@ object SPConfig {
      * @param deviceName The type of WebDriver to create (chrome, firefox, edge, etc.)
      * @param pomVersion The default pomVersion to use
      */
+    @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, pomVersion: String = defaultMobilePomVersion) {
         resetSelenideConfig()
         getSelenideConfig().browser("chrome")

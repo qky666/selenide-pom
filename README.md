@@ -7,7 +7,6 @@ Page Object Model utilities for Selenide
 ```
 allprojects {
     repositories {
-        ...
         maven { url 'https://jitpack.io' }
     }
 }
