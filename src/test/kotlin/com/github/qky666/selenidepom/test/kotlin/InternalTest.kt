@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.test.kotlin
 
-import com.github.qky666.selenidepom.SPConfig
+import com.github.qky666.selenidepom.config.SPConfig
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 

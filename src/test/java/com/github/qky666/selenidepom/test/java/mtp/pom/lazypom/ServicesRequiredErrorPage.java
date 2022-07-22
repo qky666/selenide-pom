@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.mtp.pom.lazypom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.error.RequiredError;
 import lombok.Getter;
 
 import java.time.Duration;

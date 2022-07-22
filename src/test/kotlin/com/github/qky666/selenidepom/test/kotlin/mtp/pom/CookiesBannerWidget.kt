@@ -3,9 +3,9 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.Selenide
-import com.github.qky666.selenidepom.Required
-import com.github.qky666.selenidepom.RequiredError
-import com.github.qky666.selenidepom.Widget
+import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.error.RequiredError
+import com.github.qky666.selenidepom.pom.Widget
 import java.time.Duration
 import kotlin.Throws
 

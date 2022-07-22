@@ -6,8 +6,8 @@ import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.Selenide
-import com.github.qky666.selenidepom.Required
-import com.github.qky666.selenidepom.Widget
+import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.pom.Widget
 import org.openqa.selenium.WebElement
 
 

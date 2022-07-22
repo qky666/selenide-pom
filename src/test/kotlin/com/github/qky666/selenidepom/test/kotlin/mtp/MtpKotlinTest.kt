@@ -4,8 +4,9 @@ import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
-import com.github.qky666.selenidepom.RequiredError
-import com.github.qky666.selenidepom.SPConfig
+import com.github.qky666.selenidepom.error.RequiredError
+import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.mainFramePage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesRequiredErrorPage
@@ -17,6 +18,9 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.time.Duration
 
 class MtpKotlinTest {
+
+    private var testData = TestData("prod")
+
     companion object {
         @JvmStatic
         fun desktopBrowserConfigSource(): List<String> {
@@ -35,7 +39,12 @@ class MtpKotlinTest {
         } else {
             SPConfig.setupBasicDesktopBrowser(browserConfig)
         }
-        Selenide.open("")
+        // testData is already initialized, but if there were more environments this could be a good place to
+        // set testData
+        testData = TestData("prod")
+        Selenide.open(testData.input.getProperty("data.input.baseUrl"))
+        // Additional test for output in TestData
+        testData.output["threadId"] = Thread.currentThread().id
     }
 
     fun acceptCookies() {
@@ -46,6 +55,8 @@ class MtpKotlinTest {
     @AfterEach
     fun closeBrowser() {
         Selenide.closeWebDriver()
+        // Additional test for output in TestData
+        Assertions.assertEquals(testData.output["threadId"], Thread.currentThread().id)
     }
 
     @ParameterizedTest

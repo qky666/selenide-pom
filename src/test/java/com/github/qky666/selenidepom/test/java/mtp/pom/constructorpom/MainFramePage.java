@@ -1,7 +1,7 @@
 package com.github.qky666.selenidepom.test.java.mtp.pom.constructorpom;
 
-import com.github.qky666.selenidepom.Page;
-import com.github.qky666.selenidepom.Required;
+import com.github.qky666.selenidepom.pom.Page;
+import com.github.qky666.selenidepom.annotation.Required;
 
 import static com.codeborne.selenide.Selenide.$;
 

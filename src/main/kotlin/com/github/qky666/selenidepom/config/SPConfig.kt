@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.config
 
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.WebDriverRunner
@@ -45,7 +45,8 @@ object SPConfig {
     }
 
     /**
-     * The default pomVersion (thread local value) used in [Page.shouldLoadRequired] and [Page.hasLoadedRequired] methods.
+     * The default pomVersion (thread local value) used in [com.github.qky666.selenidepom.pom.Page.shouldLoadRequired]
+     * and [com.github.qky666.selenidepom.pom.Page.hasLoadedRequired] methods.
      * Default value: "selenide-pom.pomVersion" System property if defined, "selenide-pom.pomVersion" value in selenide-pom.properties if defined,
      * or [defaultPomVersion] in other case.
      */
@@ -118,7 +119,7 @@ object SPConfig {
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)
-        this.pomVersion = pomVersion
+        SPConfig.pomVersion = pomVersion
         setWebDriver()
     }
 
@@ -135,7 +136,7 @@ object SPConfig {
         resetSelenideConfig()
         selenideConfig.browser("chrome")
         addMobileEmulation(deviceName)
-        this.pomVersion = pomVersion
+        SPConfig.pomVersion = pomVersion
         setWebDriver()
     }
 }

@@ -1,6 +1,9 @@
-package com.github.qky666.selenidepom
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.*
+import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.error.RequiredError
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -15,8 +18,6 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.reflect.KClass
 import kotlin.reflect.full.*
-
-private val logger = KotlinLogging.logger {}
 
 /**
  * Instances of this class can have properties that can be annotated with [Required] annotation.
@@ -61,6 +62,7 @@ abstract class Page {
 
     @Suppress("unused")
     companion object {
+        private val logger = KotlinLogging.logger {}
         private fun appendSuperKlassToList(klass: KClass<*>, list: MutableList<KClass<*>>): List<KClass<*>> {
             list.addAll(klass.superclasses)
             return klass.superclasses

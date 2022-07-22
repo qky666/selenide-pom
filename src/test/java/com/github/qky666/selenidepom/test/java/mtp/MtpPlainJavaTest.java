@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.test.java.mtp;
 
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
-import com.github.qky666.selenidepom.RequiredError;
+import com.github.qky666.selenidepom.error.RequiredError;
 import com.github.qky666.selenidepom.test.java.mtp.pom.plainjavapom.MainFramePage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.plainjavapom.ServicesPage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.plainjavapom.ServicesRequiredErrorPage;

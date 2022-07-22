@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.mtp.pom.kotlinpom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.Required;
-import com.github.qky666.selenidepom.Page;
+import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Page;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;
