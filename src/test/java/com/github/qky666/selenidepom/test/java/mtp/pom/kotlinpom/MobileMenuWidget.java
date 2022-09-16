@@ -8,25 +8,21 @@ import com.github.qky666.selenidepom.pom.Widget;
 import lombok.Getter;
 import org.openqa.selenium.WebElement;
 
-import static com.codeborne.selenide.Selenide.$;
-
-public class MobileMenuWidget extends Widget {
+public class MobileMenuWidget extends Widget<MobileMenuWidget> {
 
     // Fields
     // First level menu items. I only write one, but there are more
     @Getter(lazy = true)
     @Required
-    private final SelenideElement services = getSelf().$x(".//li[@aria-expanded]/a[.='Servicios']");
+    private final SelenideElement services = this.$x(".//li[@aria-expanded]/a[.='Servicios']");
 
     // All first level menu items
-    @Getter(lazy = true) private final ElementsCollection firstLevelMenuItems = getSelf().$$("li.uk-parent");
+    @Getter(lazy = true) private final ElementsCollection firstLevelMenuItems = this.$$("li.uk-parent");
 
     // Second level menú items. I only write one, but there are more
-    @Getter(lazy = true) private final SelenideElement servicesQualityAssurance = getSelf().$x(".//a[.='Aseguramiento de la calidad']");
+    @Getter(lazy = true) private final SelenideElement servicesQualityAssurance = this.$x(".//a[.='Aseguramiento de la calidad']");
 
-    //Constructors
-    public MobileMenuWidget() {this($("div#menu-movil ul.uk-nav"));}
-
+    //Constructor
     public MobileMenuWidget(SelenideElement self) {super(self);}
 
     public void shouldBeCollapsed() {

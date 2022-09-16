@@ -5,18 +5,14 @@ import com.github.qky666.selenidepom.annotation.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 import lombok.Getter;
 
-import static com.codeborne.selenide.Selenide.$;
-
-public class MainMenuWidget extends Widget {
+public class MainMenuWidget extends Widget<MainMenuWidget> {
 
     // Fields
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement services = getSelf().$("li#servicios_menu");
-    @Getter(lazy = true) private final SelenideElement servicesPopUp = getSelf().$("div.dropdown-servicios");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement services = this.$("li#servicios_menu");
+    @Getter(lazy = true) private final SelenideElement servicesPopUp = this.$("div.dropdown-servicios");
     @Getter(lazy = true) private final SelenideElement servicesPopUpQualityAssurance = getServicesPopUp().$("a[data-principal='Aseguramiento de la calidad']");
 
-    //Constructors
-    public MainMenuWidget() {this($("div.custom-menu"));}
-
+    //Constructor
     public MainMenuWidget(SelenideElement self) {super(self);}
 
 }

@@ -2,18 +2,16 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
-import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.annotation.Required
 import com.github.qky666.selenidepom.error.RequiredError
 import com.github.qky666.selenidepom.pom.Widget
 import java.time.Duration
 import kotlin.Throws
 
-class CookiesBannerWidget(override val self: SelenideElement = Selenide.element("div#cookie-law-info-bar")) :
-    Widget(self) {
+class CookiesBannerWidget(self: SelenideElement) : Widget<CookiesBannerWidget>(self) {
 
-    @Required val cookiesText = self.find("div.cli-bar-message")
-    @Required val accept = self.find("a#cookie_action_close_header")
+    @Required val cookiesText = this.find("div.cli-bar-message")
+    @Required val accept = this.find("a#cookie_action_close_header")
 
     @Throws(RequiredError::class)
     override fun shouldLoadRequired(timeout: Duration, pomVersion: String) {
@@ -24,6 +22,6 @@ class CookiesBannerWidget(override val self: SelenideElement = Selenide.element(
     fun acceptCookies() {
         shouldLoadRequired()
         accept.click()
-        self.should(Condition.disappear)
+        this.should(Condition.disappear)
     }
 }

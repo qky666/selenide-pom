@@ -12,7 +12,6 @@ class ServicesRequiredErrorPage : MainFramePage() {
     @Required val title = Selenide.element("h1.h2")
     // badSelector generates an error in shouldLoadRequired
     @Required val badSelector = Selenide.element("bad-selector")
-    @Suppress("unused")
     @Required val otherBadSelector = Selenide.element("other-bad-selector")
 
     @Throws(RequiredError::class)

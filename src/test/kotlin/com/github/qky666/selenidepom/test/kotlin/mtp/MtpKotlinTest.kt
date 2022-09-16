@@ -56,7 +56,7 @@ class MtpKotlinTest {
     fun closeBrowser() {
         Selenide.closeWebDriver()
         // Additional test for output in TestData
-        Assertions.assertEquals(testData.output["threadId"], Thread.currentThread().id)
+        Assertions.assertEquals(testData.output["threadId"].toString(), Thread.currentThread().id.toString())
     }
 
     @ParameterizedTest

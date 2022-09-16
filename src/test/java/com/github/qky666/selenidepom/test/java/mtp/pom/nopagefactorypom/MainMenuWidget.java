@@ -4,14 +4,14 @@ import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.annotation.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 
-public class MainMenuWidget extends Widget {
+public class MainMenuWidget extends Widget<MainMenuWidget> {
     @Required
     public SelenideElement services() {
-        return getSelf().$("li#servicios_menu");
+        return this.$("li#servicios_menu");
     }
 
     public SelenideElement servicesPopUp() {
-        return getSelf().$("div.dropdown-servicios");
+        return this.$("div.dropdown-servicios");
     }
 
     public SelenideElement servicesPopUpQualityAssurance() {

@@ -10,8 +10,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class MainFramePage extends Page {
 
     // Fields
-    @Getter(lazy = true) @Required("desktop") private final MainMenuWidget mainMenu = new MainMenuWidget();
+    @Getter(lazy = true) @Required("desktop") private final MainMenuWidget mainMenu = new MainMenuWidget($("div.custom-menu"));
     @Getter(lazy = true) @Required("mobile") private final SelenideElement mobileMenuButton = $("button.custom-menu-btn-flotante");
-    @Getter(lazy = true) private final MobileMenuWidget mobileMenu = new MobileMenuWidget();
-    @Getter(lazy = true) private final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget();
+    @Getter(lazy = true) private final MobileMenuWidget mobileMenu = new MobileMenuWidget($("div#menu-movil ul.uk-nav"));
+    @Getter(lazy = true) private final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget($("div#cookie-law-info-bar"));
 }

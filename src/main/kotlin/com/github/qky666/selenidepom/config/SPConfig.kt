@@ -68,7 +68,6 @@ object SPConfig {
     /**
      * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
     @JvmOverloads
     fun addMobileEmulation(deviceName: String = defaultDeviceName) {
         val config = threadLocalSelenideConfig.get()
@@ -86,7 +85,6 @@ object SPConfig {
      * @param proxy Proxy passed to webDriverFactory.createWebDriver, usually left to null
      * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually left to null
      */
-    @Suppress("MemberVisibilityCanBePrivate")
     @JvmOverloads
     fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
         val driver = webDriverFactory.createWebDriver(threadLocalSelenideConfig.get(), proxy, browserDownloadsFolder)
