@@ -191,4 +191,19 @@ class MtpKotlinTest {
         Assertions.assertThrows(RequiredError::class.java) { servicesPage.shouldLoadRequired() }
         Assertions.assertThrows(RequiredError::class.java) { servicesPage.shouldLoadRequired(Duration.ofMillis(100)) }
     }
+
+    @ParameterizedTest
+    @MethodSource("mobileBrowserConfigSource")
+    fun userNavigateToQualityAssuranceDesktopWrongPomVersion(browserConfig: String) {
+        setUpBrowser(browserConfig)
+        acceptCookies()
+        mainFramePage.mobileMenuButton.click()
+        mainFramePage.mobileMenu.shouldLoadRequired()
+        mainFramePage.mobileMenu.shouldBeCollapsed()
+        mainFramePage.mobileMenu.services.click()
+        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        Assertions.assertThrows(RequiredError::class.java) { servicesPage.shouldLoadRequired("desktop") }
+        Assertions.assertFalse(servicesPage.hasLoadedRequired("desktop"))
+        Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100), "desktop"))
+    }
 }
