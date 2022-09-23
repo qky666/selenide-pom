@@ -21,12 +21,9 @@ import java.util.*
 object SPConfig {
     private const val fileName = "selenide-pom.properties"
     private const val defaultPomVersion = "default"
-    @Suppress("MemberVisibilityCanBePrivate")
-    const val defaultDesktopPomVersion = "desktop"
-    @Suppress("MemberVisibilityCanBePrivate")
-    const val defaultMobilePomVersion = "mobile"
-    @Suppress("MemberVisibilityCanBePrivate")
-    const val defaultDeviceName = "Nexus 5"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultDesktopPomVersion = "desktop"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultMobilePomVersion = "mobile"
+    @Suppress("MemberVisibilityCanBePrivate") const val defaultDeviceName = "Nexus 5"
 
     private val fileProperties = Properties()
     private val webDriverFactory = WebDriverFactory()
@@ -52,21 +49,26 @@ object SPConfig {
      */
     var pomVersion: String
         get() = threadLocalPomVersion.get()
-        set(value) { threadLocalPomVersion.set(value) }
+        set(value) {
+            threadLocalPomVersion.set(value)
+        }
 
     private val threadLocalSelenideConfig: ThreadLocal<SelenideConfig> = ThreadLocal.withInitial { SelenideConfig() }
 
     /**
      * The selenideConfig (thread local value).
-     * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties and Selenide properties file
+     * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties and Selenide properties file.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
-    var selenideConfig: SelenideConfig
+    @Suppress("MemberVisibilityCanBePrivate") var selenideConfig: SelenideConfig
         get() = threadLocalSelenideConfig.get()
-        set(value) { threadLocalSelenideConfig.set(value) }
+        set(value) {
+            threadLocalSelenideConfig.set(value)
+        }
 
     /**
-     * Adds mobile emulation and sets browser to chrome to the thread local selenideConfig instance.
+     * Adds mobile emulation and sets browser to Chrome in the thread local selenideConfig instance.
+     *
+     * @param deviceName The device name passed to Chrome to do the mobile emulation. Default value: [defaultDeviceName]
      */
     @JvmOverloads
     fun addMobileEmulation(deviceName: String = defaultDeviceName) {
@@ -82,8 +84,8 @@ object SPConfig {
      * Creates a new WebDriver based on thread local selenideConfig configuration
      * and tells Selenide to use this instance.
      *
-     * @param proxy Proxy passed to webDriverFactory.createWebDriver, usually left to null
-     * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually left to null
+     * @param proxy Proxy passed to webDriverFactory.createWebDriver, usually null
+     * @param browserDownloadsFolder File passed to webDriverFactory.createWebDriver, usually null
      */
     @JvmOverloads
     fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
@@ -93,13 +95,12 @@ object SPConfig {
 
     /**
      * Resets current thread selenideConfig to the default [com.codeborne.selenide.Configuration] obtained
-     * from System properties and Selenide properties file
+     * from System properties and Selenide properties file.
      */
     fun resetSelenideConfig() {
         selenideConfig = SelenideConfig()
         pomVersion = System.getProperty(
-            "selenide-pom.pomVersion",
-            fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+            "selenide-pom.pomVersion", fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
         )
     }
 
@@ -112,8 +113,7 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(),
-        pomVersion: String = defaultDesktopPomVersion
+        browser: String = selenideConfig.browser(), pomVersion: String = defaultDesktopPomVersion
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)

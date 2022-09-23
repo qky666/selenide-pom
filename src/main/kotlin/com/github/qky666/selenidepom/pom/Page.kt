@@ -3,6 +3,8 @@ package com.github.qky666.selenidepom.pom
 import com.github.qky666.selenidepom.annotation.Required
 
 /**
- * Instances of this class can have properties that can be annotated with [Required] annotation.
+ * Instances represent a whole web page.
+ * A page can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as [Required].
+ * See [Loadable].
  */
 abstract class Page: Loadable
