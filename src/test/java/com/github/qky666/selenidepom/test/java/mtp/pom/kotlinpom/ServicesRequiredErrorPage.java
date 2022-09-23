@@ -2,7 +2,6 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.kotlinpom;
 
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.annotation.Required;
-import com.github.qky666.selenidepom.error.RequiredError;
 import lombok.Getter;
 
 import java.time.Duration;
@@ -21,8 +20,8 @@ public class ServicesRequiredErrorPage extends MainFramePage {
 
     // Methods
     @Override
-    public void shouldLoadRequired(Duration timeout, String pomVersion) throws RequiredError {
-        super.shouldLoadRequired(timeout, pomVersion);
-        getTitle().shouldHave(text("Aseguramiento de la calidad"));
+    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion);
+        getTitle().shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

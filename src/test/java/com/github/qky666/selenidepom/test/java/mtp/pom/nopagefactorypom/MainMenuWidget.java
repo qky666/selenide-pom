@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.annotation.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 
-public class MainMenuWidget extends Widget<MainMenuWidget> {
+public class MainMenuWidget extends Widget {
     @Required
     public SelenideElement services() {
         return this.$("li#servicios_menu");

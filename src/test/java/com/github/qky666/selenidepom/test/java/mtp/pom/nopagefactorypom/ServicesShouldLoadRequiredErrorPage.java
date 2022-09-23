@@ -2,7 +2,6 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.nopagefactorypom;
 
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.annotation.Required;
-import com.github.qky666.selenidepom.error.RequiredError;
 
 import java.time.Duration;
 
@@ -14,8 +13,8 @@ public class ServicesShouldLoadRequiredErrorPage extends MainFramePage {
     @Required public final SelenideElement title = $("h1.h2");
 
     @Override
-    public void shouldLoadRequired(Duration timeout, String pomVersion) throws RequiredError {
-        super.shouldLoadRequired(timeout, pomVersion);
+    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion);
         title.shouldHave(text("Aseguramiento de la calidad con error"), timeout);
     }
 }

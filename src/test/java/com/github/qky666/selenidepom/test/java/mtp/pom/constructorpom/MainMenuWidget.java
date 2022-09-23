@@ -5,7 +5,7 @@ import com.github.qky666.selenidepom.annotation.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 
 @SuppressWarnings("unused")
-public class MainMenuWidget extends Widget<MainMenuWidget> {
+public class MainMenuWidget extends Widget {
     @Required public final SelenideElement services;
     public final SelenideElement servicesPopUp;
     public final SelenideElement servicesPopUpQualityAssurance;

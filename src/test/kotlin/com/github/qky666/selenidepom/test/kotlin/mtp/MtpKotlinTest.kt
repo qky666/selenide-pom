@@ -3,10 +3,11 @@ package com.github.qky666.selenidepom.test.kotlin.mtp
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.ex.ElementNotFound
-import com.codeborne.selenide.ex.ElementShould
 import com.github.qky666.selenidepom.error.RequiredError
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
+import com.github.qky666.selenidepom.pom.hasLoadedRequired
+import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.mainFramePage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesRequiredErrorPage
@@ -48,8 +49,7 @@ class MtpKotlinTest {
     }
 
     fun acceptCookies() {
-        mainFramePage.shouldLoadRequired()
-        mainFramePage.cookiesBanner.acceptCookies()
+        mainFramePage.shouldLoadRequired().cookiesBanner.acceptCookies()
     }
 
     @AfterEach
@@ -90,7 +90,7 @@ class MtpKotlinTest {
         acceptCookies()
         mainFramePage.mainMenu.services.hover()
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click()
-        Assertions.assertThrows(ElementShould::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
+        Assertions.assertThrows(RequiredError::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
     }
 
     @ParameterizedTest
@@ -124,10 +124,10 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
+        mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         servicesPage.shouldLoadRequired()
         Assertions.assertEquals(
             "div#cookie-law-info-bar/a#cookie_action_close_header", servicesPage.cookiesBanner.accept.searchCriteria
@@ -140,10 +140,10 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
+        mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         servicesPage.shouldLoadRequired()
         Assertions.assertThrows(ElementNotFound::class.java) { servicesPage.badSelector.click() }
     }
@@ -154,11 +154,11 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
-        Assertions.assertThrows(ElementShould::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
+        mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        Assertions.assertThrows(RequiredError::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
     }
 
     @ParameterizedTest
@@ -167,10 +167,10 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
+        mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         val error =
             Assertions.assertThrows(RequiredError::class.java) { servicesRequiredErrorPage.shouldLoadRequired() }
         Assertions.assertEquals(2, error.suppressed.size)
@@ -182,9 +182,9 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
         // User forgot to click Quality Assurance link
         Assertions.assertFalse(servicesPage.hasLoadedRequired())
         Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)))
@@ -198,10 +198,10 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         acceptCookies()
         mainFramePage.mobileMenuButton.click()
-        mainFramePage.mobileMenu.shouldLoadRequired()
-        mainFramePage.mobileMenu.shouldBeCollapsed()
-        mainFramePage.mobileMenu.services.click()
-        mainFramePage.mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
+        val mobileMenu = mainFramePage.mobileMenu
+        mobileMenu.shouldLoadRequired().shouldBeCollapsed()
+        mobileMenu.services.click()
+        mobileMenu.servicesQualityAssurance.shouldBe(Condition.visible).click()
         Assertions.assertThrows(RequiredError::class.java) { servicesPage.shouldLoadRequired("desktop") }
         Assertions.assertFalse(servicesPage.hasLoadedRequired("desktop"))
         Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100), "desktop"))

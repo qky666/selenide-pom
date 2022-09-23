@@ -1,254 +1,259 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.*
-import com.github.qky666.selenidepom.annotation.Required
 import org.openqa.selenium.WebElement
 import java.time.Duration
 
 /**
  * Abstract class that implements [SelenideElement] and [Loadable] interfaces.
- * @sample SampleCode.newWidgetSubclassSample
+ * @sample com.github.qky666.selenidepom.sample.newWidgetSubclassSample
  */
-abstract class Widget<ThisType : Widget<ThisType>>(private val self: SelenideElement) : Loadable,
-    SelenideElement by self {
+abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self
 
-    private fun thisWithType(): ThisType {
-        @Suppress("UNCHECKED_CAST") return this as ThisType
-    }
-
-    override fun setValue(text: String?): ThisType {
-        self.value = text
-        return thisWithType()
-    }
-
-    override fun setValue(text: SetValueOptions): ThisType {
-        self.setValue(text)
-        return thisWithType()
-    }
-
-    override fun `val`(text: String?): ThisType {
-        self.`val`(text)
-        return thisWithType()
-    }
-
-    override fun append(text: String): ThisType {
-        self.append(text)
-        return thisWithType()
-    }
-
-    override fun pressEnter(): ThisType {
-        self.pressEnter()
-        return thisWithType()
-    }
-
-    override fun pressTab(): ThisType {
-        self.pressTab()
-        return thisWithType()
-    }
-
-    override fun pressEscape(): ThisType {
-        self.pressEscape()
-        return thisWithType()
-    }
-
-    override fun setSelected(selected: Boolean): ThisType {
-        self.isSelected = selected
-        return thisWithType()
-    }
-
-    override fun should(condition: Condition, timeout: Duration): ThisType {
-        self.should(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun should(vararg condition: Condition?): ThisType {
-        self.should(*condition)
-        return thisWithType()
-    }
-
-    override fun shouldHave(vararg condition: Condition?): ThisType {
-        self.shouldHave(*condition)
-        return thisWithType()
-    }
-
-    override fun shouldHave(condition: Condition, timeout: Duration): ThisType {
-        self.shouldHave(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun shouldBe(vararg condition: Condition?): ThisType {
-        self.shouldBe(*condition)
-        return thisWithType()
-    }
-
-    override fun shouldBe(condition: Condition, timeout: Duration): ThisType {
-        self.shouldBe(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun shouldNot(vararg condition: Condition?): ThisType {
-        TODO("Not yet implemented")
-    }
-
-    override fun shouldNot(condition: Condition, timeout: Duration): ThisType {
-        self.shouldNot(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun shouldNotHave(vararg condition: Condition?): ThisType {
-        self.shouldNotHave(*condition)
-        return thisWithType()
-    }
-
-    override fun shouldNotHave(condition: Condition, timeout: Duration): ThisType {
-        self.shouldNotHave(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun shouldNotBe(vararg condition: Condition?): ThisType {
-        self.shouldNotBe(*condition)
-        return thisWithType()
-    }
-
-    override fun shouldNotBe(condition: Condition, timeout: Duration): ThisType {
-        self.shouldNotBe(condition, timeout)
-        return thisWithType()
-    }
-
-    override fun `as`(alias: String): ThisType {
-        self.`as`(alias)
-        return thisWithType()
-    }
-
-    override fun scrollTo(): ThisType {
-        self.scrollTo()
-        return thisWithType()
-    }
-
-    override fun scrollIntoView(scrollIntoViewOptions: String): ThisType {
-        self.scrollIntoView(scrollIntoViewOptions)
-        return thisWithType()
-    }
-
-    override fun scrollIntoView(alignToTop: Boolean): ThisType {
-        self.scrollIntoView(alignToTop)
-        return thisWithType()
-    }
-
-    override fun contextClick(): ThisType {
-        self.contextClick()
-        return thisWithType()
-    }
-
-    override fun doubleClick(): ThisType {
-        self.doubleClick()
-        return thisWithType()
-    }
-
-    override fun hover(options: HoverOptions): ThisType {
-        self.hover(options)
-        return thisWithType()
-    }
-
-    override fun hover(): ThisType {
-        self.hover()
-        return thisWithType()
-    }
-
-    override fun dragAndDropTo(targetCssSelector: String, options: DragAndDropOptions): ThisType {
-        self.dragAndDropTo(targetCssSelector, options)
-        return thisWithType()
-    }
-
-    override fun dragAndDropTo(target: WebElement): ThisType {
-        self.dragAndDropTo(target)
-        return thisWithType()
-    }
-
-    override fun dragAndDropTo(targetCssSelector: String): ThisType {
-        self.dragAndDropTo(targetCssSelector)
-        return thisWithType()
-    }
+/**
+ * Same as [SelenideElement.setValue], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetSetValue(text: String): T {
+    this.value = text
+    return this
 }
 
 /**
- * See
- * https://stackoverflow.com/questions/26992039/what-is-the-proper-way-to-create-new-instance-of-generic-class-in-kotlin
- */
-private fun <T : Widget<T>> widgetFactory(element: SelenideElement, factory: (e: SelenideElement) -> T): T {
-    return factory(element)
+* Same as [SelenideElement.val], but returns a [Widget] subclass instance instead of [SelenideElement]
+*/
+fun <T: Widget>T.widgetVal(text: String): T {
+    this.`val`(text)
+    return this
 }
 
 /**
- * Same as [ElementsCollection.find], but returns a [Widget] subclass instance instead of [SelenideElement]
- * @sample SampleCode.findWidgetSample
+ * Same as [SelenideElement.setValue], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget<T>> ElementsCollection.findWidget(condition: Condition, factory: (e: SelenideElement) -> T): T {
-    return widgetFactory(this.find(condition), factory)
+fun <T: Widget>T.widgetSetValue(text: SetValueOptions): T {
+    this.setValue(text)
+    return this
 }
 
 /**
- * Same as [ElementsCollection.get], but returns a [Widget] subclass instance instead of [SelenideElement]
- * @sample SampleCode.getWidgetSample
+ * Same as [SelenideElement.append], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget<T>> ElementsCollection.getWidget(index: Int, factory: (e: SelenideElement) -> T): T {
-    return widgetFactory(this[index], factory)
+fun <T: Widget>T.widgetAppend(text: String): T {
+    this.append(text)
+    return this
 }
 
 /**
- * Same as [ElementsCollection.first], but returns a [Widget] subclass instance instead of [SelenideElement]
- * @sample SampleCode.firstWidgetSample
+ * Same as [SelenideElement.pressEnter], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget<T>> ElementsCollection.firstWidget(factory: (e: SelenideElement) -> T): T {
-    return widgetFactory(this.first(), factory)
+fun <T: Widget>T.widgetPressEnter(): T {
+    this.pressEnter()
+    return this
 }
 
 /**
- * Same as [ElementsCollection.last], but returns a [Widget] subclass instance instead of [SelenideElement]
- * @sample SampleCode.lastWidgetSample
+ * Same as [SelenideElement.pressTab], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget<T>> ElementsCollection.lastWidget(factory: (e: SelenideElement) -> T): T {
-    return widgetFactory(this.last(), factory)
+fun <T: Widget>T.widgetPressTab(): T {
+    this.pressTab()
+    return this
 }
 
-class SampleCode {
-    @Suppress("unused")
-    fun newWidgetSubclassSample() {
-        class MyWidget(self: SelenideElement) : Widget<MyWidget>(self) {
-            val inputField = this.find("input")
-            @Required val submit = this.find("button")
+/**
+ * Same as [SelenideElement.pressEscape], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetPressEscape(): T {
+    this.pressEscape()
+    return this
+}
 
-            fun pressSubmit() {
-                submit.click()
-            }
-        }
-    }
+/**
+ * Same as [SelenideElement.setSelected], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetSetSelected(selected: Boolean): T {
+    this.isSelected = selected
+    return this
+}
 
-    @Suppress("UNUSED_VARIABLE", "unused")
-    fun findWidgetSample() {
-        class MyWidget(self: SelenideElement) : Widget<MyWidget>(self)
+/**
+ * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShould(condition: Condition, timeout: Duration): T {
+    this.should(condition, timeout)
+    return this
+}
 
-        val element: MyWidget = Selenide.elements("button").findWidget(Condition.disabled, ::MyWidget)
-    }
+/**
+ * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShould(vararg condition: Condition): T {
+    this.should(*condition)
+    return this
+}
 
-    @Suppress("UNUSED_VARIABLE", "unused")
-    fun getWidgetSample() {
-        class MyWidget(self: SelenideElement) : Widget<MyWidget>(self)
+/**
+ * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldHave(vararg condition: Condition): T {
+    this.shouldHave(*condition)
+    return this
+}
 
-        val element: MyWidget = Selenide.elements("button").getWidget(2, ::MyWidget)
-    }
+/**
+ * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldHave(condition: Condition, timeout: Duration): T {
+    this.shouldHave(condition, timeout)
+    return this
+}
 
-    @Suppress("UNUSED_VARIABLE", "unused")
-    fun firstWidgetSample() {
-        class MyWidget(self: SelenideElement) : Widget<MyWidget>(self)
+/**
+ * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldBe(vararg condition: Condition): T {
+    this.shouldBe(*condition)
+    return this
+}
 
-        val element: MyWidget = Selenide.elements("button").firstWidget(::MyWidget)
-    }
+/**
+ * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldBe(condition: Condition, timeout: Duration): T {
+    this.shouldBe(condition, timeout)
+    return this
+}
 
-    @Suppress("UNUSED_VARIABLE", "unused")
-    fun lastWidgetSample() {
-        class MyWidget(self: SelenideElement) : Widget<MyWidget>(self)
+/**
+ * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNot(vararg condition: Condition): T {
+    this.shouldNot(*condition)
+    return this
+}
 
-        val element: MyWidget = Selenide.elements("button").lastWidget(::MyWidget)
-    }
+/**
+ * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNot(condition: Condition, timeout: Duration): T {
+    this.shouldNot(condition, timeout)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNotHave(vararg condition: Condition): T {
+    this.shouldNotHave(*condition)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNotHave(condition: Condition, timeout: Duration): T {
+    this.shouldNotHave(condition, timeout)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNotBe(vararg condition: Condition): T {
+    this.shouldNotBe(*condition)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetShouldNotBe(condition: Condition, timeout: Duration): T {
+    this.shouldNotBe(condition, timeout)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.as], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetAs(alias: String): T {
+    this.`as`(alias)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.scrollTo], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetScrollTo(): T {
+    this.scrollTo()
+    return this
+}
+
+/**
+ * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetScrollIntoView(scrollIntoViewOptions: String): T {
+    this.scrollIntoView(scrollIntoViewOptions)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetScrollIntoView(alignToTop: Boolean): T {
+    this.scrollIntoView(alignToTop)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.contextClick], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetContextClick(): T {
+    this.contextClick()
+    return this
+}
+
+/**
+ * Same as [SelenideElement.doubleClick], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetDoubleClick(): T {
+    this.doubleClick()
+    return this
+}
+
+/**
+ * Same as [SelenideElement.hover], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetHover(options: HoverOptions): T {
+    this.hover(options)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.hover], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetHover(): T {
+    this.hover()
+    return this
+}
+
+/**
+ * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetDragAndDropTo(targetCssSelector: String, options: DragAndDropOptions): T {
+    this.dragAndDropTo(targetCssSelector, options)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetDragAndDropTo(target: WebElement): T {
+    this.dragAndDropTo(target)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T: Widget>T.widgetDragAndDropTo(targetCssSelector: String): T {
+    this.dragAndDropTo(targetCssSelector)
+    return this
 }

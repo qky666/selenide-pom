@@ -45,8 +45,8 @@ object SPConfig {
     }
 
     /**
-     * The default pomVersion (thread local value) used in [com.github.qky666.selenidepom.pom.Page.shouldLoadRequired]
-     * and [com.github.qky666.selenidepom.pom.Page.hasLoadedRequired] methods.
+     * The default pomVersion (thread local value) used in [com.github.qky666.selenidepom.pom.shouldLoadRequired]
+     * and [com.github.qky666.selenidepom.pom.hasLoadedRequired] methods.
      * Default value: "selenide-pom.pomVersion" System property if defined, "selenide-pom.pomVersion" value in selenide-pom.properties if defined,
      * or [defaultPomVersion] in other case.
      */

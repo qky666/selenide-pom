@@ -8,13 +8,11 @@ import com.github.qky666.selenidepom.pom.Widget;
 import lombok.Getter;
 import org.openqa.selenium.WebElement;
 
-public class MobileMenuWidget extends Widget<MobileMenuWidget> {
+public class MobileMenuWidget extends Widget {
 
     // Fields
     // First level menu items. I only write one, but there are more
-    @Getter(lazy = true)
-    @Required
-    private final SelenideElement services = this.$x(".//li[@aria-expanded]/a[.='Servicios']");
+    @Getter(lazy = true) @Required private final SelenideElement services = this.$x(".//li[@aria-expanded]/a[.='Servicios']");
 
     // All first level menu items
     @Getter(lazy = true) private final ElementsCollection firstLevelMenuItems = this.$$("li.uk-parent");

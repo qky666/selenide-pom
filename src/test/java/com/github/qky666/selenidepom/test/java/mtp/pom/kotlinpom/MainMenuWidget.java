@@ -5,7 +5,7 @@ import com.github.qky666.selenidepom.annotation.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 import lombok.Getter;
 
-public class MainMenuWidget extends Widget<MainMenuWidget> {
+public class MainMenuWidget extends Widget {
 
     // Fields
     @Getter(lazy = true) @Required private final SelenideElement services = this.$("li#servicios_menu");

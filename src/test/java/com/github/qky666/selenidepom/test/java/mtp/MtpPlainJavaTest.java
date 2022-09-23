@@ -1,7 +1,6 @@
 package com.github.qky666.selenidepom.test.java.mtp;
 
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.codeborne.selenide.ex.ElementShould;
 import com.github.qky666.selenidepom.error.RequiredError;
 import com.github.qky666.selenidepom.test.java.mtp.pom.plainjavapom.MainFramePage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.plainjavapom.ServicesPage;
@@ -13,6 +12,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Duration;
 
+import static com.github.qky666.selenidepom.pom.LoadableKt.hasLoadedRequired;
+import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
+
 public class MtpPlainJavaTest extends BaseMtpTest {
     final MainFramePage mainFramePage = new MainFramePage();
     final ServicesPage servicesPage = new ServicesPage();
@@ -20,8 +22,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = new ServicesShouldLoadRequiredErrorPage();
 
     void acceptCookies() {
-        mainFramePage.shouldLoadRequired();
-        mainFramePage.cookiesBanner.acceptCookies();
+        shouldLoadRequired(mainFramePage).cookiesBanner.acceptCookies();
     }
 
     @ParameterizedTest
@@ -32,7 +33,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
-        servicesPage.shouldLoadRequired();
+        shouldLoadRequired(servicesPage);
         Assertions.assertEquals(
                 "div#cookie-law-info-bar/a#cookie_action_close_header",
                 servicesPage.cookiesBanner.accept.getSearchCriteria()
@@ -47,7 +48,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
-        servicesPage.shouldLoadRequired();
+        shouldLoadRequired(servicesPage);
         Assertions.assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
     }
 
@@ -59,7 +60,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
-        Assertions.assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesShouldLoadRequiredErrorPage));
     }
 
     @ParameterizedTest
@@ -70,7 +71,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
-        RequiredError error = Assertions.assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
+        RequiredError error = Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesRequiredErrorPage));
         Assertions.assertEquals(2, error.getSuppressed().length);
     }
 
@@ -82,9 +83,9 @@ public class MtpPlainJavaTest extends BaseMtpTest {
         mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 
-        Assertions.assertFalse(servicesPage.hasLoadedRequired());
-        Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
-        Assertions.assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
-        Assertions.assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        Assertions.assertFalse(hasLoadedRequired(servicesPage));
+        Assertions.assertFalse(hasLoadedRequired(servicesPage, Duration.ofMillis(100)));
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesPage));
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesPage, Duration.ofMillis(100)));
     }
 }

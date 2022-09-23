@@ -5,13 +5,15 @@ import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.MainFramePage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.ServicesPage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.ServicesRequiredErrorPage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.ServicesShouldLoadRequiredErrorPage;
-import com.codeborne.selenide.ex.ElementShould;
 import com.codeborne.selenide.ex.ElementNotFound;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Duration;
+
+import static com.github.qky666.selenidepom.pom.LoadableKt.hasLoadedRequired;
+import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class MtpLazyTest extends BaseMtpTest {
     final MainFramePage mainFramePage = new MainFramePage();
@@ -20,7 +22,7 @@ public class MtpLazyTest extends BaseMtpTest {
     final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = new ServicesShouldLoadRequiredErrorPage();
 
     void acceptCookies() {
-        mainFramePage.shouldLoadRequired();
+        shouldLoadRequired(mainFramePage);
         mainFramePage.getCookiesBanner().acceptCookies();
     }
 
@@ -32,11 +34,8 @@ public class MtpLazyTest extends BaseMtpTest {
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
-        servicesPage.shouldLoadRequired();
-        Assertions.assertEquals(
-                "div#cookie-law-info-bar/a#cookie_action_close_header",
-                servicesPage.getCookiesBanner().getAccept().getSearchCriteria()
-        );
+        shouldLoadRequired(servicesPage);
+        Assertions.assertEquals("div#cookie-law-info-bar/a#cookie_action_close_header", servicesPage.getCookiesBanner().getAccept().getSearchCriteria());
     }
 
     @ParameterizedTest
@@ -47,7 +46,7 @@ public class MtpLazyTest extends BaseMtpTest {
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
-        servicesPage.shouldLoadRequired();
+        shouldLoadRequired(servicesPage);
         Assertions.assertThrows(ElementNotFound.class, servicesPage.getBadSelector()::click);
     }
 
@@ -59,7 +58,7 @@ public class MtpLazyTest extends BaseMtpTest {
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
-        Assertions.assertThrows(ElementShould.class, servicesShouldLoadRequiredErrorPage::shouldLoadRequired);
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesShouldLoadRequiredErrorPage));
     }
 
     @ParameterizedTest
@@ -70,7 +69,7 @@ public class MtpLazyTest extends BaseMtpTest {
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
-        RequiredError error = Assertions.assertThrows(RequiredError.class, servicesRequiredErrorPage::shouldLoadRequired);
+        RequiredError error = Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesRequiredErrorPage));
         Assertions.assertEquals(2, error.getSuppressed().length);
     }
 
@@ -82,9 +81,9 @@ public class MtpLazyTest extends BaseMtpTest {
         mainFramePage.getMainMenu().getServices().hover();
         // User forgot to click Quality Assurance link
 
-        Assertions.assertFalse(servicesPage.hasLoadedRequired());
-        Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)));
-        Assertions.assertThrows(RequiredError.class, servicesPage::shouldLoadRequired);
-        Assertions.assertThrows(RequiredError.class, () -> servicesPage.shouldLoadRequired(Duration.ofMillis(100)));
+        Assertions.assertFalse(hasLoadedRequired(servicesPage));
+        Assertions.assertFalse(hasLoadedRequired(servicesPage, Duration.ofMillis(100)));
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesPage));
+        Assertions.assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesPage, Duration.ofMillis(100)));
     }
 }

@@ -3,14 +3,14 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.constructorpom;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.annotation.Required;
-import com.github.qky666.selenidepom.error.RequiredError;
 import com.github.qky666.selenidepom.pom.Widget;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.disappear;
+import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
-public class CookiesBannerWidget extends Widget<CookiesBannerWidget> {
+public class CookiesBannerWidget extends Widget {
     @Required public final SelenideElement cookiesText;
     @Required public final SelenideElement accept;
 
@@ -21,16 +21,13 @@ public class CookiesBannerWidget extends Widget<CookiesBannerWidget> {
     }
 
     @Override
-    public void shouldLoadRequired(Duration timeout, String pomVersion) throws RequiredError {
-        super.shouldLoadRequired(timeout, pomVersion);
-        cookiesText.shouldHave(
-                Condition.text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)")
-        );
+    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion);
+        this.cookiesText.shouldHave(Condition.text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)"), timeout);
     }
 
     public void acceptCookies() {
-        shouldLoadRequired();
-        accept.click();
+        shouldLoadRequired(this).accept.click();
         this.should(disappear);
     }
 }

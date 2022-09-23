@@ -31,12 +31,12 @@ plugins {
 
 dependencies {
     val kotlinVersion = "1.7.10"
-    val jUnitVersion = "5.9.0"
+    val jUnitVersion = "5.9.1"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.codeborne:selenide:6.7.4")
-    implementation("io.github.microutils:kotlin-logging:2.1.23")
-    testImplementation("org.slf4j:slf4j-simple:2.0.0")
+    implementation("io.github.microutils:kotlin-logging:3.0.0")
+    testImplementation("org.slf4j:slf4j-simple:2.0.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
@@ -49,6 +49,6 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
-//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
+    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 //    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }

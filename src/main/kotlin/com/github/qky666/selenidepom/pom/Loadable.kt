@@ -1,6 +1,8 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.*
+import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
+import com.codeborne.selenide.Condition.visible
 import com.github.qky666.selenidepom.annotation.Required
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.error.RequiredError
@@ -23,137 +25,15 @@ import kotlin.reflect.jvm.javaGetter
  * Instances of this interface can have properties that can be annotated with [Required] annotation.
  */
 interface Loadable {
-    /**
-     * All properties with [Required] annotation are checked if visible.
-     * You can override this method to add some extra functionality (custom additional checks).
-     *
-     * @param timeout The timeout waiting for elements to become visible.
-     * @param pomVersion The pomVersion used to check visibility.
-     * @throws RequiredError Error can occur during validations (mostly, validation failures).
-     */
-    @Throws(RequiredError::class)
-    fun shouldLoadRequired(timeout: Duration, pomVersion: String) {
-        val className = this::class.simpleName
-        logger.info { "Starting shouldLoadRequired in $className" }
-        val errors = objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion)
-        if (errors.isNotEmpty()) {
-            throw RequiredError(errors)
-        }
-    }
 
-    /**
-     * All properties with [Required] annotation are checked if visible.
-     * The same as shouldLoadRequired(timeout, SPConfig.pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @param timeout The timeout waiting for elements to become visible.
-     * @throws RequiredError Error can occur during validations (mostly, validation failures).
-     */
-    @Throws(RequiredError::class)
-    fun shouldLoadRequired(timeout: Duration) {
-        return shouldLoadRequired(timeout, SPConfig.pomVersion)
-    }
-
-    /**
-     * All properties with [Required] annotation are checked if visible.
-     * The same as shouldLoadRequired(Configuration.timeout, pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @param pomVersion The pomVersion used to check visibility.
-     * @throws RequiredError Error can occur during validations (mostly, validation failures).
-     */
-    @Throws(RequiredError::class)
-    fun shouldLoadRequired(pomVersion: String) {
-        return shouldLoadRequired(Duration.ofMillis(Configuration.timeout), pomVersion)
-    }
-
-    /**
-     * All properties with [Required] annotation are checked if visible.
-     * The same as shouldLoadRequired(Configuration.timeout, SPConfig.pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @throws RequiredError Error can occur during validations (mostly, validation failures).
-     */
-    @Throws(RequiredError::class)
-    fun shouldLoadRequired() {
-        return shouldLoadRequired(Duration.ofMillis(Configuration.timeout), SPConfig.pomVersion)
-    }
-
-    /**
-     * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @param timeout The timeout waiting for elements to become visible.
-     * @param pomVersion The pomVersion used to check visibility.
-     * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     */
-    @Suppress("BooleanMethodIsAlwaysInverted")
-    fun hasLoadedRequired(timeout: Duration, pomVersion: String): Boolean {
-        val className = this::class.simpleName
-        logger.info { "Starting hasLoadedRequired in $className" }
-        return objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion).isEmpty()
-    }
-
-    /**
-     * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     * The same as hasLoadedRequired(Duration.ZERO, pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @param timeout The timeout waiting for elements to become visible.
-     * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     */
-    @Suppress("BooleanMethodIsAlwaysInverted")
-    fun hasLoadedRequired(timeout: Duration): Boolean {
-        return hasLoadedRequired(timeout, SPConfig.pomVersion)
-    }
-
-    /**
-     * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     * The same as hasLoadedRequired(timeout, SPConfig.pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @param pomVersion The pomVersion used to check visibility.
-     * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     */
-    @Suppress("BooleanMethodIsAlwaysInverted")
-    fun hasLoadedRequired(pomVersion: String): Boolean {
-        return hasLoadedRequired(Duration.ZERO, pomVersion)
-    }
-
-    /**
-     * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     * The same as hasLoadedRequired(Duration.ZER, SPConfig.pomVersion).
-     * Usually you should not override this method. Instead, override shouldLoadRequired(timeout, pomVersion).
-     *
-     * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
-     */
-    @Suppress("BooleanMethodIsAlwaysInverted")
-    fun hasLoadedRequired(): Boolean {
-        return hasLoadedRequired(Duration.ZERO, SPConfig.pomVersion)
+    @Throws(Throwable::class)
+    fun customShouldLoadRequired(timeout: Duration, pomVersion: String) {
     }
 
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        private fun appendSuperKlassToList(klass: KClass<*>, list: MutableList<KClass<*>>): List<KClass<*>> {
-            list.addAll(klass.superclasses)
-            return klass.superclasses
-        }
-
-        private fun getAllSuperKlass(klass: KClass<*>): List<KClass<*>> {
-            val all = mutableListOf(klass)
-            var appended = appendSuperKlassToList(klass, all)
-            while (appended.isNotEmpty()) {
-                val newAppended = mutableListOf<KClass<*>>()
-                for (newKlass in appended) {
-                    newAppended.addAll(appendSuperKlassToList(newKlass, all))
-                }
-                appended = newAppended
-            }
-            return all
-        }
-
-        private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
+        fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
             val objKlassName: String = objKlass.simpleName ?: "null"
@@ -211,86 +91,234 @@ interface Loadable {
             return errors
         }
 
+        private fun getAllSuperKlass(klass: KClass<*>): List<KClass<*>> {
+            val all = mutableListOf(klass)
+            var appended = appendSuperKlassToList(klass, all)
+            while (appended.isNotEmpty()) {
+                val newAppended = mutableListOf<KClass<*>>()
+                for (newKlass in appended) {
+                    newAppended.addAll(appendSuperKlassToList(newKlass, all))
+                }
+                appended = newAppended
+            }
+            return all
+        }
+
+        private fun appendSuperKlassToList(klass: KClass<*>, list: MutableList<KClass<*>>): List<KClass<*>> {
+            list.addAll(klass.superclasses)
+            return klass.superclasses
+        }
+
         private fun elementShouldLoad(
             element: Any?, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
         ): List<Throwable> {
 
-            val signedTimeout: Duration = Duration.between(LocalDateTime.now(), end)
-            val timeout: Duration = if (signedTimeout.isNegative) Duration.ZERO else signedTimeout
             return when (element) {
-                null -> listOf()
-                is By -> try {
-                    Selenide.element(element).shouldBe(Condition.visible, timeout)
-                    logger.info {
-                        "Checked element $elementName in $klassName is visible (By): ${
-                            element.toString().replace("\n", "\\n")
-                        }"
-                    }
-                    listOf()
-                } catch (e: Throwable) {
-                    listOf(e)
-                }
-
-                is SelenideElement -> try {
-                    element.shouldBe(Condition.visible, timeout)
-                    logger.info {
-                        "Checked element $elementName in $klassName is visible (SelenideElement): ${
-                            element.toString().replace("\n", "\\n")
-                        }"
-                    }
-                    // Widgets are included here, so objectShouldLoadRequired should be called on Widget children
-                    objectShouldLoadRequired(element, end, pomVersion)
-                } catch (e: Throwable) {
-                    listOf(e)
-                }
-
-                is ElementsCollection -> try {
-                    element.shouldBe(
-                        CollectionCondition.anyMatch(
-                            "At least one element is visible", WebElement::isDisplayed
-                        ), timeout
-                    )
-                    logger.info {
-                        "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
-                            element.toString().replace("\n", "\\n")
-                        }"
-                    }
-                    listOf()
-                } catch (e: Throwable) {
-                    listOf(e)
-                }
-
-                is ElementsContainer -> try {
-                    element.self.shouldBe(Condition.visible, timeout)
-                    logger.info {
-                        "Checked element $elementName in $klassName is visible (ElementsContainer): ${
-                            element.self.toString().replace("\n", "\\n")
-                        }"
-                    }
-                    objectShouldLoadRequired(element, end, pomVersion)
-                } catch (e: Throwable) {
-                    listOf(e)
-                }
-
+                null -> return listOf()
+                is By -> byShouldLoad(element, end, pomVersion, klassName, elementName)
+                is SelenideElement -> selenideElementShouldLoad(element, end, pomVersion, klassName, elementName)
+                is ElementsCollection -> elementsCollectionShouldLoad(element, end, pomVersion, klassName, elementName)
+                is ElementsContainer -> elementsContainerShouldLoad(element, end, pomVersion, klassName, elementName)
                 is Page -> objectShouldLoadRequired(element, end, pomVersion)
-
-                is WebElement -> try {
-                    WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
-                        ExpectedConditions.visibilityOf(element)
-                    )
-                    logger.info {
-                        "Checked element $elementName in $klassName is visible (WebElement): ${
-                            element.toString().replace("\n", "\\n")
-                        }"
-                    }
-                    listOf()
-                } catch (e: Throwable) {
-                    listOf(e)
-                }
-
+                is WebElement -> webElementShouldLoad(element, end, pomVersion, klassName, elementName)
                 else -> objectShouldLoadRequired(element, end, pomVersion)
             }
         }
-    }
 
+        private fun calculateTimeout(end: LocalDateTime): Duration {
+            val signedTimeout: Duration = Duration.between(LocalDateTime.now(), end)
+            return if (signedTimeout.isNegative) Duration.ZERO else signedTimeout
+        }
+
+        private fun byShouldLoad(
+            by: By, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String,
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                Selenide.element(by).shouldBe(visible, timeout)
+                logger.info {
+                    "Checked element $elementName in $klassName is visible (By): ${
+                        by.toString().replace("\n", "\\n")
+                    }"
+                }
+                objectShouldLoadRequired(by, end, pomVersion)
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
+        private fun selenideElementShouldLoad(
+            element: SelenideElement, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                element.shouldBe(visible, timeout)
+                logger.info {
+                    "Checked element $elementName in $klassName is visible (SelenideElement): ${
+                        element.toString().replace("\n", "\\n")
+                    }"
+                }
+                objectShouldLoadRequired(element, end, pomVersion)
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
+        private fun elementsCollectionShouldLoad(
+            collection: ElementsCollection,
+            end: LocalDateTime,
+            pomVersion: String,
+            klassName: String,
+            elementName: String
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                logger.info {
+                    "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
+                        collection.toString().replace("\n", "\\n")
+                    }"
+                }
+                val errors = mutableListOf<Throwable>()
+                visibles.forEach {
+                    errors.addAll(objectShouldLoadRequired(it, end, pomVersion))
+                }
+                errors.toList()
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
+        private fun elementsContainerShouldLoad(
+            container: ElementsContainer, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                container.self.shouldBe(visible, timeout)
+                logger.info {
+                    "Checked element $elementName in $klassName is visible (ElementsContainer): ${
+                        container.self.toString().replace("\n", "\\n")
+                    }"
+                }
+                objectShouldLoadRequired(container, end, pomVersion)
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
+        private fun webElementShouldLoad(
+            element: WebElement, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
+                    ExpectedConditions.visibilityOf(element)
+                )
+                logger.info {
+                    "Checked element $elementName in $klassName is visible (WebElement): ${
+                        element.toString().replace("\n", "\\n")
+                    }"
+                }
+                objectShouldLoadRequired(element, end, pomVersion)
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+    }
+}
+
+/**
+ * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds).
+ * @param pomVersion The pomVersion used to check visibility. Default value: SPConfig.pomVersion.
+ * @throws RequiredError Error can occur during validations (mostly, validation failures).
+ */
+@Throws(RequiredError::class)
+fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String): T {
+    val logger = KotlinLogging.logger {}
+    val className = this::class.simpleName
+    logger.info { "Starting shouldLoadRequired in $className" }
+    val errors = Loadable.objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion)
+    if (errors.isNotEmpty()) {
+        throw RequiredError(errors)
+    }
+    try {
+        this.customShouldLoadRequired(timeout, pomVersion)
+    } catch (e: Throwable) {
+        throw RequiredError(listOf(e))
+    }
+    return this
+}
+
+/**
+ * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param pomVersion The pomVersion used to check visibility. Default value: SPConfig.pomVersion.
+ * @throws RequiredError Error can occur during validations (mostly, validation failures).
+ */
+@Throws(RequiredError::class)
+@JvmOverloads
+fun <T : Loadable> T.shouldLoadRequired(pomVersion: String = SPConfig.pomVersion): T {
+    return this.shouldLoadRequired(Duration.ofMillis(Configuration.timeout), pomVersion)
+}
+
+/**
+ * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds).
+ * @throws RequiredError Error can occur during validations (mostly, validation failures).
+ */
+@Throws(RequiredError::class)
+fun <T : Loadable> T.shouldLoadRequired(timeout: Duration): T {
+    return this.shouldLoadRequired(timeout, SPConfig.pomVersion)
+}
+
+/**
+ * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds).
+ * @param pomVersion The pomVersion used to check visibility. Default value: SPConfig.pomVersion.
+ * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ */
+@Suppress("BooleanMethodIsAlwaysInverted")
+fun <T : Loadable> T.hasLoadedRequired(timeout: Duration, pomVersion: String): Boolean {
+    val logger = KotlinLogging.logger {}
+    val className = this::class.simpleName
+    logger.info { "Starting hasLoadedRequired in $className" }
+    return Loadable.objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion).isEmpty()
+}
+
+/**
+ * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param pomVersion The pomVersion used to check visibility. Default value: SPConfig.pomVersion.
+ * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ */
+@Suppress("BooleanMethodIsAlwaysInverted")
+@JvmOverloads
+fun <T : Loadable> T.hasLoadedRequired(pomVersion: String = SPConfig.pomVersion): Boolean {
+    return this.hasLoadedRequired(Duration.ofMillis(Configuration.timeout), pomVersion)
+}
+
+/**
+ * Returns true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ *
+ * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds).
+ * @return true if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ */
+@Suppress("BooleanMethodIsAlwaysInverted")
+fun <T : Loadable> T.hasLoadedRequired(timeout: Duration): Boolean {
+    return this.hasLoadedRequired(timeout, SPConfig.pomVersion)
 }
