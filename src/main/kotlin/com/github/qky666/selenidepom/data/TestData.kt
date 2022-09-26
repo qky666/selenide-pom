@@ -36,4 +36,26 @@ class TestData(propertiesFiles: List<String>) {
      */
     val output: MutableMap<String, Any>
         get() = threadLocalOutput.get()
+
+    /**
+     * Resets the instance using files provided files to create a new [PropertiesHelper].
+     * Output data is reset as well to an empty [MutableMap].
+     *
+     * @param propertiesFiles Filenames list used to create the new [PropertiesHelper]
+     */
+    fun resetData(propertiesFiles: List<String>) {
+        threadLocalInput.set(PropertiesHelper(propertiesFiles))
+        threadLocalOutput.set(mutableMapOf())
+    }
+
+    /**
+     * Resets the instance using files: [defaultDataPropertiesFileName] and `data/$env.properties`.
+     * Output data is reset as well to an empty [MutableMap].
+     *
+     * @param env The name used in the properties file
+     */
+    fun resetData(env: String) {
+        threadLocalInput.set(PropertiesHelper(listOf(defaultDataPropertiesFileName, "data/$env.properties")))
+        threadLocalOutput.set(mutableMapOf())
+    }
 }

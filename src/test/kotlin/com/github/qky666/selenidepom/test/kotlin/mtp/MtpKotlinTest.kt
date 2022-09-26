@@ -42,7 +42,7 @@ class MtpKotlinTest {
         }
         // testData is already initialized, but if there were more environments this could be a good place to
         // set testData
-        testData = TestData("prod")
+        testData.resetData("prod")
         Selenide.open(testData.input.getProperty("data.input.baseUrl"))
         // Additional test for output in TestData
         testData.output["threadId"] = Thread.currentThread().id

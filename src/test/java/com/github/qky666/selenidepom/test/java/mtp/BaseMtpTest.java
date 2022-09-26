@@ -32,7 +32,7 @@ public abstract class BaseMtpTest {
         }
         // testData is already initialized, but if there were more environments this could be a good place to
         // set testData
-        testData = new TestData("prod");
+        testData.resetData("prod");
         Selenide.open(testData.getInput().getProperty("data.input.baseUrl"));
         // Additional output TestData test
         testData.getOutput().put("threadId", Thread.currentThread().getId());
