@@ -18,15 +18,6 @@
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-    <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.qky666.selenidepom.pom.SampleCode" />
-          <option name="ENABLED" value="true" />
-          <option name="INCLUDE" value="false" />
-        </pattern>
-      </extension>
-    </EXTENSION>
     <DebugAllEnabled>false</DebugAllEnabled>
     <method v="2" />
   </configuration>

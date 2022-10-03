@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.java.mtp.pom.kotlinpom;
+package com.github.qky666.selenidepom.test.java.mtp.pom.javapom;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
@@ -12,13 +12,13 @@ public class MobileMenuWidget extends Widget {
 
     // Fields
     // First level menu items. I only write one, but there are more
-    @Getter(lazy = true) @Required private final SelenideElement services = this.$x(".//li[@aria-expanded]/a[.='Servicios']");
+    @Getter(lazy = true) @Required private final SelenideElement services = $x(".//li[@aria-expanded]/a[.='Servicios']");
 
     // All first level menu items
-    @Getter(lazy = true) private final ElementsCollection firstLevelMenuItems = this.$$("li.uk-parent");
+    @Getter(lazy = true) private final ElementsCollection firstLevelMenuItems = $$("li.uk-parent");
 
     // Second level menú items. I only write one, but there are more
-    @Getter(lazy = true) private final SelenideElement servicesQualityAssurance = this.$x(".//a[.='Aseguramiento de la calidad']");
+    @Getter(lazy = true) private final SelenideElement servicesQualityAssurance = $x(".//a[.='Aseguramiento de la calidad']");
 
     //Constructor
     public MobileMenuWidget(SelenideElement self) {super(self);}

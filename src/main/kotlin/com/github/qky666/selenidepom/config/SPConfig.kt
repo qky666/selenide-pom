@@ -21,9 +21,9 @@ import java.util.*
 object SPConfig {
     private const val fileName = "selenide-pom.properties"
     private const val defaultPomVersion = "default"
-    @Suppress("MemberVisibilityCanBePrivate") const val defaultDesktopPomVersion = "desktop"
-    @Suppress("MemberVisibilityCanBePrivate") const val defaultMobilePomVersion = "mobile"
-    @Suppress("MemberVisibilityCanBePrivate") const val defaultDeviceName = "Nexus 5"
+    const val defaultDesktopPomVersion = "desktop"
+    const val defaultMobilePomVersion = "mobile"
+    const val defaultDeviceName = "Nexus 5"
 
     private val fileProperties = Properties()
     private val webDriverFactory = WebDriverFactory()
@@ -59,7 +59,7 @@ object SPConfig {
      * The selenideConfig (thread local value).
      * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties and Selenide properties file.
      */
-    @Suppress("MemberVisibilityCanBePrivate") var selenideConfig: SelenideConfig
+    var selenideConfig: SelenideConfig
         get() = threadLocalSelenideConfig.get()
         set(value) {
             threadLocalSelenideConfig.set(value)
@@ -72,12 +72,11 @@ object SPConfig {
      */
     @JvmOverloads
     fun addMobileEmulation(deviceName: String = defaultDeviceName) {
-        val config = threadLocalSelenideConfig.get()
-        config.browser("chrome")
+        selenideConfig.browser("chrome")
         val chromeOptions = ChromeOptions()
         chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to deviceName))
-        val newCapabilities = chromeOptions.merge(config.browserCapabilities())
-        config.browserCapabilities(newCapabilities)
+        val newCapabilities = chromeOptions.merge(selenideConfig.browserCapabilities())
+        selenideConfig.browserCapabilities(newCapabilities)
     }
 
     /**
@@ -132,7 +131,6 @@ object SPConfig {
     @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, pomVersion: String = defaultMobilePomVersion) {
         resetSelenideConfig()
-        selenideConfig.browser("chrome")
         addMobileEmulation(deviceName)
         SPConfig.pomVersion = pomVersion
         setWebDriver()

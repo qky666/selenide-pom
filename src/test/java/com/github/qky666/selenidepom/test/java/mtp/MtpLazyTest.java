@@ -21,16 +21,11 @@ public class MtpLazyTest extends BaseMtpTest {
     final ServicesRequiredErrorPage servicesRequiredErrorPage = new ServicesRequiredErrorPage();
     final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = new ServicesShouldLoadRequiredErrorPage();
 
-    void acceptCookies() {
-        shouldLoadRequired(mainFramePage);
-        mainFramePage.getCookiesBanner().acceptCookies();
-    }
-
     @ParameterizedTest
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssurance(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -42,7 +37,7 @@ public class MtpLazyTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void badSelectorError(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -54,7 +49,7 @@ public class MtpLazyTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -65,7 +60,7 @@ public class MtpLazyTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithBadSelectorRequired(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -77,7 +72,7 @@ public class MtpLazyTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userForgotClick(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         // User forgot to click Quality Assurance link
 

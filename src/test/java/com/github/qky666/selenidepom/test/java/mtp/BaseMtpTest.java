@@ -21,7 +21,7 @@ public abstract class BaseMtpTest {
         return Collections.singletonList("chromeMobile");
     }
 
-    TestData testData = new TestData("prod");
+    final TestData testData = new TestData("prod");
 
     protected void setUpBrowser(String browserConfig) {
         SPConfig spConfig = SPConfig.INSTANCE;

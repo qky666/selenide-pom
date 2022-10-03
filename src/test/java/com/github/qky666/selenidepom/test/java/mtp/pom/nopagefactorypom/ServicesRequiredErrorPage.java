@@ -9,13 +9,18 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ServicesRequiredErrorPage extends MainFramePage {
-    @Required public final SelenideElement principal = $("div.servicios-principal");
-    @Required public final SelenideElement title = $("h1.h2");
-    @Required public final SelenideElement badSelector = $("bad-selector");
+    @Required
+    public final SelenideElement principal() {return $("div.servicios-principal");}
+
+    @Required
+    public final SelenideElement title() {return $("h1.h2");}
+
+    @Required
+    public final SelenideElement badSelector() {return $("bad-selector");}
 
     @Override
     public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
         super.customShouldLoadRequired(timeout, pomVersion);
-        title.shouldHave(text("Aseguramiento de la calidad"), timeout);
+        title().shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

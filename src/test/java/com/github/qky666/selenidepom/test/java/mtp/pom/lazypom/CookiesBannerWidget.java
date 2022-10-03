@@ -14,8 +14,8 @@ import static com.codeborne.selenide.Condition.disappear;
 public class CookiesBannerWidget extends Widget {
 
     // Fields
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement cookiesText = this.$("div.cli-bar-message");
-    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement accept = this.$("a#cookie_action_close_header");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement cookiesText = $("div.cli-bar-message");
+    @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement accept = $("a#cookie_action_close_header");
 
     // Constructor
     public CookiesBannerWidget(SelenideElement self) {super(self);}
@@ -29,6 +29,6 @@ public class CookiesBannerWidget extends Widget {
 
     public void acceptCookies() {
         LoadableKt.shouldLoadRequired(this).getAccept().click();
-        this.should(disappear);
+        should(disappear);
     }
 }

@@ -21,15 +21,11 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     final ServicesRequiredErrorPage servicesRequiredErrorPage = new ServicesRequiredErrorPage();
     final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = new ServicesShouldLoadRequiredErrorPage();
 
-    void acceptCookies() {
-        shouldLoadRequired(mainFramePage).cookiesBanner.acceptCookies();
-    }
-
     @ParameterizedTest
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssurance(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
@@ -44,7 +40,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void badSelectorError(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
@@ -56,7 +52,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
@@ -67,7 +63,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithBadSelectorRequired(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.mainMenu.services.hover();
         mainFramePage.mainMenu.servicesPopUpQualityAssurance.click();
 
@@ -79,7 +75,7 @@ public class MtpPlainJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userForgotClick(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.mainMenu.services.hover();
         // User forgot to click Quality Assurance link
 

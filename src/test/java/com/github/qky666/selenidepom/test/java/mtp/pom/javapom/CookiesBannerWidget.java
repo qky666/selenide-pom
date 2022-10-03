@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.java.mtp.pom.kotlinpom;
+package com.github.qky666.selenidepom.test.java.mtp.pom.javapom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -14,8 +14,8 @@ import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 public class CookiesBannerWidget extends Widget {
 
     // Fields
-    @Getter(lazy = true) @Required private final SelenideElement cookiesText = this.$("div.cli-bar-message");
-    @Getter(lazy = true) @Required private final SelenideElement accept = this.$("a#cookie_action_close_header");
+    @Getter(lazy = true) @Required private final SelenideElement cookiesText = $("div.cli-bar-message");
+    @Getter(lazy = true) @Required private final SelenideElement accept = $("a#cookie_action_close_header");
 
     // Constructor
     public CookiesBannerWidget(SelenideElement self) {super(self);}
@@ -29,6 +29,6 @@ public class CookiesBannerWidget extends Widget {
 
     public void acceptCookies() {
         shouldLoadRequired(this).getAccept().click();
-        this.should(disappear);
+        should(disappear);
     }
 }

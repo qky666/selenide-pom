@@ -16,8 +16,8 @@ public class CookiesBannerWidget extends Widget {
 
     public CookiesBannerWidget(SelenideElement self) {
         super(self);
-        cookiesText = self.$("div.cli-bar-message");
-        accept = self.$("a#cookie_action_close_header");
+        cookiesText = $("div.cli-bar-message");
+        accept = $("a#cookie_action_close_header");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class CookiesBannerWidget extends Widget {
 
     public void acceptCookies() {
         LoadableKt.shouldLoadRequired(this).accept.click();
-        this.should(disappear);
+        should(disappear);
     }
 }

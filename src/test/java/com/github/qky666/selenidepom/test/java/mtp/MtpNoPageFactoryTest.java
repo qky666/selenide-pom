@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.github.qky666.selenidepom.pom.LoadableKt.hasLoadedRequired;
 import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +26,11 @@ public class MtpNoPageFactoryTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssurance(String browserConfig) {
         setUpBrowser(browserConfig);
-        shouldLoadRequired(mainFramePage).mainMenu.services().hover();
+        // Sometimes first click is ignored
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+        sleep(500);
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+
         mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         shouldLoadRequired(servicesPage);
@@ -35,19 +40,28 @@ public class MtpNoPageFactoryTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void badSelectorError(String browserConfig) {
         setUpBrowser(browserConfig);
-        shouldLoadRequired(mainFramePage).mainMenu.services().hover();
+        // Sometimes first click is ignored
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+        sleep(500);
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+
         mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         shouldLoadRequired(servicesPage);
-        assertThrows(ElementNotFound.class, servicesPage.badSelector::click);
+        assertThrows(ElementNotFound.class, servicesPage.badSelector()::click);
     }
 
     @ParameterizedTest
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredError(String browserConfig) {
         setUpBrowser(browserConfig);
-        shouldLoadRequired(mainFramePage, Duration.ofSeconds(3)).mainMenu.services().hover();
+        // Sometimes first click is ignored
+        shouldLoadRequired(mainFramePage, Duration.ofSeconds(3)).mainMenu.services().click();
+        sleep(500);
+        shouldLoadRequired(mainFramePage, Duration.ofSeconds(3)).mainMenu.services().click();
+
         mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
+
         assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesShouldLoadRequiredErrorPage));
     }
 
@@ -55,7 +69,11 @@ public class MtpNoPageFactoryTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithBadSelectorRequired(String browserConfig) {
         setUpBrowser(browserConfig);
-        shouldLoadRequired(mainFramePage).mainMenu.services().hover();
+        // Sometimes first click is ignored
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+        sleep(500);
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+
         mainFramePage.mainMenu.servicesPopUpQualityAssurance().click();
 
         RequiredError error = assertThrows(RequiredError.class, () -> shouldLoadRequired(servicesRequiredErrorPage));
@@ -66,7 +84,10 @@ public class MtpNoPageFactoryTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userForgotClick(String browserConfig) {
         setUpBrowser(browserConfig);
-        shouldLoadRequired(mainFramePage).mainMenu.services().hover();
+        // Sometimes first click is ignored
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
+        sleep(500);
+        shouldLoadRequired(mainFramePage).mainMenu.services().click();
         // User forgot to click Quality Assurance link
 
         assertFalse(hasLoadedRequired(servicesPage));

@@ -16,8 +16,8 @@ public class CookiesBannerWidget extends Widget {
 
     public CookiesBannerWidget(SelenideElement self) {
         super(self);
-        cookiesText = this.$("div.cli-bar-message");
-        accept = this.$("a#cookie_action_close_header");
+        cookiesText = $("div.cli-bar-message");
+        accept = $("a#cookie_action_close_header");
     }
 
     @Override

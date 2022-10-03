@@ -3,7 +3,7 @@ package com.github.qky666.selenidepom.test.java.mtp;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.github.qky666.selenidepom.error.RequiredError;
-import com.github.qky666.selenidepom.test.java.mtp.pom.kotlinpom.*;
+import com.github.qky666.selenidepom.test.java.mtp.pom.javapom.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,15 +19,11 @@ public class MtpJavaTest extends BaseMtpTest {
     final ServicesRequiredErrorPage servicesRequiredErrorPage = new ServicesRequiredErrorPage();
     final ServicesShouldLoadRequiredErrorPage servicesShouldLoadRequiredErrorPage = new ServicesShouldLoadRequiredErrorPage();
 
-    void acceptCookies() {
-        shouldLoadRequired(mainFramePage).getCookiesBanner().acceptCookies();
-    }
-
     @ParameterizedTest
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceDesktop(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -39,7 +35,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void badSelectorErrorDesktop(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -51,7 +47,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorDesktop(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -62,7 +58,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userNavigateToQualityAssuranceWithBadSelectorRequiredDesktop(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         mainFramePage.getMainMenu().getServicesPopUpQualityAssurance().click();
 
@@ -74,7 +70,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("desktopBrowserConfigSource")
     void userForgotClickDesktop(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMainMenu().getServices().hover();
         // User forgot to click Quality Assurance link
 
@@ -88,7 +84,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("mobileBrowserConfigSource")
     void userNavigateToQualityAssuranceMobile(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         MobileMenuWidget mobileMenu = mainFramePage.getMobileMenu();
         shouldLoadRequired(mobileMenu);
@@ -104,7 +100,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("mobileBrowserConfigSource")
     void badSelectorErrorMobile(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         MobileMenuWidget mobileMenu = mainFramePage.getMobileMenu();
         shouldLoadRequired(mobileMenu);
@@ -120,7 +116,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("mobileBrowserConfigSource")
     void userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorMobile(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         MobileMenuWidget mobileMenu = mainFramePage.getMobileMenu();
         shouldLoadRequired(mobileMenu);
@@ -135,7 +131,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("mobileBrowserConfigSource")
     void userNavigateToQualityAssuranceWithBadSelectorRequiredMobile(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         MobileMenuWidget mobileMenu = mainFramePage.getMobileMenu();
         shouldLoadRequired(mobileMenu);
@@ -151,7 +147,7 @@ public class MtpJavaTest extends BaseMtpTest {
     @MethodSource("mobileBrowserConfigSource")
     void userForgotClickMobile(String browserConfig) {
         setUpBrowser(browserConfig);
-        acceptCookies();
+        mainFramePage.acceptCookies();
         mainFramePage.getMobileMenuButton().click();
         MobileMenuWidget mobileMenu = mainFramePage.getMobileMenu();
         shouldLoadRequired(mobileMenu);
