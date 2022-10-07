@@ -1,9 +1,9 @@
-package com.github.qky666.selenidepom.error
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.ex.UIAssertionError
 
 /**
- * Error thrown when a [com.github.qky666.selenidepom.annotation.Required] element is not found,
+ * Error thrown when a [com.github.qky666.selenidepom.pom.Required] element is not found,
  * or when [com.github.qky666.selenidepom.pom.Loadable.customShouldLoadRequired] throws an exception during execution of
  * [com.github.qky666.selenidepom.pom.shouldLoadRequired].
  *

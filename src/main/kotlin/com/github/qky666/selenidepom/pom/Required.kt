@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.annotation
+package com.github.qky666.selenidepom.pom
 
 /**
  * Every field, property or method (without parameters) annotated in a [com.github.qky666.selenidepom.pom.Loadable]

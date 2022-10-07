@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.test.java.mtp;
 
-import com.github.qky666.selenidepom.error.RequiredError;
+import com.github.qky666.selenidepom.pom.RequiredError;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.MainFramePage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.ServicesPage;
 import com.github.qky666.selenidepom.test.java.mtp.pom.lazypom.ServicesRequiredErrorPage;

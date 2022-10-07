@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.nopagefactorypom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 
 public class MainMenuWidget extends Widget {

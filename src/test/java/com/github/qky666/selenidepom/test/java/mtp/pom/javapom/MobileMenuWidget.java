@@ -3,7 +3,7 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.javapom;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Required;
 import com.github.qky666.selenidepom.pom.Widget;
 import lombok.Getter;
 import org.openqa.selenium.WebElement;

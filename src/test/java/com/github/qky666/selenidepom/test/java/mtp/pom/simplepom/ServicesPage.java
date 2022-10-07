@@ -3,7 +3,7 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.simplepom;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.pom.Page;
-import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Required;
 
 import java.time.Duration;
 

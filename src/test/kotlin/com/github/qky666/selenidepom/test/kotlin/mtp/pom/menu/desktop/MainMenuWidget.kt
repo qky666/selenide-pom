@@ -1,10 +1,8 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.desktop
 
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
-import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 
 class MainMenuWidget(self: SelenideElement) : Widget(self) {
@@ -18,8 +16,11 @@ class MainMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val contact = find("li#contacto_menu>a")
     @Required val langEn = findAll("li.individual-menu-idioma>a").findBy(text("en"))
     @Required val langEs = findAll("li.individual-menu-idioma>a").findBy(text("es"))
-    val openSearch = find("button#btn-menu")
 
-    val servicesPopUp = find("div.dropdown-servicios")
-    val servicesPopUpQualityAssurance = servicesPopUp.find("a[data-principal='Aseguramiento de la calidad']")
+    // Search
+    val searchOpen = find("button#btn-menu")
+    val searchMenu = SearchMenuWidget(find("form#search-menu"))
+
+    // Services Menu
+    val servicesPopUp = ServicesPopupMenuWidget(find("div.dropdown-servicios"))
 }

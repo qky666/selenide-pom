@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.*
@@ -24,10 +26,15 @@ import java.time.Duration
  */
 abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self
 
+fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
+    @Suppress("UNCHECKED_CAST")
+    return this as? T ?: factory(this)
+}
+
 /**
  * Same as [SelenideElement.setValue], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetSetValue(text: String): T {
+fun <T : Widget> T.setValue(text: String, ignored: Unit): T {
     this.value = text
     return this
 }
@@ -35,7 +42,7 @@ fun <T : Widget> T.widgetSetValue(text: String): T {
 /**
  * Same as [SelenideElement.val], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetVal(text: String): T {
+fun <T : Widget> T.`val`(text: String, ignored: Unit): T {
     this.`val`(text)
     return this
 }
@@ -43,7 +50,7 @@ fun <T : Widget> T.widgetVal(text: String): T {
 /**
  * Same as [SelenideElement.setValue], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetSetValue(text: SetValueOptions): T {
+fun <T : Widget> T.setValue(text: SetValueOptions, ignored: Unit): T {
     this.setValue(text)
     return this
 }
@@ -51,7 +58,7 @@ fun <T : Widget> T.widgetSetValue(text: SetValueOptions): T {
 /**
  * Same as [SelenideElement.append], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetAppend(text: String): T {
+fun <T : Widget> T.append(text: String, ignored: Unit): T {
     this.append(text)
     return this
 }
@@ -59,7 +66,7 @@ fun <T : Widget> T.widgetAppend(text: String): T {
 /**
  * Same as [SelenideElement.pressEnter], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetPressEnter(): T {
+fun <T : Widget> T.pressEnter(ignored: Unit): T {
     this.pressEnter()
     return this
 }
@@ -67,7 +74,7 @@ fun <T : Widget> T.widgetPressEnter(): T {
 /**
  * Same as [SelenideElement.pressTab], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetPressTab(): T {
+fun <T : Widget> T.pressTab(ignored: Unit): T {
     this.pressTab()
     return this
 }
@@ -75,7 +82,7 @@ fun <T : Widget> T.widgetPressTab(): T {
 /**
  * Same as [SelenideElement.pressEscape], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetPressEscape(): T {
+fun <T : Widget> T.pressEscape(ignored: Unit): T {
     this.pressEscape()
     return this
 }
@@ -83,7 +90,7 @@ fun <T : Widget> T.widgetPressEscape(): T {
 /**
  * Same as [SelenideElement.setSelected], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetSetSelected(selected: Boolean): T {
+fun <T : Widget> T.setSelected(selected: Boolean, ignored: Unit): T {
     this.isSelected = selected
     return this
 }
@@ -91,7 +98,7 @@ fun <T : Widget> T.widgetSetSelected(selected: Boolean): T {
 /**
  * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShould(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.should(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.should(condition, timeout)
     return this
 }
@@ -99,7 +106,7 @@ fun <T : Widget> T.widgetShould(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShould(vararg condition: Condition): T {
+fun <T : Widget> T.should(vararg condition: Condition, ignored: Unit): T {
     this.should(*condition)
     return this
 }
@@ -107,7 +114,7 @@ fun <T : Widget> T.widgetShould(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldHave(vararg condition: Condition): T {
+fun <T : Widget> T.shouldHave(vararg condition: Condition, ignored: Unit): T {
     this.shouldHave(*condition)
     return this
 }
@@ -115,7 +122,7 @@ fun <T : Widget> T.widgetShouldHave(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldHave(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.shouldHave(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.shouldHave(condition, timeout)
     return this
 }
@@ -123,7 +130,7 @@ fun <T : Widget> T.widgetShouldHave(condition: Condition, timeout: Duration): T 
 /**
  * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldBe(vararg condition: Condition): T {
+fun <T : Widget> T.shouldBe(vararg condition: Condition, ignored: Unit): T {
     this.shouldBe(*condition)
     return this
 }
@@ -131,7 +138,7 @@ fun <T : Widget> T.widgetShouldBe(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldBe(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.shouldBe(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.shouldBe(condition, timeout)
     return this
 }
@@ -139,7 +146,7 @@ fun <T : Widget> T.widgetShouldBe(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNot(vararg condition: Condition): T {
+fun <T : Widget> T.shouldNot(vararg condition: Condition, ignored: Unit): T {
     this.shouldNot(*condition)
     return this
 }
@@ -147,7 +154,7 @@ fun <T : Widget> T.widgetShouldNot(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNot(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.shouldNot(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.shouldNot(condition, timeout)
     return this
 }
@@ -155,7 +162,7 @@ fun <T : Widget> T.widgetShouldNot(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotHave(vararg condition: Condition): T {
+fun <T : Widget> T.shouldNotHave(vararg condition: Condition, ignored: Unit): T {
     this.shouldNotHave(*condition)
     return this
 }
@@ -163,7 +170,7 @@ fun <T : Widget> T.widgetShouldNotHave(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotHave(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.shouldNotHave(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.shouldNotHave(condition, timeout)
     return this
 }
@@ -171,7 +178,7 @@ fun <T : Widget> T.widgetShouldNotHave(condition: Condition, timeout: Duration):
 /**
  * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotBe(vararg condition: Condition): T {
+fun <T : Widget> T.shouldNotBe(vararg condition: Condition, ignored: Unit): T {
     this.shouldNotBe(*condition)
     return this
 }
@@ -179,7 +186,7 @@ fun <T : Widget> T.widgetShouldNotBe(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.shouldNotBe(condition: Condition, timeout: Duration, ignored: Unit): T {
     this.shouldNotBe(condition, timeout)
     return this
 }
@@ -187,7 +194,7 @@ fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T
 /**
  * Same as [SelenideElement. as], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetAs(alias: String): T {
+fun <T : Widget> T.`as`(alias: String, ignored: Unit): T {
     this.`as`(alias)
     return this
 }
@@ -195,7 +202,7 @@ fun <T : Widget> T.widgetAs(alias: String): T {
 /**
  * Same as [SelenideElement.scrollTo], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetScrollTo(): T {
+fun <T : Widget> T.scrollTo(ignored: Unit): T {
     this.scrollTo()
     return this
 }
@@ -203,7 +210,7 @@ fun <T : Widget> T.widgetScrollTo(): T {
 /**
  * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetScrollIntoView(scrollIntoViewOptions: String): T {
+fun <T : Widget> T.scrollIntoView(scrollIntoViewOptions: String, ignored: Unit): T {
     this.scrollIntoView(scrollIntoViewOptions)
     return this
 }
@@ -211,7 +218,7 @@ fun <T : Widget> T.widgetScrollIntoView(scrollIntoViewOptions: String): T {
 /**
  * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetScrollIntoView(alignToTop: Boolean): T {
+fun <T : Widget> T.scrollIntoView(alignToTop: Boolean, ignored: Unit): T {
     this.scrollIntoView(alignToTop)
     return this
 }
@@ -219,7 +226,7 @@ fun <T : Widget> T.widgetScrollIntoView(alignToTop: Boolean): T {
 /**
  * Same as [SelenideElement.contextClick], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetContextClick(): T {
+fun <T : Widget> T.contextClick(ignored: Unit): T {
     this.contextClick()
     return this
 }
@@ -227,7 +234,7 @@ fun <T : Widget> T.widgetContextClick(): T {
 /**
  * Same as [SelenideElement.doubleClick], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetDoubleClick(): T {
+fun <T : Widget> T.doubleClick(ignored: Unit): T {
     this.doubleClick()
     return this
 }
@@ -235,7 +242,7 @@ fun <T : Widget> T.widgetDoubleClick(): T {
 /**
  * Same as [SelenideElement.hover], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetHover(options: HoverOptions): T {
+fun <T : Widget> T.hover(options: HoverOptions, ignored: Unit): T {
     this.hover(options)
     return this
 }
@@ -243,7 +250,7 @@ fun <T : Widget> T.widgetHover(options: HoverOptions): T {
 /**
  * Same as [SelenideElement.hover], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetHover(): T {
+fun <T : Widget> T.hover(ignored: Unit): T {
     this.hover()
     return this
 }
@@ -251,7 +258,7 @@ fun <T : Widget> T.widgetHover(): T {
 /**
  * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetDragAndDropTo(targetCssSelector: String, options: DragAndDropOptions): T {
+fun <T : Widget> T.dragAndDropTo(targetCssSelector: String, options: DragAndDropOptions, ignored: Unit): T {
     this.dragAndDropTo(targetCssSelector, options)
     return this
 }
@@ -259,7 +266,7 @@ fun <T : Widget> T.widgetDragAndDropTo(targetCssSelector: String, options: DragA
 /**
  * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetDragAndDropTo(target: WebElement): T {
+fun <T : Widget> T.dragAndDropTo(target: WebElement, ignored: Unit): T {
     this.dragAndDropTo(target)
     return this
 }
@@ -267,7 +274,7 @@ fun <T : Widget> T.widgetDragAndDropTo(target: WebElement): T {
 /**
  * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetDragAndDropTo(targetCssSelector: String): T {
+fun <T : Widget> T.dragAndDropTo(targetCssSelector: String, ignored: Unit): T {
     this.dragAndDropTo(targetCssSelector)
     return this
 }

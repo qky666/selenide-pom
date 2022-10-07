@@ -1,11 +1,11 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.mobile
 
 import com.codeborne.selenide.CollectionCondition.allMatch
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
-import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import org.openqa.selenium.WebElement
 

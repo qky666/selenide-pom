@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.test.java.mtp.pom.lazypom;
 
 import com.codeborne.selenide.ClickOptions;
 import com.github.qky666.selenidepom.pom.Page;
-import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Required;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;

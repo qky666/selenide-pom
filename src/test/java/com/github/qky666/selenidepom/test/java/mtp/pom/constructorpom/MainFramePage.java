@@ -1,7 +1,7 @@
 package com.github.qky666.selenidepom.test.java.mtp.pom.constructorpom;
 
 import com.codeborne.selenide.ClickOptions;
-import com.github.qky666.selenidepom.annotation.Required;
+import com.github.qky666.selenidepom.pom.Required;
 import com.github.qky666.selenidepom.pom.Page;
 
 import static com.codeborne.selenide.Selenide.$;

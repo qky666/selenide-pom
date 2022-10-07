@@ -3,9 +3,8 @@ package com.github.qky666.selenidepom.pom
 import com.codeborne.selenide.*
 import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
-import com.github.qky666.selenidepom.annotation.Required
+import com.codeborne.selenide.Selenide.element
 import com.github.qky666.selenidepom.config.SPConfig
-import com.github.qky666.selenidepom.error.RequiredError
 import mu.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
@@ -126,6 +125,7 @@ interface Loadable {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, pomVersion, klassName, elementName)
                 is SelenideElement -> selenideElementShouldLoad(element, end, pomVersion, klassName, elementName)
+                is WidgetsCollection<*> -> widgetsCollectionShouldLoad(element, end, pomVersion, klassName, elementName)
                 is ElementsCollection -> elementsCollectionShouldLoad(element, end, pomVersion, klassName, elementName)
                 is ElementsContainer -> elementsContainerShouldLoad(element, end, pomVersion, klassName, elementName)
                 is Page -> objectShouldLoadRequired(element, end, pomVersion)
@@ -145,7 +145,7 @@ interface Loadable {
 
             val timeout = calculateTimeout(end)
             return try {
-                Selenide.element(by).shouldBe(visible, timeout)
+                element(by).shouldBe(visible, timeout)
                 logger.info {
                     "Checked element $elementName in $klassName is visible (By): ${
                         by.toString().replace("\n", "\\n")
@@ -201,6 +201,37 @@ interface Loadable {
             }
         }
 
+        private fun widgetsCollectionShouldLoad(
+            widgetsCollection: WidgetsCollection<*>,
+            end: LocalDateTime,
+            pomVersion: String,
+            klassName: String,
+            elementName: String
+        ): List<Throwable> {
+
+            val timeout = calculateTimeout(end)
+            return try {
+                val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                logger.info {
+                    "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
+                        widgetsCollection.toString().replace("\n", "\\n")
+                    }"
+                }
+                val errors = mutableListOf<Throwable>()
+                visibleElements.forEach {
+                    errors.addAll(objectShouldLoadRequired(it, end, pomVersion))
+                }
+                for (i in 0 until visibleElements.count()) {
+                    val widget = widgetsCollection[i]
+                    errors.addAll(objectShouldLoadRequired(widget, end, pomVersion))
+                }
+
+                errors.toList()
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
         private fun elementsContainerShouldLoad(
             container: ElementsContainer, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
         ): List<Throwable> {
@@ -242,7 +273,7 @@ interface Loadable {
 }
 
 /**
- * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * All properties with [com.github.qky666.selenidepom.pom.Required] annotation are checked if visible. Returns `this`.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds)
@@ -254,8 +285,36 @@ interface Loadable {
 fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String): T {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName
+    val end = LocalDateTime.now().plus(timeout)
     logger.info { "Starting shouldLoadRequired in $className" }
-    val errors = Loadable.objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion)
+
+    // If called on an element or collection, it should be visible
+    try {
+        when (this) {
+            is By -> element(this).shouldBe(visible, timeout)
+            is SelenideElement -> this.shouldBe(visible, timeout)
+            is ElementsCollection -> this.filter(visible).shouldHave(sizeGreaterThan(0), timeout)
+            is ElementsContainer -> this.self.shouldBe(visible, timeout)
+            is WebElement -> WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
+                ExpectedConditions.visibilityOf(this)
+            )
+        }
+    } catch (e: Throwable) {
+        throw RequiredError(listOf(e))
+    }
+    if (this is WidgetsCollection<*>) {
+        val errors = mutableListOf<Throwable>()
+        val visibleElements = this.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+        for (i in 0 until visibleElements.count()) {
+            val widget = this[i]
+            errors.addAll(Loadable.objectShouldLoadRequired(widget, end, pomVersion))
+        }
+        if (errors.isNotEmpty()) {
+            throw RequiredError(errors)
+        }
+    }
+
+    val errors = Loadable.objectShouldLoadRequired(this, end, pomVersion)
     if (errors.isNotEmpty()) {
         throw RequiredError(errors)
     }
@@ -268,7 +327,7 @@ fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String): 
 }
 
 /**
- * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * All properties with [com.github.qky666.selenidepom.pom.Required] annotation are checked if visible. Returns `this`.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param pomVersion The pomVersion used to check visibility. Default value: SPConfig.pomVersion
@@ -282,7 +341,7 @@ fun <T : Loadable> T.shouldLoadRequired(pomVersion: String = SPConfig.pomVersion
 }
 
 /**
- * All properties with [com.github.qky666.selenidepom.annotation.Required] annotation are checked if visible. Returns `this`.
+ * All properties with [com.github.qky666.selenidepom.pom.Required] annotation are checked if visible. Returns `this`.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param timeout The timeout waiting for elements to become visible. Default value: Configuration.timeout (milliseconds).

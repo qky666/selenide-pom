@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom
 
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Selenide.element
-import com.github.qky666.selenidepom.annotation.Required
+import com.github.qky666.selenidepom.pom.Required
 import java.time.Duration
 
 class ServicesShouldLoadRequiredErrorPage : MainFramePage() {
