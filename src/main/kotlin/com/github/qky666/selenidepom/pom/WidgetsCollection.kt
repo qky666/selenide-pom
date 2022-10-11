@@ -1,10 +1,18 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.*
+import com.codeborne.selenide.impl.CollectionSource
 import java.time.Duration
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.jvm.javaField
 
-class WidgetsCollection<T : Widget>(collection: ElementsCollection, val factory: (e: SelenideElement) -> T) :
-    ElementsCollection(WebDriverRunner.driver(), collection.map { it as? T ?: factory(it) }), Loadable {
+class WidgetsCollection<T : Widget>(
+    private val elementsCollection: ElementsCollection, private val factory: (e: SelenideElement) -> T
+) : ElementsCollection(elementsCollection.getCollectionSource()), Loadable {
+
+    val collectionSource: CollectionSource
+        get() = elementsCollection.getCollectionSource()
 
     // ElementsCollection overrides
     /**
@@ -218,4 +226,20 @@ class WidgetsCollection<T : Widget>(collection: ElementsCollection, val factory:
     override fun `as`(alias: String): WidgetsCollection<T> {
         return WidgetsCollection(super.`as`(alias), factory)
     }
+}
+
+/**
+ * Returns the [CollectionSource] associated with this [ElementsCollection].
+ *
+ * Note: It is a private field, so we have to obtain it by reflexion.
+ *
+ * @return The [CollectionSource] associated
+ */
+fun <T : ElementsCollection> T.getCollectionSource(): CollectionSource {
+    if (this is WidgetsCollection<*>) {
+        return this.collectionSource
+    }
+    val field = this::class.memberProperties.find { it.name == "collection" }
+    field!!.isAccessible = true
+    return field.javaField!!.get(this) as CollectionSource
 }
