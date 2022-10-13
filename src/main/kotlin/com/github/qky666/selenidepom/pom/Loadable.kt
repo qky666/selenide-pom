@@ -41,7 +41,7 @@ interface Loadable {
     companion object {
         private val logger = KotlinLogging.logger {}
 
-        internal fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
+        private fun objectShouldLoadRequired(obj: Any, end: LocalDateTime, pomVersion: String): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
             val objKlassName: String = objKlass.simpleName ?: "null"
@@ -117,11 +117,11 @@ interface Loadable {
             return klass.superclasses
         }
 
-        private fun elementShouldLoad(
+        internal fun elementShouldLoad(
             element: Any?, end: LocalDateTime, pomVersion: String, klassName: String, elementName: String
         ): List<Throwable> {
 
-            return when (element) {
+            val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, pomVersion, klassName, elementName)
                 is SelenideElement -> selenideElementShouldLoad(element, end, pomVersion, klassName, elementName)
@@ -131,7 +131,16 @@ interface Loadable {
                 is Page -> objectShouldLoadRequired(element, end, pomVersion)
                 is WebElement -> webElementShouldLoad(element, end, pomVersion, klassName, elementName)
                 else -> objectShouldLoadRequired(element, end, pomVersion)
+            }.toMutableList()
+            if (element is Loadable) {
+                val timeout = calculateTimeout(end)
+                try {
+                    element.customShouldLoadRequired(timeout, pomVersion)
+                } catch (e: Throwable) {
+                    errors.add(e)
+                }
             }
+            return errors
         }
 
         private fun calculateTimeout(end: LocalDateTime): Duration {
@@ -284,44 +293,12 @@ interface Loadable {
 @Throws(RequiredError::class)
 fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String): T {
     val logger = KotlinLogging.logger {}
-    val className = this::class.simpleName
+    val className = this::class.simpleName ?: "null"
+    logger.info { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    logger.info { "Starting shouldLoadRequired in $className" }
-
-    // If called on an element or collection, it should be visible
-    try {
-        when (this) {
-            is By -> element(this).shouldBe(visible, timeout)
-            is SelenideElement -> this.shouldBe(visible, timeout)
-            is ElementsCollection -> this.filter(visible).shouldHave(sizeGreaterThan(0), timeout)
-            is ElementsContainer -> this.self.shouldBe(visible, timeout)
-            is WebElement -> WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
-                ExpectedConditions.visibilityOf(this)
-            )
-        }
-    } catch (e: Throwable) {
-        throw RequiredError(listOf(e))
-    }
-    if (this is WidgetsCollection<*>) {
-        val errors = mutableListOf<Throwable>()
-        val visibleElements = this.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
-        for (i in 0 until visibleElements.count()) {
-            val widget = this[i]
-            errors.addAll(Loadable.objectShouldLoadRequired(widget, end, pomVersion))
-        }
-        if (errors.isNotEmpty()) {
-            throw RequiredError(errors)
-        }
-    }
-
-    val errors = Loadable.objectShouldLoadRequired(this, end, pomVersion)
+    val errors = Loadable.elementShouldLoad(this, end, pomVersion, className, "class_$className")
     if (errors.isNotEmpty()) {
         throw RequiredError(errors)
-    }
-    try {
-        this.customShouldLoadRequired(timeout, pomVersion)
-    } catch (e: Throwable) {
-        throw RequiredError(listOf(e))
     }
     return this
 }
@@ -364,9 +341,10 @@ fun <T : Loadable> T.shouldLoadRequired(timeout: Duration): T {
 @Suppress("BooleanMethodIsAlwaysInverted")
 fun <T : Loadable> T.hasLoadedRequired(timeout: Duration, pomVersion: String): Boolean {
     val logger = KotlinLogging.logger {}
-    val className = this::class.simpleName
+    val className = this::class.simpleName ?: "null"
     logger.info { "Starting hasLoadedRequired in $className" }
-    return Loadable.objectShouldLoadRequired(this, LocalDateTime.now().plus(timeout), pomVersion).isEmpty()
+    val end = LocalDateTime.now().plus(timeout)
+    return Loadable.elementShouldLoad(this, end, pomVersion, className, "root").isEmpty()
 }
 
 /**

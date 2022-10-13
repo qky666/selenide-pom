@@ -35,7 +35,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.codeborne:selenide:6.9.0")
-    implementation("io.github.microutils:kotlin-logging:3.0.0")
+    implementation("io.github.microutils:kotlin-logging:3.0.2")
     testImplementation("org.slf4j:slf4j-simple:2.0.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
