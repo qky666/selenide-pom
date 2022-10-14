@@ -12,6 +12,7 @@ class SearchResultsCollectionErrorPage : MainFramePage() {
 
     @Required val title = elements("h2.uk-article-title").first()
 
+    @Required val searchResults = elements("article[id]")
     @Required val searchResultsError = WidgetsCollection(elements("article_bad[id]"), ::SearchResultItemWidget)
 }
 

@@ -6,7 +6,6 @@ import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 
 class MainMenuWidget(self: SelenideElement) : Widget(self) {
-    @Required val home = find("a.img-menu")
     @Required val services = find("li#servicios_menu>a")
     @Required val sectors = find("li#sectores_menu>a")
     @Required val training = find("li#formacion_menu>a")

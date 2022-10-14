@@ -1,6 +1,7 @@
 package com.github.qky666.selenidepom.test.java.mtp.pom.constructorpom;
 
 import com.codeborne.selenide.ClickOptions;
+import com.codeborne.selenide.SelenideElement;
 import com.github.qky666.selenidepom.pom.Required;
 import com.github.qky666.selenidepom.pom.Page;
 
@@ -8,7 +9,8 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class MainFramePage extends Page {
-    @Required public final MainMenuWidget mainMenu = new MainMenuWidget($("div.custom-menu"));
+    @Required public final SelenideElement home = $("a.img-menu");
+    @Required public final MainMenuWidget mainMenu = new MainMenuWidget($("nav.menu-pc"));
     public final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget($("div#cookie-law-info-bar"));
 
     public void acceptCookies() {

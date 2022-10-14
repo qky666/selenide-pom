@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="6">
+    <list size="7">
       <item index="0" class="java.lang.String" itemvalue="com.github.qky666.selenidepom.Required" />
       <item index="1" class="java.lang.String" itemvalue="com.github.qky666.selenidepom.annotation.Required" />
       <item index="2" class="java.lang.String" itemvalue="com.github.qky666.selenidepom.kotlin.Required" />
       <item index="3" class="java.lang.String" itemvalue="com.github.qky666.selenidepom.pom.Required" />
       <item index="4" class="java.lang.String" itemvalue="es.qky.selenidepom.Required" />
       <item index="5" class="java.lang.String" itemvalue="org.junit.jupiter.api.BeforeAll" />
+      <item index="6" class="java.lang.String" itemvalue="org.openqa.selenium.support.FindBy" />
     </list>
     <writeAnnotations>
       <writeAnnotation name="org.openqa.selenium.support.FindAll" />

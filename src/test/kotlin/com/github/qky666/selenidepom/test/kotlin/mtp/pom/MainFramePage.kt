@@ -10,9 +10,10 @@ import com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.desktop.MainMenuWi
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.mobile.MobileMenuWidget
 
 open class MainFramePage : Page() {
-    @Required("desktop") val mainMenu = MainMenuWidget(element("div.custom-menu"))
+    @Required val home = element("a.img-menu")
+    @Required("desktop") val mainMenu = MainMenuWidget(element("nav.menu-pc"))
     @Required("mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
-    val mobileMenu = MobileMenuWidget(element("div#menu-movil ul.uk-nav"))
+    val mobileMenu = MobileMenuWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
 
     fun acceptCookies() {

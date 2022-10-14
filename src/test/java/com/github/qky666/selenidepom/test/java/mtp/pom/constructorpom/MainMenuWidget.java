@@ -7,7 +7,6 @@ import com.github.qky666.selenidepom.pom.Widget;
 
 @SuppressWarnings("unused")
 public class MainMenuWidget extends Widget {
-    @Required public final SelenideElement home;
     @Required public final SelenideElement services;
     @Required public final SelenideElement sectors;
     @Required public final SelenideElement training;
@@ -25,7 +24,6 @@ public class MainMenuWidget extends Widget {
     public MainMenuWidget(SelenideElement self) {
         super(self);
 
-        home = $("a.img-menu");
         services = $("li#servicios_menu>a");
         sectors = $("li#sectores_menu>a");
         training = $("li#formacion_menu>a");

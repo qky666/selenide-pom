@@ -54,7 +54,7 @@ interface Loadable {
                     try {
                         it.isAccessible = true
                     } catch (ignored: Exception) {
-                        logger.warn { "Cannot make accessible $it" }
+                        logger.warn { "Cannot make accessible $it. Ignored exception: $ignored" }
                         return@forEach
                     }
                     if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
