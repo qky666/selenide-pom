@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.13.1"
+            version = "0.13.2"
 
             from(components["java"])
         }

@@ -23,3 +23,12 @@ class MainMenuWidget(self: SelenideElement) : Widget(self) {
     // Services Menu
     val servicesPopUp = ServicesPopupMenuWidget(find("div.dropdown-servicios"))
 }
+
+class SearchMenuWidget(self: SelenideElement) : Widget(self) {
+    @Required val searchInput = find("input[name=s]")
+    @Required val doSearch = find("button.search-submit")
+}
+
+class ServicesPopupMenuWidget(self: SelenideElement) : Widget(self) {
+    @Required val qualityAssurance = find("a[data-principal='Aseguramiento de la calidad']")
+}

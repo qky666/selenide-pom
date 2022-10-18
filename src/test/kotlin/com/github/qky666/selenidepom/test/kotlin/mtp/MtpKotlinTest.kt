@@ -19,6 +19,7 @@ import com.github.qky666.selenidepom.test.kotlin.mtp.pom.servicesShouldLoadRequi
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import java.time.Duration
 
@@ -26,9 +27,7 @@ class MtpKotlinTest {
 
     private val testData = TestData("prod")
 
-    private val searchResultsExpected = 8
-    private val searchString = "Mexico"
-
+    private val maxResultsPerPageExpected = 5
 
     companion object {
         @JvmStatic
@@ -218,8 +217,21 @@ class MtpKotlinTest {
     }
 
     @ParameterizedTest
-    @MethodSource("desktopBrowserConfigSource")
-    fun search(browserConfig: String) {
+    @CsvSource(
+        "chrome,Mexico,2,3,'MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales','MTP es hoy una empresa de referencia en Digital Business Assurance'",
+        "firefox,Mexico,2,3,'MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales','MTP es hoy una empresa de referencia en Digital Business Assurance'",
+        "chrome,Viajero,2,2,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
+        "firefox,Viajero,2,2,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'"
+    )
+    fun searchMexico(
+        browserConfig: String,
+        searchString: String,
+        resultsPagesExpected: Int,
+        lastPageResultsExpected: Int,
+        lastPageResultTitle: String,
+        lastPageResultText: String
+    ) {
+
         setUpBrowser(browserConfig)
         mainFramePage.acceptCookies()
         mainFramePage.mainMenu.searchOpen.click()
@@ -229,11 +241,25 @@ class MtpKotlinTest {
 
         searchResultsPage.shouldLoadRequired().breadcrumb.activeBreadcrumbItem.shouldHave(exactText("Results: $searchString"))
         searchResultsPage.shouldLoadRequired().breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
-        Assertions.assertEquals(searchResultsExpected, searchResultsPage.searchResults.shouldLoadRequired().count())
-        val mtp25 = searchResultsPage.searchResults.filterBy(text("MTP, 25 años como empresa de referencia"))
-            .shouldHave(size(1))[0]
-        mtp25.title.shouldHave(exactText("MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"))
-        mtp25.text.shouldHave(text("MTP es hoy una empresa de referencia en Digital Business Assurance"))
+        Assertions.assertEquals(maxResultsPerPageExpected, searchResultsPage.searchResults.shouldLoadRequired().count())
+        searchResultsPage.pagination.shouldLoadRequired().currentPage.shouldHave(exactText("1"))
+        searchResultsPage.pagination.nextPage.shouldBe(visible)
+        searchResultsPage.pagination.pagesLinks.shouldHave(size(resultsPagesExpected))[resultsPagesExpected - 2].shouldHave(
+            exactText(resultsPagesExpected.toString())
+        )
+        searchResultsPage.pagination.pagesLinks.find(exactText(resultsPagesExpected.toString())).click()
+
+        searchResultsPage.shouldLoadRequired().pagination.shouldLoadRequired().currentPage.shouldHave(
+            exactText(
+                resultsPagesExpected.toString()
+            )
+        )
+        searchResultsPage.pagination.nextPage.should(disappear)
+        searchResultsPage.pagination.previousPage.shouldBe(visible)
+        Assertions.assertEquals(lastPageResultsExpected, searchResultsPage.searchResults.shouldLoadRequired().count())
+        val mtp25 = searchResultsPage.searchResults.filterBy(text(lastPageResultTitle)).shouldHave(size(1))[0]
+        mtp25.title.shouldHave(exactText(lastPageResultTitle))
+        mtp25.text.shouldHave(text(lastPageResultText))
     }
 
     @ParameterizedTest
@@ -242,13 +268,13 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         mainFramePage.acceptCookies()
         mainFramePage.mainMenu.searchOpen.click()
-        mainFramePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
+        mainFramePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         mainFramePage.mainMenu.searchMenu.doSearch.click()
         mainFramePage.mainMenu.searchMenu.should(disappear)
 
         val error =
             Assertions.assertThrows(RequiredError::class.java) { searchResultsErrorPage.shouldLoadRequired().searchResultsError.shouldLoadRequired() }
-        Assertions.assertEquals(searchResultsExpected, error.suppressed.size)
+        Assertions.assertEquals(5, error.suppressed.size)
     }
 
     @ParameterizedTest
@@ -257,11 +283,12 @@ class MtpKotlinTest {
         setUpBrowser(browserConfig)
         mainFramePage.acceptCookies()
         mainFramePage.mainMenu.searchOpen.click()
-        mainFramePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
+        mainFramePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         mainFramePage.mainMenu.searchMenu.doSearch.click()
         mainFramePage.mainMenu.searchMenu.should(disappear)
 
-        val error = Assertions.assertThrows(RequiredError::class.java) { searchResultsCollectionErrorPage.shouldLoadRequired().searchResultsError.shouldLoadRequired() }
+        val error =
+            Assertions.assertThrows(RequiredError::class.java) { searchResultsCollectionErrorPage.shouldLoadRequired().searchResultsError.shouldLoadRequired() }
         Assertions.assertEquals(1, error.suppressed.size)
     }
 }
