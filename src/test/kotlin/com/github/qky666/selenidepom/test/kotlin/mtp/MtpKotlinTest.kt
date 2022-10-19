@@ -83,7 +83,8 @@ class MtpKotlinTest {
     fun badSelectorErrorDesktop(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.services.hover()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.services.hover()
         homePage.mainMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         servicesPage.shouldLoadRequired()
         val badSelector = element("bad-selector")
@@ -95,7 +96,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorDesktop(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.services.hover()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.services.hover()
         homePage.mainMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         Assertions.assertThrows(RequiredError::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
     }
@@ -105,7 +107,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredDesktop(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.services.hover()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.services.hover()
         homePage.mainMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         val error =
             Assertions.assertThrows(RequiredError::class.java) { servicesRequiredErrorPage.shouldLoadRequired() }
@@ -117,7 +120,8 @@ class MtpKotlinTest {
     fun userForgotClickDesktop(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.services.hover()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.services.hover()
         // User forgot to click Quality Assurance link
         Assertions.assertFalse(servicesPage.hasLoadedRequired())
         Assertions.assertFalse(servicesPage.hasLoadedRequired(Duration.ofMillis(100)))
@@ -130,7 +134,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceMobile(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -148,7 +153,8 @@ class MtpKotlinTest {
     fun badSelectorErrorMobile(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -163,7 +169,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorMobile(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -176,7 +183,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredMobile(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -191,7 +199,8 @@ class MtpKotlinTest {
     fun userForgotClickMobile(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -207,7 +216,8 @@ class MtpKotlinTest {
     fun userNavigateToQualityAssuranceDesktopWrongPomVersion(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mobileMenuButton.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenu
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services.click()
@@ -235,7 +245,8 @@ class MtpKotlinTest {
 
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.searchOpen.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
         homePage.mainMenu.searchMenu.doSearch.click()
         homePage.mainMenu.searchMenu.should(disappear)
@@ -268,7 +279,8 @@ class MtpKotlinTest {
     fun searchRequiredError(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.searchOpen.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.mainMenu.searchMenu.doSearch.click()
         homePage.mainMenu.searchMenu.should(disappear)
@@ -283,7 +295,8 @@ class MtpKotlinTest {
     fun searchCollectionError(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainMenu.searchOpen.click()
+        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
+        homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.mainMenu.searchMenu.doSearch.click()
         homePage.mainMenu.searchMenu.should(disappear)
