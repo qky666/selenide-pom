@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement

@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide.element
@@ -6,12 +6,10 @@ import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.desktop.MainMenuWidget
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.mobile.MobileMenuWidget
 
 open class MainFramePage : Page() {
     @Required val home = element("a.img-menu")
-    @Required("desktop") val mainMenu = MainMenuWidget(element("nav.menu-pc"))
+    @Required("desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
     @Required("mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
     val mobileMenu = MobileMenuWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
@@ -38,6 +36,7 @@ open class MainFramePage : Page() {
     private fun acceptCookiesMobile() {
         shouldLoadRequired().mobileMenuButton.click()
         cookiesBanner.acceptCookies()
+        shouldLoadRequired()
     }
 }
 

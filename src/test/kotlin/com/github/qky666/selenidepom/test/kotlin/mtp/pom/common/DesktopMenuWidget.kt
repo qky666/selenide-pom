@@ -1,11 +1,11 @@
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.desktop
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 
-class MainMenuWidget(self: SelenideElement) : Widget(self) {
+class DesktopMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val services = find("li#servicios_menu>a")
     @Required val sectors = find("li#sectores_menu>a")
     @Required val training = find("li#formacion_menu>a")

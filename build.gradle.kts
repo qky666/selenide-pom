@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.13.1"
+version = "0.13.2"
 
 publishing {
     publications {

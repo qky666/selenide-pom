@@ -1,6 +1,6 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom.menu.mobile
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.CollectionCondition.allMatch
 import com.codeborne.selenide.Condition.text

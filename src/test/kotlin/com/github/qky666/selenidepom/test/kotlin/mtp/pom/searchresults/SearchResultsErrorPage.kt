@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresult
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults
 
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
@@ -6,8 +6,8 @@ import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.pom.WidgetsCollection
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.BreadCrumbWidget
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.MainFramePage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.BreadCrumbWidget
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MainFramePage
 
 class SearchResultsErrorPage : MainFramePage() {
     @Required val breadcrumb = BreadCrumbWidget(element("ul.uk-breadcrumb"))
