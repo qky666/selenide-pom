@@ -40,4 +40,4 @@ open class MainFramePage : Page() {
     }
 }
 
-val mainFramePage = MainFramePage()
+@Suppress("unused") val mainFramePage = MainFramePage()
