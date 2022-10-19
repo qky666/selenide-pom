@@ -252,7 +252,7 @@ class MtpKotlinTest {
         homePage.mainMenu.searchMenu.should(disappear)
 
         searchResultsPage.shouldLoadRequired().breadcrumb.activeBreadcrumbItem.shouldHave(exactText("Results: $searchString"))
-        searchResultsPage.shouldLoadRequired().breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
+        searchResultsPage.breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
         Assertions.assertEquals(maxResultsPerPageExpected, searchResultsPage.searchResults.shouldLoadRequired().count())
         searchResultsPage.pagination.shouldLoadRequired().currentPage.shouldHave(exactText("1"))
         searchResultsPage.pagination.nextPage.shouldBe(visible)
@@ -269,9 +269,9 @@ class MtpKotlinTest {
         searchResultsPage.pagination.nextPage.should(disappear)
         searchResultsPage.pagination.previousPage.shouldBe(visible)
         Assertions.assertEquals(lastPageResultsExpected, searchResultsPage.searchResults.shouldLoadRequired().count())
-        val mtp25 = searchResultsPage.searchResults.filterBy(text(lastPageResultTitle)).shouldHave(size(1))[0]
-        mtp25.title.shouldHave(exactText(lastPageResultTitle))
-        mtp25.text.shouldHave(text(lastPageResultText))
+        val result = searchResultsPage.searchResults.filterBy(text(lastPageResultTitle)).shouldHave(size(1))[0]
+        result.title.shouldHave(exactText(lastPageResultTitle))
+        result.text.shouldHave(text(lastPageResultText))
     }
 
     @ParameterizedTest
