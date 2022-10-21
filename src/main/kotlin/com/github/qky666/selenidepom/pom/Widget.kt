@@ -21,11 +21,17 @@ import java.time.Duration
  * }
  * ```
  *
- * @param self The [SelenideElement] that acts as a container of the elements defined inside the Widget
- * @constructor Creates a new instance using provided [SelenideElement] as container
+ * @param self the [SelenideElement] that acts as a container of the elements defined inside the [Widget]
+ * @constructor creates a new instance using provided [SelenideElement] as container
  */
 abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self
 
+/**
+ * Returns the [SelenideElement] as a [T] instance.
+ *
+ * @param factory method that obtains a [T] instance from a [SelenideElement] (usually a [T] constructor)
+ * @return [T] instance based on provided [SelenideElement]
+ */
 fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
     @Suppress("UNCHECKED_CAST") return this as? T ?: factory(this)
 }

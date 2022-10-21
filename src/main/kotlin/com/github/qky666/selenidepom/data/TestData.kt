@@ -9,16 +9,16 @@ const val defaultDataPropertiesFileName = "data/default.properties"
  *
  * This class is thread safe, so it can be used when tests are run in parallel.
  *
- * @constructor Creates a new instance using provided properties files in input data
- * @param propertiesFiles List os files used to create the [PropertiesHelper] of input data
+ * @constructor creates a new instance using provided properties files in input data
+ * @param propertiesFiles list os files used to create the [PropertiesHelper] of input data
  */
 class TestData(propertiesFiles: List<String>) {
     /**
      * Creates a new instance using files: [defaultDataPropertiesFileName] and `data/$env.properties`.
-     * For example: if `env` is "prod", the list of files contains [defaultDataPropertiesFileName] and `data/prod.properties`.
-     * If `env` is "test", the list of files contains [defaultDataPropertiesFileName] and `data/test.properties`.
+     * For example: if `env` is `prod`, the list of files contains [defaultDataPropertiesFileName] and `data/prod.properties`.
+     * If `env` is `test`, the list of files contains [defaultDataPropertiesFileName] and `data/test.properties`.
      *
-     * @param env The name used in the properties file
+     * @param env name used in the properties file
      */
     constructor(env: String) : this(listOf(defaultDataPropertiesFileName, "data/$env.properties"))
 
@@ -41,7 +41,7 @@ class TestData(propertiesFiles: List<String>) {
      * Resets the instance using files provided files to create a new [PropertiesHelper].
      * Output data is reset as well to an empty [MutableMap].
      *
-     * @param propertiesFiles Filenames list used to create the new [PropertiesHelper]
+     * @param propertiesFiles filenames list used to create the new [PropertiesHelper]
      */
     fun resetData(propertiesFiles: List<String>) {
         threadLocalInput.set(PropertiesHelper(propertiesFiles))
@@ -52,7 +52,7 @@ class TestData(propertiesFiles: List<String>) {
      * Resets the instance using files: [defaultDataPropertiesFileName] and `data/$env.properties`.
      * Output data is reset as well to an empty [MutableMap].
      *
-     * @param env The name used in the properties file
+     * @param env name used in the properties file
      */
     fun resetData(env: String) {
         threadLocalInput.set(PropertiesHelper(listOf(defaultDataPropertiesFileName, "data/$env.properties")))

@@ -7,10 +7,16 @@ import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 
+/**
+ * TODO: Documentation
+ */
 class WidgetsCollection<T : Widget>(
     private val elementsCollection: ElementsCollection, private val factory: (e: SelenideElement) -> T
 ) : ElementsCollection(elementsCollection.getCollectionSource()), Loadable {
 
+    /**
+     * [CollectionSource] associated to this instance.
+     */
     val collectionSource: CollectionSource
         get() = elementsCollection.getCollectionSource()
 
@@ -231,7 +237,7 @@ class WidgetsCollection<T : Widget>(
 /**
  * Returns the [CollectionSource] associated with this [ElementsCollection].
  *
- * Note: It is a private field, so we have to obtain it by reflexion.
+ * Note: It is a private field, so we have to obtain it through reflexion.
  *
  * @return The [CollectionSource] associated
  */
