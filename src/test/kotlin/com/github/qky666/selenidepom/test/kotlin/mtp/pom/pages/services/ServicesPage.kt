@@ -10,8 +10,8 @@ class ServicesPage : MainFramePage() {
     @Required val principal = element("div.servicios-principal")
     @Required val title = element("h1.h2")
 
-    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String) {
-        super.customShouldLoadRequired(timeout, pomVersion)
+    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
+        super.customShouldLoadRequired(timeout, pomVersion, lang)
         title.shouldHave(text("Aseguramiento de la calidad"), timeout)
     }
 }

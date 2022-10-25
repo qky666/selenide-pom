@@ -13,8 +13,8 @@ import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 public class MainFramePage extends Page {
 
     // Fields
-    @Getter(lazy = true) @Required("desktop") private final MainMenuWidget mainMenu = new MainMenuWidget($("div.custom-menu"));
-    @Getter(lazy = true) @Required("mobile") private final SelenideElement mobileMenuButton = $("button.custom-menu-btn-flotante");
+    @Getter(lazy = true) @Required(pomVersion = "desktop") private final MainMenuWidget mainMenu = new MainMenuWidget($("div.custom-menu"));
+    @Getter(lazy = true) @Required(pomVersion = "mobile") private final SelenideElement mobileMenuButton = $("button.custom-menu-btn-flotante");
     @Getter(lazy = true) private final MobileMenuWidget mobileMenu = new MobileMenuWidget($("div#menu-movil ul.uk-nav"));
     @Getter(lazy = true) private final CookiesBannerWidget cookiesBanner = new CookiesBannerWidget($("div#cookie-law-info-bar"));
 

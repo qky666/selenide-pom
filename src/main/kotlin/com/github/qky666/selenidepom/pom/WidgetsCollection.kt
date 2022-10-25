@@ -8,7 +8,11 @@ import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 
 /**
- * TODO: Documentation
+ * Almost the same as [ElementsCollection], but most methods return a [Widget] instead of a [SelenideElement].
+ *
+ * @param elementsCollection the underlying [ElementsCollection]
+ * @param factory the [T] ([Widget] subclass) constructor
+ * @constructor creates a new instance based on provided [elementsCollection] and [T] constructor
  */
 class WidgetsCollection<T : Widget>(
     private val elementsCollection: ElementsCollection, private val factory: (e: SelenideElement) -> T

@@ -9,8 +9,8 @@ import com.github.qky666.selenidepom.pom.shouldLoadRequired
 
 open class MainFramePage : Page() {
     @Required val home = element("a.img-menu")
-    @Required("desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
-    @Required("mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
+    @Required(pomVersion = "desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
+    @Required(pomVersion = "mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
     val mobileMenu = MobileMenuWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
 

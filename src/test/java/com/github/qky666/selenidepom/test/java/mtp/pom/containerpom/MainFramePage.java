@@ -13,8 +13,8 @@ public class MainFramePage implements Loadable {
 
     // Fields
     @FindBy(css = "a.img-menu") @Required public SelenideElement home;
-    @FindBy(css = "nav.menu-pc") @Required("desktop") public MainMenuWidget mainMenu;
-    @FindBy(css = "button.custom-menu-btn-flotante") @Required("mobile") public SelenideElement mobileMenuButton;
+    @FindBy(css = "nav.menu-pc") @Required(pomVersion = "desktop") public MainMenuWidget mainMenu;
+    @FindBy(css = "button.custom-menu-btn-flotante") @Required(pomVersion = "mobile") public SelenideElement mobileMenuButton;
     @FindBy(css = "div#menu-movil ul.uk-nav") public MobileMenuWidget mobileMenu;
     @FindBy(css = "div#cookie-law-info-bar") public CookiesBannerWidget cookiesBanner;
 

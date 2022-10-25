@@ -35,6 +35,18 @@ class ConditionedElement(
         self, mapOf<String, Condition>().withDefault { condition }, strict
     )
 
+    /**
+     * Creates a new instance using provided [exactText] for all languages.
+     * Useful if the web page uses only one language or the element's exact text is the same in all languages.
+     *
+     * @param self the [SelenideElement]
+     * @param exactText the expected [Condition.exactText] for [self] in every language
+     * @param strict default value for `strict` in [shouldMeetCondition]
+     */
+    constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
+        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
+    )
+
     private val logger = KotlinLogging.logger {}
 
     /**
