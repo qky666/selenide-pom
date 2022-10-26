@@ -1,8 +1,9 @@
 package com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.home
 
-import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MainFramePage
@@ -12,15 +13,24 @@ class HomePage : MainFramePage() {
 }
 
 class MainBannerWidget(self: SelenideElement) : Widget(self) {
-    @Required val title = find("h1")
-    @Required val text = find("p")
-    @Required val moreInfo = find("a")
-
-    fun verifyTextsEs() {
-        title.shouldHave(exactText("MTP, 25 años como referencia en aseguramiento de negocios digitales"))
-        text.shouldHave(exactText("Acompañamos a nuestros clientes en su transformación digital y asegurando la calidad de software, experiencia de usuario, seguridad y los desarrollos durante todo el ciclo de vida."))
-        moreInfo.shouldHave(exactText("Más información"))
-    }
+    @Required val title = ConditionedElement(
+        find("h1"), mapOf(
+            "es" to Condition.exactText("MTP, 25 años como referencia en aseguramiento de negocios digitales"),
+            "en" to Condition.exactText("MTP ensures quality digital public services")
+        )
+    )
+    @Required val text = ConditionedElement(
+        find("p"), mapOf(
+            "es" to Condition.exactText("Acompañamos a nuestros clientes en su transformación digital y asegurando la calidad de software, experiencia de usuario, seguridad y los desarrollos durante todo el ciclo de vida."),
+            "en" to Condition.exactText("MTP, the drive for the digital transformation of public administrations")
+        )
+    )
+    @Required val moreInfo = ConditionedElement(
+        find("a"), mapOf(
+            "es" to Condition.text("Más información"),
+            "en" to Condition.text("More information")
+        )
+    )
 }
 
 val homePage = HomePage()

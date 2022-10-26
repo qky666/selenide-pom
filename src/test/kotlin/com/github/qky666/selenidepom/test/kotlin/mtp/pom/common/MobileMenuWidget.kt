@@ -68,7 +68,6 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
             findAll("a").findBy(exactText("Quality Assurance"))
         } else findAll("a").findBy(exactText("Aseguramiento de la calidad"))
     }
-//    val servicesQualityAssurance = findAll("a").findBy(text("Aseguramiento de la calidad"))
 
     fun shouldBeCollapsed() {
         firstLevelMenuItems.shouldHave(allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->

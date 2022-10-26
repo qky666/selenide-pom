@@ -13,8 +13,8 @@ class ServicesRequiredErrorPage : MainFramePage() {
     @Required val badSelector = element("bad-selector")
     @Required val otherBadSelector = element("other-bad-selector")
 
-    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String) {
-        super.customShouldLoadRequired(timeout, pomVersion)
+    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
+        super.customShouldLoadRequired(timeout, pomVersion, lang)
         title.shouldHave(text("Aseguramiento de la calidad"), timeout)
     }
 }
