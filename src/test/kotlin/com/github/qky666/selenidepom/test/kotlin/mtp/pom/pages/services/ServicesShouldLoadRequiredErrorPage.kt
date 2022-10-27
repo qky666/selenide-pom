@@ -12,7 +12,7 @@ class ServicesShouldLoadRequiredErrorPage : MainFramePage() {
 
     override fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
         super.customShouldLoadRequired(timeout, pomVersion, lang)
-        title.shouldHave(text("Aseguramiento de la calidad con error"), timeout)
+        title.shouldHave(text("Text error"), timeout)
     }
 }
 

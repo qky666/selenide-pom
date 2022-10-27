@@ -1,7 +1,9 @@
 package com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults
 
+import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
+import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.BreadCrumbWidget
@@ -10,9 +12,11 @@ import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MainFramePage
 class SearchResultsCollectionErrorPage : MainFramePage() {
     @Required val breadcrumb = BreadCrumbWidget(element("ul.uk-breadcrumb"))
 
-    @Required val title = elements("h2.uk-article-title").first()
+    // Possible bug in mtp.es, message is always displayed in spanish
+    @Required val title =
+        ConditionedElement(elements("h2.uk-article-title").first(), Condition.text("Resultados de búsqueda para:"))
 
-    @Required val searchResults = elements("article[id]")
+    val searchResults = elements("article[id]")
     @Required val searchResultsError = WidgetsCollection(elements("article_bad[id]"), ::SearchResultItemWidget)
 }
 
