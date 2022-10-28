@@ -21,8 +21,8 @@ public class CookiesBannerWidget extends Widget {
     }
 
     @Override
-    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
-        super.customShouldLoadRequired(timeout, pomVersion);
+    public void customShouldLoadRequired(Duration timeout, String pomVersion, String lang) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion, lang);
         cookiesText.shouldHave(Condition.text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)"), timeout);
     }
 

@@ -20,8 +20,8 @@ public class ServicesRequiredErrorPage extends MainFramePage {
 
     // Methods
     @Override
-    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
-        super.customShouldLoadRequired(timeout, pomVersion);
+    public void customShouldLoadRequired(Duration timeout, String pomVersion, String lang) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion, lang);
         getTitle().shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

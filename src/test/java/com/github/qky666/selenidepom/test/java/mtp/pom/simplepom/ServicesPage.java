@@ -15,8 +15,8 @@ public class ServicesPage extends Page {
     public final SelenideElement badSelector = $("bad-selector");
 
     @Override
-    public void customShouldLoadRequired(Duration timeout, String pomVersion) throws Throwable {
-        super.customShouldLoadRequired(timeout, pomVersion);
+    public void customShouldLoadRequired(Duration timeout, String pomVersion, String lang) throws Throwable {
+        super.customShouldLoadRequired(timeout, pomVersion, lang);
         title.shouldHave(Condition.text("Aseguramiento de la calidad"), timeout);
     }
 }

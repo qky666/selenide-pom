@@ -14,7 +14,6 @@ import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.qualityA
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsCollectionErrorPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsErrorPage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.servicesPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.servicesRequiredErrorPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.servicesShouldLoadRequiredErrorPage
 import org.junit.jupiter.api.AfterEach
@@ -208,7 +207,13 @@ class MtpKotlinTest {
         Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired())
         Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(Duration.ofMillis(100)))
         Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired() }
-        Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired(Duration.ofMillis(100)) }
+        Assertions.assertThrows(RequiredError::class.java) {
+            qualityAssurancePage.shouldLoadRequired(
+                Duration.ofMillis(
+                    100
+                )
+            )
+        }
     }
 
     @ParameterizedTest
@@ -221,9 +226,13 @@ class MtpKotlinTest {
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services().click()
         mobileMenu.servicesQualityAssurance().shouldBe(visible).click()
-        Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired("desktop") }
-        Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired("desktop"))
-        Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(timeout = Duration.ofMillis(100), lang = "desktop"))
+        Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired(pomVersion = "desktop") }
+        Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(pomVersion = "desktop"))
+        Assertions.assertFalse(
+            qualityAssurancePage.hasLoadedRequired(
+                timeout = Duration.ofMillis(100), lang = "desktop"
+            )
+        )
     }
 
     @ParameterizedTest
@@ -244,7 +253,6 @@ class MtpKotlinTest {
 
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
         homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
         homePage.mainMenu.searchMenu.doSearch.click()
@@ -278,7 +286,6 @@ class MtpKotlinTest {
     fun searchRequiredError(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
         homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.mainMenu.searchMenu.doSearch.click()
@@ -294,7 +301,6 @@ class MtpKotlinTest {
     fun searchCollectionError(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
-        homePage.shouldLoadRequired().mainBanner.verifyTextsEs()
         homePage.mainMenu.searchOpen.click()
         homePage.mainMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.mainMenu.searchMenu.doSearch.click()

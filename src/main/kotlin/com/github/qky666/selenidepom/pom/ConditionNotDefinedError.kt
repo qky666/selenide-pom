@@ -8,4 +8,4 @@ package com.github.qky666.selenidepom.pom
  * @param lang the language that has not been found in [ConditionedElement]
  */
 class ConditionNotDefinedError(element: ConditionedElement, lang: String) :
-    Error("Text not defined for language $lang in TextElement ${element.toString().replace("\n", "\\n")}")
+    Error("Text not defined for language $lang in TextElement ${element.searchCriteria}")

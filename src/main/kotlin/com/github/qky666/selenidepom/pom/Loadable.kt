@@ -90,6 +90,7 @@ interface Loadable {
                         logger.warn { "Cannot make accessible $it" }
                         return@forEach
                     }
+                    var addToProcessedNames = true
                     if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
                             val validPom = annotation.pomVersion.isEmpty() or annotation.pomVersion.contains(pomVersion)
@@ -97,11 +98,19 @@ interface Loadable {
                             validPom and validLang
                         }
                         if (annotations.isNotEmpty()) {
-                            val element = it.call(obj)
-                            errors.addAll(elementShouldLoad(element, end, pomVersion, lang, objKlassName, it.name))
+                            if (it.parameters.size == 1) {
+                                val element = it.call(obj)
+                                errors.addAll(elementShouldLoad(element, end, pomVersion, lang, objKlassName, it.name))
+                            } else {
+                                logger.warn { "KFunction $it has Required annotation, but has more than one parameter (${it.parameters.size})" }
+                                addToProcessedNames = false
+                            }
                         }
                     }
-                    processedNames.add(it.name)
+                    if (addToProcessedNames) {
+                        processedNames.add(it.name)
+                    }
+
                 }
             }
 
@@ -348,14 +357,19 @@ interface Loadable {
  * All properties with [Required] annotation are checked if visible. Returns `this`.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
- * @param timeout the timeout waiting for elements to become visible
- * @param pomVersion the `pomVersion` used to check visibility
- * @param lang the `language` used to check visibility
+ * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
+ * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+ * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
  */
 @Throws(RequiredError::class)
-fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String, lang: String): T {
+@JvmOverloads
+fun <T : Loadable> T.shouldLoadRequired(
+    timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
+    pomVersion: String = SPConfig.pomVersion,
+    lang: String = SPConfig.lang,
+): T {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.info { "Starting shouldLoadRequired in class $className" }
@@ -367,45 +381,50 @@ fun <T : Loadable> T.shouldLoadRequired(timeout: Duration, pomVersion: String, l
     return this
 }
 
-/**
- * All properties with [Required] annotation are checked if visible. Returns `this`.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
- *
- * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
- * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
- * @throws RequiredError error can occur during validations (mostly, validation failures)
- * @return `this`, so it can be chained
- */
-@Throws(RequiredError::class)
-@JvmOverloads
-fun <T : Loadable> T.shouldLoadRequired(pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang): T {
-    return this.shouldLoadRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
-}
-
-/**
- * All properties with [Required] annotation are checked if visible. Returns `this`.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
- *
- * @param timeout the timeout waiting for elements to become visible
- * @throws RequiredError error can occur during validations (mostly, validation failures).
- * @return `this`, so it can be chained
- */
-@Throws(RequiredError::class)
-fun <T : Loadable> T.shouldLoadRequired(timeout: Duration): T {
-    return this.shouldLoadRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
-}
+///**
+// * All properties with [Required] annotation are checked if visible. Returns `this`.
+// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+// *
+// * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+// * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
+// * @throws RequiredError error can occur during validations (mostly, validation failures)
+// * @return `this`, so it can be chained
+// */
+//@Throws(RequiredError::class)
+//@JvmOverloads
+//fun <T : Loadable> T.shouldLoadRequired(pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang): T {
+//    return this.shouldLoadRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
+//}
+//
+///**
+// * All properties with [Required] annotation are checked if visible. Returns `this`.
+// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+// *
+// * @param timeout the timeout waiting for elements to become visible
+// * @throws RequiredError error can occur during validations (mostly, validation failures).
+// * @return `this`, so it can be chained
+// */
+//@Throws(RequiredError::class)
+//fun <T : Loadable> T.shouldLoadRequired(timeout: Duration): T {
+//    return this.shouldLoadRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
+//}
 
 /**
  * Returns `true` if [shouldLoadRequired] returns without throwing any exception, false otherwise.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
- * @param timeout the timeout waiting for elements to become visible
- * @param pomVersion `pomVersion` used to check visibility
- * @param lang `language` used to check visibility
+ * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
+ * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+ * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
 @Suppress("BooleanMethodIsAlwaysInverted")
-fun <T : Loadable> T.hasLoadedRequired(timeout: Duration, pomVersion: String, lang: String): Boolean {
+@JvmOverloads
+fun <T : Loadable> T.hasLoadedRequired(
+    timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
+    pomVersion: String = SPConfig.pomVersion,
+    lang: String = SPConfig.lang,
+): Boolean {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.info { "Starting hasLoadedRequired in $className" }
@@ -413,30 +432,30 @@ fun <T : Loadable> T.hasLoadedRequired(timeout: Duration, pomVersion: String, la
     return Loadable.elementShouldLoad(this, end, pomVersion, lang, className, "root").isEmpty()
 }
 
-/**
- * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
- *
- * @param pomVersion `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
- * @param lang `language` used to check visibility. Default value: [SPConfig.lang]
- * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
- */
-@Suppress("BooleanMethodIsAlwaysInverted")
-@JvmOverloads
-fun <T : Loadable> T.hasLoadedRequired(
-    pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang
-): Boolean {
-    return this.hasLoadedRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
-}
-
-/**
- * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
- *
- * @param timeout the timeout waiting for elements to become visible
- * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
- */
-@Suppress("BooleanMethodIsAlwaysInverted")
-fun <T : Loadable> T.hasLoadedRequired(timeout: Duration): Boolean {
-    return this.hasLoadedRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
-}
+///**
+// * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
+// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+// *
+// * @param pomVersion `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+// * @param lang `language` used to check visibility. Default value: [SPConfig.lang]
+// * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
+// */
+//@Suppress("BooleanMethodIsAlwaysInverted")
+//@JvmOverloads
+//fun <T : Loadable> T.hasLoadedRequired(
+//    pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang
+//): Boolean {
+//    return this.hasLoadedRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
+//}
+//
+///**
+// * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
+// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+// *
+// * @param timeout the timeout waiting for elements to become visible
+// * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
+// */
+//@Suppress("BooleanMethodIsAlwaysInverted")
+//fun <T : Loadable> T.hasLoadedRequired(timeout: Duration): Boolean {
+//    return this.hasLoadedRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
+//}

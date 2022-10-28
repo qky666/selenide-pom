@@ -18,6 +18,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     val firstLevelMenuItems = findAll("li.uk-parent")
 
     @Required
+    @JvmOverloads
     fun services(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Services"))
@@ -25,6 +26,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     }
 
     @Required
+    @JvmOverloads
     fun areas(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Areas"))
@@ -33,6 +35,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
 
     // Possible bug in mtp.es in english, it only appears on desktop view
     @Required(lang = "es")
+    @JvmOverloads
     fun training(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Training"))
@@ -42,6 +45,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     @Required(lang = "es") val blog = firstLevelMenuItems.findBy(exactText("Blog"))
 
     @Required
+    @JvmOverloads
     fun talent(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Talent"))
@@ -49,6 +53,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     }
 
     @Required
+    @JvmOverloads
     fun about(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("About MTP"))
@@ -56,6 +61,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     }
 
     @Required
+    @JvmOverloads
     fun contact(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             findAll("li>a").findBy(exactText("Contact Us"))

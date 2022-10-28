@@ -63,16 +63,18 @@ class ConditionedElement(
         lang: String = SPConfig.lang,
         strict: Boolean = this.strict,
     ): ConditionedElement {
-        val condition = conditions[lang]
-        if (condition != null) {
+        try {
+            val condition = conditions.getValue(lang)
             self.should(condition, timeout)
             logger.info {
                 "Checked condition '$condition' (language '$lang') in element '${
                     this.toString().replace("\n", "\\n")
                 }'"
             }
-        } else if (strict) {
-            throw ConditionNotDefinedError(this, lang)
+        } catch (e: NoSuchElementException) {
+            if (strict) {
+                throw ConditionNotDefinedError(this, lang)
+            }
         }
         return this
     }

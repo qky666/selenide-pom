@@ -7,7 +7,7 @@ import com.github.qky666.selenidepom.pom.Required
 class QualityAssurancePage : ServicesPage() {
     @Required override val title = ConditionedElement(super.title, mapOf(
         "es" to exactText("Aseguramiento de la calidad"),
-        "es" to exactText("Quality assurance"),
+        "en" to exactText("Quality assurance"),
     ))
 }
 
