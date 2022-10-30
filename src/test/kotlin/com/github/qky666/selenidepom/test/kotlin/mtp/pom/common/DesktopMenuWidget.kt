@@ -1,5 +1,3 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.Condition.*

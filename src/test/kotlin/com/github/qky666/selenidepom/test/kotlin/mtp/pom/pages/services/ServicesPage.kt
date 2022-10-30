@@ -9,4 +9,4 @@ open class ServicesPage : MainFramePage() {
     @Required open val title = principal.find("h1.h2")
 }
 
-val servicesPage = ServicesPage()
+@Suppress("unused") val servicesPage = ServicesPage()

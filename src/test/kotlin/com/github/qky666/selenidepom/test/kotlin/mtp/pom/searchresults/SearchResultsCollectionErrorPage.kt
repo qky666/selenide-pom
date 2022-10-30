@@ -16,7 +16,7 @@ class SearchResultsCollectionErrorPage : MainFramePage() {
     @Required val title =
         ConditionedElement(elements("h2.uk-article-title").first(), Condition.text("Resultados de búsqueda para:"))
 
-    val searchResults = elements("article[id]")
+    @Suppress("unused") val searchResults = elements("article[id]")
     @Required val searchResultsError = WidgetsCollection(elements("article_bad[id]"), ::SearchResultItemWidget)
 }
 
