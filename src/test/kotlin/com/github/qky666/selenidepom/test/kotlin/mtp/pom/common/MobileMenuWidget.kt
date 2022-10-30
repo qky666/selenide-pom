@@ -10,7 +10,6 @@ import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import org.openqa.selenium.WebElement
 
-
 class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     // First level menu items
 
@@ -76,8 +75,10 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     }
 
     fun shouldBeCollapsed() {
-        firstLevelMenuItems.shouldHave(allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->
-            "false".equals(element.getAttribute("aria-expanded"), ignoreCase = true)
-        })
+        firstLevelMenuItems.shouldHave(
+            allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->
+                "false".equals(element.getAttribute("aria-expanded"), ignoreCase = true)
+            }
+        )
     }
 }

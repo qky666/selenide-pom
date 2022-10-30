@@ -21,8 +21,8 @@ public class CookiesBannerWidget extends ElementsContainer implements Loadable {
 
     // Methods
     @Override
-    public void customShouldLoadRequired(Duration timeout, String pomVersion, String lang) throws Throwable {
-        Loadable.super.customShouldLoadRequired(timeout, pomVersion, lang);
+    public void customShouldLoadRequired(Duration timeout, String model, String lang) throws Throwable {
+        Loadable.super.customShouldLoadRequired(timeout, model, lang);
         cookiesText.shouldHave(text("Utilizamos cookies propias y de terceros para fines analíticos y para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas visitadas)"), timeout);
     }
 

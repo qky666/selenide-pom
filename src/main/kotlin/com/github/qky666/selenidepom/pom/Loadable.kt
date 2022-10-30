@@ -1,9 +1,12 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.*
 import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.ElementsContainer
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
+import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
 import mu.KotlinLogging
 import org.openqa.selenium.By
@@ -12,10 +15,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.reflect.KClass
-import kotlin.reflect.full.*
+import kotlin.reflect.full.findAnnotations
+import kotlin.reflect.full.functions
+import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.superclasses
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
@@ -32,18 +39,21 @@ interface Loadable {
      * are executed. The default implementation does nothing.
      *
      * @param timeout the timeout for the operation. The internal logic of the method should be aware of this timeout
-     * @param pomVersion the `pomVersion` that should be used for the validations. The internal logic of the method should be aware of this `pomVersion`
+     * @param model the `model` that should be used for the validations. The internal logic of the method should be aware of this `model`
      * @param lang the `language` that should be used for the validations. The internal logic of the method should be aware of this `language`
      */
     @Throws(Throwable::class)
-    fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
+    fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
     }
 
     companion object {
         private val logger = KotlinLogging.logger {}
 
         private fun objectShouldLoadRequired(
-            obj: Any, end: LocalDateTime, pomVersion: String, lang: String
+            obj: Any,
+            end: LocalDateTime,
+            model: String,
+            lang: String
         ): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
@@ -62,7 +72,7 @@ interface Loadable {
                     }
                     if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
-                            val validPom = annotation.pomVersion.isEmpty() or annotation.pomVersion.contains(pomVersion)
+                            val validPom = annotation.model.isEmpty() or annotation.model.contains(model)
                             val validLang = annotation.lang.isEmpty() or annotation.lang.contains(lang)
                             validPom and validLang
                         }
@@ -76,7 +86,7 @@ interface Loadable {
                                     }
                                 }.call(obj)
                             }
-                            errors.addAll(elementShouldLoad(element, end, pomVersion, lang, objKlassName, it.name))
+                            errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
                         }
                     }
                     processedNames.add(it.name)
@@ -93,14 +103,14 @@ interface Loadable {
                     var addToProcessedNames = true
                     if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
-                            val validPom = annotation.pomVersion.isEmpty() or annotation.pomVersion.contains(pomVersion)
+                            val validPom = annotation.model.isEmpty() or annotation.model.contains(model)
                             val validLang = annotation.lang.isEmpty() or annotation.lang.contains(lang)
                             validPom and validLang
                         }
                         if (annotations.isNotEmpty()) {
                             if (it.parameters.size == 1) {
                                 val element = it.call(obj)
-                                errors.addAll(elementShouldLoad(element, end, pomVersion, lang, objKlassName, it.name))
+                                errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
                             } else {
                                 logger.warn { "KFunction $it has Required annotation, but has more than one parameter (${it.parameters.size})" }
                                 addToProcessedNames = false
@@ -110,7 +120,6 @@ interface Loadable {
                     if (addToProcessedNames) {
                         processedNames.add(it.name)
                     }
-
                 }
             }
 
@@ -136,37 +145,42 @@ interface Loadable {
         }
 
         internal fun elementShouldLoad(
-            element: Any?, end: LocalDateTime, pomVersion: String, lang: String, klassName: String, elementName: String
+            element: Any?,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String
         ): List<Throwable> {
 
             val errors = when (element) {
                 null -> return listOf()
-                is By -> byShouldLoad(element, end, pomVersion, lang, klassName, elementName)
+                is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
                 is ConditionedElement -> conditionedElementShouldLoad(
-                    element, end, pomVersion, lang, klassName, elementName
+                    element, end, model, lang, klassName, elementName
                 )
 
-                is SelenideElement -> selenideElementShouldLoad(element, end, pomVersion, lang, klassName, elementName)
+                is SelenideElement -> selenideElementShouldLoad(element, end, model, lang, klassName, elementName)
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
-                    element, end, pomVersion, lang, klassName, elementName
+                    element, end, model, lang, klassName, elementName
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
-                    element, end, pomVersion, lang, klassName, elementName
+                    element, end, model, lang, klassName, elementName
                 )
 
                 is ElementsContainer -> elementsContainerShouldLoad(
-                    element, end, pomVersion, lang, klassName, elementName
+                    element, end, model, lang, klassName, elementName
                 )
 
-                is Page -> objectShouldLoadRequired(element, end, pomVersion, lang)
-                is WebElement -> webElementShouldLoad(element, end, pomVersion, lang, klassName, elementName)
-                else -> objectShouldLoadRequired(element, end, pomVersion, lang)
+                is Page -> objectShouldLoadRequired(element, end, model, lang)
+                is WebElement -> webElementShouldLoad(element, end, model, lang, klassName, elementName)
+                else -> objectShouldLoadRequired(element, end, model, lang)
             }.toMutableList()
             if (element is Loadable) {
                 val timeout = calculateTimeout(end)
                 try {
-                    element.customShouldLoadRequired(timeout, pomVersion, lang)
+                    element.customShouldLoadRequired(timeout, model, lang)
                 } catch (e: Throwable) {
                     errors.add(e)
                 }
@@ -180,7 +194,12 @@ interface Loadable {
         }
 
         private fun byShouldLoad(
-            by: By, end: LocalDateTime, pomVersion: String, lang: String, klassName: String, elementName: String,
+            by: By,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String,
         ): List<Throwable> {
 
             val timeout = calculateTimeout(end)
@@ -188,10 +207,10 @@ interface Loadable {
                 element(by).shouldBe(visible, timeout)
                 logger.info {
                     "Checked element $elementName in $klassName is visible (By): ${
-                        by.toString().replace("\n", "\\n")
+                    by.toString().replace("\n", "\\n")
                     }"
                 }
-                objectShouldLoadRequired(by, end, pomVersion, lang)
+                objectShouldLoadRequired(by, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -200,7 +219,7 @@ interface Loadable {
         private fun conditionedElementShouldLoad(
             element: ConditionedElement,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -211,11 +230,11 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.info {
                     "Checked element $elementName in $klassName is visible (TextElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
                 element.shouldMeetCondition(timeout, lang)
-                objectShouldLoadRequired(element, end, pomVersion, lang)
+                objectShouldLoadRequired(element, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -224,7 +243,7 @@ interface Loadable {
         private fun selenideElementShouldLoad(
             element: SelenideElement,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -235,10 +254,10 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.info {
                     "Checked element $elementName in $klassName is visible (SelenideElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
-                objectShouldLoadRequired(element, end, pomVersion, lang)
+                objectShouldLoadRequired(element, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -247,7 +266,7 @@ interface Loadable {
         private fun elementsCollectionShouldLoad(
             collection: ElementsCollection,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -258,12 +277,12 @@ interface Loadable {
                 val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.info {
                     "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
-                        collection.toString().replace("\n", "\\n")
+                    collection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
                 visibles.forEach {
-                    errors.addAll(objectShouldLoadRequired(it, end, pomVersion, lang))
+                    errors.addAll(objectShouldLoadRequired(it, end, model, lang))
                 }
                 errors.toList()
             } catch (e: Throwable) {
@@ -274,7 +293,7 @@ interface Loadable {
         private fun widgetsCollectionShouldLoad(
             widgetsCollection: WidgetsCollection<*>,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -285,16 +304,16 @@ interface Loadable {
                 val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.info {
                     "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
-                        widgetsCollection.toString().replace("\n", "\\n")
+                    widgetsCollection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
                 visibleElements.forEach {
-                    errors.addAll(objectShouldLoadRequired(it, end, pomVersion, lang))
+                    errors.addAll(objectShouldLoadRequired(it, end, model, lang))
                 }
                 for (i in 0 until visibleElements.count()) {
                     val widget = widgetsCollection[i]
-                    errors.addAll(objectShouldLoadRequired(widget, end, pomVersion, lang))
+                    errors.addAll(objectShouldLoadRequired(widget, end, model, lang))
                 }
 
                 errors.toList()
@@ -306,7 +325,7 @@ interface Loadable {
         private fun elementsContainerShouldLoad(
             container: ElementsContainer,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -317,10 +336,10 @@ interface Loadable {
                 container.self.shouldBe(visible, timeout)
                 logger.info {
                     "Checked element $elementName in $klassName is visible (ElementsContainer): ${
-                        container.self.toString().replace("\n", "\\n")
+                    container.self.toString().replace("\n", "\\n")
                     }"
                 }
-                objectShouldLoadRequired(container, end, pomVersion, lang)
+                objectShouldLoadRequired(container, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -329,7 +348,7 @@ interface Loadable {
         private fun webElementShouldLoad(
             element: WebElement,
             end: LocalDateTime,
-            pomVersion: String,
+            model: String,
             lang: String,
             klassName: String,
             elementName: String
@@ -342,10 +361,10 @@ interface Loadable {
                 )
                 logger.info {
                     "Checked element $elementName in $klassName is visible (WebElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
-                objectShouldLoadRequired(element, end, pomVersion, lang)
+                objectShouldLoadRequired(element, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -358,7 +377,7 @@ interface Loadable {
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
- * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+ * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
@@ -367,54 +386,26 @@ interface Loadable {
 @JvmOverloads
 fun <T : Loadable> T.shouldLoadRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
-    pomVersion: String = SPConfig.pomVersion,
+    model: String = SPConfig.model,
     lang: String = SPConfig.lang,
 ): T {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.info { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    val errors = Loadable.elementShouldLoad(this, end, pomVersion, lang, className, "class_$className")
+    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className")
     if (errors.isNotEmpty()) {
         throw RequiredError(errors)
     }
     return this
 }
 
-///**
-// * All properties with [Required] annotation are checked if visible. Returns `this`.
-// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
-// *
-// * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
-// * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
-// * @throws RequiredError error can occur during validations (mostly, validation failures)
-// * @return `this`, so it can be chained
-// */
-//@Throws(RequiredError::class)
-//@JvmOverloads
-//fun <T : Loadable> T.shouldLoadRequired(pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang): T {
-//    return this.shouldLoadRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
-//}
-//
-///**
-// * All properties with [Required] annotation are checked if visible. Returns `this`.
-// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
-// *
-// * @param timeout the timeout waiting for elements to become visible
-// * @throws RequiredError error can occur during validations (mostly, validation failures).
-// * @return `this`, so it can be chained
-// */
-//@Throws(RequiredError::class)
-//fun <T : Loadable> T.shouldLoadRequired(timeout: Duration): T {
-//    return this.shouldLoadRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
-//}
-
 /**
  * Returns `true` if [shouldLoadRequired] returns without throwing any exception, false otherwise.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
- * @param pomVersion the `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
+ * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
@@ -422,40 +413,12 @@ fun <T : Loadable> T.shouldLoadRequired(
 @JvmOverloads
 fun <T : Loadable> T.hasLoadedRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
-    pomVersion: String = SPConfig.pomVersion,
+    model: String = SPConfig.model,
     lang: String = SPConfig.lang,
 ): Boolean {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.info { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
-    return Loadable.elementShouldLoad(this, end, pomVersion, lang, className, "root").isEmpty()
+    return Loadable.elementShouldLoad(this, end, model, lang, className, "root").isEmpty()
 }
-
-///**
-// * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
-// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
-// *
-// * @param pomVersion `pomVersion` used to check visibility. Default value: [SPConfig.pomVersion]
-// * @param lang `language` used to check visibility. Default value: [SPConfig.lang]
-// * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
-// */
-//@Suppress("BooleanMethodIsAlwaysInverted")
-//@JvmOverloads
-//fun <T : Loadable> T.hasLoadedRequired(
-//    pomVersion: String = SPConfig.pomVersion, lang: String = SPConfig.lang
-//): Boolean {
-//    return this.hasLoadedRequired(Duration.ofMillis(SPConfig.selenideConfig.timeout()), pomVersion, lang)
-//}
-//
-///**
-// * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
-// * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
-// *
-// * @param timeout the timeout waiting for elements to become visible
-// * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
-// */
-//@Suppress("BooleanMethodIsAlwaysInverted")
-//fun <T : Loadable> T.hasLoadedRequired(timeout: Duration): Boolean {
-//    return this.hasLoadedRequired(timeout, SPConfig.pomVersion, SPConfig.lang)
-//}

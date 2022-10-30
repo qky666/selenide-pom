@@ -2,15 +2,15 @@ package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide.element
-import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.Page
+import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 
 open class MainFramePage : Page() {
     @Required val home = element("a.img-menu")
-    @Required(pomVersion = "desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
-    @Required(pomVersion = "mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
+    @Required(model = "desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
+    @Required(model = "mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
     val mobileMenu = MobileMenuWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
 
@@ -19,7 +19,7 @@ open class MainFramePage : Page() {
         // shouldLoadRequired().cookiesBanner.acceptCookies()
 
         // Workaround
-        if (SPConfig.pomVersion == "mobile") {
+        if (SPConfig.model == "mobile") {
             acceptCookiesMobile()
         } else {
             acceptCookiesDesktop()

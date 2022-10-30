@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.data
 
 import mu.KotlinLogging
 import java.io.IOException
-import java.util.*
+import java.util.Properties
 
 const val projectPropertiesFileName = "project.properties"
 

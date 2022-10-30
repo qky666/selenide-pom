@@ -24,8 +24,8 @@ class SearchResultsPage : MainFramePage() {
 
     val pagination = SearchResultsPaginationWidget(element("nav[role=navigation]"))
 
-    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
-        super.customShouldLoadRequired(timeout, pomVersion, lang)
+    override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
+        super.customShouldLoadRequired(timeout, model, lang)
         breadcrumb.activeBreadcrumbItem.shouldHave(Condition.text("Results:"))
     }
 }
@@ -39,13 +39,15 @@ class SearchResultsPaginationWidget(self: SelenideElement) : Widget(self) {
     @Required val currentPage = find("ul.uk-pagination li.uk-active")
     @Required val pagesLinks = findAll("ul.uk-pagination li a")
     val nextPage = ConditionedElement(
-        find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-right')]]")), mapOf(
+        find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-right')]]")),
+        mapOf(
             "es" to Condition.text("Página siguiente"),
             "en" to Condition.text("Next Page"),
         )
     )
     val previousPage = ConditionedElement(
-        find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-left')]]")), mapOf(
+        find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-left')]]")),
+        mapOf(
             "es" to Condition.text("Página anterior"),
             "en" to Condition.text("Previous Page"),
         )

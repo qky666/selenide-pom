@@ -18,8 +18,8 @@ public class ServicesPage extends MainFramePage {
     public final SelenideElement badSelector() {return $("bad-selector");}
 
     @Override
-    public void customShouldLoadRequired(Duration timeout, String pomVersion, String lang) throws Throwable {
-        super.customShouldLoadRequired(timeout, pomVersion, lang);
+    public void customShouldLoadRequired(Duration timeout, String model, String lang) throws Throwable {
+        super.customShouldLoadRequired(timeout, model, lang);
         title().shouldHave(text("Aseguramiento de la calidad"), timeout);
     }
 }

@@ -1,21 +1,26 @@
 package com.github.qky666.selenidepom.test.kotlin.mtp
 
 import com.codeborne.selenide.CollectionCondition.size
-import com.codeborne.selenide.Condition.*
-import com.codeborne.selenide.Selenide.*
+import com.codeborne.selenide.Condition.disappear
+import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition.text
+import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Selenide.closeWebDriver
+import com.codeborne.selenide.Selenide.element
+import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.ex.ElementNotFound
-import com.github.qky666.selenidepom.pom.RequiredError
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
+import com.github.qky666.selenidepom.pom.RequiredError
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.home.homePage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.qualityAssurancePage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsCollectionErrorPage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsPage
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsErrorPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.servicesRequiredErrorPage
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.services.servicesShouldLoadRequiredErrorPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsCollectionErrorPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsErrorPage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsPage
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
@@ -67,6 +72,24 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigSource")
     fun userNavigateToQualityAssuranceDesktop(browserConfig: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired().acceptCookies()
+        homePage.mainMenu.services.hover()
+        homePage.mainMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
+        qualityAssurancePage.shouldLoadRequired()
+        Assertions.assertEquals(
+            "div#cookie-law-info-bar/a#cookie_action_close_header",
+            qualityAssurancePage.cookiesBanner.accept.searchCriteria
+        )
+        // Cookies message should not reappear
+        qualityAssurancePage.cookiesBanner.shouldNotBe(visible)
+    }
+
+    @ParameterizedTest
+    @MethodSource("desktopBrowserConfigSource")
+    fun userNavigateToQualityAssuranceDesktopEnglish(browserConfig: String) {
+        setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired().mainMenu.langEn.click()
+        SPConfig.lang = "en"
         homePage.shouldLoadRequired().acceptCookies()
         homePage.mainMenu.services.hover()
         homePage.mainMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
@@ -218,7 +241,7 @@ class MtpKotlinTest {
 
     @ParameterizedTest
     @MethodSource("mobileBrowserConfigSource")
-    fun userNavigateToQualityAssuranceDesktopWrongPomVersion(browserConfig: String) {
+    fun userNavigateToQualityAssuranceDesktopWrongModel(browserConfig: String) {
         setUpBrowser(browserConfig)
         homePage.shouldLoadRequired().acceptCookies()
         homePage.mobileMenuButton.click()
@@ -226,8 +249,8 @@ class MtpKotlinTest {
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
         mobileMenu.services().click()
         mobileMenu.servicesQualityAssurance().shouldBe(visible).click()
-        Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired(pomVersion = "desktop") }
-        Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(pomVersion = "desktop"))
+        Assertions.assertThrows(RequiredError::class.java) { qualityAssurancePage.shouldLoadRequired(model = "desktop") }
+        Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(model = "desktop"))
         Assertions.assertFalse(
             qualityAssurancePage.hasLoadedRequired(
                 timeout = Duration.ofMillis(100), lang = "desktop"

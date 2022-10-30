@@ -1,6 +1,7 @@
 package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
-import com.codeborne.selenide.Condition.*
+import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required

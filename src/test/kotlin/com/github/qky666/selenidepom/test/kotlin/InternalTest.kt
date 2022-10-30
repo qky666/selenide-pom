@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test
 
 class InternalTest {
     @Test
-    fun verifyPomVersionFromPropertiesFile() {
-        System.clearProperty("selenide-pom.pomVersion")
+    fun verifyModelFromPropertiesFile() {
+        System.clearProperty("selenide-pom.model")
         SPConfig.resetSelenideConfig()
-        val defaultPomVersion = SPConfig.pomVersion
-        Assertions.assertEquals("filePomVersion", defaultPomVersion)
+        val defaultModel = SPConfig.model
+        Assertions.assertEquals("fileModel", defaultModel)
     }
 
     @Test

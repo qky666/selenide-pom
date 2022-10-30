@@ -6,13 +6,12 @@ import com.codeborne.selenide.webdriver.WebDriverFactory
 import org.openqa.selenium.Proxy
 import org.openqa.selenium.chrome.ChromeOptions
 import java.io.File
-import java.util.*
-
+import java.util.Properties
 
 /**
  * Main configuration values.
  *
- * Some values ([pomVersion], [lang]) can be set, in precedence order:
+ * Some values ([model], [lang]) can be set, in precedence order:
  * 1) Programmatically.
  * 2) As System property (`selenide-pom.<propertyName>`).
  * 3) In `selenide-pom.properties` file.
@@ -20,9 +19,9 @@ import java.util.*
  */
 object SPConfig {
     private const val fileName = "selenide-pom.properties"
-    private const val defaultPomVersion = "default"
-    const val defaultDesktopPomVersion = "desktop"
-    const val defaultMobilePomVersion = "mobile"
+    private const val defaultModel = "default"
+    const val defaultDesktopModel = "desktop"
+    const val defaultMobileModel = "mobile"
     const val defaultDeviceName = "Nexus 5"
     private const val defaultLang = "default"
 
@@ -36,22 +35,22 @@ object SPConfig {
         }
     }
 
-    private val threadLocalPomVersion: ThreadLocal<String> = ThreadLocal.withInitial {
+    private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
         System.getProperty(
-            "selenide-pom.pomVersion", fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+            "selenide-pom.model", fileProperties.getProperty("selenide-pom.model", defaultModel)
         )
     }
 
     /**
-     * The default [pomVersion] (thread local value) used in [com.github.qky666.selenidepom.pom.shouldLoadRequired]
+     * The default [model] (thread local value) used in [com.github.qky666.selenidepom.pom.shouldLoadRequired]
      * and [com.github.qky666.selenidepom.pom.hasLoadedRequired] methods.
-     * Default value: `selenide-pom.pomVersion` System property if defined,
-     * `selenide-pom.pomVersion` value in `selenide-pom.properties` if defined, or [defaultPomVersion] in other case.
+     * Default value: `selenide-pom.model` System property if defined,
+     * `selenide-pom.model` value in `selenide-pom.properties` if defined, or [defaultModel] in other case.
      */
-    var pomVersion: String
-        get() = threadLocalPomVersion.get()
+    var model: String
+        get() = threadLocalModel.get()
         set(value) {
-            threadLocalPomVersion.set(value)
+            threadLocalModel.set(value)
         }
 
     private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
@@ -116,41 +115,42 @@ object SPConfig {
      */
     fun resetSelenideConfig() {
         selenideConfig = SelenideConfig()
-        pomVersion = System.getProperty(
-            "selenide-pom.pomVersion", fileProperties.getProperty("selenide-pom.pomVersion", defaultPomVersion)
+        model = System.getProperty(
+            "selenide-pom.model", fileProperties.getProperty("selenide-pom.model", defaultModel)
         )
     }
 
     /**
      * Creates a new basic desktop [org.openqa.selenium.WebDriver] of type [browser] based on thread local [selenideConfig] configuration,
-     * tells `Selenide` to use this instance, and sets the default [pomVersion] to use.
+     * tells `Selenide` to use this instance, and sets the default [model] to use.
      *
      * @param browser The type of [org.openqa.selenium.WebDriver] to create (chrome, firefox, edge, etc.)
-     * @param pomVersion The default [pomVersion] to use
+     * @param model The default [model] to use
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(), pomVersion: String = defaultDesktopPomVersion
+        browser: String = selenideConfig.browser(),
+        model: String = defaultDesktopModel
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)
-        SPConfig.pomVersion = pomVersion
+        SPConfig.model = model
         setWebDriver()
     }
 
     /**
      * Creates a new basic mobile [org.openqa.selenium.WebDriver] based on thread local [selenideConfig] configuration
      * and adds mobile emulation using the given deviceName to it, tells `Selenide` to use this instance,
-     * and sets the default [pomVersion] to use.
+     * and sets the default [model] to use.
      *
-     * @param deviceName The type of WebDriver to create (chrome, firefox, edge, etc.)
-     * @param pomVersion The default pomVersion to use
+     * @param deviceName The type of `WebDriver` to create (chrome, firefox, edge, etc.)
+     * @param model The default `model` to use
      */
     @JvmOverloads
-    fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, pomVersion: String = defaultMobilePomVersion) {
+    fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, model: String = defaultMobileModel) {
         resetSelenideConfig()
         addMobileEmulation(deviceName)
-        SPConfig.pomVersion = pomVersion
+        SPConfig.model = model
         setWebDriver()
     }
 }

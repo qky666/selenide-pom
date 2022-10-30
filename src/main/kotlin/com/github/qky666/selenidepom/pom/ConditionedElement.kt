@@ -1,7 +1,7 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.Condition
+import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
 import mu.KotlinLogging
 import java.time.Duration
@@ -68,7 +68,7 @@ class ConditionedElement(
             self.should(condition, timeout)
             logger.info {
                 "Checked condition '$condition' (language '$lang') in element '${
-                    this.toString().replace("\n", "\\n")
+                this.toString().replace("\n", "\\n")
                 }'"
             }
         } catch (e: NoSuchElementException) {

@@ -14,19 +14,22 @@ class HomePage : MainFramePage() {
 
 class MainBannerWidget(self: SelenideElement) : Widget(self) {
     @Required val title = ConditionedElement(
-        find("h1"), mapOf(
+        find("h1"),
+        mapOf(
             "es" to Condition.exactText("MTP, 25 años como referencia en aseguramiento de negocios digitales"),
             "en" to Condition.exactText("MTP ensures quality digital public services")
         )
     )
     @Required val text = ConditionedElement(
-        find("p"), mapOf(
+        find("p"),
+        mapOf(
             "es" to Condition.exactText("Acompañamos a nuestros clientes en su transformación digital y asegurando la calidad de software, experiencia de usuario, seguridad y los desarrollos durante todo el ciclo de vida."),
             "en" to Condition.exactText("MTP, the drive for the digital transformation of public administrations")
         )
     )
     @Required val moreInfo = ConditionedElement(
-        find("a"), mapOf(
+        find("a"),
+        mapOf(
             "es" to Condition.text("Más información"),
             "en" to Condition.text("More information")
         )

@@ -1,6 +1,9 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.*
+import com.codeborne.selenide.CollectionCondition
+import com.codeborne.selenide.Condition
+import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.impl.CollectionSource
 import java.time.Duration
 import kotlin.reflect.full.memberProperties
@@ -15,7 +18,8 @@ import kotlin.reflect.jvm.javaField
  * @constructor creates a new instance based on provided [elementsCollection] and [T] constructor
  */
 class WidgetsCollection<T : Widget>(
-    private val elementsCollection: ElementsCollection, private val factory: (e: SelenideElement) -> T
+    private val elementsCollection: ElementsCollection,
+    private val factory: (e: SelenideElement) -> T
 ) : ElementsCollection(elementsCollection.getCollectionSource()), Loadable {
 
     /**
@@ -111,8 +115,8 @@ class WidgetsCollection<T : Widget>(
      * <pre>
      * `$$(".text_list").should(containExactTextsCaseSensitive("text1", "text2"));
      * $$(".cat_list").should(allMatch("value==cat", el -> el.getAttribute("value").equals("cat")));
-    ` *
-    </pre> *
+     ` *
+     </pre> *
      */
     override fun should(vararg conditions: CollectionCondition?): WidgetsCollection<T> {
         return WidgetsCollection(super.should(*conditions), factory)
@@ -128,7 +132,9 @@ class WidgetsCollection<T : Widget>(
     }
 
     override fun should(
-        prefix: String, timeout: Duration, vararg conditions: CollectionCondition?
+        prefix: String,
+        timeout: Duration,
+        vararg conditions: CollectionCondition?
     ): WidgetsCollection<T> {
         return WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
     }

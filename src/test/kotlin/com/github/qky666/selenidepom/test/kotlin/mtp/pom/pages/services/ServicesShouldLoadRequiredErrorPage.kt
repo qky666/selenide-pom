@@ -10,8 +10,8 @@ class ServicesShouldLoadRequiredErrorPage : MainFramePage() {
     @Required val principal = element("div.servicios-principal")
     @Required val title = element("h1.h2")
 
-    override fun customShouldLoadRequired(timeout: Duration, pomVersion: String, lang: String) {
-        super.customShouldLoadRequired(timeout, pomVersion, lang)
+    override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
+        super.customShouldLoadRequired(timeout, model, lang)
         title.shouldHave(text("Text error"), timeout)
     }
 }

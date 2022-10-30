@@ -2,7 +2,11 @@
 
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.*
+import com.codeborne.selenide.Condition
+import com.codeborne.selenide.DragAndDropOptions
+import com.codeborne.selenide.HoverOptions
+import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.SetValueOptions
 import org.openqa.selenium.WebElement
 import java.time.Duration
 

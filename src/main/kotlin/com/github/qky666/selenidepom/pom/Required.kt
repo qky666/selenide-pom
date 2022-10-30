@@ -4,8 +4,8 @@ package com.github.qky666.selenidepom.pom
  * Every field, property or method (without parameters) annotated in a [Loadable]
  * instance will be checked if visible when [shouldLoadRequired] or [hasLoadedRequired] is called.
  *
- * @property pomVersion Represents 'when' (with which `pomVersion`) the element is required.
- * Using default value means the element is always checked, regardless of `pomVersion` parameter
+ * @property model Represents 'when' (with which `model`) the element is required.
+ * Using default value means the element is always checked, regardless of `model` parameter
  * passed to [shouldLoadRequired] or [hasLoadedRequired].
  * You can set a value like "desktop" or "mobile" to represent that the web element
  * ([com.codeborne.selenide.SelenideElement], [com.github.qky666.selenidepom.pom.Widget], etc.)
@@ -22,4 +22,4 @@ package com.github.qky666.selenidepom.pom
 @MustBeDocumented
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FUNCTION, AnnotationTarget.FIELD)
 @Repeatable
-annotation class Required(val pomVersion: String = "", val lang: String = "")
+annotation class Required(val model: String = "", val lang: String = "")
