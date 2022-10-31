@@ -39,6 +39,9 @@ class DesktopMenuWidget(self: SelenideElement) : Widget(self) {
     )
     @Required val langEn = findAll("li.individual-menu-idioma>a").findBy(text("en"))
     @Required val langEs = findAll("li.individual-menu-idioma>a").findBy(text("es"))
+    @Required val selectedLang = ConditionedElement(
+        find("li.individual-menu-idioma.idioma-activo>a"), mapOf("es" to exactText("es"), "en" to exactText("en"))
+    )
 
     // Search
     val searchOpen = find("button#btn-menu")

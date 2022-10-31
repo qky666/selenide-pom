@@ -9,9 +9,9 @@ import com.github.qky666.selenidepom.pom.shouldLoadRequired
 
 open class MainFramePage : Page() {
     @Required val home = element("a.img-menu")
-    @Required(model = "desktop") val mainMenu = DesktopMenuWidget(element("nav.menu-pc"))
-    @Required(model = "mobile") val mobileMenuButton = element("button.custom-menu-btn-flotante")
-    val mobileMenu = MobileMenuWidget(element("div#menu-movil"))
+    @Required(model = "desktop") val desktopMenu = DesktopMenuWidget(element("nav.menu-pc"))
+    @Required(model = "mobile") val mobileMenu = MobileMenuWidget(element("div.menu-movil"))
+    val mobileMenuPopUp = MobileMenuPopUpWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
 
     fun acceptCookies() {
@@ -27,14 +27,14 @@ open class MainFramePage : Page() {
     }
 
     private fun acceptCookiesDesktop() {
-        mainMenu.searchOpen.click()
-        mainMenu.langEs.click(ClickOptions.withOffset(0, -50))
+        desktopMenu.searchOpen.click()
+        desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }
 
     private fun acceptCookiesMobile() {
-        shouldLoadRequired().mobileMenuButton.click()
+        shouldLoadRequired().mobileMenu.mobileMenuButton.click()
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }

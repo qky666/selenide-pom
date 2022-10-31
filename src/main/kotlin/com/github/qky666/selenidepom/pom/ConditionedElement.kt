@@ -66,7 +66,7 @@ class ConditionedElement(
         try {
             val condition = conditions.getValue(lang)
             self.should(condition, timeout)
-            logger.info {
+            logger.debug {
                 "Checked condition '$condition' (language '$lang') in element '${
                 this.toString().replace("\n", "\\n")
                 }'"

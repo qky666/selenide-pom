@@ -24,7 +24,7 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(projectPropertiesF
                     properties.load(inputStream)
                 }
             } catch (ignored: IOException) {
-                logger.warn { "Cannot load properties file $file. Ignored exception: $ignored" }
+                logger.error { "Cannot load properties file $file. Ignored exception: $ignored" }
             }
         }
     }

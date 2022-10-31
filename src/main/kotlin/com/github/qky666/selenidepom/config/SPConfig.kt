@@ -3,6 +3,7 @@ package com.github.qky666.selenidepom.config
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.webdriver.WebDriverFactory
+import mu.KotlinLogging
 import org.openqa.selenium.Proxy
 import org.openqa.selenium.chrome.ChromeOptions
 import java.io.File
@@ -28,6 +29,8 @@ object SPConfig {
     private val fileProperties = Properties()
     private val webDriverFactory = WebDriverFactory()
 
+    private val logger = KotlinLogging.logger {}
+
     init {
         val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(fileName)
         if (inputStream != null) {
@@ -36,9 +39,11 @@ object SPConfig {
     }
 
     private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
-        System.getProperty(
+        val initial = System.getProperty(
             "selenide-pom.model", fileProperties.getProperty("selenide-pom.model", defaultModel)
         )
+        logger.info { "Initial value for SPConfig.model: $initial" }
+        initial
     }
 
     /**
@@ -50,13 +55,16 @@ object SPConfig {
     var model: String
         get() = threadLocalModel.get()
         set(value) {
+            logger.info { "New value for SPConfig.model: $value" }
             threadLocalModel.set(value)
         }
 
     private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
-        System.getProperty(
+        val initial = System.getProperty(
             "selenide-pom.lang", fileProperties.getProperty("selenide-pom.lang", defaultLang)
         )
+        logger.info { "Initial value for SPConfig.lang: $initial" }
+        initial
     }
 
     /**
@@ -67,6 +75,7 @@ object SPConfig {
     var lang: String
         get() = threadLocalLang.get()
         set(value) {
+            logger.info { "New value for SPConfig.lang: $value" }
             threadLocalLang.set(value)
         }
 
@@ -129,8 +138,7 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(),
-        model: String = defaultDesktopModel
+        browser: String = selenideConfig.browser(), model: String = defaultDesktopModel
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)

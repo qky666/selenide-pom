@@ -1,20 +1,29 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
-
 package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
 
-import com.codeborne.selenide.CollectionCondition.allMatch
+import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import org.openqa.selenium.WebElement
 
 class MobileMenuWidget(self: SelenideElement) : Widget(self) {
+    @Required val mobileMenuButton = find("button.custom-menu-btn-flotante")
+    @Required val langEn = findAll("li.individual-menu-idioma>a").findBy(text("en"))
+    @Required val langEs = findAll("li.individual-menu-idioma>a").findBy(text("es"))
+    @Required val selectedLang = ConditionedElement(
+        find("li.individual-menu-idioma.idioma-activo>a"), mapOf("es" to exactText("es"), "en" to exactText("en"))
+    )
+}
+
+class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     // First level menu items
 
     // All first level menu items
-    val firstLevelMenuItems = findAll("li.uk-parent")
+    @Suppress("MemberVisibilityCanBePrivate") val firstLevelMenuItems = findAll("li.uk-parent")
 
     @Required
     @JvmOverloads
@@ -76,7 +85,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
 
     fun shouldBeCollapsed() {
         firstLevelMenuItems.shouldHave(
-            allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->
+            CollectionCondition.allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->
                 "false".equals(element.getAttribute("aria-expanded"), ignoreCase = true)
             }
         )

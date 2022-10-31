@@ -67,14 +67,14 @@ interface Loadable {
                     try {
                         it.isAccessible = true
                     } catch (ignored: Exception) {
-                        logger.warn { "Cannot make accessible $it. Ignored exception: $ignored" }
+                        logger.error { "Cannot make accessible $it. Ignored exception: $ignored" }
                         return@forEach
                     }
-                    if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
+                    if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
-                            val validPom = annotation.model.isEmpty() or annotation.model.contains(model)
+                            val validModel = annotation.model.isEmpty() or annotation.model.contains(model)
                             val validLang = annotation.lang.isEmpty() or annotation.lang.contains(lang)
-                            validPom and validLang
+                            validModel and validLang
                         }
                         if (annotations.isNotEmpty()) {
                             var element = it.javaGetter?.invoke(obj) ?: it.javaField?.get(obj)
@@ -92,34 +92,35 @@ interface Loadable {
                     processedNames.add(it.name)
                 }
 
-                // Methods
+                // Methods: first, make accesible
                 currentKlass.functions.forEach {
                     try {
                         it.isAccessible = true
                     } catch (ignored: Exception) {
-                        logger.warn { "Cannot make accessible $it" }
+                        logger.error { "Cannot make accessible $it" }
                         return@forEach
                     }
-                    var addToProcessedNames = true
-                    if (!processedNames.contains(it.name) && it.hasAnnotation<Required>()) {
+                }
+                // Methods: second, validate annotated functions with more than one parameter
+                currentKlass.functions.filter { it.isAccessible and it.hasAnnotation<Required>() and (it.parameters.size > 1) }
+                    .forEach {
+                        it.parameters.filterIndexed { index, _ -> index > 0 }
+                            .forEach { param -> assert(param.isOptional) { "Method $it is annotated as Required but has a parameter $param without default value" } }
+                    }
+                // Methods: third, process
+                currentKlass.functions.filter { it.isAccessible and (it.parameters.size == 1) }.forEach {
+                    if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
-                            val validPom = annotation.model.isEmpty() or annotation.model.contains(model)
+                            val validModel = annotation.model.isEmpty() or annotation.model.contains(model)
                             val validLang = annotation.lang.isEmpty() or annotation.lang.contains(lang)
-                            validPom and validLang
+                            validModel and validLang
                         }
                         if (annotations.isNotEmpty()) {
-                            if (it.parameters.size == 1) {
-                                val element = it.call(obj)
-                                errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
-                            } else {
-                                logger.warn { "KFunction $it has Required annotation, but has more than one parameter (${it.parameters.size})" }
-                                addToProcessedNames = false
-                            }
+                            val element = it.callBy(mapOf(it.parameters[0] to obj))
+                            errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
                         }
                     }
-                    if (addToProcessedNames) {
-                        processedNames.add(it.name)
-                    }
+                    processedNames.add(it.name)
                 }
             }
 
@@ -205,7 +206,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 element(by).shouldBe(visible, timeout)
-                logger.info {
+                logger.debug {
                     "Checked element $elementName in $klassName is visible (By): ${
                     by.toString().replace("\n", "\\n")
                     }"
@@ -228,7 +229,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 element.shouldBe(visible, timeout)
-                logger.info {
+                logger.debug {
                     "Checked element $elementName in $klassName is visible (TextElement): ${
                     element.toString().replace("\n", "\\n")
                     }"
@@ -252,7 +253,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 element.shouldBe(visible, timeout)
-                logger.info {
+                logger.debug {
                     "Checked element $elementName in $klassName is visible (SelenideElement): ${
                     element.toString().replace("\n", "\\n")
                     }"
@@ -275,7 +276,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
-                logger.info {
+                logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
                     collection.toString().replace("\n", "\\n")
                     }"
@@ -302,7 +303,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
-                logger.info {
+                logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
                     widgetsCollection.toString().replace("\n", "\\n")
                     }"
@@ -334,7 +335,7 @@ interface Loadable {
             val timeout = calculateTimeout(end)
             return try {
                 container.self.shouldBe(visible, timeout)
-                logger.info {
+                logger.debug {
                     "Checked element $elementName in $klassName is visible (ElementsContainer): ${
                     container.self.toString().replace("\n", "\\n")
                     }"
@@ -359,7 +360,7 @@ interface Loadable {
                 WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
                     ExpectedConditions.visibilityOf(element)
                 )
-                logger.info {
+                logger.debug {
                     "Checked element $elementName in $klassName is visible (WebElement): ${
                     element.toString().replace("\n", "\\n")
                     }"
@@ -391,7 +392,7 @@ fun <T : Loadable> T.shouldLoadRequired(
 ): T {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
-    logger.info { "Starting shouldLoadRequired in class $className" }
+    logger.debug { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
     val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className")
     if (errors.isNotEmpty()) {
@@ -401,7 +402,7 @@ fun <T : Loadable> T.shouldLoadRequired(
 }
 
 /**
- * Returns `true` if [shouldLoadRequired] returns without throwing any exception, false otherwise.
+ * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
  * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
  *
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
@@ -418,7 +419,7 @@ fun <T : Loadable> T.hasLoadedRequired(
 ): Boolean {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
-    logger.info { "Starting hasLoadedRequired in $className" }
+    logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
     return Loadable.elementShouldLoad(this, end, model, lang, className, "root").isEmpty()
 }
