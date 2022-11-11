@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.qky666"
-version = "0.14.0"
+version = "0.14.1"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.qky666"
             artifactId = "selenide-pom"
-            version = "0.14.0"
+            version = "0.14.1"
 
             from(components["java"])
         }
@@ -20,7 +20,7 @@ repositories {
 }
 
 plugins {
-    val kotlinVersion = "1.7.20"
+    val kotlinVersion = "1.7.21"
 
     `java-library`
     `maven-publish`
@@ -31,12 +31,12 @@ plugins {
 }
 
 dependencies {
-    val kotlinVersion = "1.7.20"
+    val kotlinVersion = "1.7.21"
     val jUnitVersion = "5.9.1"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     implementation("com.codeborne:selenide:6.9.0")
-    implementation("io.github.microutils:kotlin-logging:3.0.3")
+    implementation("io.github.microutils:kotlin-logging:3.0.4")
     testImplementation("org.slf4j:slf4j-simple:2.0.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")

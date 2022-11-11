@@ -81,11 +81,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         qualityAssurancePage.shouldLoadRequired()
@@ -101,11 +99,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun badSelectorErrorDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         qualityAssurancePage.shouldLoadRequired()
@@ -117,11 +113,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         Assertions.assertThrows(RequiredError::class.java) { servicesShouldLoadRequiredErrorPage.shouldLoadRequired() }
@@ -131,11 +125,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
         val error =
@@ -147,11 +139,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userForgotClickDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         // User forgot to click Quality Assurance link
         Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired())
@@ -170,11 +160,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -193,11 +181,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun badSelectorErrorMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -212,11 +198,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -229,11 +213,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -248,11 +230,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userForgotClickMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -274,11 +254,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceDesktopWrongModel(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().mobileMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
         mobileMenu.shouldLoadRequired().shouldBeCollapsed()
@@ -313,11 +291,9 @@ class MtpKotlinTest {
     ) {
 
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
         homePage.desktopMenu.searchMenu.doSearch.click()
@@ -358,11 +334,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun searchRequiredError(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.desktopMenu.searchMenu.doSearch.click()
@@ -377,11 +351,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun searchCollectionError(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
-        if (lang.contentEquals("en", ignoreCase = true)) {
-            homePage.shouldLoadRequired().desktopMenu.langEn.click()
-            SPConfig.lang = "en"
-        }
-        homePage.shouldLoadRequired().acceptCookies()
+        SPConfig.lang = lang
+        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
         homePage.desktopMenu.searchMenu.doSearch.click()
