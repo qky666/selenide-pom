@@ -138,7 +138,8 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(), model: String = defaultDesktopModel
+        browser: String = selenideConfig.browser(),
+        model: String = defaultDesktopModel
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)

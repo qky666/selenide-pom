@@ -81,8 +81,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
@@ -99,8 +100,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun badSelectorErrorDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
@@ -113,8 +115,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
@@ -125,8 +128,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.shouldLoadRequired().qualityAssurance.click()
@@ -139,8 +143,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun userForgotClickDesktop(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.services.hover()
         // User forgot to click Quality Assurance link
@@ -160,8 +165,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -181,8 +187,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun badSelectorErrorMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -198,8 +205,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithCustomShouldLoadRequiredErrorMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -213,8 +221,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceWithBadSelectorRequiredMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -230,8 +239,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userForgotClickMobile(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -254,8 +264,9 @@ class MtpKotlinTest {
     @MethodSource("mobileBrowserConfigAndLangSource")
     fun userNavigateToQualityAssuranceDesktopWrongModel(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -291,8 +302,9 @@ class MtpKotlinTest {
     ) {
 
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)
@@ -334,8 +346,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun searchRequiredError(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
@@ -351,8 +364,9 @@ class MtpKotlinTest {
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun searchCollectionError(browserConfig: String, lang: String) {
         setUpBrowser(browserConfig)
+        homePage.shouldLoadRequired()
         SPConfig.lang = lang
-        homePage.shouldLoadRequired().setLangIfNeeded()
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys("Mexico")
