@@ -114,7 +114,7 @@ object SPConfig {
      */
     @JvmOverloads
     fun setWebDriver(proxy: Proxy? = null, browserDownloadsFolder: File? = null) {
-        val driver = webDriverFactory.createWebDriver(threadLocalSelenideConfig.get(), proxy, browserDownloadsFolder)
+        val driver = webDriverFactory.createWebDriver(selenideConfig, proxy, browserDownloadsFolder)
         WebDriverRunner.setWebDriver(driver)
     }
 
@@ -138,7 +138,8 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(), model: String = defaultDesktopModel
+        browser: String = selenideConfig.browser(),
+        model: String = defaultDesktopModel
     ) {
         resetSelenideConfig()
         selenideConfig.browser(browser)
