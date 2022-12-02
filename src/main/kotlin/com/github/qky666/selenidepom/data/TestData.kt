@@ -3,27 +3,31 @@ package com.github.qky666.selenidepom.data
 const val defaultDataPropertiesFileName = "data/default.properties"
 
 /**
- * Class that helps to manage test information:
+ * Object that helps to manage test information:
  * - Input (predefined) test information: stored in properties files, using a [PropertiesHelper].
  * - Output (generated during test run) test information: stored in a [MutableMap].
  *
- * This class is thread safe, so it can be used when tests are run in parallel.
+ * All properties in this object are thread safe, so it can be used when tests are run in parallel.
  *
- * @constructor creates a new instance using provided properties files in input data
- * @param propertiesFiles list os files used to create the [PropertiesHelper] of input data
+ * You should call [init] in each test before you start using it.
  */
-class TestData(propertiesFiles: List<String>) {
-    /**
-     * Creates a new instance using files: [defaultDataPropertiesFileName] and `data/$env.properties`.
-     * For example: if `env` is `prod`, the list of files contains [defaultDataPropertiesFileName] and `data/prod.properties`.
-     * If `env` is `test`, the list of files contains [defaultDataPropertiesFileName] and `data/test.properties`.
-     *
-     * @param env name used in the properties file
-     */
-    constructor(env: String) : this(listOf(defaultDataPropertiesFileName, "data/$env.properties"))
-
+object TestData {
+    private val threadLocalPropertiesFiles = ThreadLocal.withInitial { listOf(defaultDataPropertiesFileName) }
+    private val threadLocalEnv = ThreadLocal.withInitial { "" }
     private val threadLocalInput = ThreadLocal.withInitial { PropertiesHelper(propertiesFiles) }
     private val threadLocalOutput = ThreadLocal.withInitial { mutableMapOf<String, Any>() }
+
+    /**
+     * List of properties files used to get [input] test data.
+     */
+    val propertiesFiles: List<String>
+        get() = threadLocalPropertiesFiles.get()
+
+    /**
+     * Represents the 'environment' where test is run.
+     */
+    val env: String
+        get() = threadLocalEnv.get()
 
     /**
      * The input test data. A [PropertiesHelper] instance.
@@ -38,24 +42,42 @@ class TestData(propertiesFiles: List<String>) {
         get() = threadLocalOutput.get()
 
     /**
-     * Resets the instance using files provided files to create a new [PropertiesHelper].
-     * Output data is reset as well to an empty [MutableMap].
-     *
-     * @param propertiesFiles filenames list used to create the new [PropertiesHelper]
+     * Output data is reset to an empty [MutableMap].
      */
-    fun resetData(propertiesFiles: List<String>) {
-        threadLocalInput.set(PropertiesHelper(propertiesFiles))
+    fun resetOutputData() {
         threadLocalOutput.set(mutableMapOf())
     }
 
     /**
-     * Resets the instance using files: [defaultDataPropertiesFileName] and `data/$env.properties`.
-     * Output data is reset as well to an empty [MutableMap].
+     * Resets the object for current thread to make it usable in a test.
      *
-     * @param env name used in the properties file
+     * @param files list of properties files to be used to get [input] test data.
      */
-    fun resetData(env: String) {
-        threadLocalInput.set(PropertiesHelper(listOf(defaultDataPropertiesFileName, "data/$env.properties")))
-        threadLocalOutput.set(mutableMapOf())
+    fun init(files: List<String> = listOf(defaultDataPropertiesFileName)) {
+        threadLocalEnv.set("")
+        threadLocalPropertiesFiles.set(files)
+        threadLocalInput.set(PropertiesHelper(files))
+        resetOutputData()
+    }
+
+    /**
+     * Resets the object for current thread to make it usable in a test.
+     *
+     * When an `env` is provided, [propertiesFiles] is set to a list with two elements:
+     * [defaultDataPropertiesFileName] and `data/$env.properties`.
+     *
+     * For example: if `env` is `prod`, [propertiesFiles] is set to a list of files containing
+     * [defaultDataPropertiesFileName] and `data/prod.properties`.
+     * If `env` is `test`, [propertiesFiles] is set to a list of files containing
+     * [defaultDataPropertiesFileName] and `data/test.properties`.
+     *
+     * @param env represents the 'environment' where test is run.
+     */
+    fun init(env: String) {
+        val files = listOf(defaultDataPropertiesFileName, "data/$env.properties")
+        threadLocalEnv.set(env)
+        threadLocalPropertiesFiles.set(files)
+        threadLocalInput.set(PropertiesHelper(files))
+        resetOutputData()
     }
 }

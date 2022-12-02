@@ -7,7 +7,6 @@ import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Selenide.closeWebDriver
 import com.codeborne.selenide.Selenide.element
-import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.ex.ElementNotFound
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
@@ -23,6 +22,7 @@ import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchRes
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.searchresults.searchResultsPage
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvSource
@@ -30,8 +30,6 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.time.Duration
 
 class MtpKotlinTest {
-
-    private val testData = TestData("prod")
 
     private val maxResultsPerPageExpected = 5
 
@@ -55,33 +53,32 @@ class MtpKotlinTest {
         }
     }
 
-    private fun setUpBrowser(browserConfig: String) {
-        if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
-            SPConfig.setupBasicMobileBrowser()
-        } else {
-            SPConfig.setupBasicDesktopBrowser(browserConfig)
-        }
-        // testData is already initialized, but if there were more environments this could be a good place to
-        // set testData
-        testData.resetData("prod")
-        open(testData.input.getProperty("data.input.baseUrl"))
-        SPConfig.lang = "es"
-        // Additional test for output in TestData
-        testData.output["threadId"] = Thread.currentThread().id
+    @BeforeEach
+    fun beforeEach() {
+        TestData.init("prod")
     }
 
     @AfterEach
     fun closeBrowser() {
         closeWebDriver()
         // Additional test for output in TestData
-        Assertions.assertEquals(testData.output["threadId"].toString(), Thread.currentThread().id.toString())
+        Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().id.toString())
     }
 
-    private fun setupSite(browserConfig: String, lang: String) {
-        setUpBrowser(browserConfig)
-        homePage.shouldLoadRequired()
-        SPConfig.lang = lang
-        homePage.setLangIfNeeded()
+    private fun setupBrowser(browserConfig: String) {
+        if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
+            SPConfig.setupBasicMobileBrowser()
+        } else {
+            SPConfig.setupBasicDesktopBrowser(browserConfig)
+        }
+        // Additional test for output in TestData
+        TestData.output["threadId"] = Thread.currentThread().id
+    }
+
+    private fun setupSite(browserConfig: String, lang: String = "es") {
+        setupBrowser(browserConfig)
+        homePage.open()
+        homePage.setSiteLang(lang)
         homePage.acceptCookies()
     }
 

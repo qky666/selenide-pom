@@ -5,6 +5,7 @@ import com.github.qky666.selenidepom.config.SPConfig;
 import com.github.qky666.selenidepom.data.TestData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,7 +22,10 @@ public abstract class BaseMtpTest {
         return Collections.singletonList("chromeMobile");
     }
 
-    final TestData testData = new TestData("prod");
+    @BeforeEach
+    void beforeEach() {
+        TestData.INSTANCE.init("prod");
+    }
 
     protected void setUpBrowser(String browserConfig) {
         SPConfig spConfig = SPConfig.INSTANCE;
@@ -30,18 +34,15 @@ public abstract class BaseMtpTest {
         } else {
             spConfig.setupBasicDesktopBrowser(browserConfig);
         }
-        // testData is already initialized, but if there were more environments this could be a good place to
-        // set testData
-        testData.resetData("prod");
-        Selenide.open(testData.getInput().getProperty("data.input.baseUrl"));
+        Selenide.open(TestData.INSTANCE.getInput().getProperty("data.input.baseUrl"));
         // Additional output TestData test
-        testData.getOutput().put("threadId", Thread.currentThread().getId());
+        TestData.INSTANCE.getOutput().put("threadId", Thread.currentThread().getId());
     }
 
     @AfterEach
     void closeBrowser() {
         Selenide.closeWebDriver();
         // Additional output TestData test
-        Assertions.assertEquals(testData.getOutput().get("threadId"), Thread.currentThread().getId());
+        Assertions.assertEquals(TestData.INSTANCE.getOutput().get("threadId"), Thread.currentThread().getId());
     }
 }

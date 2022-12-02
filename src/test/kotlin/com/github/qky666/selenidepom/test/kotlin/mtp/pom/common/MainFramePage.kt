@@ -17,6 +17,11 @@ open class MainFramePage : Page() {
 
     private val logger = KotlinLogging.logger {}
 
+    fun setSiteLang(lang: String = "es") {
+        SPConfig.lang = lang
+        setLangIfNeeded()
+    }
+
     fun acceptCookies() {
         // This is what it should be, but for some reason, cookies message is not displayed when page loads
         // shouldLoadRequired().cookiesBanner.acceptCookies()
@@ -43,7 +48,7 @@ open class MainFramePage : Page() {
         shouldLoadRequired()
     }
 
-    fun setLangIfNeeded(lang: String = SPConfig.lang) {
+    private fun setLangIfNeeded(lang: String = SPConfig.lang) {
         if (SPConfig.model == "mobile" && !mobileMenu.selectedLang.text.contentEquals(lang, true)) {
             if (lang.contentEquals("en", ignoreCase = true)) {
                 mobileMenu.langEn.click()
