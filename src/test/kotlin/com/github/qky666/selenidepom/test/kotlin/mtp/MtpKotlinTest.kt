@@ -78,7 +78,8 @@ class MtpKotlinTest {
     private fun setupSite(browserConfig: String, lang: String = "es") {
         setupBrowser(browserConfig)
         homePage.open()
-        homePage.setSiteLang(lang)
+        SPConfig.lang = lang
+        homePage.setLangIfNeeded()
         homePage.acceptCookies()
     }
 
