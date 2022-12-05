@@ -54,8 +54,11 @@ class MtpKotlinTest {
     }
 
     @BeforeEach
-    fun beforeEach() {
+    fun initTestData() {
         TestData.init("prod")
+
+        // Additional test for output in TestData
+        TestData.output["threadId"] = Thread.currentThread().id
     }
 
     @AfterEach
@@ -71,8 +74,6 @@ class MtpKotlinTest {
         } else {
             SPConfig.setupBasicDesktopBrowser(browserConfig)
         }
-        // Additional test for output in TestData
-        TestData.output["threadId"] = Thread.currentThread().id
     }
 
     private fun setupSite(browserConfig: String, lang: String = "es") {

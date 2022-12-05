@@ -25,7 +25,7 @@ plugins {
     `java-library`
     `maven-publish`
     kotlin("jvm") version kotlinVersion
-    id("io.freefair.lombok") version "6.5.1"
+    id("io.freefair.lombok") version "6.6"
     id("com.github.ben-manes.versions") version "0.44.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
