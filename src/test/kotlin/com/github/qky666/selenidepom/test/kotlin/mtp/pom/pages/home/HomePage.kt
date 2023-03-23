@@ -24,7 +24,7 @@ class MainBannerWidget(self: SelenideElement) : Widget(self) {
     @Required val title = ConditionedElement(
         find("h1"),
         mapOf(
-            "es" to Condition.exactText("MTP, 25 años como referencia en aseguramiento de negocios digitales"),
+            "es" to Condition.exactText("MTP, referencia en aseguramiento de negocios digitales"),
             "en" to Condition.exactText("MTP ensures quality digital public services")
         )
     )

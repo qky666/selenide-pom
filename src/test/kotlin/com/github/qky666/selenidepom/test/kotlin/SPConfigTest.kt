@@ -1,22 +1,32 @@
 package com.github.qky666.selenidepom.test.kotlin
 
-import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import com.github.qky666.selenidepom.config.SPConfig
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
 class SPConfigTest {
-    @Test
-    fun addMobileEmulationTest() {
-        SPConfig.resetSelenideConfig()
-        SPConfig.addMobileEmulation()
+    @BeforeEach
+    fun beforeEach() {
+        SPConfig.resetConfig()
+    }
 
+    @AfterEach
+    fun afterEach() {
+        SPConfig.quitCurrentThreadDriver()
+    }
+
+    @Test
+    fun mobileEmulationTest() {
+        SPConfig.setupBasicMobileBrowser()
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        Assertions.assertEquals(
+            "chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        )
         Assertions.assertEquals(
             "{args=[], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
@@ -24,52 +34,54 @@ class SPConfigTest {
     }
 
     @Test
-    fun addMobileEmulationCustomTest() {
-        val deviceName = "My device name"
-        SPConfig.resetSelenideConfig()
-        SPConfig.addMobileEmulation(deviceName)
-
+    fun mobileEmulationCustomTest() {
+        val deviceName = "Nexus 4"
+        SPConfig.setupBasicMobileBrowser(deviceName)
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        Assertions.assertEquals(
+            "chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        )
         Assertions.assertEquals(
             "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
+
     }
 
     @Test
-    fun setWebDriverTest() {
+    fun setDriverTest() {
         val browser = "firefox"
-        SPConfig.resetSelenideConfig()
         SPConfig.selenideConfig.browser(browser)
-        SPConfig.setWebDriver()
+        val createdDriver = SPConfig.createDriver()
+        @Suppress("UsePropertyAccessSyntax") WebDriverRunner.setWebDriver(createdDriver.getAndCheckWebDriver())
 
         Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
 
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 
     @Test
-    fun resetSelenideConfigTest() {
+    fun resetConfigTest() {
         val browser = "firefox"
         val model = "MyModel"
-        SPConfig.resetSelenideConfig()
         SPConfig.selenideConfig.browser(browser)
         SPConfig.model = model
         Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
         Assertions.assertEquals(model, SPConfig.model)
-        SPConfig.resetSelenideConfig()
+        SPConfig.resetConfig()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals("fileModel", SPConfig.model)
-        Selenide.open()
+        val createdDriver = SPConfig.setCurrentThreadDriver()
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 
     @Test
-    fun setupBasicMobileBrowserTest() {
+    fun basicMobileBrowserTest() {
         SPConfig.setupBasicMobileBrowser()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
@@ -80,12 +92,14 @@ class SPConfigTest {
         )
         Assertions.assertEquals(SPConfig.defaultMobileModel, SPConfig.model)
 
+        val createdDriver = SPConfig.setCurrentThreadDriver()
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 
     @Test
-    fun setupBasicMobileBrowserCustomTest() {
+    fun basicMobileBrowserCustomTest() {
         val deviceName = "Nexus 4"
         val model = "MyModel"
         SPConfig.setupBasicMobileBrowser(deviceName, model)
@@ -98,24 +112,28 @@ class SPConfigTest {
         )
         Assertions.assertEquals(model, SPConfig.model)
 
+        val createdDriver = SPConfig.setCurrentThreadDriver()
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 
     @Test
-    fun setupBasicDesktopBrowserTest() {
+    fun basicDesktopBrowserTest() {
         SPConfig.setupBasicDesktopBrowser()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals(null, SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
         Assertions.assertEquals(SPConfig.defaultDesktopModel, SPConfig.model)
 
+        val createdDriver = SPConfig.setCurrentThreadDriver()
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 
     @Test
-    fun setupBasicDesktopBrowserCustomTest() {
+    fun basicDesktopBrowserCustomTest() {
         val browser = "firefox"
         val model = "myModel"
         SPConfig.setupBasicDesktopBrowser(browser, model)
@@ -124,12 +142,9 @@ class SPConfigTest {
         Assertions.assertEquals(null, SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
         Assertions.assertEquals(model, SPConfig.model)
 
+        val createdDriver = SPConfig.setCurrentThreadDriver()
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
-    }
-
-    @AfterEach
-    fun afterEach() {
-        Selenide.closeWebDriver()
+        Assertions.assertEquals(createdDriver.webDriver, driver)
     }
 }
