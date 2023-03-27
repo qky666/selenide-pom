@@ -12,10 +12,14 @@ import org.openqa.selenium.WebElement
 
 class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val mobileMenuButton = find("button.custom-menu-btn-flotante")
+
     @Required val langEn = findAll("li.individual-menu-idioma>a").findBy(text("en"))
+
     @Required val langEs = findAll("li.individual-menu-idioma>a").findBy(text("es"))
+
     @Required val selectedLang = ConditionedElement(
-        find("li.individual-menu-idioma.idioma-activo>a"), mapOf("es" to exactText("es"), "en" to exactText("en"))
+        find("li.individual-menu-idioma.idioma-activo>a"),
+        mapOf("es" to exactText("es"), "en" to exactText("en"))
     )
 }
 
@@ -23,14 +27,17 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     // First level menu items
 
     // All first level menu items
-    @Suppress("MemberVisibilityCanBePrivate") val firstLevelMenuItems = findAll("li.uk-parent")
+    @Suppress("MemberVisibilityCanBePrivate")
+    val firstLevelMenuItems = findAll("li.uk-parent")
 
     @Required
     @JvmOverloads
     fun services(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Services"))
-        } else firstLevelMenuItems.findBy(exactText("Servicios"))
+        } else {
+            firstLevelMenuItems.findBy(exactText("Servicios"))
+        }
     }
 
     @Required
@@ -38,7 +45,9 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     fun areas(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Areas"))
-        } else firstLevelMenuItems.findBy(exactText("Sectores"))
+        } else {
+            firstLevelMenuItems.findBy(exactText("Sectores"))
+        }
     }
 
     // Possible bug in mtp.es in english, it only appears on desktop view
@@ -47,17 +56,22 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     fun training(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Training"))
-        } else firstLevelMenuItems.findBy(exactText("Formación"))
+        } else {
+            firstLevelMenuItems.findBy(exactText("Formación"))
+        }
     }
 
-    @Required(lang = "es") val blog = firstLevelMenuItems.findBy(exactText("Blog"))
+    @Required(lang = "es")
+    val blog = firstLevelMenuItems.findBy(exactText("Blog"))
 
     @Required
     @JvmOverloads
     fun talent(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("Talent"))
-        } else firstLevelMenuItems.findBy(exactText("Talento"))
+        } else {
+            firstLevelMenuItems.findBy(exactText("Talento"))
+        }
     }
 
     @Required
@@ -65,7 +79,9 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     fun about(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             firstLevelMenuItems.findBy(exactText("About MTP"))
-        } else firstLevelMenuItems.findBy(exactText("Sobre MTP"))
+        } else {
+            firstLevelMenuItems.findBy(exactText("Sobre MTP"))
+        }
     }
 
     @Required
@@ -73,14 +89,18 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     fun contact(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             findAll("li>a").findBy(exactText("Contact Us"))
-        } else findAll("li>a").findBy(exactText("Contacto"))
+        } else {
+            findAll("li>a").findBy(exactText("Contacto"))
+        }
     }
 
     // Second level menú items. I only write one, but there are more
     fun servicesQualityAssurance(lang: String = SPConfig.lang): SelenideElement {
         return if (lang == "en") {
             findAll("a").findBy(exactText("Quality Assurance"))
-        } else findAll("a").findBy(exactText("Aseguramiento de la calidad"))
+        } else {
+            findAll("a").findBy(exactText("Aseguramiento de la calidad"))
+        }
     }
 
     fun shouldBeCollapsed() {

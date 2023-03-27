@@ -19,7 +19,7 @@ import java.time.Duration
 class ConditionedElement(
     private val self: SelenideElement,
     private val conditions: Map<String, Condition>,
-    private val strict: Boolean = true,
+    private val strict: Boolean = true
 ) : SelenideElement by self {
 
     /**
@@ -32,7 +32,9 @@ class ConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, condition: Condition, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { condition }, strict
+        self,
+        mapOf<String, Condition>().withDefault { condition },
+        strict
     )
 
     /**
@@ -44,7 +46,9 @@ class ConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
+        self,
+        mapOf<String, Condition>().withDefault { Condition.exactText(exactText) },
+        strict
     )
 
     private val logger = KotlinLogging.logger {}
@@ -61,7 +65,7 @@ class ConditionedElement(
     fun shouldMeetCondition(
         timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
         lang: String = SPConfig.lang,
-        strict: Boolean = this.strict,
+        strict: Boolean = this.strict
     ): ConditionedElement {
         try {
             val condition = conditions.getValue(lang)

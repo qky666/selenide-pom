@@ -36,7 +36,8 @@ object SPConfig {
 
     private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
         val initial = System.getProperty(
-            "selenide-pom.model", fileProperties.getProperty("selenide-pom.model", defaultModel)
+            "selenide-pom.model",
+            fileProperties.getProperty("selenide-pom.model", defaultModel)
         )
         logger.info { "Initial value for SPConfig.model: $initial" }
         initial
@@ -57,7 +58,8 @@ object SPConfig {
 
     private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
         val initial = System.getProperty(
-            "selenide-pom.lang", fileProperties.getProperty("selenide-pom.lang", defaultLang)
+            "selenide-pom.lang",
+            fileProperties.getProperty("selenide-pom.lang", defaultLang)
         )
         logger.info { "Initial value for SPConfig.lang: $initial" }
         initial
@@ -97,7 +99,8 @@ object SPConfig {
     fun resetConfig() {
         selenideConfig = SelenideConfig()
         model = System.getProperty(
-            "selenide-pom.model", fileProperties.getProperty("selenide-pom.model", defaultModel)
+            "selenide-pom.model",
+            fileProperties.getProperty("selenide-pom.model", defaultModel)
         )
     }
 
@@ -110,9 +113,9 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicDesktopBrowser(
-        browser: String = selenideConfig.browser(), model: String = defaultDesktopModel
+        browser: String = selenideConfig.browser(),
+        model: String = defaultDesktopModel
     ) {
-
         resetConfig()
         selenideConfig.browser(browser)
         SPConfig.model = model

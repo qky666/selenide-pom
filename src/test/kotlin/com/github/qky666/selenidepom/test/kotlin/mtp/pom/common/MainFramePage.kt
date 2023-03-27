@@ -5,13 +5,18 @@ import com.codeborne.selenide.Selenide.element
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
+import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import mu.KotlinLogging
 
 open class MainFramePage : Page() {
     @Required val home = element("a.img-menu")
-    @Required(model = "desktop") val desktopMenu = DesktopMenuWidget(element("nav.menu-pc"))
-    @Required(model = "mobile") val mobileMenu = MobileMenuWidget(element("div.menu-movil"))
+
+    @Required(model = "desktop")
+    val desktopMenu = DesktopMenuWidget(element("nav.menu-pc"))
+
+    @Required(model = "mobile")
+    val mobileMenu = MobileMenuWidget(element("div.menu-movil"))
     val mobileMenuPopUp = MobileMenuPopUpWidget(element("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(element("div#cookie-law-info-bar"))
 
@@ -31,14 +36,19 @@ open class MainFramePage : Page() {
     }
 
     private fun acceptCookiesDesktop() {
-        desktopMenu.searchOpen.click()
-        desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
+        do {
+            desktopMenu.searchOpen.click()
+            desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
+        } while(!cookiesBanner.hasLoadedRequired())
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }
 
     private fun acceptCookiesMobile() {
-        shouldLoadRequired().mobileMenu.mobileMenuButton.click()
+        shouldLoadRequired()
+        do {
+            mobileMenu.mobileMenuButton.click()
+        } while(!cookiesBanner.hasLoadedRequired())
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }
@@ -62,4 +72,5 @@ open class MainFramePage : Page() {
     }
 }
 
-@Suppress("unused") val mainFramePage = MainFramePage()
+@Suppress("unused")
+val mainFramePage = MainFramePage()

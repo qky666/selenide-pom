@@ -28,6 +28,7 @@ class MainBannerWidget(self: SelenideElement) : Widget(self) {
             "en" to Condition.exactText("MTP ensures quality digital public services")
         )
     )
+
     @Required val text = ConditionedElement(
         find("p"),
         mapOf(
@@ -35,6 +36,7 @@ class MainBannerWidget(self: SelenideElement) : Widget(self) {
             "en" to Condition.exactText("MTP, the drive for the digital transformation of public administrations")
         )
     )
+
     @Required val moreInfo = ConditionedElement(
         find("a"),
         mapOf(

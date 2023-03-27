@@ -37,19 +37,20 @@ class SearchResultItemWidget(self: SelenideElement) : Widget(self) {
 
 class SearchResultsPaginationWidget(self: SelenideElement) : Widget(self) {
     @Required val currentPage = find("ul.uk-pagination li.uk-active")
+
     @Required val pagesLinks = findAll("ul.uk-pagination li a")
     val nextPage = ConditionedElement(
         find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-right')]]")),
         mapOf(
             "es" to Condition.text("Página siguiente"),
-            "en" to Condition.text("Next Page"),
+            "en" to Condition.text("Next Page")
         )
     )
     val previousPage = ConditionedElement(
         find(By.xpath(".//li/a[./span[contains(@class,'uk-icon-angle-double-left')]]")),
         mapOf(
             "es" to Condition.text("Página anterior"),
-            "en" to Condition.text("Previous Page"),
+            "en" to Condition.text("Previous Page")
         )
     )
 }

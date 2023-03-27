@@ -153,25 +153,44 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
                 is ConditionedElement -> conditionedElementShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is SelenideElement -> selenideElementShouldLoad(element, end, model, lang, klassName, elementName)
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is ElementsContainer -> elementsContainerShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
@@ -191,7 +210,9 @@ interface Loadable {
 
         private fun calculateTimeout(end: LocalDateTime): Duration {
             val signedTimeout: Duration = Duration.between(LocalDateTime.now(), end)
-            return if (signedTimeout.isNegative) Duration.ZERO else signedTimeout
+            // Used when timeout has been already reached, to avoid setting a ZERO timeout
+            val minMillisTimeout = 100L
+            return if (signedTimeout.isNegative) Duration.ofMillis(minMillisTimeout) else signedTimeout
         }
 
         private fun byShouldLoad(
@@ -200,9 +221,8 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String,
+            elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 element(by).shouldBe(visible, timeout)
@@ -225,12 +245,11 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 element.shouldBe(visible, timeout)
                 logger.debug {
-                    "Checked element $elementName in $klassName is visible (TextElement): ${
+                    "Checked element $elementName in $klassName is visible (ConditionedElement): ${
                     element.toString().replace("\n", "\\n")
                     }"
                 }
@@ -249,7 +268,6 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 element.shouldBe(visible, timeout)
@@ -272,7 +290,6 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
@@ -299,7 +316,6 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
@@ -331,7 +347,6 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 container.self.shouldBe(visible, timeout)
@@ -354,7 +369,6 @@ interface Loadable {
             klassName: String,
             elementName: String
         ): List<Throwable> {
-
             val timeout = calculateTimeout(end)
             return try {
                 WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
@@ -388,7 +402,7 @@ interface Loadable {
 fun <T : Loadable> T.shouldLoadRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
     model: String = SPConfig.model,
-    lang: String = SPConfig.lang,
+    lang: String = SPConfig.lang
 ): T {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
@@ -415,7 +429,7 @@ fun <T : Loadable> T.shouldLoadRequired(
 fun <T : Loadable> T.hasLoadedRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
     model: String = SPConfig.model,
-    lang: String = SPConfig.lang,
+    lang: String = SPConfig.lang
 ): Boolean {
     val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"

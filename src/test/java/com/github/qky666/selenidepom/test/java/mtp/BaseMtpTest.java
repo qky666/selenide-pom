@@ -22,7 +22,7 @@ public abstract class BaseMtpTest {
         return Collections.singletonList("chromeMobile");
     }
 
-    SPConfig spConfig = SPConfig.INSTANCE;
+    final SPConfig spConfig = SPConfig.INSTANCE;
 
     @BeforeEach
     void beforeEach() {

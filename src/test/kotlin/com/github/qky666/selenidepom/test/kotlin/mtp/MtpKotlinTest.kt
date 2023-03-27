@@ -39,7 +39,7 @@ class MtpKotlinTest {
                 Arguments.of("chrome", "es"),
                 Arguments.of("chrome", "en"),
                 Arguments.of("firefox", "es"),
-                Arguments.of("chrome", "en"),
+                Arguments.of("chrome", "en")
             )
         }
 
@@ -47,7 +47,7 @@ class MtpKotlinTest {
         fun mobileBrowserConfigAndLangSource(): List<Arguments> {
             return listOf(
                 Arguments.of("chromeMobile", "es"),
-                Arguments.of("chromeMobile", "en"),
+                Arguments.of("chromeMobile", "en")
             )
         }
     }
@@ -237,7 +237,8 @@ class MtpKotlinTest {
         Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(model = "desktop"))
         Assertions.assertFalse(
             qualityAssurancePage.hasLoadedRequired(
-                timeout = Duration.ofMillis(100), lang = "desktop"
+                timeout = Duration.ofMillis(100),
+                lang = "desktop"
             )
         )
     }
@@ -249,7 +250,7 @@ class MtpKotlinTest {
         "chrome,es,Viajero,2,1,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
         "firefox,es,Viajero,2,1,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
         "chrome,en,Mexico,1,5,'Contact us',''",
-        "firefox,en,Mexico,1,5,'Contact us',''",
+        "firefox,en,Mexico,1,5,'Contact us',''"
     )
     fun search(
         browserConfig: String,
@@ -260,7 +261,6 @@ class MtpKotlinTest {
         lastPageResultTitle: String,
         lastPageResultText: String
     ) {
-
         setupSite(browserConfig, lang)
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)

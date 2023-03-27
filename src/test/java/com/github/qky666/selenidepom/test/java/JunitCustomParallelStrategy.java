@@ -4,7 +4,7 @@ import org.junit.platform.engine.ConfigurationParameters;
 import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfiguration;
 import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigurationStrategy;
 
-public class CustomStrategy implements ParallelExecutionConfiguration, ParallelExecutionConfigurationStrategy {
+public class JunitCustomParallelStrategy implements ParallelExecutionConfiguration, ParallelExecutionConfigurationStrategy {
 
     private final int processors = Runtime.getRuntime().availableProcessors();
 

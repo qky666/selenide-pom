@@ -8,6 +8,7 @@ import java.time.Duration
 
 class ServicesShouldLoadRequiredErrorPage : MainFramePage() {
     @Required val principal = element("div.servicios-principal")
+
     @Required val title = element("h1.h2")
 
     override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {

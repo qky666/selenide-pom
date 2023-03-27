@@ -25,7 +25,8 @@ class SPConfigTest {
         SPConfig.setupBasicMobileBrowser()
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals(
-            "chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+            "chrome",
+            SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         )
         Assertions.assertEquals(
             "{args=[], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
@@ -39,13 +40,13 @@ class SPConfigTest {
         SPConfig.setupBasicMobileBrowser(deviceName)
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals(
-            "chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+            "chrome",
+            SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         )
         Assertions.assertEquals(
             "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
-
     }
 
     @Test

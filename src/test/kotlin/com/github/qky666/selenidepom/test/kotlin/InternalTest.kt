@@ -46,7 +46,9 @@ class InternalTest {
         Assertions.assertEquals("", TestData.input.getProperty("data.input.testThree"))
         TestData.init(
             listOf(
-                defaultDataPropertiesFileName, "data/low-priority.properties", "data/high-priority.properties"
+                defaultDataPropertiesFileName,
+                "data/low-priority.properties",
+                "data/high-priority.properties"
             )
         )
         Assertions.assertEquals("testOne_high", TestData.input.getProperty("data.input.testOne"))
