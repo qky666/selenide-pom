@@ -1,23 +1,13 @@
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "com.github.qky666"
-version = "0.15.2"
+val myGroup = "com.github.qky666"
+val myVersion = "0.15.2"
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.qky666"
-            artifactId = "selenide-pom"
-            version = "0.15.2"
+group = myGroup
+version = myVersion
 
-            from(components["java"])
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
-}
+val kotlinVersion = "1.8.10"
 
 plugins {
     val kotlinVersion = "1.8.10"
@@ -30,8 +20,23 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = myGroup
+            artifactId = "selenide-pom"
+            version = myVersion
+
+            from(components["java"])
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    val kotlinVersion = "1.8.10"
     val jUnitVersion = "5.9.2"
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
@@ -46,10 +51,13 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
+// Not needed
+//    jvmArgs(listOf("--add-opens", "java.base/java.lang=ALL-UNNAMED"))
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 //    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }

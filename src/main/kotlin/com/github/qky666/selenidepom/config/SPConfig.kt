@@ -157,8 +157,9 @@ object SPConfig {
      */
     @JvmOverloads
     fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
-        val driver = newDriver ?: createDriver()
-        @Suppress("UsePropertyAccessSyntax") WebDriverRunner.setWebDriver(driver.getAndCheckWebDriver())
+        val driver = (newDriver ?: createDriver())
+        @Suppress("UsePropertyAccessSyntax") val webDriver = driver.getAndCheckWebDriver()
+        WebDriverRunner.setWebDriver(webDriver)
         return driver
     }
 
