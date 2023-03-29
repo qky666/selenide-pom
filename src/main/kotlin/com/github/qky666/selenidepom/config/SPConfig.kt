@@ -1,6 +1,10 @@
 package com.github.qky666.selenidepom.config
 
-import com.codeborne.selenide.*
+import com.codeborne.selenide.Driver
+import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.SelenideConfig
+import com.codeborne.selenide.SelenideDriver
+import com.codeborne.selenide.WebDriverRunner
 import mu.KotlinLogging
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -158,7 +162,8 @@ object SPConfig {
     @JvmOverloads
     fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
         val driver = (newDriver ?: createDriver())
-        @Suppress("UsePropertyAccessSyntax") val webDriver = driver.getAndCheckWebDriver()
+
+        val webDriver = driver.getAndCheckWebDriver()
         WebDriverRunner.setWebDriver(webDriver)
         return driver
     }

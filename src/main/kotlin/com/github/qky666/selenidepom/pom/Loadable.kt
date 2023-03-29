@@ -18,7 +18,12 @@ import java.time.LocalDateTime
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.reflect.KClass
-import kotlin.reflect.full.*
+import kotlin.reflect.full.findAnnotations
+import kotlin.reflect.full.functions
+import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.superclasses
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
@@ -46,7 +51,10 @@ interface Loadable {
         private val logger = KotlinLogging.logger {}
 
         private fun objectShouldLoadRequired(
-            obj: Any, end: LocalDateTime, model: String, lang: String
+            obj: Any,
+            end: LocalDateTime,
+            model: String,
+            lang: String
         ): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
@@ -143,26 +151,51 @@ interface Loadable {
         }
 
         internal fun elementShouldLoad(
-            element: Any?, end: LocalDateTime, model: String, lang: String, klassName: String, elementName: String
+            element: Any?,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String
         ): List<Throwable> {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
                 is ConditionedElement -> conditionedElementShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is SelenideElement -> selenideElementShouldLoad(element, end, model, lang, klassName, elementName)
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is ElementsContainer -> elementsContainerShouldLoad(
-                    element, end, model, lang, klassName, elementName
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName
                 )
 
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
@@ -188,14 +221,19 @@ interface Loadable {
         }
 
         private fun byShouldLoad(
-            by: By, end: LocalDateTime, model: String, lang: String, klassName: String, elementName: String
+            by: By,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
                 element(by).shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (By): ${
-                        by.toString().replace("\n", "\\n")
+                    by.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(by, end, model, lang)
@@ -217,7 +255,7 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (ConditionedElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
                 element.shouldMeetCondition(timeout, lang)
@@ -240,7 +278,7 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (SelenideElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(element, end, model, lang)
@@ -262,7 +300,7 @@ interface Loadable {
                 val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
-                        collection.toString().replace("\n", "\\n")
+                    collection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
@@ -288,7 +326,7 @@ interface Loadable {
                 val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
-                        widgetsCollection.toString().replace("\n", "\\n")
+                    widgetsCollection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
@@ -319,7 +357,7 @@ interface Loadable {
                 container.self.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (ElementsContainer): ${
-                        container.self.toString().replace("\n", "\\n")
+                    container.self.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(container, end, model, lang)
@@ -329,7 +367,12 @@ interface Loadable {
         }
 
         private fun webElementShouldLoad(
-            element: WebElement, end: LocalDateTime, model: String, lang: String, klassName: String, elementName: String
+            element: WebElement,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -338,7 +381,7 @@ interface Loadable {
                 )
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (WebElement): ${
-                        element.toString().replace("\n", "\\n")
+                    element.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(element, end, model, lang)

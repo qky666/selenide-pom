@@ -39,7 +39,7 @@ open class MainFramePage : Page() {
         do {
             desktopMenu.searchOpen.click()
             desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
-        } while(!cookiesBanner.hasLoadedRequired())
+        } while (!cookiesBanner.hasLoadedRequired())
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }
@@ -48,7 +48,7 @@ open class MainFramePage : Page() {
         shouldLoadRequired()
         do {
             mobileMenu.mobileMenuButton.click()
-        } while(!cookiesBanner.hasLoadedRequired())
+        } while (!cookiesBanner.hasLoadedRequired())
         cookiesBanner.acceptCookies()
         shouldLoadRequired()
     }

@@ -48,17 +48,16 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 tasks.test {
     useJUnitPlatform()
-
-// Not needed
-//    jvmArgs(listOf("--add-opens", "java.base/java.lang=ALL-UNNAMED"))
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
-//    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
 }
 
 tasks.withType<JavaCompile> {

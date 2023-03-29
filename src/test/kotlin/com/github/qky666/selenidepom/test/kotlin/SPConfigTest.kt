@@ -54,7 +54,7 @@ class SPConfigTest {
         val browser = "firefox"
         SPConfig.selenideConfig.browser(browser)
         val createdDriver = SPConfig.createDriver()
-        @Suppress("UsePropertyAccessSyntax") WebDriverRunner.setWebDriver(createdDriver.getAndCheckWebDriver())
+        WebDriverRunner.setWebDriver(createdDriver.getAndCheckWebDriver())
 
         Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
 
