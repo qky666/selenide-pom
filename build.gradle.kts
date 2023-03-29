@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val myGroup = "com.github.qky666"
-val myVersion = "0.15.2"
+val myVersion = "0.16.0"
 
 group = myGroup
 version = myVersion
