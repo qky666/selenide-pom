@@ -6,6 +6,8 @@ val myVersion = "0.16.0"
 group = myGroup
 version = myVersion
 
+val jvmVersion = 17
+
 plugins {
     `java-library`
     `maven-publish`
@@ -45,7 +47,11 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(jvmVersion)
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(jvmVersion))
 }
 
 tasks.test {
