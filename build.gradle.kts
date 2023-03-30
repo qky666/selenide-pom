@@ -1,32 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val myGroup = "com.github.qky666"
-val myVersion = "0.16.0"
-
-group = myGroup
-version = myVersion
+group = "com.github.qky666"
+version = "0.16.0"
 
 val jvmVersion = 17
 
 plugins {
     `java-library`
-    `maven-publish`
     kotlin("jvm") version "1.8.10"
     id("io.freefair.lombok") version "8.0.1"
     id("com.github.ben-manes.versions") version "0.46.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = myGroup
-            artifactId = "selenide-pom"
-            version = myVersion
-
-            from(components["java"])
-        }
-    }
 }
 
 repositories {
@@ -47,7 +31,9 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(jvmVersion)
+    jvmToolchain {
+        this.languageVersion.set(JavaLanguageVersion.of(jvmVersion))
+    }
 }
 
 java {
