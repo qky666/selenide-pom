@@ -3,7 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "com.github.qky666"
 version = "0.16.0"
 
-val jvmVersion = 17
+val javaVersionNumber = 17
+val javaVersion = JavaVersion.VERSION_17
 
 plugins {
     `java-library`
@@ -31,13 +32,14 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain {
-        this.languageVersion.set(JavaLanguageVersion.of(jvmVersion))
-    }
+    jvmToolchain (javaVersionNumber)
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(jvmVersion))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersionNumber))
+    // This is redundant, but jitpack.io seems to need it
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.test {
