@@ -1,7 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "com.github.qky666"
-version = "0.16.0"
+val myGroup = "com.github.qky666"
+val myVersion = "0.16.0"
+
+group = myGroup
+version = myVersion
 
 val javaVersionNumber = 17
 val javaVersion = JavaVersion.VERSION_17
@@ -14,6 +17,17 @@ plugins {
     id("io.freefair.lombok") version "8.0.1"
     id("com.github.ben-manes.versions") version "0.46.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = myGroup
+            artifactId = "selenide-pom"
+            version = myVersion
+            from(components["java"])
+        }
+    }
 }
 
 repositories {
