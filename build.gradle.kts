@@ -8,6 +8,8 @@ val javaVersion = JavaVersion.VERSION_17
 
 plugins {
     `java-library`
+    // jitpack needs maven-publish plugin
+    `maven-publish`
     kotlin("jvm") version "1.8.10"
     id("io.freefair.lombok") version "8.0.1"
     id("com.github.ben-manes.versions") version "0.46.0"
