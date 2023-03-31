@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val myGroup = "com.github.qky666"
-val myVersion = "0.16.1"
+val myVersion = "0.16.2"
 
 group = myGroup
 version = myVersion
@@ -48,7 +48,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain (javaVersionNumber)
+    jvmToolchain(javaVersionNumber)
 }
 
 java {
