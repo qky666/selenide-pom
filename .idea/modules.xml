@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/selenide-pom.test.iml" filepath="$PROJECT_DIR$/.idea/modules/selenide-pom.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.github.qky666.selenide-pom.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.github.qky666.selenide-pom.test.iml" />
     </modules>
   </component>
 </project>

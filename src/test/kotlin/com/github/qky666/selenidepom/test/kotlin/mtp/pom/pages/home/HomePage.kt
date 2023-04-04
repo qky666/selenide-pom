@@ -9,7 +9,7 @@ import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MainFramePage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.frame.MainFramePage
 
 class HomePage : MainFramePage() {
     @Required val mainBanner = MainBannerWidget(element("div.custom-bg-primary"))

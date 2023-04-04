@@ -7,7 +7,7 @@ import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.BreadCrumbWidget
-import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MainFramePage
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.frame.MainFramePage
 
 class SearchResultsCollectionErrorPage : MainFramePage() {
     @Required val breadcrumb = BreadCrumbWidget(element("ul.uk-breadcrumb"))

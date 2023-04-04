@@ -1,6 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="java mtp" type="JUnit" factoryName="JUnit">
-    <module name="selenide-pom.test" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.github.qky666.selenidepom.test.java.*" />

@@ -7,6 +7,7 @@ import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
+import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import java.time.Duration
 
@@ -28,7 +29,15 @@ import java.time.Duration
  * @param self the [SelenideElement] that acts as a container of the elements defined inside the [Widget]
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
-abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self
+abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self {
+    fun findX(xpathExpression: String): SelenideElement {
+        return self.find(By.xpath(xpathExpression))
+    }
+
+    fun findX(xpathExpression: String, index: Int): SelenideElement {
+        return self.find(By.xpath(xpathExpression), index)
+    }
+}
 
 /**
  * Returns the [SelenideElement] as a [T] instance.

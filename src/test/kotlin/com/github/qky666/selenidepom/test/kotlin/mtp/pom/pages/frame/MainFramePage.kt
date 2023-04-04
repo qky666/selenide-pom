@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.kotlin.mtp.pom.common
+package com.github.qky666.selenidepom.test.kotlin.mtp.pom.pages.frame
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide.element
@@ -7,6 +7,10 @@ import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.CookiesBannerWidget
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.DesktopMenuWidget
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MobileMenuPopUpWidget
+import com.github.qky666.selenidepom.test.kotlin.mtp.pom.common.MobileMenuWidget
 import mu.KotlinLogging
 
 open class MainFramePage : Page() {
