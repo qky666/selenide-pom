@@ -26,7 +26,7 @@ public abstract class BaseMtpTest {
 
     @BeforeEach
     void beforeEach() {
-        TestData.INSTANCE.init("prod");
+        TestData.INSTANCE.init("mtp-prod");
     }
 
     protected void setUpBrowser(String browserConfig) {

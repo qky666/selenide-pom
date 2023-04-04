@@ -55,7 +55,7 @@ class MtpKotlinTest {
     @BeforeEach
     fun beforeEach() {
         SPConfig.resetConfig()
-        TestData.init("prod")
+        TestData.init("mtp-prod")
 
         // Additional test for output in TestData
         TestData.output["threadId"] = Thread.currentThread().id

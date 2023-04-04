@@ -33,10 +33,10 @@ class InternalTest {
     @Test
     fun verifyProdInputTestData() {
         Assertions.assertEquals("", TestData.input.getProperty("data.input.baseUrl"))
-        TestData.init("prod")
-        Assertions.assertEquals("https://mtp.es", TestData.input.getProperty("data.input.baseUrl"))
-        Assertions.assertEquals("prod", TestData.env)
-        Assertions.assertEquals(listOf(defaultDataPropertiesFileName, "data/prod.properties"), TestData.propertiesFiles)
+        TestData.init("internal-prod")
+        Assertions.assertEquals("https://sample.com", TestData.input.getProperty("data.input.baseUrl"))
+        Assertions.assertEquals("internal-prod", TestData.env)
+        Assertions.assertEquals(listOf(defaultDataPropertiesFileName, "data/internal-prod.properties"), TestData.propertiesFiles)
     }
 
     @Test
