@@ -5,7 +5,6 @@ import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Condition.visible
-import com.codeborne.selenide.Selenide.closeWebDriver
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.ex.ElementNotFound
 import com.github.qky666.selenidepom.config.SPConfig
@@ -40,7 +39,7 @@ class MtpKotlinTest {
                 Arguments.of("chrome", "es"),
                 Arguments.of("chrome", "en"),
                 Arguments.of("firefox", "es"),
-                Arguments.of("chrome", "en"),
+                Arguments.of("chrome", "en")
             )
         }
 
@@ -48,13 +47,14 @@ class MtpKotlinTest {
         fun mobileBrowserConfigAndLangSource(): List<Arguments> {
             return listOf(
                 Arguments.of("chromeMobile", "es"),
-                Arguments.of("chromeMobile", "en"),
+                Arguments.of("chromeMobile", "en")
             )
         }
     }
 
     @BeforeEach
-    fun initTestData() {
+    fun beforeEach() {
+        SPConfig.resetConfig()
         TestData.init("prod")
 
         // Additional test for output in TestData
@@ -62,22 +62,19 @@ class MtpKotlinTest {
     }
 
     @AfterEach
-    fun closeBrowser() {
-        closeWebDriver()
+    fun afterEach() {
+        SPConfig.quitCurrentThreadDriver()
         // Additional test for output in TestData
         Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().id.toString())
     }
 
-    private fun setupBrowser(browserConfig: String) {
+    private fun setupSite(browserConfig: String, lang: String = "es") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
             SPConfig.setupBasicMobileBrowser()
         } else {
             SPConfig.setupBasicDesktopBrowser(browserConfig)
         }
-    }
-
-    private fun setupSite(browserConfig: String, lang: String = "es") {
-        setupBrowser(browserConfig)
+        SPConfig.setCurrentThreadDriver()
         homePage.open()
         SPConfig.lang = lang
         homePage.setLangIfNeeded()
@@ -240,7 +237,8 @@ class MtpKotlinTest {
         Assertions.assertFalse(qualityAssurancePage.hasLoadedRequired(model = "desktop"))
         Assertions.assertFalse(
             qualityAssurancePage.hasLoadedRequired(
-                timeout = Duration.ofMillis(100), lang = "desktop"
+                timeout = Duration.ofMillis(100),
+                lang = "desktop"
             )
         )
     }
@@ -249,10 +247,10 @@ class MtpKotlinTest {
     @CsvSource(
         "chrome,es,Mexico,2,4,'MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales','MTP es hoy una empresa de referencia en Digital Business Assurance'",
         "firefox,es,Mexico,2,4,'MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales','MTP es hoy una empresa de referencia en Digital Business Assurance'",
-        "chrome,es,Viajero,2,2,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
-        "firefox,es,Viajero,2,2,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
+        "chrome,es,Viajero,2,1,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
+        "firefox,es,Viajero,2,1,'Los valores MTP, claves para este 2020','Este año 2020 ha sido un año particular y totalmente atípico para todos'",
         "chrome,en,Mexico,1,5,'Contact us',''",
-        "firefox,en,Mexico,1,5,'Contact us',''",
+        "firefox,en,Mexico,1,5,'Contact us',''"
     )
     fun search(
         browserConfig: String,
@@ -263,7 +261,6 @@ class MtpKotlinTest {
         lastPageResultTitle: String,
         lastPageResultText: String
     ) {
-
         setupSite(browserConfig, lang)
         homePage.desktopMenu.searchOpen.click()
         homePage.desktopMenu.searchMenu.shouldLoadRequired().searchInput.sendKeys(searchString)

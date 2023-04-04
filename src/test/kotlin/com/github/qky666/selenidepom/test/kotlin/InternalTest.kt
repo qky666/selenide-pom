@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.test.kotlin
 
-import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.data.defaultDataPropertiesFileName
@@ -14,12 +13,19 @@ class InternalTest {
     @BeforeEach
     fun beforeEach() {
         TestData.init()
+        SPConfig.resetConfig()
+    }
+
+    @AfterEach
+    fun afterEach() {
+        // Maybe not needed, but here for safety
+        SPConfig.quitCurrentThreadDriver()
     }
 
     @Test
     fun verifyModelFromPropertiesFile() {
         System.clearProperty("selenide-pom.model")
-        SPConfig.resetSelenideConfig()
+        SPConfig.resetConfig()
         val defaultModel = SPConfig.model
         Assertions.assertEquals("fileModel", defaultModel)
     }
@@ -40,7 +46,9 @@ class InternalTest {
         Assertions.assertEquals("", TestData.input.getProperty("data.input.testThree"))
         TestData.init(
             listOf(
-                defaultDataPropertiesFileName, "data/low-priority.properties", "data/high-priority.properties"
+                defaultDataPropertiesFileName,
+                "data/low-priority.properties",
+                "data/high-priority.properties"
             )
         )
         Assertions.assertEquals("testOne_high", TestData.input.getProperty("data.input.testOne"))
@@ -56,11 +64,5 @@ class InternalTest {
         Assertions.assertEquals("Output test value", TestData.output["output.test"])
         TestData.resetOutputData()
         Assertions.assertEquals(0, TestData.output.size)
-    }
-
-    @AfterEach
-    fun afterEach() {
-        // Maybe not needed, but here for safety
-        Selenide.closeWebDriver()
     }
 }

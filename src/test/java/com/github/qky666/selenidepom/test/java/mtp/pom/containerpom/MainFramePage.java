@@ -7,6 +7,7 @@ import com.github.qky666.selenidepom.pom.Required;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.ClickOptions.withOffset;
+import static com.github.qky666.selenidepom.pom.LoadableKt.hasLoadedRequired;
 import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class MainFramePage implements Loadable {
@@ -32,14 +33,19 @@ public class MainFramePage implements Loadable {
     }
 
     private void acceptCookiesDesktop() {
-        mainMenu.openSearch.click();
-        mainMenu.langEs.click(withOffset(0, -50));
+        do {
+            mainMenu.openSearch.click();
+            mainMenu.langEs.click(withOffset(0, -50));
+        } while (!hasLoadedRequired(cookiesBanner));
         cookiesBanner.acceptCookies();
         shouldLoadRequired(this);
     }
 
     private void acceptCookiesMobile() {
-        shouldLoadRequired(this).mobileMenuButton.click();
+        shouldLoadRequired(this);
+        do {
+            mobileMenuButton.click();
+        } while (!hasLoadedRequired(cookiesBanner));
         cookiesBanner.acceptCookies();
     }
 }

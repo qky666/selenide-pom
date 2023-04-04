@@ -9,7 +9,7 @@ class QualityAssurancePage : ServicesPage() {
         super.title,
         mapOf(
             "es" to exactText("Aseguramiento de la calidad"),
-            "en" to exactText("Quality assurance"),
+            "en" to exactText("Quality assurance")
         )
     )
 }

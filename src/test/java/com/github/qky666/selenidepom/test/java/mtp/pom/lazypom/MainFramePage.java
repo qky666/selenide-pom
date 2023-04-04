@@ -6,6 +6,7 @@ import com.github.qky666.selenidepom.pom.Required;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.github.qky666.selenidepom.pom.LoadableKt.hasLoadedRequired;
 import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class MainFramePage extends Page {
@@ -24,8 +25,10 @@ public class MainFramePage extends Page {
     }
 
     private void acceptCookiesDesktop() {
-        getMainMenu().getOpenSearch().click();
-        getMainMenu().getLangEs().click(ClickOptions.withOffset(0, -50));
+        do {
+            getMainMenu().getOpenSearch().click();
+            getMainMenu().getLangEs().click(ClickOptions.withOffset(0, -50));
+        } while (!hasLoadedRequired(getCookiesBanner()));
         getCookiesBanner().acceptCookies();
         shouldLoadRequired(this);
     }

@@ -8,6 +8,8 @@ import com.github.qky666.selenidepom.pom.Widget
 
 class BreadCrumbWidget(self: SelenideElement) : Widget(self) {
     val breadcrumbItems = findAll("li")
+
     @Required val homeItem = ConditionedElement(breadcrumbItems.first(), "Home")
+
     @Required val activeBreadcrumbItem = breadcrumbItems.find(cssClass("uk-active"))
 }

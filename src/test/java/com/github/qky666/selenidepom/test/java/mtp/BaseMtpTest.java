@@ -22,18 +22,20 @@ public abstract class BaseMtpTest {
         return Collections.singletonList("chromeMobile");
     }
 
+    final SPConfig spConfig = SPConfig.INSTANCE;
+
     @BeforeEach
     void beforeEach() {
         TestData.INSTANCE.init("prod");
     }
 
     protected void setUpBrowser(String browserConfig) {
-        SPConfig spConfig = SPConfig.INSTANCE;
         if (browserConfig.equals("chromeMobile")) {
             spConfig.setupBasicMobileBrowser();
         } else {
             spConfig.setupBasicDesktopBrowser(browserConfig);
         }
+        spConfig.setCurrentThreadDriver();
         Selenide.open(TestData.INSTANCE.getInput().getProperty("data.input.baseUrl"));
         // Additional output TestData test
         TestData.INSTANCE.getOutput().put("threadId", Thread.currentThread().getId());
@@ -41,7 +43,7 @@ public abstract class BaseMtpTest {
 
     @AfterEach
     void closeBrowser() {
-        Selenide.closeWebDriver();
+        spConfig.quitCurrentThreadDriver();
         // Additional output TestData test
         Assertions.assertEquals(TestData.INSTANCE.getOutput().get("threadId"), Thread.currentThread().getId());
     }

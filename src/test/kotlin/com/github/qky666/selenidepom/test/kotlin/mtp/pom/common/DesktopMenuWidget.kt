@@ -10,37 +10,48 @@ import com.github.qky666.selenidepom.pom.Widget
 class DesktopMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val services = ConditionedElement(
         find("li#servicios_menu>a"),
-        mapOf("es" to exactText("SERVICIOS"), "en" to exactText("SERVICES")),
+        mapOf("es" to exactText("SERVICIOS"), "en" to exactText("SERVICES"))
     )
+
     @Required val areas = ConditionedElement(
         find("li#sectores_menu>a"),
-        mapOf("es" to exactText("SECTORES"), "en" to exactText("AREAS")),
+        mapOf("es" to exactText("SECTORES"), "en" to exactText("AREAS"))
     )
+
     @Required val training = ConditionedElement(
         find("li#formacion_menu>a"),
-        mapOf("es" to exactText("FORMACIÓN"), "en" to exactText("TRAINING")),
+        mapOf("es" to exactText("FORMACIÓN"), "en" to exactText("TRAINING"))
     )
-    @Required(lang = "es") val blog = ConditionedElement(
+
+    @Required(lang = "es")
+    val blog = ConditionedElement(
         find("li#blog_menu>a"),
         mapOf("es" to exactText("BLOG")),
-        false,
+        false
     )
+
     @Required val talent = ConditionedElement(
         find("li#talento_menu>a"),
-        mapOf("es" to exactText("TALENTO"), "en" to exactText("TALENT")),
+        mapOf("es" to exactText("TALENTO"), "en" to exactText("TALENT"))
     )
+
     @Required val about = ConditionedElement(
         find("li.sobre_menu>a"),
-        mapOf("es" to exactText("SOBRE MTP"), "en" to exactText("ABOUT MTP")),
+        mapOf("es" to exactText("SOBRE MTP"), "en" to exactText("ABOUT MTP"))
     )
+
     @Required val contact = ConditionedElement(
         find("li#contacto_menu>a"),
-        mapOf("es" to exactText("CONTACTO"), "en" to exactText("CONTACT US")),
+        mapOf("es" to exactText("CONTACTO"), "en" to exactText("CONTACT US"))
     )
+
     @Required val langEn = findAll("li.individual-menu-idioma>a").findBy(text("en"))
+
     @Required val langEs = findAll("li.individual-menu-idioma>a").findBy(text("es"))
+
     @Required val selectedLang = ConditionedElement(
-        find("li.individual-menu-idioma.idioma-activo>a"), mapOf("es" to exactText("es"), "en" to exactText("en"))
+        find("li.individual-menu-idioma.idioma-activo>a"),
+        mapOf("es" to exactText("es"), "en" to exactText("en"))
     )
 
     // Search
@@ -53,6 +64,7 @@ class DesktopMenuWidget(self: SelenideElement) : Widget(self) {
 
 class SearchMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val searchInput = find("input[name=s]")
+
     @Required val doSearch = find("button.search-submit")
 }
 
