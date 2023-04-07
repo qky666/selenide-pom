@@ -36,6 +36,10 @@ class TiddlywikiTest {
     @BeforeEach
     fun beforeEach() {
         SPConfig.resetConfig()
+
+        // Additional test for output in TestData
+        TestData.init("tiddlywiki-prod")
+        TestData.output["threadId"] = Thread.currentThread().id
     }
 
     @AfterEach
@@ -53,13 +57,18 @@ class TiddlywikiTest {
         }
         SPConfig.setCurrentThreadDriver()
         SPConfig.lang = lang
-        TestData.init("tiddlywiki-$lang")
-        // Additional test for output in TestData
-        TestData.output["threadId"] = Thread.currentThread().id
         val relativeUrl = TestData.input.getProperty("data.input.relativeUrl")
         val url = Thread.currentThread().contextClassLoader.getResource(relativeUrl)
         assertNotNull(url, "URL not found")
         Selenide.open(url)
+        changeSiteLanguageIfNeeded()
+    }
+
+    private fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "es") {
+        if (!newLang.contentEquals(currentLang, true)){
+            // TODO: Change site language if needed
+            throw RuntimeException("Not implemented")
+        }
     }
 
     @ParameterizedTest
