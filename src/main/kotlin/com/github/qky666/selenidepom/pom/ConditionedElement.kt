@@ -23,9 +23,22 @@ class ConditionedElement(
 ) : SelenideElement by self {
 
     /**
+     * Creates a new instance using provided [exactTexts].
+     * The [ConditionedElement] created is the same as if [Condition.exactText] is applied to every value in [exactTexts].
+     *
+     * @param self the [SelenideElement]
+     * @param exactTexts the map of expected exact text for [self] in each language
+     */
+    constructor(self: SelenideElement, exactTexts: Map<String, String>) : this(
+        self,
+        exactTexts.mapValues { Condition.exactText(it.value) },
+        true
+    )
+
+    /**
      * Creates a new instance using provided [condition] for all languages.
      * Useful if the web page uses only one language or the element's text
-     * (assuming provided condition affects the element's text) is the same in all languages.
+     * (if, for example, provided condition affects the element's text) is the same in all languages.
      *
      * @param self the [SelenideElement]
      * @param condition the expected [Condition] for [self] in every language

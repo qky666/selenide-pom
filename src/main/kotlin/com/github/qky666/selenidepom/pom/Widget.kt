@@ -30,6 +30,8 @@ import java.time.Duration
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
 abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self {
+
+    // TODO: Verify that element is unique in "find" and "findX" methods
     fun findX(xpathExpression: String): SelenideElement {
         return self.find(By.xpath(xpathExpression))
     }

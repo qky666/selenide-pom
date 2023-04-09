@@ -16,6 +16,7 @@ open class MainPage : Page() {
     val sidebarWidget = SidebarWidget(find("div.tc-sidebar-scrollable"))
 }
 
-class StoryRiverWidget(self: SelenideElement) : Widget(self) {}
+class StoryRiverWidget(self: SelenideElement) : Widget(self)
 
-@Suppress("unused") val mainPage = MainPage()
+@Suppress("unused")
+val mainPage = MainPage()

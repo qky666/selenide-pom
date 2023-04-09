@@ -8,24 +8,29 @@ import com.github.qky666.selenidepom.pom.Widget
 
 class SidebarWidget(self: SelenideElement) : Widget(self) {
     @Required val title = ConditionedElement(
-        find("h1.tc-site-title"), mapOf(
+        find("h1.tc-site-title"),
+        mapOf(
             "en" to Condition.exactText("My TiddlyWiki"),
             "es" to Condition.exactText("Mi TiddlyWiki")
         )
     )
 
     @Required val subtitle = ConditionedElement(
-        find(".tc-site-subtitle"), mapOf(
+        find(".tc-site-subtitle"),
+        mapOf(
             "en" to Condition.exactText("a non-linear personal web notebook"),
             "es" to Condition.exactText("Cuaderno de notas personal no-lineal en la web")
         )
     )
 
     @Required val newTiddler = find("button[class*=new-tiddler]")
+
     @Required val controlPanel = find("button[class*=control-panel]")
+
     @Required val saveWiki = find("button[class*=save-wiki]")
 
     @Required val searchInput = find("div.tc-search input")
+
     @Required val advancedSearch = find("div.tc-search button>svg.tc-image-advanced-search-button")
     val resetSearch = find("div.tc-search button>svg.tc-image-close-button")
     val searchResults = find("div.tc-search button[aria-expanded]")
@@ -36,30 +41,34 @@ class SidebarWidget(self: SelenideElement) : Widget(self) {
 
 class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
     @Required val openTabButton = ConditionedElement(
-        find("div.tc-tab-buttons button", 0), mapOf(
+        find("div.tc-tab-buttons button", 0),
+        mapOf(
             "en" to Condition.exactText("Open"),
-            "es" to Condition.exactText("Abiertos"),
+            "es" to Condition.exactText("Abiertos")
         )
     )
 
     @Required val recentTabButton = ConditionedElement(
-        find("div.tc-tab-buttons button", 1), mapOf(
+        find("div.tc-tab-buttons button", 1),
+        mapOf(
             "en" to Condition.exactText("Recent"),
-            "es" to Condition.exactText("Recientes"),
+            "es" to Condition.exactText("Recientes")
         )
     )
 
     @Required val toolsTabButton = ConditionedElement(
-        find("div.tc-tab-buttons button", 2), mapOf(
+        find("div.tc-tab-buttons button", 2),
+        mapOf(
             "en" to Condition.exactText("Tools"),
-            "es" to Condition.exactText("Herramientas"),
+            "es" to Condition.exactText("Herramientas")
         )
     )
 
     @Required val moreTabButton = ConditionedElement(
-        find("div.tc-tab-buttons button", 3), mapOf(
+        find("div.tc-tab-buttons button", 3),
+        mapOf(
             "en" to Condition.exactText("More"),
-            "es" to Condition.exactText("Más"),
+            "es" to Condition.exactText("Más")
         )
     )
 

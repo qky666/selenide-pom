@@ -65,7 +65,7 @@ class TiddlywikiTest {
     }
 
     private fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "es") {
-        if (!newLang.contentEquals(currentLang, true)){
+        if (!newLang.contentEquals(currentLang, true)) {
             // TODO: Change site language if needed
             throw RuntimeException("Not implemented")
         }
