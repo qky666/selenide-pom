@@ -13,8 +13,6 @@ import org.openqa.selenium.WebElement
  * See [Loadable].
  */
 abstract class Page : Loadable {
-    // TODO: finish documentation
-
     /**
      * Same as [Selenide.element] `(cssSelector)`, but it assures that the [cssSelector] provided returns
      * a unique element to avoid errors.
@@ -97,18 +95,42 @@ abstract class Page : Loadable {
         return Selenide.element(webElement)
     }
 
+    /**
+     * Same as [Selenide.elements] `(cssSelector)`.
+     *
+     * @param cssSelector the css selector
+     * @return the [ElementsCollection] found
+     */
     fun findAll(cssSelector: String): ElementsCollection {
         return Selenide.elements(cssSelector)
     }
 
+    /**
+     * Same as [Selenide.elements] `(By.xpath(xpathExpression))`.
+     *
+     * @param xpathExpression the xpath
+     * @return the [ElementsCollection] found
+     */
     fun findXAll(xpathExpression: String): ElementsCollection {
         return Selenide.elements(By.xpath(xpathExpression))
     }
 
+    /**
+     * Same as [Selenide.elements] `(seleniumSelector)`.
+     *
+     * @param seleniumSelector the selector
+     * @return the [ElementsCollection] found
+     */
     fun findAll(seleniumSelector: By): ElementsCollection {
         return Selenide.elements(seleniumSelector)
     }
 
+    /**
+     * Same as [Selenide.element] `(elements)`.
+     *
+     * @param elements the element collection
+     * @return the wrapped [ElementsCollection]
+     */
     fun findAll(elements: Collection<WebElement>): ElementsCollection {
         return Selenide.elements(elements)
     }

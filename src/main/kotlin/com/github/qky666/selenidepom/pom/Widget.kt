@@ -2,9 +2,11 @@
 
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.HoverOptions
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import org.openqa.selenium.By
@@ -31,13 +33,21 @@ import java.time.Duration
  */
 abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self {
 
-    // TODO: Verify that element is unique in "find" and "findX" methods
+    // TODO: Document methods
     fun findX(xpathExpression: String): SelenideElement {
-        return self.find(By.xpath(xpathExpression))
+        return findAll(By.xpath(xpathExpression)).shouldHave(size(1))[0]
     }
 
     fun findX(xpathExpression: String, index: Int): SelenideElement {
-        return self.find(By.xpath(xpathExpression), index)
+        return find(By.xpath(xpathExpression), index)
+    }
+
+    override fun find(cssSelector: String): SelenideElement {
+        return findAll(cssSelector).shouldHave(size(1))[0]
+    }
+
+    override fun find(selector: By): SelenideElement {
+        return findAll(selector).shouldHave(size(1))[0]
     }
 }
 
