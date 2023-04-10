@@ -1,5 +1,6 @@
-package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar
+package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs
 
+import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Page
@@ -134,20 +135,121 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
     )
 
     val languageChooser = LanguageChooser(Page.find("tc-language-chooser"))
+
+    @Required val palette = ToolItem(
+        find("div[class$=palette]"), mapOf(
+            "en" to "palette", "es" to "Paleta"
+        ), mapOf(
+            "en" to " Choose the colour palette", "es" to "Selecciona la paleta de color"
+        )
+    )
+
+    @Required val theme = ToolItem(
+        find("div[class$=theme]"), mapOf(
+            "en" to "theme", "es" to "Tema"
+        ), mapOf(
+            "en" to "Choose the display theme", "es" to "Selecciona un estilo visual para el wiki"
+        )
+    )
+
+    @Required val layout = ToolItem(
+        find("div[class$=layout]"), mapOf(
+            "en" to "layout", "es" to "disposición"
+        ), mapOf(
+            "en" to "Open the layout switcher", "es" to "Abre el selector de diseño"
+        )
+    )
+
+    @Required val storyview = ToolItem(
+        find("div[class$=storyview]"), mapOf(
+            "en" to "storyview", "es" to "Vista"
+        ), mapOf(
+            "en" to "Choose the story visualisation", "es" to "Selecciona el modo de visualización de los tiddlers"
+        )
+    )
+
+    @Required val setPassword = ToolItem(
+        find("div[class$=encryption]"), mapOf(
+            "en" to "set password", "es" to "Asignar contraseña"
+        ), mapOf(
+            "en" to "Set or clear a password for saving this wiki",
+            "es" to "Asigna o revoca la contraseña de cifrado para este wiki"
+        )
+    )
+
+    @Required val timestamp = ToolItem(
+        find("div[class$=timestamp]"), mapOf(
+            "en" to Condition.text("timestamps are"), "es" to Condition.text("las marcas de tiempo están")
+        ), mapOf(
+            "en" to Condition.exactText("Choose whether modifications update timestamps"),
+            "es" to Condition.text("Elige si las modificaciones actualizan las marcas de tiempo")
+        )
+    )
+
+    @Required val fullScreen = ToolItem(
+        find("div[class$=full-screen]"), mapOf(
+            "en" to "full-screen", "es" to "Pantalla completa"
+        ), mapOf(
+            "en" to "Enter or leave full-screen mode", "es" to "Entra y sale del modo de pantalla completa"
+        )
+    )
+
+    @Required val printPage = ToolItem(
+        find("div[class$=print]"), mapOf(
+            "en" to "print page", "es" to "Imprimir página"
+        ), mapOf(
+            "en" to "Print the current page", "es" to "Imprime la página actual"
+        )
+    )
+
+    @Required val saveChanges = ToolItem(
+        find("div[class$=save-wiki]"), mapOf(
+            "en" to "save changes", "es" to "Guardar cambios"
+        ), mapOf(
+            "en" to "Save changes", "es" to "Confirma y guarda todos los cambios realizados en el wiki"
+        )
+    )
+
+    @Required val refresh = ToolItem(
+        find("div[class$=refresh]"), mapOf(
+            "en" to "refresh", "es" to "Recargar"
+        ), mapOf(
+            "en" to "Perform a full refresh of the wiki", "es" to "Actualiza completamente este wiki"
+        )
+    )
+
+    @Required val more = ToolItem(
+        find("div[class$=more-page-actions]"), mapOf(
+            "en" to "more", "es" to "Más"
+        ), mapOf(
+            "en" to "More actions", "es" to "Otras acciones"
+        )
+    )
 }
 
 class ToolItem(
     self: SelenideElement,
-    buttonConditions: Map<String, String> = mapOf(),
-    descriptionConditions: Map<String, String> = mapOf()
+    buttonConditions: Map<String, Condition> = mapOf(),
+    descriptionConditions: Map<String, Condition> = mapOf(),
+    strict: Boolean = true
 ) : Widget(self) {
     @Required val checkbox = find("input")
-    @Required val button = ConditionedElement(find("button"), buttonConditions)
-    @Required val description = ConditionedElement(find("i"), descriptionConditions)
+    @Required val button = ConditionedElement(find("button"), buttonConditions, strict)
+    @Required val description = ConditionedElement(find("i"), descriptionConditions, strict)
+
+    constructor(
+        self: SelenideElement,
+        buttonTexts: Map<String, String> = mapOf(),
+        descriptionTexts: Map<String, String> = mapOf()
+    ) : this(
+        self,
+        buttonTexts.mapValues { Condition.exactText(it.value) },
+        descriptionTexts.mapValues { Condition.exactText(it.value) },
+        true
+    )
 }
 
-
-class LanguageChooser(self: SelenideElement): Widget(self) {
+class LanguageChooser(self: SelenideElement) : Widget(self) {
     @Required val enGB = find("a[href$=en-GB]")
     @Required val esES = find("a[href$=es-ES]")
     @Required val chosen = find("div.tc-chosen a")

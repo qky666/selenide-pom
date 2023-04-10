@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar
+package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs
 
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.Required

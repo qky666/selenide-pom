@@ -4,6 +4,10 @@ import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.ConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.MoreTabContentWidget
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.OpenTabContentWidget
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.RecentTabContentWidget
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.ToolsTabContentWidget
 
 class SidebarWidget(self: SelenideElement) : Widget(self) {
     @Required val title = ConditionedElement(
@@ -59,7 +63,8 @@ class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
         )
     )
 
-    val openTabContent = OpenTabContentWidget(find("div.tc-tab-content div.tc-reveal", 0))
-    val recentTabContent = RecentTabContentWidget(find("div.tc-tab-content div.tc-reveal", 1))
-    val toolsTabContent = ToolsTabContentWidget(find("div.tc-tab-content div.tc-reveal", 2))
+    val openTabContent = OpenTabContentWidget(find("div.tc-tab-content div.tc-reveal:not([hidden]):nth-child(1)"))
+    val recentTabContent = RecentTabContentWidget(find("div.tc-tab-content div.tc-reveal:not([hidden]):nth-child(2)"))
+    val toolsTabContent = ToolsTabContentWidget(find("div.tc-tab-content div.tc-reveal:not([hidden]):nth-child(3)"))
+    val moreTabContent = MoreTabContentWidget(find("div.tc-tab-content div.tc-reveal:not([hidden]):nth-child(4)"))
 }
