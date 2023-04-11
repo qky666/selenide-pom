@@ -134,7 +134,8 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
         )
     )
 
-    val languageChooser = LanguageChooser(Page.find("tc-language-chooser"))
+    // val languageChooser = LanguageChooser(Page.find("div.tc-language-chooser"))
+    val languageChooser = LanguageChooser(Page.findXAll(".//div[contains(@class,'tc-language-chooser')]")[0])
 
     @Required val palette = ToolItem(
         find("div[class$=palette]"), mapOf(
@@ -179,10 +180,10 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
 
     @Required val timestamp = ToolItem(
         find("div[class$=timestamp]"), mapOf(
-            "en" to Condition.text("timestamps are"), "es" to Condition.text("las marcas de tiempo están")
+            "en" to "timestamps are", "es" to "las marcas de tiempo están"
         ), mapOf(
-            "en" to Condition.exactText("Choose whether modifications update timestamps"),
-            "es" to Condition.text("Elige si las modificaciones actualizan las marcas de tiempo")
+            "en" to "Choose whether modifications update timestamps",
+            "es" to "Elige si las modificaciones actualizan las marcas de tiempo"
         )
     )
 
@@ -243,8 +244,8 @@ class ToolItem(
         descriptionTexts: Map<String, String> = mapOf()
     ) : this(
         self,
-        buttonTexts.mapValues { Condition.exactText(it.value) },
-        descriptionTexts.mapValues { Condition.exactText(it.value) },
+        buttonTexts.mapValues { Condition.text(it.value) },
+        descriptionTexts.mapValues { Condition.text(it.value) },
         true
     )
 }

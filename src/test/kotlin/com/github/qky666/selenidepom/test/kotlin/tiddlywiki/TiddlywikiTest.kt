@@ -1,11 +1,17 @@
 package com.github.qky666.selenidepom.test.kotlin.tiddlywiki
 
-import com.codeborne.selenide.Condition
+import com.codeborne.selenide.ClickOptions
+import com.codeborne.selenide.CollectionCondition.size
+import com.codeborne.selenide.Condition.disappear
+import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
+import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -18,18 +24,12 @@ class TiddlywikiTest {
 
     companion object {
         @JvmStatic
-        fun desktopBrowserConfigAndLangSource(): List<Arguments> {
+        fun browserConfigAndLangSource(): List<Arguments> {
             return listOf(
                 Arguments.of("chrome", "es"),
                 Arguments.of("chrome", "en"),
                 Arguments.of("firefox", "es"),
-                Arguments.of("chrome", "en")
-            )
-        }
-
-        @JvmStatic
-        fun mobileBrowserConfigAndLangSource(): List<Arguments> {
-            return listOf(
+                Arguments.of("firefox", "en"),
                 Arguments.of("chromeMobile", "es"),
                 Arguments.of("chromeMobile", "en")
             )
@@ -55,8 +55,10 @@ class TiddlywikiTest {
     private fun setupSite(browserConfig: String, lang: String = "en") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
             SPConfig.setupBasicMobileBrowser()
+            SPConfig.model = "mobile"
         } else {
             SPConfig.setupBasicDesktopBrowser(browserConfig)
+            SPConfig.model = "desktop"
         }
         SPConfig.setCurrentThreadDriver()
         SPConfig.lang = lang
@@ -81,7 +83,7 @@ class TiddlywikiTest {
             } else {
                 mainPage.sidebar.sidebarTabs.toolsTabContent.languageChooser.enGB.click()
             }
-            mainPage.sidebar.sidebarTabs.toolsTabContent.languageChooser.should(Condition.disappear)
+            mainPage.sidebar.sidebarTabs.toolsTabContent.languageChooser.should(disappear)
             mainPage.shouldLoadRequired(lang = newLang)
             mainPage.sidebar.sidebarTabs.openTabButton.click()
             mainPage.shouldLoadRequired(lang = newLang)
@@ -89,16 +91,65 @@ class TiddlywikiTest {
     }
 
     @ParameterizedTest
-    @MethodSource("desktopBrowserConfigAndLangSource")
-    fun voidDesktopTest(browserConfig: String, lang: String) {
+    @MethodSource("browserConfigAndLangSource")
+    fun verifyGettingStartedAndCloseAllTest(browserConfig: String, lang: String) {
         setupSite(browserConfig, lang)
-        Thread.sleep(5000)
+        val firstTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
+//        GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired()
+        GettingStartedTiddlerViewWidget(Page.Companion.findAll(listOf(firstTiddler.toWebElement()))[0]).shouldLoadRequired()
+
+        mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(1))
+        mainPage.sidebar.sidebarTabs.openTabContent.closeAll.click()
+        mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(0))
     }
 
     @ParameterizedTest
-    @MethodSource("mobileBrowserConfigAndLangSource")
-    fun voidMobileTest(browserConfig: String, lang: String) {
+    @MethodSource("browserConfigAndLangSource")
+    fun verifySidebarTabsTest(browserConfig: String, lang: String) {
         setupSite(browserConfig, lang)
-        Thread.sleep(5000)
+
+        // Populate Recent tab.
+        // newTiddler works better with javascript click
+        mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
+        mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))
+
+        for ((tabButton, tabContent) in mainPage.sidebar.sidebarTabs.tabButtonToTabContentMap) {
+            tabButton.click()
+            tabContent.shouldLoadRequired()
+        }
+
+        mainPage.sidebar.sidebarTabs.recentTabButton.click()
+        mainPage.sidebar.sidebarTabs.recentTabContent.shouldLoadRequired().dateItems.shouldHave(size(1))
+    }
+
+    @ParameterizedTest
+    @MethodSource("browserConfigAndLangSource")
+    fun showHideSidebarTest(browserConfig: String, lang: String) {
+        setupSite(browserConfig, lang)
+
+        mainPage.sidebar.shouldLoadRequired()
+        mainPage.hideShowSidebar.click()
+        mainPage.sidebar.shouldNotBe(visible)
+        mainPage.showSidebar.click()
+        mainPage.sidebar.shouldLoadRequired()
+    }
+
+    @ParameterizedTest
+    @MethodSource("browserConfigAndLangSource")
+    fun createAndSearchNewTiddlerTest(browserConfig: String, lang: String) {
+        val newTiddlerTitle = "My new tiddler title"
+        val newTiddlerBody = "My new tiddler body"
+
+        setupSite(browserConfig, lang)
+
+        // newTiddler works better with javascript click
+        mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
+        val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0]
+        newTiddlerEdit.titleInput.sendKeys(newTiddlerTitle)
+        newTiddlerEdit.bodyInput.sendKeys(newTiddlerBody)
+        newTiddlerEdit.save.click()
+        val newTiddlerView = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0]
+        newTiddlerView.title.shouldHave(exactText(newTiddlerTitle))
+        newTiddlerView.body.shouldHave(exactText(newTiddlerBody))
     }
 }

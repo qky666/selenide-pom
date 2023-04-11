@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
@@ -15,31 +14,23 @@ import org.openqa.selenium.WebElement
 abstract class Page : Loadable {
     companion object{
         /**
-         * Same as [Selenide.element] `(cssSelector)`, but it assures that the [cssSelector] provided returns
-         * a unique element to avoid errors.
-         * An exception is thrown if the provided selector returns no elements, or more than one element.
-         * If more than one element is returned, you can always use the `find(selector, index)` method
-         * or use a more specific [cssSelector].
+         * Same as [Selenide.element] `(cssSelector)`.
          *
          * @param cssSelector the css selector
-         * @return the unique [SelenideElement] found
+         * @return the [SelenideElement] found
          */
         fun find(cssSelector: String): SelenideElement {
-            return Selenide.elements(cssSelector).shouldHave(size(1))[0]
+            return Selenide.element(cssSelector)
         }
 
         /**
-         * Same as [Selenide.element] `(By.xpath(xpathExpression))`, but it assures that the [xpathExpression] provided returns
-         * a unique element to avoid errors.
-         * An exception is thrown if the provided selector returns no elements, or more than one element.
-         * If more than one element is returned, you can always use the `find(selector, index)` method
-         * or use a more specific [xpathExpression].
+         * Same as [Selenide.element] `(By.xpath(xpathExpression))`.
          *
          * @param xpathExpression the xpath
-         * @return the unique [SelenideElement] found
+         * @return the [SelenideElement] found
          */
         fun findX(xpathExpression: String): SelenideElement {
-            return Selenide.elements(By.xpath(xpathExpression)).shouldHave(size(1))[0]
+            return Selenide.element(By.xpath(xpathExpression))
         }
 
         /**
@@ -63,17 +54,13 @@ abstract class Page : Loadable {
         }
 
         /**
-         * Same as [Selenide.element] `(seleniumSelector)`, but it assures that the [seleniumSelector] provided returns
-         * a unique element to avoid errors.
-         * An exception is thrown if the provided selector returns no elements, or more than one element.
-         * If more than one element is returned, you can always use the `find(selector, index)` method
-         * or use a more specific [seleniumSelector].
+         * Same as [Selenide.element] `(seleniumSelector)`.
          *
          * @param seleniumSelector the selector
-         * @return the unique [SelenideElement] found
+         * @return the [SelenideElement] found
          */
         fun find(seleniumSelector: By): SelenideElement {
-            return Selenide.elements(seleniumSelector).shouldHave(size(1))[0]
+            return Selenide.element(seleniumSelector)
         }
 
         /**

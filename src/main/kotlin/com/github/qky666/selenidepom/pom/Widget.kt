@@ -2,7 +2,6 @@
 
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsCollection
@@ -34,17 +33,13 @@ import java.time.Duration
 abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self {
 
     /**
-     * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`, but it assures that the [xpathExpression] provided returns
-     * a unique element to avoid errors.
-     * An exception is thrown if the provided selector returns no elements, or more than one element.
-     * If more than one element is returned, you can always use the `find(selector, index)` method
-     * or use a more specific [xpathExpression].
+     * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`.
      *
      * @param xpathExpression the xpath
-     * @return the unique [SelenideElement] found
+     * @return the [SelenideElement] found
      */
     fun findX(xpathExpression: String): SelenideElement {
-        return findAll(By.xpath(xpathExpression)).shouldHave(size(1))[0]
+        return find(By.xpath(xpathExpression))
     }
 
     /**
@@ -65,34 +60,6 @@ abstract class Widget(private val self: SelenideElement) : Loadable, SelenideEle
      */
     fun findXAll(xpathExpression: String): ElementsCollection {
         return findAll(By.xpath(xpathExpression))
-    }
-
-    /**
-     * Same as [SelenideElement.find] `(cssSelector)`, but it assures that the [cssSelector] provided returns
-     * a unique element to avoid errors.
-     * An exception is thrown if the provided selector returns no elements, or more than one element.
-     * If more than one element is returned, you can always use the `find(selector, index)` method
-     * or use a more specific [cssSelector].
-     *
-     * @param cssSelector the css selector
-     * @return the unique [SelenideElement] found
-     */
-    override fun find(cssSelector: String): SelenideElement {
-        return findAll(cssSelector).shouldHave(size(1))[0]
-    }
-
-    /**
-     * Same as [SelenideElement.find] `(selector: By)`, but it assures that the [selector] provided returns
-     * a unique element to avoid errors.
-     * An exception is thrown if the provided selector returns no elements, or more than one element.
-     * If more than one element is returned, you can always use the `find(selector, index)` method
-     * or use a more specific [selector].
-     *
-     * @param selector the selector
-     * @return the unique [SelenideElement] found
-     */
-    override fun find(selector: By): SelenideElement {
-        return findAll(selector).shouldHave(size(1))[0]
     }
 }
 
