@@ -38,7 +38,7 @@ dependencies {
     val jUnitVersion = "5.9.2"
 
     implementation(kotlin("reflect"))
-    implementation("com.codeborne:selenide:6.12.4")
+    implementation("com.codeborne:selenide:6.13.0")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")

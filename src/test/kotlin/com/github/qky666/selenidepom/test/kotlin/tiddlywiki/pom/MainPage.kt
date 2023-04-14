@@ -3,6 +3,7 @@ package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.popup.SearchPopupWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.SidebarWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.StoryRiverWidget
 import org.openqa.selenium.By
@@ -24,6 +25,8 @@ open class MainPage : Page() {
 
     //    val sidebar = SidebarWidget(find("div.tc-sidebar-scrollable"))
     val sidebar = SidebarWidget(findAll("div.tc-sidebar-scrollable div.tc-sidebar-header>div.tc-reveal")[0])
+
+    val searchPopup = SearchPopupWidget(find("div.tc-search-drop-down"))
 
     override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
         super.customShouldLoadRequired(timeout, model, lang)

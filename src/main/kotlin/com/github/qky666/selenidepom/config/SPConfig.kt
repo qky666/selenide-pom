@@ -71,7 +71,7 @@ object SPConfig {
 
     /**
      * The default `lang` (thread local value) used in
-     * [com.github.qky666.selenidepom.pom.ConditionedElement.shouldMeetCondition] method.
+     * [com.github.qky666.selenidepom.pom.LangConditionedElement.shouldMeetCondition] method.
      * Default value: `selenide-pom.lang` System property if defined, `selenide-pom.lang` value
      * in `selenide-pom.properties` if defined, or [defaultLang] in other case.
      */

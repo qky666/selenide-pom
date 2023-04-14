@@ -16,7 +16,7 @@ import java.time.Duration
  * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition] for [self] in each language
  * @param strict default value for `strict` in [shouldMeetCondition]
  */
-class ConditionedElement(
+class LangConditionedElement(
     private val self: SelenideElement,
     private val conditions: Map<String, Condition>,
     private val strict: Boolean = true
@@ -24,15 +24,13 @@ class ConditionedElement(
 
     /**
      * Creates a new instance using provided [exactTexts].
-     * The [ConditionedElement] created is the same as if [Condition.exactText] is applied to every value in [exactTexts].
+     * The [LangConditionedElement] created is the same as if [Condition.exactText] is applied to every value in [exactTexts].
      *
      * @param self the [SelenideElement]
      * @param exactTexts the map of expected exact text for [self] in each language
      */
     constructor(self: SelenideElement, exactTexts: Map<String, String>) : this(
-        self,
-        exactTexts.mapValues { Condition.exactText(it.value) },
-        true
+        self, exactTexts.mapValues { Condition.exactText(it.value) }, true
     )
 
     /**
@@ -45,9 +43,7 @@ class ConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, condition: Condition, strict: Boolean = true) : this(
-        self,
-        mapOf<String, Condition>().withDefault { condition },
-        strict
+        self, mapOf<String, Condition>().withDefault { condition }, strict
     )
 
     /**
@@ -59,9 +55,7 @@ class ConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
-        self,
-        mapOf<String, Condition>().withDefault { Condition.exactText(exactText) },
-        strict
+        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
     )
 
     private val logger = KotlinLogging.logger {}
@@ -79,13 +73,13 @@ class ConditionedElement(
         timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
         lang: String = SPConfig.lang,
         strict: Boolean = this.strict
-    ): ConditionedElement {
+    ): LangConditionedElement {
         try {
             val condition = conditions.getValue(lang)
             self.should(condition, timeout)
             logger.debug {
                 "Checked condition '$condition' (language '$lang') in element '${
-                this.toString().replace("\n", "\\n")
+                    this.toString().replace("\n", "\\n")
                 }'"
             }
         } catch (e: NoSuchElementException) {
@@ -94,5 +88,14 @@ class ConditionedElement(
             }
         }
         return this
+    }
+
+    fun meetsCondition(lang: String = SPConfig.lang, strict: Boolean = this.strict): Boolean {
+        return try {
+            val condition = conditions.getValue(lang)
+            self.has(condition)
+        } catch (e: NoSuchElementException) {
+            !strict
+        }
     }
 }

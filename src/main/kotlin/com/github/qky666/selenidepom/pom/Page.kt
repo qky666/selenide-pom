@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement
  * See [Loadable].
  */
 abstract class Page : Loadable {
-    companion object{
+    companion object {
         /**
          * Same as [Selenide.element] `(cssSelector)`.
          *
@@ -24,13 +24,13 @@ abstract class Page : Loadable {
         }
 
         /**
-         * Same as [Selenide.element] `(By.xpath(xpathExpression))`.
+         * Same as [Selenide.element] `(seleniumSelector)`.
          *
-         * @param xpathExpression the xpath
+         * @param seleniumSelector the selector
          * @return the [SelenideElement] found
          */
-        fun findX(xpathExpression: String): SelenideElement {
-            return Selenide.element(By.xpath(xpathExpression))
+        fun find(seleniumSelector: By): SelenideElement {
+            return Selenide.element(seleniumSelector)
         }
 
         /**
@@ -41,26 +41,6 @@ abstract class Page : Loadable {
          */
         fun find(cssSelector: String, index: Int): SelenideElement {
             return Selenide.element(cssSelector, index)
-        }
-
-        /**
-         * Same as [Selenide.element] `(By.xpath(xpathExpression), index)`.
-         *
-         * @param xpathExpression the xpath
-         * @return the unique [SelenideElement] found
-         */
-        fun findX(xpathExpression: String, index: Int): SelenideElement {
-            return Selenide.element(By.xpath(xpathExpression), index)
-        }
-
-        /**
-         * Same as [Selenide.element] `(seleniumSelector)`.
-         *
-         * @param seleniumSelector the selector
-         * @return the [SelenideElement] found
-         */
-        fun find(seleniumSelector: By): SelenideElement {
-            return Selenide.element(seleniumSelector)
         }
 
         /**
@@ -84,6 +64,26 @@ abstract class Page : Loadable {
         }
 
         /**
+         * Same as [Selenide.element] `(By.xpath(xpathExpression))`.
+         *
+         * @param xpathExpression the xpath
+         * @return the [SelenideElement] found
+         */
+        fun findX(xpathExpression: String): SelenideElement {
+            return Selenide.element(By.xpath(xpathExpression))
+        }
+
+        /**
+         * Same as [Selenide.element] `(By.xpath(xpathExpression), index)`.
+         *
+         * @param xpathExpression the xpath
+         * @return the unique [SelenideElement] found
+         */
+        fun findX(xpathExpression: String, index: Int): SelenideElement {
+            return Selenide.element(By.xpath(xpathExpression), index)
+        }
+
+        /**
          * Same as [Selenide.elements] `(cssSelector)`.
          *
          * @param cssSelector the css selector
@@ -91,16 +91,6 @@ abstract class Page : Loadable {
          */
         fun findAll(cssSelector: String): ElementsCollection {
             return Selenide.elements(cssSelector)
-        }
-
-        /**
-         * Same as [Selenide.elements] `(By.xpath(xpathExpression))`.
-         *
-         * @param xpathExpression the xpath
-         * @return the [ElementsCollection] found
-         */
-        fun findXAll(xpathExpression: String): ElementsCollection {
-            return Selenide.elements(By.xpath(xpathExpression))
         }
 
         /**
@@ -114,13 +104,23 @@ abstract class Page : Loadable {
         }
 
         /**
-         * Same as [Selenide.element] `(elements)`.
+         * Same as [Selenide.elements] `(elements)`.
          *
          * @param elements the element collection
          * @return the wrapped [ElementsCollection]
          */
         fun findAll(elements: Collection<WebElement>): ElementsCollection {
             return Selenide.elements(elements)
+        }
+
+        /**
+         * Same as [Selenide.elements] `(By.xpath(xpathExpression))`.
+         *
+         * @param xpathExpression the xpath
+         * @return the [ElementsCollection] found
+         */
+        fun findXAll(xpathExpression: String): ElementsCollection {
+            return Selenide.elements(By.xpath(xpathExpression))
         }
     }
 }

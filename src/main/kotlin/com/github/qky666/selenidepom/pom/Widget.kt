@@ -30,7 +30,7 @@ import java.time.Duration
  * @param self the [SelenideElement] that acts as a container of the elements defined inside the [Widget]
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
-abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self {
+abstract class Widget(private val self: SelenideElement) : SelenideElement by self, Loadable {
 
     /**
      * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`.
@@ -61,6 +61,72 @@ abstract class Widget(private val self: SelenideElement) : Loadable, SelenideEle
     fun findXAll(xpathExpression: String): ElementsCollection {
         return findAll(By.xpath(xpathExpression))
     }
+
+    /**
+     * Same as [SelenideElement.find] `(cssSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(cssSelector: String): SelenideElement {
+        return self.find(cssSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(seleniumSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(seleniumSelector: By): SelenideElement {
+        return self.find(seleniumSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(cssSelector, index)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(cssSelector: String, index: Int): SelenideElement {
+        return self.find(cssSelector, index)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(seleniumSelector, index)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(seleniumSelector: By, index: Int): SelenideElement {
+        return self.find(seleniumSelector, index)
+    }
+
+    /**
+     * Same as [SelenideElement.findAll] `(cssSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [ElementsCollection] found
+     */
+    final override fun findAll(cssSelector: String): ElementsCollection {
+        return self.findAll(cssSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.findAll] `(seleniumSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [ElementsCollection] found
+     */
+    final override fun findAll(seleniumSelector: By): ElementsCollection {
+        return self.findAll(seleniumSelector)
+    }
 }
 
 /**
@@ -70,7 +136,8 @@ abstract class Widget(private val self: SelenideElement) : Loadable, SelenideEle
  * @return [T] instance based on provided [SelenideElement]
  */
 fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
-    @Suppress("UNCHECKED_CAST") return this as? T ?: factory(this)
+    @Suppress("UNCHECKED_CAST")
+    return this as? T ?: factory(this)
 }
 
 /**
