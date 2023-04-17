@@ -17,7 +17,8 @@ fun langCondition(conditions: Map<String, Condition>, strict: Boolean = true): C
             } catch (e: NoSuchElementException) {
                 if (strict) {
                     throw ConditionNotDefinedError(
-                        LangConditionedElement(Selenide.element(element), conditions), SPConfig.lang
+                        LangConditionedElement(Selenide.element(element), conditions),
+                        SPConfig.lang
                     )
                 } else {
                     CheckResult(true, null)

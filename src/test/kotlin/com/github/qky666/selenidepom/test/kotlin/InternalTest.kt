@@ -1,6 +1,7 @@
 package com.github.qky666.selenidepom.test.kotlin
 
 import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.data.PropertiesHelper
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.data.defaultDataPropertiesFileName
 import org.junit.jupiter.api.AfterEach
@@ -64,5 +65,11 @@ class InternalTest {
         Assertions.assertEquals("Output test value", TestData.output["output.test"])
         TestData.resetOutputData()
         Assertions.assertEquals(0, TestData.output.size)
+    }
+
+    @Test
+    fun nonExistingFilePropertiesHelper() {
+        val helper = PropertiesHelper(listOf("non-existing-file.properties"))
+        Assertions.assertEquals("", helper.getProperty("aProperty"))
     }
 }

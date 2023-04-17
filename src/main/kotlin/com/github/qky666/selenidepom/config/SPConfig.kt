@@ -89,23 +89,19 @@ object SPConfig {
      * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties
      * and `Selenide` properties file.
      */
-    var selenideConfig: SelenideConfig
+    val selenideConfig: SelenideConfig
         get() = threadLocalSelenideConfig.get()
-        set(value) {
-            threadLocalSelenideConfig.set(value)
-        }
 
     /**
      * Resets current thread [selenideConfig] to the default [com.codeborne.selenide.Configuration] obtained
      * from System properties and `Selenide` properties file.
-     * Also resets [model] to default (read from System property or `Selenide` properties file).
+     * Also resets [model] to default (read from System property or `Selenide` properties file)
+     * and [lang] to default (read from System property or `Selenide` properties file)
      */
     fun resetConfig() {
-        selenideConfig = SelenideConfig()
-        model = System.getProperty(
-            "selenide-pom.model",
-            fileProperties.getProperty("selenide-pom.model", defaultModel)
-        )
+        threadLocalLang.remove()
+        threadLocalModel.remove()
+        threadLocalSelenideConfig.remove()
     }
 
     /**
@@ -168,7 +164,7 @@ object SPConfig {
         return driver
     }
 
-    private fun getCurrentWebDriver(): WebDriver? {
+    fun getCurrentWebDriver(): WebDriver? {
         return try {
             Selenide.webdriver().driver().webDriver
         } catch (e: IllegalStateException) {

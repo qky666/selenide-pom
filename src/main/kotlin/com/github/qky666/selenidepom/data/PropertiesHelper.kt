@@ -1,7 +1,5 @@
 package com.github.qky666.selenidepom.data
 
-import mu.KotlinLogging
-import java.io.IOException
 import java.util.Properties
 
 const val projectPropertiesFileName = "project.properties"
@@ -14,17 +12,13 @@ const val projectPropertiesFileName = "project.properties"
  * @constructor creates a new instance based on provided properties files
  */
 class PropertiesHelper(propertiesFiles: List<String> = listOf(projectPropertiesFileName)) {
-    private val logger = KotlinLogging.logger {}
     private val properties = Properties()
+
     init {
         for (file in propertiesFiles) {
-            try {
-                val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(file)
-                if (inputStream != null) {
-                    properties.load(inputStream)
-                }
-            } catch (ignored: IOException) {
-                logger.error { "Cannot load properties file $file. Ignored exception: $ignored" }
+            val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(file)
+            if (inputStream != null) {
+                properties.load(inputStream)
             }
         }
     }

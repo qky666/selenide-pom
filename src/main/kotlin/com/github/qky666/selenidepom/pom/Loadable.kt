@@ -161,7 +161,7 @@ interface Loadable {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
-                is LangConditionedElement -> conditionedElementShouldLoad(
+                is LangConditionedElement -> langConditionedElementShouldLoad(
                     element,
                     end,
                     model,
@@ -242,7 +242,7 @@ interface Loadable {
             }
         }
 
-        private fun conditionedElementShouldLoad(
+        private fun langConditionedElementShouldLoad(
             element: LangConditionedElement,
             end: LocalDateTime,
             model: String,
