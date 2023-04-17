@@ -5,6 +5,7 @@ import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigura
 import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigurationStrategy;
 
 // see https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#%3Cinit%3E(int,java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory,java.lang.Thread.UncaughtExceptionHandler,boolean,int,int,int,java.util.function.Predicate,long,java.util.concurrent.TimeUnit)
+@SuppressWarnings("unused")
 public class JunitCustomParallelStrategy implements ParallelExecutionConfiguration, ParallelExecutionConfigurationStrategy {
 
     private final int processors = Runtime.getRuntime().availableProcessors();

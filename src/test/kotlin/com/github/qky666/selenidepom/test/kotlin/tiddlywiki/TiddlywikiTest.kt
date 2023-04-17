@@ -190,6 +190,9 @@ class TiddlywikiTest {
         val tiddlerSearchResult = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0]
         tiddlerSearchResult.title.shouldHave(exactText(newTiddlerTitle))
         tiddlerSearchResult.body.shouldHave(exactText(newTiddlerBody))
+
+        mainPage.sidebar.resetSearch.click()
+        mainPage.searchPopup.should(disappear)
     }
 
     @ParameterizedTest

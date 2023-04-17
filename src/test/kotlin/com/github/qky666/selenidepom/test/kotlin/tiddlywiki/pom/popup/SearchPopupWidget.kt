@@ -5,7 +5,6 @@ import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 
-@Suppress("MemberVisibilityCanBePrivate")
 class SearchPopupWidget(self: SelenideElement) : Widget(self) {
     @Required val titleMatchesLabel = LangConditionedElement(
         find("div.tc-search-results p:first-of-type small"),
