@@ -5,7 +5,9 @@ import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.UIAssertionError
 import com.github.qky666.selenidepom.condition.langCondition
@@ -14,19 +16,28 @@ import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Page
+import com.github.qky666.selenidepom.pom.Required
+import com.github.qky666.selenidepom.pom.RequiredError
+import com.github.qky666.selenidepom.pom.Widget
+import com.github.qky666.selenidepom.pom.WidgetsCollection
+import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.openqa.selenium.By
+import org.openqa.selenium.WebElement
 import java.time.Duration
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 
 class TiddlywikiTest {
@@ -48,9 +59,9 @@ class TiddlywikiTest {
     @BeforeEach
     fun beforeEach() {
         SPConfig.resetConfig()
+        TestData.init("tiddlywiki-prod")
 
         // Additional test for output in TestData
-        TestData.init("tiddlywiki-prod")
         TestData.output["threadId"] = Thread.currentThread().id
     }
 
@@ -61,7 +72,7 @@ class TiddlywikiTest {
         Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().id.toString())
     }
 
-    private fun setupSite(browserConfig: String, lang: String = "en") {
+    private fun setupSite(browserConfig: String, lang: String = "es") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
             SPConfig.setupBasicMobileBrowser()
             SPConfig.model = "mobile"
@@ -184,7 +195,6 @@ class TiddlywikiTest {
             )
         )
 
-
         firstSearchResult.click()
 
         val tiddlerSearchResult = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0]
@@ -289,5 +299,103 @@ class TiddlywikiTest {
                 nonExistingStrictElement.shouldMeetCondition(Duration.ZERO)
             }
         }
+    }
+
+    @ParameterizedTest
+    @MethodSource("browserConfigAndLangSource")
+    fun failedCustomShouldLoadRequiredTest(browserConfig: String, lang: String) {
+        val myMainPage = object : MainPage() {
+            override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
+                super.customShouldLoadRequired(timeout, model, lang)
+                if (model.equals("mobile", true) or lang.equals("es", true)) {
+                    find("no-exists").shouldBe(visible, Duration.ZERO)
+                }
+            }
+        }
+
+        setupSite(browserConfig, lang)
+
+        if (browserConfig.equals("chromeMobile", true) or lang.equals("es", true)) {
+            val requiredError = assertThrows<RequiredError> {
+                myMainPage.shouldLoadRequired()
+            }
+            assertEquals(1, requiredError.suppressed.size)
+        } else {
+            myMainPage.shouldLoadRequired()
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("browserConfigAndLangSource")
+    fun failedRequiredTest(browserConfig: String, lang: String) {
+        val myMainPage = object : MainPage() {
+            @Required override val searchPopup = super.searchPopup
+            @Required val noExists = find("no-exists")
+            @Required val noExistsCollection = findAll("no-exists")
+            @Required val noExistsBy = By.cssSelector("no-exists")
+            @Required val elementsContainer = object : ElementsContainer() {
+                override fun getSelf(): SelenideElement {
+                    return find("no-exists")
+                }
+            }
+
+            inner class MyWidget(self: SelenideElement): Widget(self) {
+                @Required val noExists = Companion.find("no-exists")
+            }
+            @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
+            val notRequiredWidgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
+
+            @Required
+            fun getParameterElement(model: String = SPConfig.model, lang: String = SPConfig.lang): SelenideElement {
+                return find("no-exists-$model-$lang")
+            }
+
+            @Required
+            fun getElement(): SelenideElement {
+                return find("no-exists")
+            }
+
+            @Required(model = "mobile") val noExistsModel = find("no-exists")
+            @Required(lang = "es") val noExistsLang = find("no-exists")
+
+            @Required
+            fun getWebElement(): WebElement {
+                return this.sidebar.toWebElement()
+            }
+        }
+
+        setupSite(browserConfig, lang)
+        myMainPage.hideSidebar.click()
+        myMainPage.showSidebar.shouldBe(visible)
+
+        val fixedErrors = 9
+        val requiredErrorShould = assertThrows<RequiredError> {
+            myMainPage.shouldLoadRequired()
+        }
+        if (browserConfig.equals("chromeMobile", true) and lang.equals("es", true)) {
+            assertEquals(fixedErrors + 2, requiredErrorShould.suppressed.size)
+        } else if (browserConfig.equals("chromeMobile", true) or lang.equals("es", true)) {
+            assertEquals(fixedErrors + 1, requiredErrorShould.suppressed.size)
+        } else {
+            assertEquals(fixedErrors, requiredErrorShould.suppressed.size)
+        }
+
+        assertFalse { myMainPage.notRequiredWidgetsCollection.hasLoadedRequired() }
+
+        assertFalse { myMainPage.hasLoadedRequired() }
+    }
+
+    @Test
+    fun overrideRequiredTest() {
+        open class BadMainPage : MainPage() {
+            @Required open val badSelector = find("no-exists")
+        }
+
+        val myMainPage = object : BadMainPage() {
+            override val badSelector = super.badSelector
+        }
+
+        setupSite("chrome", "es")
+        myMainPage.shouldLoadRequired()
     }
 }

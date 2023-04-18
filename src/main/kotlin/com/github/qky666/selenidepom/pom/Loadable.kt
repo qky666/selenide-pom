@@ -113,7 +113,7 @@ interface Loadable {
                             .forEach { param -> assert(param.isOptional) { "Method $it is annotated as Required but has a parameter $param without default value" } }
                     }
                 // Methods: third, process
-                currentKlass.functions.filter { it.isAccessible and (it.parameters.size == 1) }.forEach {
+                currentKlass.functions.filter { it.isAccessible and (it.parameters.isNotEmpty()) }.forEach {
                     if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
                             val validModel = annotation.model.isEmpty() or annotation.model.contains(model)

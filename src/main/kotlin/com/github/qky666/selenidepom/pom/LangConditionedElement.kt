@@ -30,7 +30,9 @@ class LangConditionedElement(
      * @param exactTexts the map of expected exact text for [self] in each language
      */
     constructor(self: SelenideElement, exactTexts: Map<String, String>) : this(
-        self, exactTexts.mapValues { Condition.exactText(it.value) }, true
+        self,
+        exactTexts.mapValues { Condition.exactText(it.value) },
+        true
     )
 
     /**
@@ -43,7 +45,9 @@ class LangConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, condition: Condition, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { condition }, strict
+        self,
+        mapOf<String, Condition>().withDefault { condition },
+        strict
     )
 
     /**
@@ -55,7 +59,9 @@ class LangConditionedElement(
      * @param strict default value for `strict` in [shouldMeetCondition]
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
+        self,
+        mapOf<String, Condition>().withDefault { Condition.exactText(exactText) },
+        strict
     )
 
     private val logger = KotlinLogging.logger {}
@@ -79,7 +85,7 @@ class LangConditionedElement(
             self.should(condition, timeout)
             logger.debug {
                 "Checked condition '$condition' (language '$lang') in element '${
-                    this.toString().replace("\n", "\\n")
+                this.toString().replace("\n", "\\n")
                 }'"
             }
         } catch (e: NoSuchElementException) {

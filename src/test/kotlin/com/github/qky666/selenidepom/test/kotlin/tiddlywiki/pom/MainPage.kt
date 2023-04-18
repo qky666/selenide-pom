@@ -20,13 +20,13 @@ open class MainPage : Page() {
     val showSidebar = findX(".//button[contains(@class,'tc-show-sidebar-btn')]", 0)
 
     // @Required val hideShowSidebar = find("button.tc-hide-sidebar-btn, button.tc-show-sidebar-btn")
-    @Required val hideShowSidebar =
+    @Required open val hideShowSidebar =
         findX(".//button[contains(@class,'tc-hide-sidebar-btn') or contains(@class,'tc-show-sidebar-btn')]")
 
     //    val sidebar = SidebarWidget(find("div.tc-sidebar-scrollable"))
     val sidebar = SidebarWidget(findAll("div.tc-sidebar-scrollable div.tc-sidebar-header>div.tc-reveal")[0])
 
-    val searchPopup = SearchPopupWidget(find("div.tc-search-drop-down"))
+    open val searchPopup = SearchPopupWidget(find("div.tc-search-drop-down"))
 
     override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
         super.customShouldLoadRequired(timeout, model, lang)
