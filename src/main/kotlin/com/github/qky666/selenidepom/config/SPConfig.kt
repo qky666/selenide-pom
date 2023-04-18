@@ -102,6 +102,7 @@ object SPConfig {
         threadLocalLang.remove()
         threadLocalModel.remove()
         threadLocalSelenideConfig.remove()
+        logger.info { "SPConfig reset" }
     }
 
     /**
