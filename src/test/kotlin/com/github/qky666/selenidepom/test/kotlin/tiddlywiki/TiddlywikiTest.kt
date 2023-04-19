@@ -54,6 +54,121 @@ class TiddlywikiTest {
                 Arguments.of("chromeMobile", "en")
             )
         }
+
+        @JvmStatic
+        fun requiredSource(): List<Arguments> {
+            return listOf(
+                Arguments.of("chrome", "es", true, object : MainPage() {
+                    @Required override val searchPopup = super.searchPopup
+                }),
+                Arguments.of("chrome", "en", true, object : MainPage() {
+                    @Required val noExists = find(By.cssSelector("no-exists"))
+                }),
+                Arguments.of("firefox", "es", true, object : MainPage() {
+                    @Required val noExistsCollection = findAll("no-exists")
+                    @Required val doExistsCollection = findAll("body")
+                }),
+                Arguments.of("firefox", "en", true, object : MainPage() {
+                    @Required val noExistsBy = By.cssSelector("no-exists")
+                    @Required val doExistsBy = By.cssSelector("body")
+                }),
+                Arguments.of("chromeMobile", "es", true, object : MainPage() {
+                    @Required val badElementsContainer = object : ElementsContainer() {
+                        override fun getSelf(): SelenideElement {
+                            return find("no-exists", 1)
+                        }
+                    }
+                    @Required val goodElementsContainer = object : ElementsContainer() {
+                        override fun getSelf(): SelenideElement {
+                            return find(By.xpath(".//body"), 0)
+                        }
+                    }
+                }),
+                Arguments.of("chromeMobile", "en", true, object : MainPage() {
+                    inner class MyWidget(self: SelenideElement) : Widget(self) {
+                        @Required val noExists = Companion.find("no-exists")
+                    }
+
+                    @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
+                    @Suppress("unused") val notRequiredWidgetsCollection =
+                        WidgetsCollection(findAll("body"), ::MyWidget)
+                }),
+                Arguments.of("firefox", "es", true, object : MainPage() {
+                    inner class MyWidget(self: SelenideElement) : Widget(self) {
+                        @Required val doExists = Companion.find("body")
+                    }
+
+                    @Required val widgetsCollection = WidgetsCollection(findAll("no-exists"), ::MyWidget)
+                }),
+                Arguments.of("chrome", "es", true, object : MainPage() {
+                    @Required
+                    fun getParameterElement(
+                        model: String = SPConfig.model, lang: String = SPConfig.lang
+                    ): SelenideElement {
+                        return find("no-exists-$model-$lang")
+                    }
+                }),
+                Arguments.of("chrome", "en", true, object : MainPage() {
+                    @Required
+                    fun getElement(): SelenideElement {
+                        return find("no-exists")
+                    }
+                }),
+                Arguments.of("chrome", "es", false, object : MainPage() {
+                    @Required(model = "mobile") val noExistsModel = find("no-exists")
+                }),
+                Arguments.of("firefox", "en", false, object : MainPage() {
+                    @Required(model = "mobile") val noExistsModel = find("no-exists")
+                }),
+                Arguments.of("chromeMobile", "es", true, object : MainPage() {
+                    @Required(model = "mobile") val noExistsModel = find("no-exists")
+                }),
+                Arguments.of("chrome", "es", true, object : MainPage() {
+                    @Required(lang = "es") val noExistsLang = find("no-exists")
+                }),
+                Arguments.of("firefox", "en", false, object : MainPage() {
+                    @Required(lang = "es") val noExistsLang = find("no-exists")
+                }),
+                Arguments.of("chromeMobile", "es", true, object : MainPage() {
+                    @Required(lang = "es") val noExistsLang = find("no-exists")
+                }),
+                Arguments.of("firefox", "es", true, object : MainPage() {
+                    @Required
+                    fun getBadWebElement(): WebElement {
+                        return this.sidebar.toWebElement()
+                    }
+
+                    @Required
+                    fun getGoodWebElement(): WebElement {
+                        return this.hideShowSidebar.toWebElement()
+                    }
+
+                    @Required
+                    fun getOtherGoodWebElement(): WebElement {
+                        return find(this.hideShowSidebar.toWebElement())
+                    }
+                }),
+                Arguments.of("firefox", "en", true, object : MainPage() {
+                    @Required val langConditionedElement = LangConditionedElement(find("no-exists"), "NoText")
+                }),
+                Arguments.of("chrome", "es", true, object : MainPage() {
+                    @Required val langConditionedElement =
+                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
+                }),
+                Arguments.of("chrome", "en", true, object : MainPage() {
+                    @Required val langConditionedElement =
+                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
+                }),
+                Arguments.of("firefox", "es", true, object : MainPage() {
+                    @Required val langConditionedElement =
+                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
+                }),
+                Arguments.of("firefox", "en", false, object : MainPage() {
+                    @Required val langConditionedElement =
+                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
+                }),
+            )
+        }
     }
 
     @BeforeEach
@@ -326,63 +441,22 @@ class TiddlywikiTest {
     }
 
     @ParameterizedTest
-    @MethodSource("browserConfigAndLangSource")
-    fun failedRequiredTest(browserConfig: String, lang: String) {
-        val myMainPage = object : MainPage() {
-            @Required override val searchPopup = super.searchPopup
-            @Required val noExists = find("no-exists")
-            @Required val noExistsCollection = findAll("no-exists")
-            @Required val noExistsBy = By.cssSelector("no-exists")
-            @Required val elementsContainer = object : ElementsContainer() {
-                override fun getSelf(): SelenideElement {
-                    return find("no-exists")
-                }
-            }
-
-            inner class MyWidget(self: SelenideElement): Widget(self) {
-                @Required val noExists = Companion.find("no-exists")
-            }
-            @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
-            val notRequiredWidgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
-
-            @Required
-            fun getParameterElement(model: String = SPConfig.model, lang: String = SPConfig.lang): SelenideElement {
-                return find("no-exists-$model-$lang")
-            }
-
-            @Required
-            fun getElement(): SelenideElement {
-                return find("no-exists")
-            }
-
-            @Required(model = "mobile") val noExistsModel = find("no-exists")
-            @Required(lang = "es") val noExistsLang = find("no-exists")
-
-            @Required
-            fun getWebElement(): WebElement {
-                return this.sidebar.toWebElement()
-            }
-        }
-
+    @MethodSource("requiredSource")
+    fun requiredTest(browserConfig: String, lang: String, throwsError: Boolean, myMainPage: MainPage) {
         setupSite(browserConfig, lang)
         myMainPage.hideSidebar.click()
         myMainPage.showSidebar.shouldBe(visible)
+        myMainPage.sidebar.should(disappear)
 
-        val fixedErrors = 9
-        val requiredErrorShould = assertThrows<RequiredError> {
+        if (throwsError) {
+            val requiredErrorShould = assertThrows<RequiredError> {
+                myMainPage.shouldLoadRequired()
+            }
+            assertEquals(1, requiredErrorShould.suppressed.size)
+            assertFalse { myMainPage.hasLoadedRequired() }
+        } else {
             myMainPage.shouldLoadRequired()
         }
-        if (browserConfig.equals("chromeMobile", true) and lang.equals("es", true)) {
-            assertEquals(fixedErrors + 2, requiredErrorShould.suppressed.size)
-        } else if (browserConfig.equals("chromeMobile", true) or lang.equals("es", true)) {
-            assertEquals(fixedErrors + 1, requiredErrorShould.suppressed.size)
-        } else {
-            assertEquals(fixedErrors, requiredErrorShould.suppressed.size)
-        }
-
-        assertFalse { myMainPage.notRequiredWidgetsCollection.hasLoadedRequired() }
-
-        assertFalse { myMainPage.hasLoadedRequired() }
     }
 
     @Test
@@ -395,6 +469,22 @@ class TiddlywikiTest {
             override val badSelector = super.badSelector
         }
 
+        setupSite("chrome", "es")
+        myMainPage.shouldLoadRequired()
+    }
+
+    @Test
+    fun widgetFindTest() {
+        val myMainPage = object : MainPage() {
+            inner class Body(self: SelenideElement) : Widget(self) {
+                @Required val storyRiver1 = findX(".//section[contains(@class,'tc-story-river')]", 0)
+                @Required val storyRivers1 = findXAll(".//section[contains(@class,'tc-story-river')]")
+                @Required val storyRiver2 = find(By.xpath(".//section[contains(@class,'tc-story-river')]"), 0)
+                @Required val storyRivers2 = findAll(By.xpath(".//section[contains(@class,'tc-story-river')]"))
+            }
+
+            @Required val body = Body(find("body"))
+        }
         setupSite("chrome", "es")
         myMainPage.shouldLoadRequired()
     }
