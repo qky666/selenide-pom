@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import java.util.Properties
 
+private val logger = KotlinLogging.logger {}
+
 /**
  * Main configuration values.
  *
@@ -28,8 +30,6 @@ object SPConfig {
     private const val defaultLang = "default"
 
     private val fileProperties = Properties()
-
-    private val logger = KotlinLogging.logger {}
 
     init {
         val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(fileName)
@@ -71,7 +71,7 @@ object SPConfig {
 
     /**
      * The default `lang` (thread local value) used in
-     * [com.github.qky666.selenidepom.pom.ConditionedElement.shouldMeetCondition] method.
+     * [com.github.qky666.selenidepom.pom.LangConditionedElement.shouldMeetCondition] method.
      * Default value: `selenide-pom.lang` System property if defined, `selenide-pom.lang` value
      * in `selenide-pom.properties` if defined, or [defaultLang] in other case.
      */
@@ -89,23 +89,20 @@ object SPConfig {
      * Default value: The default [com.codeborne.selenide.Configuration] obtained from System properties
      * and `Selenide` properties file.
      */
-    var selenideConfig: SelenideConfig
+    val selenideConfig: SelenideConfig
         get() = threadLocalSelenideConfig.get()
-        set(value) {
-            threadLocalSelenideConfig.set(value)
-        }
 
     /**
      * Resets current thread [selenideConfig] to the default [com.codeborne.selenide.Configuration] obtained
      * from System properties and `Selenide` properties file.
-     * Also resets [model] to default (read from System property or `Selenide` properties file).
+     * Also resets [model] to default (read from System property or `Selenide` properties file)
+     * and [lang] to default (read from System property or `Selenide` properties file)
      */
     fun resetConfig() {
-        selenideConfig = SelenideConfig()
-        model = System.getProperty(
-            "selenide-pom.model",
-            fileProperties.getProperty("selenide-pom.model", defaultModel)
-        )
+        threadLocalLang.remove()
+        threadLocalModel.remove()
+        threadLocalSelenideConfig.remove()
+        logger.info { "SPConfig reset" }
     }
 
     /**
@@ -168,7 +165,7 @@ object SPConfig {
         return driver
     }
 
-    private fun getCurrentWebDriver(): WebDriver? {
+    fun getCurrentWebDriver(): WebDriver? {
         return try {
             Selenide.webdriver().driver().webDriver
         } catch (e: IllegalStateException) {

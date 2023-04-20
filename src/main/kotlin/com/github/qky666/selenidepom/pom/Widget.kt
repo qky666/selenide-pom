@@ -1,12 +1,13 @@
-@file:Suppress("unused")
-
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.DragAndDropOptions
+import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
+import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import java.time.Duration
 
@@ -28,7 +29,104 @@ import java.time.Duration
  * @param self the [SelenideElement] that acts as a container of the elements defined inside the [Widget]
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
-abstract class Widget(private val self: SelenideElement) : Loadable, SelenideElement by self
+abstract class Widget(private val self: SelenideElement) : SelenideElement by self, Loadable {
+
+    /**
+     * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`.
+     *
+     * @param xpathExpression the xpath
+     * @return the [SelenideElement] found
+     */
+    fun findX(xpathExpression: String): SelenideElement {
+        return find(By.xpath(xpathExpression))
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(By.xpath(xpathExpression), index)`.
+     *
+     * @param xpathExpression the xpath
+     * @return the [SelenideElement] found
+     */
+    fun findX(xpathExpression: String, index: Int): SelenideElement {
+        return find(By.xpath(xpathExpression), index)
+    }
+
+    /**
+     * Same as [SelenideElement.findAll] `(By.xpath(xpathExpression))`.
+     *
+     * @param xpathExpression the xpath
+     * @return the [ElementsCollection] found
+     */
+    fun findXAll(xpathExpression: String): ElementsCollection {
+        return findAll(By.xpath(xpathExpression))
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(cssSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(cssSelector: String): SelenideElement {
+        return self.find(cssSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(seleniumSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(seleniumSelector: By): SelenideElement {
+        return self.find(seleniumSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(cssSelector, index)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(cssSelector: String, index: Int): SelenideElement {
+        return self.find(cssSelector, index)
+    }
+
+    /**
+     * Same as [SelenideElement.find] `(seleniumSelector, index)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [SelenideElement] found
+     */
+    final override fun find(seleniumSelector: By, index: Int): SelenideElement {
+        return self.find(seleniumSelector, index)
+    }
+
+    /**
+     * Same as [SelenideElement.findAll] `(cssSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param cssSelector the css selector
+     * @return the [ElementsCollection] found
+     */
+    final override fun findAll(cssSelector: String): ElementsCollection {
+        return self.findAll(cssSelector)
+    }
+
+    /**
+     * Same as [SelenideElement.findAll] `(seleniumSelector)`.
+     * Note: method override to make it final and avoid IDE warnings.
+     *
+     * @param seleniumSelector the selector
+     * @return the [ElementsCollection] found
+     */
+    final override fun findAll(seleniumSelector: By): ElementsCollection {
+        return self.findAll(seleniumSelector)
+    }
+}
 
 /**
  * Returns the [SelenideElement] as a [T] instance.
@@ -202,7 +300,7 @@ fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T
 }
 
 /**
- * Same as [SelenideElement. as], but returns a [Widget] subclass instance instead of [SelenideElement]
+ * Same as [SelenideElement.as], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
 fun <T : Widget> T.widgetAs(alias: String): T {
     this.`as`(alias)
@@ -230,6 +328,14 @@ fun <T : Widget> T.scrollWidgetIntoView(scrollIntoViewOptions: String): T {
  */
 fun <T : Widget> T.scrollWidgetIntoView(alignToTop: Boolean): T {
     this.scrollIntoView(alignToTop)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.click], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T : Widget> T.clickWidget(clickOption: ClickOptions): T {
+    this.click(clickOption)
     return this
 }
 

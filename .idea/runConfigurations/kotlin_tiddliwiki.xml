@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="kotlin tiddliwiki" type="JUnit" factoryName="JUnit">
+    <module name="com.github.qky666.selenide-pom.test" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.github.qky666.selenidepom.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.github.qky666.selenidepom.test.kotlin.tiddlywiki" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <option name="VM_PARAMETERS" value="-ea -Dselenide.headless=true -Dselenide.driverManagerEnabled=true" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,5 +1,6 @@
 package com.github.qky666.selenidepom.test.kotlin
 
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import com.github.qky666.selenidepom.config.SPConfig
 import org.junit.jupiter.api.AfterEach
@@ -10,9 +11,13 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
 class SPConfigTest {
+
     @BeforeEach
     fun beforeEach() {
         SPConfig.resetConfig()
+        // Test SPConfig initial values
+        Assertions.assertEquals(SPConfig.lang, "es")
+        Assertions.assertEquals(SPConfig.model, "fileModel")
     }
 
     @AfterEach
@@ -29,7 +34,7 @@ class SPConfigTest {
             SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         )
         Assertions.assertEquals(
-            "{args=[], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
+            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
     }
@@ -44,7 +49,7 @@ class SPConfigTest {
             SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         )
         Assertions.assertEquals(
-            "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
+            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
     }
@@ -82,13 +87,26 @@ class SPConfigTest {
     }
 
     @Test
+    fun systemPropertiesConfigTest() {
+        val lang = "MyLang"
+        val model = "MyModel"
+        System.setProperty("selenide-pom.model", model)
+        System.setProperty("selenide-pom.lang", lang)
+        SPConfig.resetConfig()
+        Assertions.assertEquals(model, SPConfig.model)
+        Assertions.assertEquals(lang, SPConfig.lang)
+        System.clearProperty("selenide-pom.model")
+        System.clearProperty("selenide-pom.lang")
+    }
+
+    @Test
     fun basicMobileBrowserTest() {
         SPConfig.setupBasicMobileBrowser()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
         Assertions.assertEquals(
-            "{args=[], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
+            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=${SPConfig.defaultDeviceName}}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
         Assertions.assertEquals(SPConfig.defaultMobileModel, SPConfig.model)
@@ -108,7 +126,7 @@ class SPConfigTest {
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
         Assertions.assertEquals(
-            "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
+            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
         Assertions.assertEquals(model, SPConfig.model)
@@ -147,5 +165,12 @@ class SPConfigTest {
         val driver = WebDriverRunner.getWebDriver()
         Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
+    }
+
+    @Test
+    fun illegalWebDriverTest() {
+        SPConfig.setCurrentThreadDriver()
+        Selenide.closeWebDriver()
+        Assertions.assertNull(SPConfig.getCurrentWebDriver())
     }
 }

@@ -28,6 +28,8 @@ import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 
+private val logger = KotlinLogging.logger {}
+
 /**
  * Instances can have properties that can be annotated with [Required] annotation.
  * All properties with this annotation are checked if visible when [shouldLoadRequired] or [hasLoadedRequired] methods
@@ -48,7 +50,6 @@ interface Loadable {
     }
 
     companion object {
-        private val logger = KotlinLogging.logger {}
 
         private fun objectShouldLoadRequired(
             obj: Any,
@@ -113,7 +114,7 @@ interface Loadable {
                             .forEach { param -> assert(param.isOptional) { "Method $it is annotated as Required but has a parameter $param without default value" } }
                     }
                 // Methods: third, process
-                currentKlass.functions.filter { it.isAccessible and (it.parameters.size == 1) }.forEach {
+                currentKlass.functions.filter { it.isAccessible and (it.parameters.isNotEmpty()) }.forEach {
                     if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
                         val annotations = it.findAnnotations(Required::class).filter { annotation ->
                             val validModel = annotation.model.isEmpty() or annotation.model.contains(model)
@@ -161,7 +162,7 @@ interface Loadable {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
-                is ConditionedElement -> conditionedElementShouldLoad(
+                is LangConditionedElement -> langConditionedElementShouldLoad(
                     element,
                     end,
                     model,
@@ -242,8 +243,8 @@ interface Loadable {
             }
         }
 
-        private fun conditionedElementShouldLoad(
-            element: ConditionedElement,
+        private fun langConditionedElementShouldLoad(
+            element: LangConditionedElement,
             end: LocalDateTime,
             model: String,
             lang: String,
@@ -409,7 +410,6 @@ fun <T : Loadable> T.shouldLoadRequired(
     model: String = SPConfig.model,
     lang: String = SPConfig.lang
 ): T {
-    val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
@@ -436,7 +436,6 @@ fun <T : Loadable> T.hasLoadedRequired(
     model: String = SPConfig.model,
     lang: String = SPConfig.lang
 ): Boolean {
-    val logger = KotlinLogging.logger {}
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
