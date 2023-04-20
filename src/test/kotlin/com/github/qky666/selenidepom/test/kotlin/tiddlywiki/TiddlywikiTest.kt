@@ -4,11 +4,16 @@ import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
+import com.codeborne.selenide.Condition.exactValue
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsContainer
+import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.ex.ElementNotFound
+import com.codeborne.selenide.ex.ElementShould
 import com.codeborne.selenide.ex.UIAssertionError
 import com.github.qky666.selenidepom.condition.langCondition
 import com.github.qky666.selenidepom.config.SPConfig
@@ -20,8 +25,30 @@ import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.RequiredError
 import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.pom.WidgetsCollection
+import com.github.qky666.selenidepom.pom.appendToWidget
+import com.github.qky666.selenidepom.pom.asWidget
+import com.github.qky666.selenidepom.pom.clickWidget
+import com.github.qky666.selenidepom.pom.contextClickWidget
+import com.github.qky666.selenidepom.pom.doubleClickWidget
+import com.github.qky666.selenidepom.pom.dragWidgetAndDropTo
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
+import com.github.qky666.selenidepom.pom.hoverWidget
+import com.github.qky666.selenidepom.pom.pressEnterInWidget
+import com.github.qky666.selenidepom.pom.pressEscapeInWidget
+import com.github.qky666.selenidepom.pom.pressTabInWidget
+import com.github.qky666.selenidepom.pom.scrollToWidget
+import com.github.qky666.selenidepom.pom.scrollWidgetIntoView
+import com.github.qky666.selenidepom.pom.setSelectedWidget
+import com.github.qky666.selenidepom.pom.setWidgetValue
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import com.github.qky666.selenidepom.pom.widgetAs
+import com.github.qky666.selenidepom.pom.widgetShould
+import com.github.qky666.selenidepom.pom.widgetShouldBe
+import com.github.qky666.selenidepom.pom.widgetShouldHave
+import com.github.qky666.selenidepom.pom.widgetShouldNot
+import com.github.qky666.selenidepom.pom.widgetShouldNotBe
+import com.github.qky666.selenidepom.pom.widgetShouldNotHave
+import com.github.qky666.selenidepom.pom.widgetVal
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
@@ -39,8 +66,11 @@ import java.time.Duration
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class TiddlywikiTest {
+
+    class FakeWidget(self: SelenideElement) : Widget(self)
 
     companion object {
         @JvmStatic
@@ -58,115 +88,232 @@ class TiddlywikiTest {
         @JvmStatic
         fun requiredSource(): List<Arguments> {
             return listOf(
-                Arguments.of("chrome", "es", true, object : MainPage() {
-                    @Required override val searchPopup = super.searchPopup
-                }),
-                Arguments.of("chrome", "en", true, object : MainPage() {
-                    @Required val noExists = find(By.cssSelector("no-exists"))
-                }),
-                Arguments.of("firefox", "es", true, object : MainPage() {
-                    @Required val noExistsCollection = findAll("no-exists")
-                    @Required val doExistsCollection = findAll("body")
-                }),
-                Arguments.of("firefox", "en", true, object : MainPage() {
-                    @Required val noExistsBy = By.cssSelector("no-exists")
-                    @Required val doExistsBy = By.cssSelector("body")
-                }),
-                Arguments.of("chromeMobile", "es", true, object : MainPage() {
-                    @Required val badElementsContainer = object : ElementsContainer() {
-                        override fun getSelf(): SelenideElement {
-                            return find("no-exists", 1)
+                Arguments.of(
+                    "chrome",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required override val searchPopup = super.searchPopup
+                    }
+                ),
+                Arguments.of(
+                    "chrome",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        @Required val noExists = find(By.cssSelector("no-exists"))
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required val noExistsCollection = findAll("no-exists")
+
+                        @Required val doExistsCollection = findAll("body")
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        @Required val noExistsBy = By.cssSelector("no-exists")
+
+                        @Required val doExistsBy = By.cssSelector("body")
+                    }
+                ),
+                Arguments.of(
+                    "chromeMobile",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required val badElementsContainer = object : ElementsContainer() {
+                            override fun getSelf(): SelenideElement {
+                                return find("no-exists", 1)
+                            }
+                        }
+
+                        @Required val goodElementsContainer = object : ElementsContainer() {
+                            override fun getSelf(): SelenideElement {
+                                return find(By.xpath(".//body"), 0)
+                            }
                         }
                     }
-                    @Required val goodElementsContainer = object : ElementsContainer() {
-                        override fun getSelf(): SelenideElement {
-                            return find(By.xpath(".//body"), 0)
+                ),
+                Arguments.of(
+                    "chromeMobile",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        inner class MyWidget(self: SelenideElement) : Widget(self) {
+                            @Required val noExists = Companion.find("no-exists")
+                        }
+
+                        @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
+
+                        @Suppress("unused")
+                        val notRequiredWidgetsCollection =
+                            WidgetsCollection(findAll("body"), ::MyWidget)
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        inner class MyWidget(self: SelenideElement) : Widget(self) {
+                            @Required val doExists = Companion.find("body")
+                        }
+
+                        @Required val widgetsCollection = WidgetsCollection(findAll("no-exists"), ::MyWidget)
+                    }
+                ),
+                Arguments.of(
+                    "chrome",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required
+                        fun getParameterElement(
+                            model: String = SPConfig.model,
+                            lang: String = SPConfig.lang
+                        ): SelenideElement {
+                            return find("no-exists-$model-$lang")
                         }
                     }
-                }),
-                Arguments.of("chromeMobile", "en", true, object : MainPage() {
-                    inner class MyWidget(self: SelenideElement) : Widget(self) {
-                        @Required val noExists = Companion.find("no-exists")
+                ),
+                Arguments.of(
+                    "chrome",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        @Required
+                        fun getElement(): SelenideElement {
+                            return find("no-exists")
+                        }
                     }
+                ),
+                Arguments.of(
+                    "chrome",
+                    "es",
+                    false,
+                    object : MainPage() {
+                        @Required(model = "mobile")
+                        val noExistsModel = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "en",
+                    false,
+                    object : MainPage() {
+                        @Required(model = "mobile")
+                        val noExistsModel = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "chromeMobile",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required(model = "mobile")
+                        val noExistsModel = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "chrome",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required(lang = "es")
+                        val noExistsLang = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "en",
+                    false,
+                    object : MainPage() {
+                        @Required(lang = "es")
+                        val noExistsLang = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "chromeMobile",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required(lang = "es")
+                        val noExistsLang = find("no-exists")
+                    }
+                ),
+                Arguments.of(
+                    "firefox",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required
+                        fun getBadWebElement(): WebElement {
+                            return this.sidebar.toWebElement()
+                        }
 
-                    @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
-                    @Suppress("unused") val notRequiredWidgetsCollection =
-                        WidgetsCollection(findAll("body"), ::MyWidget)
-                }),
-                Arguments.of("firefox", "es", true, object : MainPage() {
-                    inner class MyWidget(self: SelenideElement) : Widget(self) {
-                        @Required val doExists = Companion.find("body")
-                    }
+                        @Required
+                        fun getGoodWebElement(): WebElement {
+                            return this.hideShowSidebar.toWebElement()
+                        }
 
-                    @Required val widgetsCollection = WidgetsCollection(findAll("no-exists"), ::MyWidget)
-                }),
-                Arguments.of("chrome", "es", true, object : MainPage() {
-                    @Required
-                    fun getParameterElement(
-                        model: String = SPConfig.model, lang: String = SPConfig.lang
-                    ): SelenideElement {
-                        return find("no-exists-$model-$lang")
+                        @Required
+                        fun getOtherGoodWebElement(): WebElement {
+                            return find(this.hideShowSidebar.toWebElement())
+                        }
                     }
-                }),
-                Arguments.of("chrome", "en", true, object : MainPage() {
-                    @Required
-                    fun getElement(): SelenideElement {
-                        return find("no-exists")
+                ),
+                Arguments.of(
+                    "firefox",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        @Required val langConditionedElement = LangConditionedElement(find("no-exists"), "NoText")
                     }
-                }),
-                Arguments.of("chrome", "es", false, object : MainPage() {
-                    @Required(model = "mobile") val noExistsModel = find("no-exists")
-                }),
-                Arguments.of("firefox", "en", false, object : MainPage() {
-                    @Required(model = "mobile") val noExistsModel = find("no-exists")
-                }),
-                Arguments.of("chromeMobile", "es", true, object : MainPage() {
-                    @Required(model = "mobile") val noExistsModel = find("no-exists")
-                }),
-                Arguments.of("chrome", "es", true, object : MainPage() {
-                    @Required(lang = "es") val noExistsLang = find("no-exists")
-                }),
-                Arguments.of("firefox", "en", false, object : MainPage() {
-                    @Required(lang = "es") val noExistsLang = find("no-exists")
-                }),
-                Arguments.of("chromeMobile", "es", true, object : MainPage() {
-                    @Required(lang = "es") val noExistsLang = find("no-exists")
-                }),
-                Arguments.of("firefox", "es", true, object : MainPage() {
-                    @Required
-                    fun getBadWebElement(): WebElement {
-                        return this.sidebar.toWebElement()
+                ),
+                Arguments.of(
+                    "chrome",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required val langConditionedElement =
+                            LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
                     }
-
-                    @Required
-                    fun getGoodWebElement(): WebElement {
-                        return this.hideShowSidebar.toWebElement()
+                ),
+                Arguments.of(
+                    "chrome",
+                    "en",
+                    true,
+                    object : MainPage() {
+                        @Required val langConditionedElement =
+                            LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
                     }
-
-                    @Required
-                    fun getOtherGoodWebElement(): WebElement {
-                        return find(this.hideShowSidebar.toWebElement())
+                ),
+                Arguments.of(
+                    "firefox",
+                    "es",
+                    true,
+                    object : MainPage() {
+                        @Required val langConditionedElement =
+                            LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
                     }
-                }),
-                Arguments.of("firefox", "en", true, object : MainPage() {
-                    @Required val langConditionedElement = LangConditionedElement(find("no-exists"), "NoText")
-                }),
-                Arguments.of("chrome", "es", true, object : MainPage() {
-                    @Required val langConditionedElement =
-                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
-                }),
-                Arguments.of("chrome", "en", true, object : MainPage() {
-                    @Required val langConditionedElement =
-                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
-                }),
-                Arguments.of("firefox", "es", true, object : MainPage() {
-                    @Required val langConditionedElement =
-                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
-                }),
-                Arguments.of("firefox", "en", false, object : MainPage() {
-                    @Required val langConditionedElement =
-                        LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
-                }),
+                ),
+                Arguments.of(
+                    "firefox",
+                    "en",
+                    false,
+                    object : MainPage() {
+                        @Required val langConditionedElement =
+                            LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
+                    }
+                )
             )
         }
     }
@@ -234,7 +381,7 @@ class TiddlywikiTest {
         GettingStartedTiddlerViewWidget(Page.Companion.findAll(listOf(firstTiddler.toWebElement()))[0]).shouldLoadRequired()
 
         mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(1))
-        mainPage.sidebar.sidebarTabs.openTabContent.closeAll.click()
+        mainPage.sidebar.sidebarTabs.openTabContent.closeAll.click(ClickOptions.usingJavaScript())
         mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(0))
         mainPage.storyRiver.tiddlerViews.shouldHave(size(0))
         mainPage.storyRiver.tiddlerEdits.shouldHave(size(0))
@@ -305,7 +452,8 @@ class TiddlywikiTest {
         mainPage.sidebar.searchResultsText.shouldBe(
             langCondition(
                 mapOf(
-                    "en" to "1 matches", "es" to "1 coincidencias"
+                    "en" to "1 matches",
+                    "es" to "1 coincidencias"
                 )
             )
         )
@@ -354,7 +502,8 @@ class TiddlywikiTest {
         mainPage.sidebar.searchResultsText.shouldBe(
             langCondition(
                 mapOf(
-                    "en" to "1 matches", "es" to "1 coincidencias"
+                    "en" to "1 matches",
+                    "es" to "1 coincidencias"
                 )
             )
         )
@@ -392,7 +541,9 @@ class TiddlywikiTest {
         Assertions.assertTrue(gettingStartedTiddler.title.meetsCondition())
 
         val nonExistingElement = LangConditionedElement(
-            Page.find("non-existing"), mapOf("en" to exactText("Non existing")), false
+            Page.find("non-existing"),
+            mapOf("en" to exactText("Non existing")),
+            false
         )
         Assertions.assertEquals(SPConfig.lang == "es", nonExistingElement.meetsCondition())
         if (SPConfig.lang == "es") {
@@ -478,8 +629,11 @@ class TiddlywikiTest {
         val myMainPage = object : MainPage() {
             inner class Body(self: SelenideElement) : Widget(self) {
                 @Required val storyRiver1 = findX(".//section[contains(@class,'tc-story-river')]", 0)
+
                 @Required val storyRivers1 = findXAll(".//section[contains(@class,'tc-story-river')]")
+
                 @Required val storyRiver2 = find(By.xpath(".//section[contains(@class,'tc-story-river')]"), 0)
+
                 @Required val storyRivers2 = findAll(By.xpath(".//section[contains(@class,'tc-story-river')]"))
             }
 
@@ -487,5 +641,205 @@ class TiddlywikiTest {
         }
         setupSite("chrome", "es")
         myMainPage.shouldLoadRequired()
+    }
+
+    @Test
+    fun widgetShouldValueTest() {
+        val searchString = "SearchString"
+        val appendString = "Append"
+        val searchCondition = exactValue(searchString)
+        val appendCondition = exactValue(searchString + appendString)
+        val emptyCondition = exactValue("")
+        val timeout = Duration.ofMillis(100)
+
+        val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        fake.setWidgetValue(searchString).widgetShould(searchCondition).widgetShould(searchCondition, timeout)
+            .widgetShouldBe(searchCondition).widgetShouldBe(searchCondition, timeout).widgetShouldHave(searchCondition)
+            .widgetShouldHave(searchCondition, timeout).widgetShouldNot(emptyCondition)
+            .widgetShouldNot(emptyCondition, timeout).widgetShouldNotBe(emptyCondition)
+            .widgetShouldNotBe(emptyCondition, timeout).widgetShouldNotHave(emptyCondition)
+            .widgetShouldNotHave(emptyCondition, timeout).clear()
+        fake.widgetShould(emptyCondition).widgetShould(emptyCondition, timeout)
+
+        fake.setWidgetValue(SetValueOptions.withText(searchString)).widgetShouldHave(searchCondition).clear()
+        fake.widgetShouldHave(emptyCondition)
+
+        fake.widgetVal(searchString).widgetShouldHave(searchCondition).clear()
+        fake.widgetShouldHave(emptyCondition)
+
+        fake.appendToWidget(searchString).widgetShouldHave(searchCondition).appendToWidget(appendString)
+            .widgetShouldHave(appendCondition).clear()
+        fake.widgetShouldHave(emptyCondition)
+
+        fake.pressEnterInWidget().pressEscapeInWidget().pressTabInWidget()
+        fake.widgetShouldHave(emptyCondition)
+
+        assertThrows<ElementShould> { fake.widgetShould(searchCondition) }
+    }
+
+    @Test
+    fun widgetSelectedTest() {
+        val fake = mainPage.sidebar.sidebarTabs.toolsTabContent.home.checkbox.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        mainPage.sidebar.sidebarTabs.toolsTabButton.click()
+        mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
+        assertTrue { fake.setSelectedWidget(true).isSelected }
+        assertFalse { fake.setSelectedWidget(false).isSelected }
+    }
+
+    @Test
+    fun widgetAsTest() {
+        val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
+        val alias = "fake"
+        assertEquals(alias, fake.widgetAs(alias).alias)
+    }
+
+    @Test
+    fun widgetScrollTest() {
+        val fake = mainPage.sidebar.sidebarTabs.toolsTabContent.more.button.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        mainPage.sidebar.sidebarTabs.toolsTabButton.click()
+        mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
+        fake.scrollToWidget().scrollWidgetIntoView(true).scrollWidgetIntoView("{block: \"end\"}")
+    }
+
+    @Test
+    fun widgetClicksTest() {
+        val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        fake.clickWidget(ClickOptions.usingDefaultMethod()).doubleClickWidget().contextClickWidget()
+    }
+
+    @Test
+    fun widgetHoverTest() {
+        val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        fake.hoverWidget().hoverWidget(HoverOptions.withOffset(20, 30))
+    }
+
+    @Test
+    fun widgetDragAndDropTest() {
+        val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
+
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val newTiddlerCss = "button[class*=new-tiddler]"
+        fake.dragWidgetAndDropTo(mainPage.sidebar.newTiddler).dragWidgetAndDropTo(newTiddlerCss)
+            .dragWidgetAndDropTo(newTiddlerCss, DragAndDropOptions.usingJavaScript())
+    }
+
+    @Test
+    fun findWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.find(visible).shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.findBy(visible).shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+    }
+
+    @Test
+    fun firstWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.first().shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.first(1)[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+    }
+
+    @Test
+    fun lastWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.last().shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.last(1)[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+    }
+
+    @Test
+    fun shouldWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.should(size(1))[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.should(size(1), Duration.ZERO)[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.shouldBe(size(1))[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.shouldBe(size(1), Duration.ZERO)[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.shouldHave(size(1))[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+        open.shouldHave(size(1), Duration.ZERO)[0].shouldLoadRequired().title.shouldHave(exactText("GettingStarted"))
+    }
+
+    @Test
+    fun filterWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.filterBy(visible).shouldHave(size(1))
+    }
+
+    @Test
+    fun excludeWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        open.exclude(visible).shouldHave(size(0))
+        open.excludeWith(visible).shouldHave(size(0))
+    }
+
+    @Test
+    fun snapshotWidgetsCollectionTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+
+        val snapshot = open.snapshot()
+        mainPage.sidebar.sidebarTabs.openTabContent.closeAll.click(ClickOptions.usingJavaScript())
+        mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(0))
+        snapshot.shouldHave(size(1))
+    }
+
+    @Test
+    fun widgetsCollectionAsTest() {
+        val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
+        val alias = "open"
+        assertEquals(alias, open.`as`(alias).collectionSource.alias.text)
+    }
+
+    @Test
+    fun objectNotLoadable() {
+        val myPage = object : Page() {
+            @Required val myObject = object {}
+        }
+        setupSite("chrome", "es")
+        myPage.shouldLoadRequired()
     }
 }

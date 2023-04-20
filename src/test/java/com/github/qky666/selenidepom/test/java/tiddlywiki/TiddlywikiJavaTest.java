@@ -22,7 +22,7 @@ import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class TiddlywikiJavaTest {
 
-    MainPage mainPage = new MainPage();
+    final MainPage mainPage = new MainPage();
 
     @SuppressWarnings("unused")
     @NotNull

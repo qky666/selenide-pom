@@ -1,7 +1,6 @@
-@file:Suppress("unused")
-
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsCollection
@@ -301,7 +300,7 @@ fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T
 }
 
 /**
- * Same as [SelenideElement. as], but returns a [Widget] subclass instance instead of [SelenideElement]
+ * Same as [SelenideElement.as], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
 fun <T : Widget> T.widgetAs(alias: String): T {
     this.`as`(alias)
@@ -329,6 +328,14 @@ fun <T : Widget> T.scrollWidgetIntoView(scrollIntoViewOptions: String): T {
  */
 fun <T : Widget> T.scrollWidgetIntoView(alignToTop: Boolean): T {
     this.scrollIntoView(alignToTop)
+    return this
+}
+
+/**
+ * Same as [SelenideElement.click], but returns a [Widget] subclass instance instead of [SelenideElement]
+ */
+fun <T : Widget> T.clickWidget(clickOption: ClickOptions): T {
+    this.click(clickOption)
     return this
 }
 

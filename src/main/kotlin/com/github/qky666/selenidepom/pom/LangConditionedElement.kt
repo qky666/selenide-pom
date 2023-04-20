@@ -6,6 +6,8 @@ import com.github.qky666.selenidepom.config.SPConfig
 import mu.KotlinLogging
 import java.time.Duration
 
+private val logger = KotlinLogging.logger {}
+
 /**
  * Represents a [SelenideElement] with a 'Language (String) -> [Condition]' map associated, so it is possible to check
  * that the element meets the condition given a determined language.
@@ -63,8 +65,6 @@ class LangConditionedElement(
         mapOf<String, Condition>().withDefault { Condition.exactText(exactText) },
         strict
     )
-
-    private val logger = KotlinLogging.logger {}
 
     /**
      * Verifies that [self] meets the expected [Condition] for a given language [lang].

@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import java.util.Properties
 
+private val logger = KotlinLogging.logger {}
+
 /**
  * Main configuration values.
  *
@@ -28,8 +30,6 @@ object SPConfig {
     private const val defaultLang = "default"
 
     private val fileProperties = Properties()
-
-    private val logger = KotlinLogging.logger {}
 
     init {
         val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(fileName)

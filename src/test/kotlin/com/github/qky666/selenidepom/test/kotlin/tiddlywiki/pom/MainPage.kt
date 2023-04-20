@@ -9,7 +9,6 @@ import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.Story
 import org.openqa.selenium.By
 import java.time.Duration
 
-@Suppress("MemberVisibilityCanBePrivate")
 open class MainPage : Page() {
     // @Required val storyRiverWidget = StoryRiverWidget(find("section.tc-story-river"))
     @Required val storyRiver = StoryRiverWidget(findAll(By.cssSelector("section.tc-story-river"))[0])
