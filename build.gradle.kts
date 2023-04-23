@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val myGroup = "com.github.qky666"
-val myVersion = "0.17.0"
+val myVersion = "0.17.1"
 
 group = myGroup
 version = myVersion
@@ -38,7 +38,7 @@ dependencies {
     val jUnitVersion = "5.9.2"
 
     implementation(kotlin("reflect"))
-    implementation("com.codeborne:selenide:6.13.0")
+    implementation("com.codeborne:selenide:6.13.1")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")

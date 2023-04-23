@@ -44,10 +44,8 @@ public class TiddlywikiJavaTest {
     private void setupSite(@NotNull String browserConfig) {
         if (browserConfig.equalsIgnoreCase("chromeMobile")) {
             SPConfig.INSTANCE.setupBasicMobileBrowser();
-            SPConfig.INSTANCE.setModel("mobile");
         } else {
             SPConfig.INSTANCE.setupBasicDesktopBrowser(browserConfig);
-            SPConfig.INSTANCE.setModel("desktop");
         }
         SPConfig.INSTANCE.setCurrentThreadDriver();
         SPConfig.INSTANCE.setLang("es");

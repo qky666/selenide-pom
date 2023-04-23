@@ -337,10 +337,8 @@ class TiddlywikiTest {
     private fun setupSite(browserConfig: String, lang: String = "es") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) {
             SPConfig.setupBasicMobileBrowser()
-            SPConfig.model = "mobile"
         } else {
             SPConfig.setupBasicDesktopBrowser(browserConfig)
-            SPConfig.model = "desktop"
         }
         SPConfig.setCurrentThreadDriver()
         SPConfig.lang = lang

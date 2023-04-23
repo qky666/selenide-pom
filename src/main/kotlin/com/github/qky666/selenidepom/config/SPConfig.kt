@@ -117,7 +117,6 @@ object SPConfig {
         browser: String = selenideConfig.browser(),
         model: String = defaultDesktopModel
     ) {
-        resetConfig()
         selenideConfig.browser(browser)
         SPConfig.model = model
     }
@@ -131,7 +130,6 @@ object SPConfig {
      */
     @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, model: String = defaultMobileModel) {
-        resetConfig()
         selenideConfig.browser("chrome")
         val chromeOptions = ChromeOptions()
         chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to deviceName))
