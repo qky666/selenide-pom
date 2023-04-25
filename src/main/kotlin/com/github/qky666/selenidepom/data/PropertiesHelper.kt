@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.data
 
 import java.util.Properties
 
-const val projectPropertiesFileName = "project.properties"
+const val PROJECT_PROPERTIES_FILENAME = "project.properties"
 
 /**
  * Helps to use information stored in a given list of properties files.
@@ -11,7 +11,7 @@ const val projectPropertiesFileName = "project.properties"
  * @param propertiesFiles list of properties files to use
  * @constructor creates a new instance based on provided properties files
  */
-class PropertiesHelper(propertiesFiles: List<String> = listOf(projectPropertiesFileName)) {
+class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES_FILENAME)) {
     private val properties = Properties()
 
     init {

@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.data
 
-const val defaultDataPropertiesFileName = "data/default.properties"
+const val DEFAULT_DATA_PROPERTIES_FILENAME = "data/default.properties"
 
 /**
  * Object that helps to manage test information:
@@ -12,7 +12,7 @@ const val defaultDataPropertiesFileName = "data/default.properties"
  * You should call [init] in each test before you start using it.
  */
 object TestData {
-    private val threadLocalPropertiesFiles = ThreadLocal.withInitial { listOf(defaultDataPropertiesFileName) }
+    private val threadLocalPropertiesFiles = ThreadLocal.withInitial { listOf(DEFAULT_DATA_PROPERTIES_FILENAME) }
     private val threadLocalEnv = ThreadLocal.withInitial { "" }
     private val threadLocalInput = ThreadLocal.withInitial { PropertiesHelper(propertiesFiles) }
     private val threadLocalOutput = ThreadLocal.withInitial { mutableMapOf<String, Any>() }
@@ -53,7 +53,7 @@ object TestData {
      *
      * @param files list of properties files to be used to get [input] test data.
      */
-    fun init(files: List<String> = listOf(defaultDataPropertiesFileName)) {
+    fun init(files: List<String> = listOf(DEFAULT_DATA_PROPERTIES_FILENAME)) {
         threadLocalEnv.set("")
         threadLocalPropertiesFiles.set(files)
         threadLocalInput.set(PropertiesHelper(files))
@@ -64,17 +64,17 @@ object TestData {
      * Resets the object for current thread to make it usable in a test.
      *
      * When an `env` is provided, [propertiesFiles] is set to a list with two elements:
-     * [defaultDataPropertiesFileName] and `data/$env.properties`.
+     * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/$env.properties`.
      *
      * For example: if `env` is `prod`, [propertiesFiles] is set to a list of files containing
-     * [defaultDataPropertiesFileName] and `data/prod.properties`.
+     * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/prod.properties`.
      * If `env` is `test`, [propertiesFiles] is set to a list of files containing
-     * [defaultDataPropertiesFileName] and `data/test.properties`.
+     * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/test.properties`.
      *
      * @param env represents the 'environment' where test is run.
      */
     fun init(env: String) {
-        val files = listOf(defaultDataPropertiesFileName, "data/$env.properties")
+        val files = listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/$env.properties")
         threadLocalEnv.set(env)
         threadLocalPropertiesFiles.set(files)
         threadLocalInput.set(PropertiesHelper(files))

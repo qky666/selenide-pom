@@ -22,17 +22,18 @@ private val logger = KotlinLogging.logger {}
  * Some values ([selenideConfig]) may only be set programmatically.
  */
 object SPConfig {
-    private const val fileName = "selenide-pom.properties"
-    private const val defaultModel = "default"
-    const val defaultDesktopModel = "desktop"
-    const val defaultMobileModel = "mobile"
-    const val defaultDeviceName = "Nexus 5"
-    private const val defaultLang = "default"
+    private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
+    private const val DEFAULT_MODEL = "default"
+    const val DEFAULT_DESKTOP_MODEL = "desktop"
+    const val DEFAULT_MOBILE_MODEL = "mobile"
+    const val DEFAULT_DEVICE_NAME = "Nexus 5"
+    private const val DEFAULT_LANG = "default"
 
     private val fileProperties = Properties()
 
     init {
-        val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(fileName)
+        val inputStream =
+            Thread.currentThread().contextClassLoader.getResourceAsStream(SELENIDE_POM_PROPERTIES_FILENAME)
         if (inputStream != null) {
             fileProperties.load(inputStream)
         }
@@ -41,7 +42,7 @@ object SPConfig {
     private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
         val initial = System.getProperty(
             "selenide-pom.model",
-            fileProperties.getProperty("selenide-pom.model", defaultModel)
+            fileProperties.getProperty("selenide-pom.model", DEFAULT_MODEL)
         )
         logger.info { "Initial value for SPConfig.model: $initial" }
         initial
@@ -51,7 +52,7 @@ object SPConfig {
      * The default [model] (thread local value) used in [com.github.qky666.selenidepom.pom.shouldLoadRequired]
      * and [com.github.qky666.selenidepom.pom.hasLoadedRequired] methods.
      * Default value: `selenide-pom.model` System property if defined,
-     * `selenide-pom.model` value in `selenide-pom.properties` if defined, or [defaultModel] in other case.
+     * `selenide-pom.model` value in `selenide-pom.properties` if defined, or [DEFAULT_MODEL] in other case.
      */
     var model: String
         get() = threadLocalModel.get()
@@ -63,7 +64,7 @@ object SPConfig {
     private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
         val initial = System.getProperty(
             "selenide-pom.lang",
-            fileProperties.getProperty("selenide-pom.lang", defaultLang)
+            fileProperties.getProperty("selenide-pom.lang", DEFAULT_LANG)
         )
         logger.info { "Initial value for SPConfig.lang: $initial" }
         initial
@@ -73,7 +74,7 @@ object SPConfig {
      * The default `lang` (thread local value) used in
      * [com.github.qky666.selenidepom.pom.LangConditionedElement.shouldMeetCondition] method.
      * Default value: `selenide-pom.lang` System property if defined, `selenide-pom.lang` value
-     * in `selenide-pom.properties` if defined, or [defaultLang] in other case.
+     * in `selenide-pom.properties` if defined, or [DEFAULT_LANG] in other case.
      */
     var lang: String
         get() = threadLocalLang.get()
@@ -115,7 +116,7 @@ object SPConfig {
     @JvmOverloads
     fun setupBasicDesktopBrowser(
         browser: String = selenideConfig.browser(),
-        model: String = defaultDesktopModel
+        model: String = DEFAULT_DESKTOP_MODEL
     ) {
         selenideConfig.browser(browser)
         SPConfig.model = model
@@ -129,7 +130,7 @@ object SPConfig {
      * @param model The default `model` to use
      */
     @JvmOverloads
-    fun setupBasicMobileBrowser(deviceName: String = defaultDeviceName, model: String = defaultMobileModel) {
+    fun setupBasicMobileBrowser(deviceName: String = DEFAULT_DEVICE_NAME, model: String = DEFAULT_MOBILE_MODEL) {
         selenideConfig.browser("chrome")
         val chromeOptions = ChromeOptions()
         chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to deviceName))

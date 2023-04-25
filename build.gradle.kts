@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val myGroup = "com.github.qky666"
-val myVersion = "0.17.1"
+val myVersion = "0.18.0"
 
 group = myGroup
 version = myVersion
@@ -13,7 +13,7 @@ plugins {
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
     id("io.freefair.lombok") version "8.0.1"
     id("com.github.ben-manes.versions") version "0.46.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
@@ -60,12 +60,30 @@ java {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs = listOf("-ea", "-Xmx512m")
+    systemProperties["file.encoding"] = "UTF-8"
 }
 
-tasks.withType<KotlinCompile> {
+//tasks.withType<KotlinCompile> {
+//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
+//}
+
+tasks.compileKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 }
 
-tasks.withType<JavaCompile> {
+tasks.compileTestKotlin {
+    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
+}
+
+//tasks.withType<JavaCompile> {
+//    options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
+//}
+
+tasks.compileJava {
+    options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
+}
+
+tasks.compileTestJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
 }

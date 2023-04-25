@@ -3,7 +3,7 @@ package com.github.qky666.selenidepom.test.kotlin
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.PropertiesHelper
 import com.github.qky666.selenidepom.data.TestData
-import com.github.qky666.selenidepom.data.defaultDataPropertiesFileName
+import com.github.qky666.selenidepom.data.DEFAULT_DATA_PROPERTIES_FILENAME
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -37,7 +37,7 @@ class InternalTest {
         TestData.init("internal-prod")
         Assertions.assertEquals("https://sample.com", TestData.input.getProperty("data.input.baseUrl"))
         Assertions.assertEquals("internal-prod", TestData.env)
-        Assertions.assertEquals(listOf(defaultDataPropertiesFileName, "data/internal-prod.properties"), TestData.propertiesFiles)
+        Assertions.assertEquals(listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"), TestData.propertiesFiles)
     }
 
     @Test
@@ -47,7 +47,7 @@ class InternalTest {
         Assertions.assertEquals("", TestData.input.getProperty("data.input.testThree"))
         TestData.init(
             listOf(
-                defaultDataPropertiesFileName,
+                DEFAULT_DATA_PROPERTIES_FILENAME,
                 "data/low-priority.properties",
                 "data/high-priority.properties"
             )
