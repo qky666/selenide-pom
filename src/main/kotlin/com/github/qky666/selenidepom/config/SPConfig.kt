@@ -10,6 +10,12 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import java.util.Properties
 
+private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
+private const val DEFAULT_MODEL = "default"
+const val DEFAULT_DESKTOP_MODEL = "desktop"
+const val DEFAULT_MOBILE_MODEL = "mobile"
+const val DEFAULT_DEVICE_NAME = "Nexus 5"
+private const val DEFAULT_LANG = "default"
 private val logger = KotlinLogging.logger {}
 
 /**
@@ -22,12 +28,6 @@ private val logger = KotlinLogging.logger {}
  * Some values ([selenideConfig]) may only be set programmatically.
  */
 object SPConfig {
-    private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
-    private const val DEFAULT_MODEL = "default"
-    const val DEFAULT_DESKTOP_MODEL = "desktop"
-    const val DEFAULT_MOBILE_MODEL = "mobile"
-    const val DEFAULT_DEVICE_NAME = "Nexus 5"
-    private const val DEFAULT_LANG = "default"
 
     private val fileProperties = Properties()
 
@@ -44,7 +44,7 @@ object SPConfig {
             "selenide-pom.model",
             fileProperties.getProperty("selenide-pom.model", DEFAULT_MODEL)
         )
-        logger.info { "Initial value for SPConfig.model: $initial" }
+        logger.debug { "Initial value for SPConfig.model: $initial" }
         initial
     }
 
@@ -57,7 +57,7 @@ object SPConfig {
     var model: String
         get() = threadLocalModel.get()
         set(value) {
-            logger.info { "New value for SPConfig.model: $value" }
+            logger.debug { "New value for SPConfig.model: $value" }
             threadLocalModel.set(value)
         }
 
@@ -66,7 +66,7 @@ object SPConfig {
             "selenide-pom.lang",
             fileProperties.getProperty("selenide-pom.lang", DEFAULT_LANG)
         )
-        logger.info { "Initial value for SPConfig.lang: $initial" }
+        logger.debug { "Initial value for SPConfig.lang: $initial" }
         initial
     }
 
@@ -79,7 +79,7 @@ object SPConfig {
     var lang: String
         get() = threadLocalLang.get()
         set(value) {
-            logger.info { "New value for SPConfig.lang: $value" }
+            logger.debug { "New value for SPConfig.lang: $value" }
             threadLocalLang.set(value)
         }
 
@@ -103,7 +103,7 @@ object SPConfig {
         threadLocalLang.remove()
         threadLocalModel.remove()
         threadLocalSelenideConfig.remove()
-        logger.info { "SPConfig reset" }
+        logger.debug { "SPConfig reset" }
     }
 
     /**

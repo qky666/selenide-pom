@@ -1,9 +1,9 @@
 package com.github.qky666.selenidepom.test.kotlin
 
 import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.data.DEFAULT_DATA_PROPERTIES_FILENAME
 import com.github.qky666.selenidepom.data.PropertiesHelper
 import com.github.qky666.selenidepom.data.TestData
-import com.github.qky666.selenidepom.data.DEFAULT_DATA_PROPERTIES_FILENAME
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach

@@ -49,11 +49,13 @@ import com.github.qky666.selenidepom.pom.widgetShouldNot
 import com.github.qky666.selenidepom.pom.widgetShouldNotBe
 import com.github.qky666.selenidepom.pom.widgetShouldNotHave
 import com.github.qky666.selenidepom.pom.widgetVal
+import com.github.qky666.selenidepom.test.kotlin.downloadTiddlywikiEs
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -62,6 +64,7 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import java.net.URL
 import java.time.Duration
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -69,10 +72,11 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class TiddlywikiTest {
-
     class FakeWidget(self: SelenideElement) : Widget(self)
 
     companion object {
+        private lateinit var url: URL
+
         @JvmStatic
         fun browserConfigAndLangSource(): List<Arguments> {
             return listOf(
@@ -154,8 +158,7 @@ class TiddlywikiTest {
                         @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
 
                         @Suppress("unused")
-                        val notRequiredWidgetsCollection =
-                            WidgetsCollection(findAll("body"), ::MyWidget)
+                        val notRequiredWidgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
                     }
                 ),
                 Arguments.of(
@@ -316,6 +319,12 @@ class TiddlywikiTest {
                 )
             )
         }
+
+        @JvmStatic
+        @BeforeAll
+        fun beforeAll() {
+            url = downloadTiddlywikiEs().toURI().toURL()
+        }
     }
 
     @BeforeEach
@@ -342,9 +351,6 @@ class TiddlywikiTest {
         }
         SPConfig.setCurrentThreadDriver()
         SPConfig.lang = lang
-        val relativeUrl = TestData.input.getProperty("data.input.relativeUrl")
-        val url = Thread.currentThread().contextClassLoader.getResource(relativeUrl)
-        assertNotNull(url, "URL not found")
         Selenide.open(url)
         changeSiteLanguageIfNeeded()
     }

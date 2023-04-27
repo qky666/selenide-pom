@@ -6,21 +6,25 @@ import com.github.qky666.selenidepom.data.TestData;
 import com.github.qky666.selenidepom.test.java.tiddlywiki.pom.MainPage;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.github.qky666.selenidepom.test.kotlin.DownloadKt.downloadTiddlywikiEs;
 import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class TiddlywikiJavaTest {
+
+    private static URL url;
 
     final MainPage mainPage = new MainPage();
 
@@ -28,6 +32,11 @@ public class TiddlywikiJavaTest {
     @NotNull
     public static List<Arguments> browserConfigSource() {
         return Arrays.asList(Arguments.of("chrome"), Arguments.of("firefox"), Arguments.of("chromeMobile"));
+    }
+
+    @BeforeAll
+    public static void beforeAll() throws MalformedURLException {
+        url = downloadTiddlywikiEs().toURI().toURL();
     }
 
     @BeforeEach
@@ -49,9 +58,6 @@ public class TiddlywikiJavaTest {
         }
         SPConfig.INSTANCE.setCurrentThreadDriver();
         SPConfig.INSTANCE.setLang("es");
-        String relativeUrl = TestData.INSTANCE.getInput().getProperty("data.input.relativeUrl");
-        URL url = Thread.currentThread().getContextClassLoader().getResource(relativeUrl);
-        assertNotNull(url, "URL not found");
         Selenide.open(url);
     }
 

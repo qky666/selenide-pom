@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 val myGroup = "com.github.qky666"
 val myVersion = "0.18.0"
 
@@ -16,7 +14,7 @@ plugins {
     kotlin("jvm") version "1.8.21"
     id("io.freefair.lombok") version "8.0.1"
     id("com.github.ben-manes.versions") version "0.46.0"
-    id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.2"
 }
 
 publishing {
@@ -35,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.9.2"
+    val jUnitVersion = "5.9.3"
 
     implementation(kotlin("reflect"))
     implementation("com.codeborne:selenide:6.13.1")
@@ -64,9 +62,9 @@ tasks.test {
     systemProperties["file.encoding"] = "UTF-8"
 }
 
-//tasks.withType<KotlinCompile> {
+// tasks.withType<KotlinCompile> {
 //    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
-//}
+// }
 
 tasks.compileKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
@@ -76,9 +74,9 @@ tasks.compileTestKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 }
 
-//tasks.withType<JavaCompile> {
+// tasks.withType<JavaCompile> {
 //    options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
-//}
+// }
 
 tasks.compileJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
