@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.pom
+package com.github.qky666.selenidepom.pom.web
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Condition
@@ -7,6 +7,7 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
+import com.github.qky666.selenidepom.pom.common.Loadable
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import java.time.Duration

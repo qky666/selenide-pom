@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.java.tiddlywiki.pom;
 
 import com.codeborne.selenide.SelenideElement;
-import com.github.qky666.selenidepom.pom.Page;
-import com.github.qky666.selenidepom.pom.Required;
+import com.github.qky666.selenidepom.pom.web.Page;
+import com.github.qky666.selenidepom.pom.common.Required;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.$;

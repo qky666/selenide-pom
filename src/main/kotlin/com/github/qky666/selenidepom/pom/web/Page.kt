@@ -1,14 +1,16 @@
-package com.github.qky666.selenidepom.pom
+package com.github.qky666.selenidepom.pom.web
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.pom.common.Loadable
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 
 /**
  * Instances represent a whole web page.
- * A [Page] can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as [Required].
+ * A [Page] can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as
+ * [com.github.qky666.selenidepom.pom.common.Required].
  * See [Loadable].
  */
 abstract class Page : Loadable {
