@@ -3,6 +3,7 @@ package com.github.qky666.selenidepom.pom.mobile
 import com.codeborne.selenide.appium.SelenideAppium
 import com.codeborne.selenide.appium.SelenideAppiumElement
 import com.github.qky666.selenidepom.pom.common.Loadable
+import com.github.qky666.selenidepom.pom.web.Page
 import org.openqa.selenium.By
 
 /**
@@ -11,7 +12,7 @@ import org.openqa.selenium.By
  * [com.github.qky666.selenidepom.pom.common.Required].
  * See [Loadable].
  */
-abstract class Screen : Loadable {
+abstract class Screen : Page() {
     companion object {
         /**
          * Same as [SelenideAppium]`.$ (seleniumSelector)`.
