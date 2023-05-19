@@ -20,7 +20,7 @@ import java.util.List;
 import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
 import static com.github.qky666.selenidepom.test.kotlin.DownloadKt.downloadTiddlywikiEs;
-import static com.github.qky666.selenidepom.pom.common.LoadableKt.shouldLoadRequired;
+import static com.github.qky666.selenidepom.pom.LoadableKt.shouldLoadRequired;
 
 public class TiddlywikiJavaTest {
 

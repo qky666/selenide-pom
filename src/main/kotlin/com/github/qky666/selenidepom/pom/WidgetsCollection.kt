@@ -1,11 +1,10 @@
-package com.github.qky666.selenidepom.pom.web
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.impl.CollectionSource
-import com.github.qky666.selenidepom.pom.common.Loadable
 import java.time.Duration
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible

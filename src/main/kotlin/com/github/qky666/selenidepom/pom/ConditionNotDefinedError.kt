@@ -1,7 +1,6 @@
-package com.github.qky666.selenidepom.pom.common
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.SelenideElement
-import com.github.qky666.selenidepom.pom.web.LangConditionedElement
 
 /**
  * Error thrown when a [LangConditionedElement.shouldMeetCondition] is executed with parameter `strict` as `true` and

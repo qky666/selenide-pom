@@ -1,16 +1,16 @@
-package com.github.qky666.selenidepom.pom.web
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
-import com.github.qky666.selenidepom.pom.common.Loadable
+import com.codeborne.selenide.appium.SelenideAppium
+import com.codeborne.selenide.appium.SelenideAppiumElement
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 
 /**
  * Instances represent a whole web page.
- * A [Page] can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as
- * [com.github.qky666.selenidepom.pom.common.Required].
+ * A [Page] can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as [Required].
  * See [Loadable].
  */
 abstract class Page : Loadable {
@@ -39,6 +39,7 @@ abstract class Page : Loadable {
          * Same as [Selenide.element] `(cssSelector, index)`.
          *
          * @param cssSelector the css selector
+         * @param index the index
          * @return the [SelenideElement] found
          */
         fun find(cssSelector: String, index: Int): SelenideElement {
@@ -49,6 +50,7 @@ abstract class Page : Loadable {
          * Same as [Selenide.element] `(seleniumSelector, index)`.
          *
          * @param seleniumSelector the selector
+         * @param index the index
          * @return the [SelenideElement] found
          */
         fun find(seleniumSelector: By, index: Int): SelenideElement {
@@ -79,6 +81,7 @@ abstract class Page : Loadable {
          * Same as [Selenide.element] `(By.xpath(xpathExpression), index)`.
          *
          * @param xpathExpression the xpath
+         * @param index the index
          * @return the unique [SelenideElement] found
          */
         fun findX(xpathExpression: String, index: Int): SelenideElement {
@@ -123,6 +126,37 @@ abstract class Page : Loadable {
          */
         fun findXAll(xpathExpression: String): ElementsCollection {
             return Selenide.elements(By.xpath(xpathExpression))
+        }
+
+        /**
+         * Same as [SelenideAppium]`.$ (seleniumSelector)`.
+         *
+         * @param seleniumSelector the selector
+         * @return the [SelenideAppiumElement] found
+         */
+        fun findAppium(seleniumSelector: By): SelenideAppiumElement {
+            return SelenideAppium.`$`(seleniumSelector)
+        }
+
+        /**
+         * Same as [SelenideAppium]`.$ (seleniumSelector, index)`.
+         *
+         * @param seleniumSelector the selector
+         * @param index the index
+         * @return the [SelenideAppiumElement] found
+         */
+        fun findAppium(seleniumSelector: By, index: Int): SelenideAppiumElement {
+            return SelenideAppium.`$`(seleniumSelector, index)
+        }
+
+        /**
+         * Same as [SelenideAppium]`.$x (xpathExpression)`.
+         *
+         * @param xpathExpression the xpath
+         * @return the [SelenideAppiumElement] found
+         */
+        fun findAppium(xpathExpression: String): SelenideAppiumElement {
+            return SelenideAppium.`$x`(xpathExpression)
         }
     }
 }

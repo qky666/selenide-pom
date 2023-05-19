@@ -5,8 +5,8 @@ import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Driver
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
-import com.github.qky666.selenidepom.pom.common.ConditionNotDefinedError
-import com.github.qky666.selenidepom.pom.web.LangConditionedElement
+import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
+import com.github.qky666.selenidepom.pom.LangConditionedElement
 import org.openqa.selenium.WebElement
 
 fun langCondition(conditions: Map<String, Condition>, strict: Boolean = true): Condition {

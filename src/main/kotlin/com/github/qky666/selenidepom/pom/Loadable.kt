@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.pom.common
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
@@ -8,9 +8,6 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
-import com.github.qky666.selenidepom.pom.web.LangConditionedElement
-import com.github.qky666.selenidepom.pom.web.Page
-import com.github.qky666.selenidepom.pom.web.WidgetsCollection
 import mu.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement

@@ -1,4 +1,4 @@
-package com.github.qky666.selenidepom.pom.common
+package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement

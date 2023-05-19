@@ -2,10 +2,10 @@ package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
-import com.github.qky666.selenidepom.pom.common.Required
-import com.github.qky666.selenidepom.pom.web.LangConditionedElement
-import com.github.qky666.selenidepom.pom.web.Page
-import com.github.qky666.selenidepom.pom.web.Widget
+import com.github.qky666.selenidepom.pom.Required
+import com.github.qky666.selenidepom.pom.LangConditionedElement
+import com.github.qky666.selenidepom.pom.Page
+import com.github.qky666.selenidepom.pom.Widget
 
 class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
     @Required val tiddlywikiVersion = findX("./p")
