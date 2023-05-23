@@ -36,8 +36,7 @@ dependencies {
     val jUnitVersion = "5.9.3"
 
     implementation(kotlin("reflect"))
-//    implementation("com.codeborne:selenide:6.13.1")
-    implementation("com.codeborne:selenide-appium:2.7.1")
+    implementation("com.codeborne:selenide-appium:2.8.1")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
@@ -63,10 +62,6 @@ tasks.test {
     systemProperties["file.encoding"] = "UTF-8"
 }
 
-// tasks.withType<KotlinCompile> {
-//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
-// }
-
 tasks.compileKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 }
@@ -74,10 +69,6 @@ tasks.compileKotlin {
 tasks.compileTestKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 }
-
-// tasks.withType<JavaCompile> {
-//    options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
-// }
 
 tasks.compileJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))

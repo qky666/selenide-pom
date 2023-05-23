@@ -19,13 +19,10 @@ import com.github.qky666.selenidepom.condition.langCondition
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
-import com.github.qky666.selenidepom.pom.Required
-import com.github.qky666.selenidepom.pom.RequiredError
-import com.github.qky666.selenidepom.pom.hasLoadedRequired
-import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import com.github.qky666.selenidepom.pom.shouldMeetCondition
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Page
+import com.github.qky666.selenidepom.pom.Required
+import com.github.qky666.selenidepom.pom.RequiredError
 import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.pom.appendToWidget
@@ -33,7 +30,8 @@ import com.github.qky666.selenidepom.pom.asWidget
 import com.github.qky666.selenidepom.pom.clickWidget
 import com.github.qky666.selenidepom.pom.contextClickWidget
 import com.github.qky666.selenidepom.pom.doubleClickWidget
-import com.github.qky666.selenidepom.pom.dragWidgetAndDropTo
+import com.github.qky666.selenidepom.pom.dragWidgetAndDrop
+import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.hoverWidget
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
 import com.github.qky666.selenidepom.pom.pressEscapeInWidget
@@ -42,6 +40,8 @@ import com.github.qky666.selenidepom.pom.scrollToWidget
 import com.github.qky666.selenidepom.pom.scrollWidgetIntoView
 import com.github.qky666.selenidepom.pom.setSelectedWidget
 import com.github.qky666.selenidepom.pom.setWidgetValue
+import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import com.github.qky666.selenidepom.pom.shouldMeetCondition
 import com.github.qky666.selenidepom.pom.widgetAs
 import com.github.qky666.selenidepom.pom.widgetShould
 import com.github.qky666.selenidepom.pom.widgetShouldBe
@@ -745,9 +745,7 @@ class TiddlywikiTest {
         setupSite("chrome", "es")
         mainPage.shouldLoadRequired()
 
-        val newTiddlerCss = "button[class*=new-tiddler]"
-        fake.dragWidgetAndDropTo(mainPage.sidebar.newTiddler).dragWidgetAndDropTo(newTiddlerCss)
-            .dragWidgetAndDropTo(newTiddlerCss, DragAndDropOptions.usingJavaScript())
+        fake.dragWidgetAndDrop(DragAndDropOptions.to(mainPage.sidebar.newTiddler))
     }
 
     @Test

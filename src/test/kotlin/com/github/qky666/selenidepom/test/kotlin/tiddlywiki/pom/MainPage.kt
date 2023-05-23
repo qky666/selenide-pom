@@ -1,8 +1,8 @@
 package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom
 
+import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.popup.SearchPopupWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.SidebarWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.StoryRiverWidget
