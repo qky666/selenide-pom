@@ -8,7 +8,6 @@ import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import org.openqa.selenium.By
-import org.openqa.selenium.WebElement
 import java.time.Duration
 
 /**
@@ -372,25 +371,9 @@ fun <T : Widget> T.hoverWidget(): T {
 }
 
 /**
- * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
+ * Same as [SelenideElement.dragAndDrop], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.dragWidgetAndDropTo(targetCssSelector: String, options: DragAndDropOptions): T {
-    this.dragAndDropTo(targetCssSelector, options)
-    return this
-}
-
-/**
- * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
- */
-fun <T : Widget> T.dragWidgetAndDropTo(target: WebElement): T {
-    this.dragAndDropTo(target)
-    return this
-}
-
-/**
- * Same as [SelenideElement.dragAndDropTo], but returns a [Widget] subclass instance instead of [SelenideElement]
- */
-fun <T : Widget> T.dragWidgetAndDropTo(targetCssSelector: String): T {
-    this.dragAndDropTo(targetCssSelector)
+fun <T : Widget> T.dragWidgetAndDrop(options: DragAndDropOptions): T {
+    this.dragAndDrop(options)
     return this
 }
