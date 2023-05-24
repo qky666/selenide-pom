@@ -35,8 +35,8 @@ repositories {
 dependencies {
     val jUnitVersion = "5.9.3"
 
+    api("com.codeborne:selenide-appium:2.8.1")
     implementation(kotlin("reflect"))
-    implementation("com.codeborne:selenide-appium:2.8.1")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
