@@ -162,7 +162,7 @@ interface Loadable {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
-                is LangConditionedElement -> langConditionedElementShouldLoad(
+                is LangConditioned -> langConditionedShouldLoad(
                     element,
                     end,
                     model,
@@ -243,8 +243,8 @@ interface Loadable {
             }
         }
 
-        private fun langConditionedElementShouldLoad(
-            element: LangConditionedElement,
+        private fun langConditionedShouldLoad(
+            element: LangConditioned,
             end: LocalDateTime,
             model: String,
             lang: String,
@@ -255,7 +255,7 @@ interface Loadable {
             return try {
                 element.shouldBe(visible, timeout)
                 logger.debug {
-                    "Checked element $elementName in $klassName is visible (ConditionedElement): ${
+                    "Checked element $elementName in $klassName is visible (LangConditioned): ${
                     element.toString().replace("\n", "\\n")
                     }"
                 }

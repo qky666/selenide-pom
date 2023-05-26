@@ -1,5 +1,5 @@
 val myGroup = "com.github.qky666"
-val myVersion = "0.18.3"
+val myVersion = "0.18.4"
 
 group = myGroup
 version = myVersion
