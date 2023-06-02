@@ -1,13 +1,8 @@
-val myGroup = "com.github.qky666"
-val myVersion = "0.18.5"
-
-group = myGroup
-version = myVersion
-
 val javaVersionNumber = 17
 val javaVersion = JavaVersion.VERSION_17
 
 plugins {
+    idea
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
@@ -20,9 +15,9 @@ plugins {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = myGroup
+            groupId = "$group"
             artifactId = "selenide-pom"
-            version = myVersion
+            version = "$version"
             from(components["java"])
         }
     }
