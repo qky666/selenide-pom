@@ -1,5 +1,5 @@
 # selenide-pom
-Page Object Model utilities for Selenide
+Page Object Model utilities for Selenide.
 
 # Install
 
@@ -12,7 +12,10 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.qky666:selenide-pom:tag-or-version'
+    testImplementation 'com.github.qky666:selenide-pom:0.18.5'
+    // should add 'selenide' or 'selenide-appium' too
+    // testImplementation("com.codeborne:selenide:6.15.0")
+    // testImplementation("com.codeborne:selenide-appium:6.15.0")
 }
 ```
 
@@ -28,8 +31,22 @@ dependencies {
 <dependency>
     <groupId>com.github.qky666</groupId>
     <artifactId>selenide-pom</artifactId>
-    <version>tag-or-version</version>
+    <version>0.18.5</version>
 </dependency>
+
+<!-- should add 'selenide' or 'selenide-appium' too
+<dependency>
+    <groupId>com.codeborne</groupId>
+    <artifactId>selenide</artifactId>
+    <version>6.15.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.codeborne</groupId>
+    <artifactId>selenide-appium</artifactId>
+    <version>6.15.0</version>
+</dependency>
+-->
 ```
 
 # Javadoc
