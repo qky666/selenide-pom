@@ -134,6 +134,7 @@ abstract class Page : Loadable {
          * @param seleniumSelector the selector
          * @return the [SelenideAppiumElement] found
          */
+        @Suppress("unused")
         fun findAppium(seleniumSelector: By): SelenideAppiumElement {
             return SelenideAppium.`$`(seleniumSelector)
         }
@@ -145,6 +146,7 @@ abstract class Page : Loadable {
          * @param index the index
          * @return the [SelenideAppiumElement] found
          */
+        @Suppress("unused")
         fun findAppium(seleniumSelector: By, index: Int): SelenideAppiumElement {
             return SelenideAppium.`$`(seleniumSelector, index)
         }
@@ -155,6 +157,7 @@ abstract class Page : Loadable {
          * @param xpathExpression the xpath
          * @return the [SelenideAppiumElement] found
          */
+        @Suppress("unused")
         fun findAppium(xpathExpression: String): SelenideAppiumElement {
             return SelenideAppium.`$x`(xpathExpression)
         }

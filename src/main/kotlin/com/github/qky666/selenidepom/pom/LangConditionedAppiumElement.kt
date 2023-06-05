@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Condition
