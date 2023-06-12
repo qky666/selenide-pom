@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="selenide-pom" pattern="(file[com*]:*//*&amp;&amp;!file[com.github.qky666.selenide-pom.test]:resources/html/empty.html&amp;&amp;!file[com.github.qky666.selenide-pom.test]:resources/html/empty_es.html||file[selenide-pom*]:*//*||file[selenide-pom]:*/)&amp;&amp;!file[selenide-pom]:gradlew&amp;&amp;!file[selenide-pom]:gradlew.bat&amp;&amp;!file[selenide-pom]:LICENSE&amp;&amp;!file[selenide-pom]:.idea//*" />
-</component>

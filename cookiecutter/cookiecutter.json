@@ -1,0 +1,19 @@
+{
+  "_new_lines": "\n",
+  "_selenide_pom_version": "0.19.0",
+  "_selenide_version": "6.15.0",
+  "name": "my_selenide_pom_project",
+  "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') }}",
+  "group": "my.group.{{ cookiecutter.repo_name | replace('-', '') | replace('_', '') }}",
+  "version": "0.0.1-SNAPSHOT",
+  "use_appium": ["yes", "no"],
+  "use_cucumber": ["no", "yes"],
+  "_copy_without_render": [
+    ".idea/*",
+    "gradle/*",
+    "gradlew",
+    "gradlew.bat",
+    "gradle.properties",
+    ".gitignore"
+  ]
+}

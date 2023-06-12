@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="kotlin tiddliwiki" type="JUnit" factoryName="JUnit">
-    <module name="com.github.qky666.selenide-pom.test" />
+    <module name="selenide-pom.test" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.github.qky666.selenidepom.*" />

@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.18.7"
+version = "0.19.0"
 
 val javaVersionNumber = 17
 val javaVersion = JavaVersion.VERSION_17
@@ -11,7 +11,7 @@ plugins {
     `maven-publish`
     kotlin("jvm") version "1.8.21"
     id("io.freefair.lombok") version "8.0.1"
-    id("com.github.ben-manes.versions") version "0.46.0"
+    id("com.github.ben-manes.versions") version "0.47.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.4.0"
 }
 
