@@ -9,9 +9,9 @@ import org.testng.annotations.Test
 @Test
 @CucumberOptions(
     features = ["@build/test-results/cucumber/failed_scenarios.txt"],
-    glue = ["cucumber.steps"],
+    glue = ["{{ cookiecutter.group }}.cucumber.steps"],
     plugin = [
-        "cucumber.listener.CucumberListener",
+        "{{ cookiecutter.group }}.cucumber.listener.CucumberListener",
         "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
         "pretty",
         "json:build/test-results/cucumber/rerun.json",

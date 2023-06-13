@@ -5,8 +5,7 @@
   "name": "my_selenide_pom_project",
   "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') }}",
   "group": "my.group.{{ cookiecutter.repo_name | replace('-', '') | replace('_', '') }}",
-  "version": "0.0.1-SNAPSHOT",
-  "use_appium": ["yes", "no"],
+  "use_appium": ["no","yes"],
   "use_cucumber": ["no", "yes"],
   "_copy_without_render": [
     ".idea/*",

@@ -1,7 +1,7 @@
 import ru.vyarus.gradle.plugin.python.task.PythonTask
 
 group = "{{ cookiecutter.group }}"
-version = "{{ cookiecutter.version }}"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -20,14 +20,24 @@ plugins {
 
 dependencies {
     val log4jVersion = "2.20.0"
-
+    {%- print("\n    ") -%}
+    {%- if cookiecutter.use_cucumber == "yes" -%}
+    val cucumberVersion = "7.12.1"
+    {% endif %}
     testImplementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")
     {%- print("\n    ") -%}
     {%- if cookiecutter.use_appium == "yes" -%}
     testImplementation("com.codeborne:selenide-appium:{{ cookiecutter._selenide_version }}")
+    {%- print("\n    ") -%}
     {%- else -%}
     testImplementation("com.codeborne:selenide:{{ cookiecutter._selenide_version }}")
     {% endif %}
+    {%- if cookiecutter.use_cucumber == "yes" -%}
+    testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.22.1")
+    {% endif %}
+    {%- print("") -%}
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
