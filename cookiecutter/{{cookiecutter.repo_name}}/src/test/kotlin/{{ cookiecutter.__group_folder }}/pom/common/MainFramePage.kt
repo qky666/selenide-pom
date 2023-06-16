@@ -17,7 +17,7 @@ open class MainFramePage : Page(), Logging {
     @Required(model = "mobile")
     val mobileMenu = MobileMenuWidget(find("div.menu-movil"))
     val mobileMenuPopUp = MobileMenuPopUpWidget(find("div#menu-movil"))
-    val cookiesBanner = CookiesBannerWidget(find("div#cookie-law-info-bar"))
+    val cookiesBanner = CookiesBannerWidget(find("div#CybotCookiebotDialog"))
 
     fun acceptCookies() {
         // This is what it should be, but for some reason, cookies message is not displayed when page loads.
@@ -37,7 +37,7 @@ open class MainFramePage : Page(), Logging {
         for (retries in 1..4) {
             desktopMenu.searchOpen.click()
             desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
-            if (cookiesBanner.hasLoadedRequired())  {
+            if (cookiesBanner.hasLoadedRequired()) {
                 cookiesBanner.acceptCookies()
                 break
             }
@@ -50,7 +50,7 @@ open class MainFramePage : Page(), Logging {
         shouldLoadRequired()
         for (retries in 1..4) {
             mobileMenu.mobileMenuButton.click()
-            if (cookiesBanner.hasLoadedRequired())  {
+            if (cookiesBanner.hasLoadedRequired()) {
                 cookiesBanner.acceptCookies()
                 break
             }

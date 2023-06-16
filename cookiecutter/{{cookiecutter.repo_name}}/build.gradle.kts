@@ -20,24 +20,27 @@ plugins {
 
 dependencies {
     val log4jVersion = "2.20.0"
-    {%- print("\n    ") -%}
-    {%- if cookiecutter.use_cucumber == "yes" -%}
+{%- print("\n") -%}
+{%- if cookiecutter.use_cucumber == "yes" -%}
+{%- print("    ") -%}
     val cucumberVersion = "7.12.1"
-    {% endif %}
+{% endif %}
+{%- print("\n    ") -%}
     testImplementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")
-    {%- print("\n    ") -%}
-    {%- if cookiecutter.use_appium == "yes" -%}
+{%- print("\n    ") -%}
+{%- if cookiecutter.use_appium == "yes" -%}
     testImplementation("com.codeborne:selenide-appium:{{ cookiecutter._selenide_version }}")
-    {%- print("\n    ") -%}
-    {%- else -%}
+{%- print("\n") -%}
+{%- else -%}
     testImplementation("com.codeborne:selenide:{{ cookiecutter._selenide_version }}")
-    {% endif %}
-    {%- if cookiecutter.use_cucumber == "yes" -%}
+{% endif %}
+{%- if cookiecutter.use_cucumber == "yes" -%}
+{%- print("    ") -%}
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
     testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.22.1")
-    {% endif %}
-    {%- print("") -%}
+{% endif %}
+{%- print("    ") -%}
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
