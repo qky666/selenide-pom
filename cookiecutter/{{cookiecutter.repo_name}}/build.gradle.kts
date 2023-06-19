@@ -38,7 +38,7 @@ dependencies {
 {%- print("    ") -%}
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.22.1")
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.22.2")
 {% endif %}
 {%- print("    ") -%}
     testImplementation("org.testng:testng:7.8.0")
@@ -50,13 +50,31 @@ dependencies {
 
 allure {
     version.set("2.20.0")
+{%- print("\n") -%}
+{%- if cookiecutter.use_cucumber == "yes" -%}
+{%- print("    ") -%}
+    adapter {
+        frameworks {
+            cucumberJvm(6)
+        }
+    }
+{% endif %}
+{%- print("") -%}
 }
 
 tasks.test {
     useTestNG {
         suiteXmlFiles = listOf(File("src/test/resources/testng.xml"))
+{%- print("\n") -%}
+{%- if cookiecutter.use_cucumber == "no" -%}
+{%- print("        ") -%}
         useDefaultListeners = true
+{% endif %}
+{%- print("    ") -%}
     }
+{%- print("\n") -%}
+{%- if cookiecutter.use_cucumber == "no" -%}
+{%- print("    ") -%}
     retry {
         retry {
             maxRetries.set(1)
@@ -64,6 +82,8 @@ tasks.test {
             failOnPassedAfterRetry.set(false)
         }
     }
+{% endif %}
+{%- print("") -%}
 }
 
 kotlin {

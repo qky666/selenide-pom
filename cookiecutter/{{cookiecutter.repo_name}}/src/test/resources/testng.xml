@@ -195,15 +195,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Tests Suite" data-provider-thread-count="4">
-<test name="TestNG MTP tests" enabled="true" parallel="methods">
-    <classes>
-        <class name="{{ cookiecutter.group }}.cucumber.runner.CucumberTestNgTestRunner"/>
-    </classes>
-</test>
-<test name="TestNG MTP tests - rerun failed" enabled="true" parallel="methods">
-    <classes>
-        <class name="{{ cookiecutter.group }}.cucumber.runner.CucumberTestNgFailedTestRunner"/>
-    </classes>
-</test>
+    <test name="TestNG MTP tests" enabled="true" parallel="methods">
+        <classes>
+            <class name="{{ cookiecutter.group }}.cucumber.runner.CucumberTestNgTestRunner"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP tests - rerun failed" enabled="true" parallel="methods">
+        <classes>
+            <class name="{{ cookiecutter.group }}.cucumber.runner.CucumberTestNgFailedTestRunner"/>
+        </classes>
+    </test>
 </suite>
 {% endif %}

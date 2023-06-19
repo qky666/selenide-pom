@@ -34,13 +34,14 @@ open class MainFramePage : Page(), Logging {
     }
 
     private fun acceptCookiesDesktop() {
-        for (retries in 1..4) {
-            desktopMenu.searchOpen.click()
-            desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
+        for (retries in 1..5) {
             if (cookiesBanner.hasLoadedRequired()) {
                 cookiesBanner.acceptCookies()
                 break
             }
+            // Click on search button to trigger cookiesBanner
+            desktopMenu.searchOpen.click()
+            desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
             Thread.sleep(100)
         }
         shouldLoadRequired()
@@ -48,12 +49,13 @@ open class MainFramePage : Page(), Logging {
 
     private fun acceptCookiesMobile() {
         shouldLoadRequired()
-        for (retries in 1..4) {
-            mobileMenu.mobileMenuButton.click()
+        for (retries in 1..5) {
             if (cookiesBanner.hasLoadedRequired()) {
                 cookiesBanner.acceptCookies()
                 break
             }
+            // Click on menu button to trigger cookiesBanner
+            mobileMenu.mobileMenuButton.click()
             Thread.sleep(100)
         }
         shouldLoadRequired()
