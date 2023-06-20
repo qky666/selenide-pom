@@ -1,12 +1,14 @@
 package {{ cookiecutter.group }}.pom.common
 
 import com.codeborne.selenide.ClickOptions
+import com.codeborne.selenide.Condition.disappear
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import org.apache.logging.log4j.kotlin.Logging
+import java.time.Duration
 
 open class MainFramePage : Page(), Logging {
     @Required val home = find("a.img-menu")
@@ -35,29 +37,29 @@ open class MainFramePage : Page(), Logging {
 
     private fun acceptCookiesDesktop() {
         for (retries in 1..5) {
-            if (cookiesBanner.hasLoadedRequired()) {
+            if (cookiesBanner.hasLoadedRequired(Duration.ofSeconds(1))) {
                 cookiesBanner.acceptCookies()
                 break
             }
             // Click on search button to trigger cookiesBanner
             desktopMenu.searchOpen.click()
             desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
-            Thread.sleep(100)
         }
+        cookiesBanner.should(disappear)
         shouldLoadRequired()
     }
 
     private fun acceptCookiesMobile() {
         shouldLoadRequired()
         for (retries in 1..5) {
-            if (cookiesBanner.hasLoadedRequired()) {
+            if (cookiesBanner.hasLoadedRequired(Duration.ofSeconds(1))) {
                 cookiesBanner.acceptCookies()
                 break
             }
             // Click on menu button to trigger cookiesBanner
-            mobileMenu.mobileMenuButton.click()
-            Thread.sleep(100)
+            mobileMenu.mobileMenuButton.click(ClickOptions.withOffset(0, 30))
         }
+        cookiesBanner.should(disappear)
         shouldLoadRequired()
     }
 
