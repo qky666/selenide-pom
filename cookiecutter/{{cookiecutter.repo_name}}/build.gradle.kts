@@ -99,7 +99,7 @@ tasks.compileTestJava {
 }
 
 python {
-    pip("allure-combine:1.0.8")
+    pip("allure-combine:1.0.11")
 }
 
 task<PythonTask>("allureCombine") {
