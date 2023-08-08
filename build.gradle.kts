@@ -9,10 +9,10 @@ plugins {
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
     id("io.freefair.lombok") version "8.1.0"
     id("com.github.ben-manes.versions") version "0.47.0"
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 publishing {
@@ -31,9 +31,9 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.9.3"
+    val jUnitVersion = "5.10.0"
 
-    implementation("com.codeborne:selenide-appium:6.16.0")
+    implementation("com.codeborne:selenide-appium:6.17.0")
     implementation(kotlin("reflect"))
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")

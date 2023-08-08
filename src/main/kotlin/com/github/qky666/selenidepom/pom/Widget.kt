@@ -7,6 +7,7 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
+import com.codeborne.selenide.TypeOptions
 import org.openqa.selenium.By
 import java.time.Duration
 
@@ -29,6 +30,18 @@ import java.time.Duration
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
 abstract class Widget(private val self: SelenideElement) : SelenideElement by self, Loadable {
+
+    // Added to solve a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method
+    override fun type(textToType: CharSequence): Widget {
+        self.type(textToType)
+        return this
+    }
+
+    // Added to solve a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method
+    override fun type(typeOptions: TypeOptions): Widget {
+        self.type(typeOptions)
+        return this
+    }
 
     /**
      * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`.

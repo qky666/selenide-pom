@@ -156,17 +156,28 @@ object SPConfig {
      * @return [Driver] instance
      */
     @JvmOverloads
+    @Synchronized
     fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
         val driver = (newDriver ?: createDriver())
 
         val webDriver = driver.getAndCheckWebDriver()
-        WebDriverRunner.setWebDriver(webDriver)
+        setCurrentThreadWebDriver(webDriver)
         return driver
+    }
+
+    /**
+     * Sets [newDriver] as the current thread [WebDriver] and returns it.
+     *
+     * @return [WebDriver] the same [newDriver] object
+     */
+    fun setCurrentThreadWebDriver(newDriver: WebDriver): WebDriver {
+        WebDriverRunner.setWebDriver(newDriver)
+        return newDriver
     }
 
     fun getCurrentWebDriver(): WebDriver? {
         return try {
-            Selenide.webdriver().driver().webDriver
+            WebDriverRunner.getWebDriver()
         } catch (e: IllegalStateException) {
             null
         }

@@ -4,7 +4,6 @@ import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.ElementsContainer
-import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
@@ -377,7 +376,7 @@ interface Loadable {
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                WebDriverWait(Selenide.webdriver().`object`(), timeout).until(
+                WebDriverWait(SPConfig.getCurrentWebDriver(), timeout).until(
                     ExpectedConditions.visibilityOf(element)
                 )
                 logger.debug {

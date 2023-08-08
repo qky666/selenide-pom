@@ -1,7 +1,6 @@
 package com.github.qky666.selenidepom.test.kotlin
 
 import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.WebDriverRunner
 import com.github.qky666.selenidepom.config.DEFAULT_DESKTOP_MODEL
 import com.github.qky666.selenidepom.config.DEFAULT_DEVICE_NAME
 import com.github.qky666.selenidepom.config.DEFAULT_MOBILE_MODEL
@@ -62,13 +61,27 @@ class SPConfigTest {
         val browser = "firefox"
         SPConfig.selenideConfig.browser(browser)
         val createdDriver = SPConfig.createDriver()
-        WebDriverRunner.setWebDriver(createdDriver.getAndCheckWebDriver())
+        SPConfig.setCurrentThreadDriver(createdDriver)
 
         Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
 
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
+    }
+
+    @Test
+    fun setWebDriverTest() {
+        val browser = "firefox"
+        SPConfig.selenideConfig.browser(browser)
+        val createdDriver = SPConfig.createDriver().getAndCheckWebDriver()
+        SPConfig.setCurrentThreadWebDriver(createdDriver)
+
+        Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
+
+        val driver = SPConfig.getCurrentWebDriver()
+        Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
+        Assertions.assertEquals(createdDriver, driver)
     }
 
     @Test
@@ -84,7 +97,7 @@ class SPConfigTest {
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
         Assertions.assertEquals("fileModel", SPConfig.model)
         val createdDriver = SPConfig.setCurrentThreadDriver()
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
     }
@@ -115,7 +128,7 @@ class SPConfigTest {
         Assertions.assertEquals(DEFAULT_MOBILE_MODEL, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
     }
@@ -135,7 +148,7 @@ class SPConfigTest {
         Assertions.assertEquals(model, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
     }
@@ -149,7 +162,7 @@ class SPConfigTest {
         Assertions.assertEquals(DEFAULT_DESKTOP_MODEL, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(ChromeDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
     }
@@ -165,7 +178,7 @@ class SPConfigTest {
         Assertions.assertEquals(model, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
-        val driver = WebDriverRunner.getWebDriver()
+        val driver = SPConfig.getCurrentWebDriver()
         Assertions.assertInstanceOf(FirefoxDriver::class.java, driver)
         Assertions.assertEquals(createdDriver.webDriver, driver)
     }

@@ -436,7 +436,7 @@ class TiddlywikiTest {
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
         // Selenide helpers for shadow dom not working here (do not know the reason), so we do it the hard way with switchTo
-        val webdriver = Selenide.webdriver().`object`()
+        val webdriver = SPConfig.getCurrentWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)
         webdriver.switchTo().defaultContent()
@@ -486,7 +486,7 @@ class TiddlywikiTest {
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
         // Selenide helpers for shadow dom not working here (do not know the reason), so we do it the hard way with switchTo
-        val webdriver = Selenide.webdriver().`object`()
+        val webdriver = SPConfig.getCurrentWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)
         webdriver.switchTo().defaultContent()

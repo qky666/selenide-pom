@@ -161,5 +161,16 @@ abstract class Page : Loadable {
         fun findAppium(xpathExpression: String): SelenideAppiumElement {
             return SelenideAppium.`$x`(xpathExpression)
         }
+
+        /**
+         * Same as [SelenideAppium]`.$ (By.xpath(xpathExpression), index)`.
+         *
+         * @param xpathExpression the xpath
+         * @return the [SelenideAppiumElement] found
+         */
+        @Suppress("unused")
+        fun findAppium(xpathExpression: String, index: Int): SelenideAppiumElement {
+            return SelenideAppium.`$`(By.xpath(xpathExpression), index)
+        }
     }
 }

@@ -10,11 +10,11 @@ repositories {
 
 plugins {
     idea
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
     id("com.github.ben-manes.versions") version "0.47.0"
     id("io.qameta.allure") version "2.11.2"
-    id("org.gradle.test-retry") version "1.5.3"
-    id("org.jlleitschuh.gradle.ktlint") version "11.4.2"
+    id("org.gradle.test-retry") version "1.5.4"
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("ru.vyarus.use-python") version "3.0.0"
 }
 
@@ -23,7 +23,7 @@ dependencies {
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
-    val cucumberVersion = "7.12.1"
+    val cucumberVersion = "7.13.0"
 {% endif %}
 {%- print("\n    ") -%}
     testImplementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")
