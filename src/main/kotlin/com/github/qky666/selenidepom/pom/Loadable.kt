@@ -7,7 +7,7 @@ import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedConditions

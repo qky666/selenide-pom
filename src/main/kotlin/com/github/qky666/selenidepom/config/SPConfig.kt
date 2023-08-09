@@ -5,7 +5,7 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.WebDriverRunner
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import java.util.Properties

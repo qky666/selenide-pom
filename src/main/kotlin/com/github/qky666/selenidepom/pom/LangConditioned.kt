@@ -3,7 +3,7 @@ package com.github.qky666.selenidepom.pom
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.time.Duration
 
 private val logger = KotlinLogging.logger {}
