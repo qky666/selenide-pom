@@ -49,7 +49,7 @@ dependencies {
 }
 
 allure {
-    version.set("2.20.0")
+    version.set("2.23.1")
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
@@ -103,7 +103,8 @@ python {
 }
 
 task<PythonTask>("allureCombine") {
+    val buildDirectory = layout.buildDirectory.asFile.get()
     command =
-        "-m allure_combine.combine $buildDir/reports/allure-report/allureReport --dest $buildDir/reports/allure-combine --auto-create-folders --remove-temp-files"
+        "-m allure_combine.combine $buildDirectory/reports/allure-report/allureReport --dest $buildDirectory/reports/allure-combine --auto-create-folders --remove-temp-files"
     dependsOn.add("allureReport")
 }

@@ -38,7 +38,13 @@ class CucumberHooks : Es {
                 if (screenshot != null) {
                     scenario.attach(screenshot, "image/png", "Test failed screenshot")
                 } else {
-                    scenario.log("Scenario is failed but there is no screenshot available in ${scenario.name}")
+                    val message = "Scenario is failed but there is no screenshot available in ${scenario.name}"
+                    scenario.log(message)
+                    logger.debug { message }
+                }
+                val driver = SPConfig.getCurrentWebDriver()
+                if (driver != null) {
+                    scenario.attach(driver.pageSource, "text/html;charset=utf-8", "source")
                 }
             }
 

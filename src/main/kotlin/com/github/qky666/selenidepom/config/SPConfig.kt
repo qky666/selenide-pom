@@ -188,9 +188,12 @@ object SPConfig {
         // Closing every window first is safer.
         val driver = getCurrentWebDriver()
         if (driver != null) {
-            for (ignored in driver.windowHandles) {
+            while (driver.windowHandles.size > 1) {
+                driver.switchTo().window(driver.windowHandles.first())
                 driver.close()
             }
+            driver.switchTo().window(driver.windowHandles.first())
+            driver.close()
         }
         Selenide.closeWebDriver()
     }

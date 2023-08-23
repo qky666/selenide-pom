@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.19.4"
+version = "0.19.5"
 
 val javaVersionNumber = 17
 val javaVersion = JavaVersion.VERSION_17
@@ -10,7 +10,7 @@ plugins {
     // jitpack needs maven-publish plugin
     `maven-publish`
     kotlin("jvm") version "1.9.0"
-    id("io.freefair.lombok") version "8.1.0"
+    id("io.freefair.lombok") version "8.2.2"
     id("com.github.ben-manes.versions") version "0.47.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
@@ -33,9 +33,9 @@ repositories {
 dependencies {
     val jUnitVersion = "5.10.0"
 
-    implementation("com.codeborne:selenide-appium:6.17.0")
+    implementation("com.codeborne:selenide-appium:6.17.1")
     implementation(kotlin("reflect"))
-    implementation("io.github.oshai:kotlin-logging-jvm:5.0.2")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
