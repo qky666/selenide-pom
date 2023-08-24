@@ -192,8 +192,10 @@ object SPConfig {
                 driver.switchTo().window(driver.windowHandles.first())
                 driver.close()
             }
-            driver.switchTo().window(driver.windowHandles.first())
-            driver.close()
+            if (driver.windowHandles.size > 0) {
+                driver.switchTo().window(driver.windowHandles.first())
+                driver.close()
+            }
         }
         Selenide.closeWebDriver()
     }

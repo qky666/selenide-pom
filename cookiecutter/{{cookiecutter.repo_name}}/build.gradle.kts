@@ -10,7 +10,7 @@ repositories {
 
 plugins {
     idea
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "1.9.10"
     id("com.github.ben-manes.versions") version "0.47.0"
     id("io.qameta.allure") version "2.11.2"
     id("org.gradle.test-retry") version "1.5.4"
