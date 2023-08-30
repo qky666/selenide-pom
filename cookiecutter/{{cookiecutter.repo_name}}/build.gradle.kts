@@ -38,7 +38,7 @@ dependencies {
 {%- print("    ") -%}
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.23.0")
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.24.0")
 {% endif %}
 {%- print("    ") -%}
     testImplementation("org.testng:testng:7.8.0")
@@ -49,7 +49,8 @@ dependencies {
 }
 
 allure {
-    version.set("2.23.1")
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-commandline
+    version.set("2.24.0")
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
