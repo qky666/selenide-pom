@@ -1,7 +1,7 @@
 {
   "_new_lines": "\n",
   "_selenide_pom_version": "0.19.6",
-  "_selenide_version": "6.17.2",
+  "_selenide_version": "6.18.0",
   "name": "my_selenide_pom_project",
   "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') }}",
   "group": "my.group.{{ cookiecutter.repo_name | replace('-', '') | replace('_', '') }}",

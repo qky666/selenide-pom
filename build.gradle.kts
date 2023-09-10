@@ -11,7 +11,7 @@ plugins {
     `maven-publish`
     kotlin("jvm") version "1.9.10"
     id("io.freefair.lombok") version "8.3"
-    id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.github.ben-manes.versions") version "0.48.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
@@ -33,10 +33,10 @@ repositories {
 dependencies {
     val jUnitVersion = "5.10.0"
 
-    implementation("com.codeborne:selenide-appium:6.17.2")
+    implementation("com.codeborne:selenide-appium:6.18.0")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
-    testImplementation("org.slf4j:slf4j-simple:2.0.7")
+    testImplementation("org.slf4j:slf4j-simple:2.0.9")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")

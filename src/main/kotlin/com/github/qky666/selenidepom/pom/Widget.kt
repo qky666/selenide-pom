@@ -31,16 +31,41 @@ import java.time.Duration
  */
 abstract class Widget(private val self: SelenideElement) : SelenideElement by self, Loadable {
 
-    // Added to solve a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method
+    /**
+     * Same as [SelenideElement.type] `(CharSequence(textToType))`.
+     *
+     * NOTE: Solves a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method.
+     *
+     * @param textToType the text to type
+     * @return this
+     */
     override fun type(textToType: CharSequence): Widget {
         self.type(textToType)
         return this
     }
 
-    // Added to solve a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method
+    /**
+     * Same as [SelenideElement.type] `(TypeOptions(typeOptions))`.
+     *
+     * NOTE: Solves a problem added in selenide 6.17.0: If not present, Widget subclasses need to override this method.
+     *
+     * @param typeOptions the type options
+     * @return this
+     */
     override fun type(typeOptions: TypeOptions): Widget {
         self.type(typeOptions)
         return this
+    }
+
+    /**
+     * Same as [SelenideElement.getOptions].
+     *
+     * NOTE: Solves a problem added in selenide 6.18.0: If not present, Widget subclasses need to override this method.
+     *
+     * @return the [ElementsCollection] found
+     */
+    override fun getOptions(): ElementsCollection {
+        return self.options
     }
 
     /**
