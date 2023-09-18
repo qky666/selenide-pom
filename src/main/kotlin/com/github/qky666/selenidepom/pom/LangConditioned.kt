@@ -8,7 +8,7 @@ import java.time.Duration
 
 private val logger = KotlinLogging.logger {}
 
-interface LangConditioned : SelenideElement {
+interface LangConditioned : SelenideElement, Loadable {
     val conditions: Map<String, Condition>
     val strict: Boolean
 

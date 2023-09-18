@@ -5,6 +5,7 @@ import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.exactValue
+import com.codeborne.selenide.Condition.not
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsContainer
@@ -50,6 +51,8 @@ import com.github.qky666.selenidepom.pom.widgetShouldNot
 import com.github.qky666.selenidepom.pom.widgetShouldNotBe
 import com.github.qky666.selenidepom.pom.widgetShouldNotHave
 import com.github.qky666.selenidepom.pom.widgetVal
+import com.github.qky666.selenidepom.pom.has
+import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.test.kotlin.downloadTiddlywikiEs
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
@@ -67,6 +70,7 @@ import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import java.net.URL
 import java.time.Duration
+import java.time.LocalDateTime
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
@@ -719,6 +723,15 @@ class TiddlywikiTest {
     }
 
     @Test
+    fun selenideElementScrollToCenterTest() {
+        setupSite("chrome", "es")
+        mainPage.shouldLoadRequired()
+
+        mainPage.sidebar.sidebarTabs.toolsTabButton.scrollToCenter().click()
+        mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
+    }
+
+    @Test
     fun widgetClicksTest() {
         val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
 
@@ -838,11 +851,34 @@ class TiddlywikiTest {
     }
 
     @Test
-    fun objectNotLoadable() {
+    fun objectNotLoadableTest() {
         val myPage = object : Page() {
             @Required val myObject = object {}
         }
         setupSite("chrome", "es")
         myPage.shouldLoadRequired()
+    }
+
+    @Test
+    fun hasConditionTimeoutFalseTest() {
+        val timeoutSeconds = 1L
+        val myPage = object : Page() {
+            val badElement = find("bad-element")
+        }
+        setupSite("chrome", "es")
+        val startTime = LocalDateTime.now()
+        assertFalse { myPage.badElement.has(visible, Duration.ofSeconds(timeoutSeconds)) }
+        assert(startTime.plusSeconds(timeoutSeconds) < LocalDateTime.now())
+    }
+
+    @Test
+    fun hasConditionTimeoutTrueTest() {
+        val myPage = object : Page() {
+            val badElement = find("bad-element")
+        }
+        setupSite("chrome", "es")
+        val startTime = LocalDateTime.now()
+        assertTrue { myPage.badElement.has(not(visible), Duration.ofSeconds(5)) }
+        assert(startTime.plusSeconds(1) > LocalDateTime.now())
     }
 }

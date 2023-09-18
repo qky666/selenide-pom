@@ -16,7 +16,8 @@ import org.testng.annotations.Test
         "pretty",
         "json:build/test-results/cucumber/rerun.json",
         "rerun:build/test-results/cucumber/failed_again_scenarios.txt"
-    ]
+    ],
+    tags = "not @skip",
 )
 class CucumberTestNgFailedTestRunner : AbstractTestNGCucumberTests(), Logging {
     @DataProvider(parallel = true)
