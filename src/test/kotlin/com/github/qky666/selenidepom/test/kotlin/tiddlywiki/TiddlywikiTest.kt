@@ -32,11 +32,13 @@ import com.github.qky666.selenidepom.pom.clickWidget
 import com.github.qky666.selenidepom.pom.contextClickWidget
 import com.github.qky666.selenidepom.pom.doubleClickWidget
 import com.github.qky666.selenidepom.pom.dragWidgetAndDrop
+import com.github.qky666.selenidepom.pom.has
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.hoverWidget
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
 import com.github.qky666.selenidepom.pom.pressEscapeInWidget
 import com.github.qky666.selenidepom.pom.pressTabInWidget
+import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.scrollToWidget
 import com.github.qky666.selenidepom.pom.scrollWidgetIntoView
 import com.github.qky666.selenidepom.pom.setSelectedWidget
@@ -51,8 +53,6 @@ import com.github.qky666.selenidepom.pom.widgetShouldNot
 import com.github.qky666.selenidepom.pom.widgetShouldNotBe
 import com.github.qky666.selenidepom.pom.widgetShouldNotHave
 import com.github.qky666.selenidepom.pom.widgetVal
-import com.github.qky666.selenidepom.pom.has
-import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.test.kotlin.downloadTiddlywikiEs
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage

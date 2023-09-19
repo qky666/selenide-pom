@@ -10,8 +10,6 @@ import com.github.qky666.selenidepom.config.SPConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.Locale
@@ -90,7 +88,19 @@ interface Loadable {
                                     }
                                 }.call(obj)
                             }
-                            errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
+                            val annotation = annotations.first()
+                            errors.addAll(
+                                elementShouldLoad(
+                                    element,
+                                    end,
+                                    model,
+                                    lang,
+                                    objKlassName,
+                                    it.name,
+                                    annotation.scroll,
+                                    annotation.scrollString
+                                )
+                            )
                         }
                     }
                     processedNames.add(it.name)
@@ -122,7 +132,19 @@ interface Loadable {
                         }
                         if (annotations.isNotEmpty()) {
                             val element = it.callBy(mapOf(it.parameters[0] to obj))
-                            errors.addAll(elementShouldLoad(element, end, model, lang, objKlassName, it.name))
+                            val annotation = annotations.first()
+                            errors.addAll(
+                                elementShouldLoad(
+                                    element,
+                                    end,
+                                    model,
+                                    lang,
+                                    objKlassName,
+                                    it.name,
+                                    annotation.scroll,
+                                    annotation.scrollString
+                                )
+                            )
                         }
                     }
                     processedNames.add(it.name)
@@ -156,28 +178,54 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val errors = when (element) {
                 null -> return listOf()
-                is By -> byShouldLoad(element, end, model, lang, klassName, elementName)
+                is By -> byShouldLoad(
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName,
+                    scroll,
+                    scrollString
+                )
+
                 is LangConditioned -> langConditionedShouldLoad(
                     element,
                     end,
                     model,
                     lang,
                     klassName,
-                    elementName
+                    elementName,
+                    scroll,
+                    scrollString
                 )
 
-                is SelenideElement -> selenideElementShouldLoad(element, end, model, lang, klassName, elementName)
+                is SelenideElement -> selenideElementShouldLoad(
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName,
+                    scroll,
+                    scrollString
+                )
+
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
                     element,
                     end,
                     model,
                     lang,
                     klassName,
-                    elementName
+                    elementName,
+                    scroll,
+                    scrollString
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
@@ -186,7 +234,9 @@ interface Loadable {
                     model,
                     lang,
                     klassName,
-                    elementName
+                    elementName,
+                    scroll,
+                    scrollString
                 )
 
                 is ElementsContainer -> elementsContainerShouldLoad(
@@ -195,11 +245,23 @@ interface Loadable {
                     model,
                     lang,
                     klassName,
-                    elementName
+                    elementName,
+                    scroll,
+                    scrollString
                 )
 
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
-                is WebElement -> webElementShouldLoad(element, end, model, lang, klassName, elementName)
+                is WebElement -> webElementShouldLoad(
+                    element,
+                    end,
+                    model,
+                    lang,
+                    klassName,
+                    elementName,
+                    scroll,
+                    scrollString
+                )
+
                 else -> objectShouldLoadRequired(element, end, model, lang)
             }.toMutableList()
             if (element is Loadable) {
@@ -226,10 +288,15 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
+                if (scroll) {
+                    element(by).scrollIntoView(scrollString)
+                }
                 element(by).shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (By): ${
@@ -248,10 +315,15 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
+                if (scroll) {
+                    element.scrollIntoView(scrollString)
+                }
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (LangConditioned): ${
@@ -271,10 +343,15 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
+                if (scroll) {
+                    element.scrollIntoView(scrollString)
+                }
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (SelenideElement): ${
@@ -293,18 +370,26 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                val visibles = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                if (scroll) {
+                    collection.first().scrollIntoView(scrollString)
+                }
+                val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
                     collection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
-                visibles.forEach {
+                filtered.forEach {
+                    if (scroll) {
+                        it.scrollIntoView(scrollString)
+                    }
                     errors.addAll(objectShouldLoadRequired(it, end, model, lang))
                 }
                 errors.toList()
@@ -319,25 +404,29 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                val visibleElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                if (scroll) {
+                    widgetsCollection.first().scrollIntoView(scrollString)
+                }
+                val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
                     widgetsCollection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
-                visibleElements.forEach {
-                    errors.addAll(objectShouldLoadRequired(it, end, model, lang))
-                }
-                for (i in 0 until visibleElements.count()) {
-                    val widget = widgetsCollection[i]
+                for (i in 0 until filteredElements.size) {
+                    val widget = filteredElements[i]
+                    if (scroll) {
+                        widget.scrollIntoView(scrollString)
+                    }
                     errors.addAll(objectShouldLoadRequired(widget, end, model, lang))
                 }
-
                 errors.toList()
             } catch (e: Throwable) {
                 listOf(e)
@@ -350,10 +439,15 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
+                if (scroll) {
+                    container.self.scrollIntoView(scrollString)
+                }
                 container.self.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (ElementsContainer): ${
@@ -372,13 +466,17 @@ interface Loadable {
             model: String,
             lang: String,
             klassName: String,
-            elementName: String
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                WebDriverWait(SPConfig.getCurrentWebDriver(), timeout).until(
-                    ExpectedConditions.visibilityOf(element)
-                )
+                val selenideElement = Page.find(element)
+                if (scroll) {
+                    selenideElement.scrollIntoView(scrollString)
+                }
+                selenideElement.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (WebElement): ${
                     element.toString().replace("\n", "\\n")
@@ -412,7 +510,7 @@ fun <T : Loadable> T.shouldLoadRequired(
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className")
+    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", false, "")
     if (errors.isNotEmpty()) {
         throw RequiredError(errors)
     }
@@ -438,5 +536,5 @@ fun <T : Loadable> T.hasLoadedRequired(
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
-    return Loadable.elementShouldLoad(this, end, model, lang, className, "root").isEmpty()
+    return Loadable.elementShouldLoad(this, end, model, lang, className, "root", false, "").isEmpty()
 }

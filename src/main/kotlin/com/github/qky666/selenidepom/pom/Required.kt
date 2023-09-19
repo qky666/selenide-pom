@@ -22,4 +22,9 @@ package com.github.qky666.selenidepom.pom
 @MustBeDocumented
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FUNCTION, AnnotationTarget.FIELD)
 @Repeatable
-annotation class Required(val model: String = "", val lang: String = "")
+annotation class Required(
+    val model: String = "",
+    val lang: String = "",
+    val scroll: Boolean = false,
+    val scrollString: String = "{behavior: \"auto\", block: \"center\", inline: \"center\"}"
+)
