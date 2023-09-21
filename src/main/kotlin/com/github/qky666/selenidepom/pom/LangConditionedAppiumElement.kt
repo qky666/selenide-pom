@@ -28,6 +28,7 @@ class LangConditionedAppiumElement(
      * @param self the [SelenideAppiumElement]
      * @param exactTexts the map of expected exact text for [self] in each language
      */
+    @Suppress("RedundantValueArgument")
     constructor(self: SelenideAppiumElement, exactTexts: Map<String, String>) : this(
         self,
         exactTexts.mapValues { Condition.exactText(it.value) },

@@ -37,7 +37,10 @@ class InternalTest {
         TestData.init("internal-prod")
         Assertions.assertEquals("https://sample.com", TestData.input.getProperty("data.input.baseUrl"))
         Assertions.assertEquals("internal-prod", TestData.env)
-        Assertions.assertEquals(listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"), TestData.propertiesFiles)
+        Assertions.assertEquals(
+            listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"),
+            TestData.propertiesFiles
+        )
     }
 
     @Test

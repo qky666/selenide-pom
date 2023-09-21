@@ -37,18 +37,12 @@ class SearchResultsPaginationWidget(self: SelenideElement) : Widget(self) {
     @Required val pagesLinks = findAll("ul.uk-pagination li a")
     val nextPage = LangConditionedElement(
         findX(".//li/a[./span[contains(@class,'uk-icon-angle-double-right')]]"),
-        mapOf(
-            "es" to "Página siguiente",
-            "en" to "Next Page"
-        )
+        mapOf("es" to "Página siguiente", "en" to "Next Page")
     )
 
     val previousPage = LangConditionedElement(
         findX(".//li/a[./span[contains(@class,'uk-icon-angle-double-left')]]"),
-        mapOf(
-            "es" to "Página anterior",
-            "en" to "Previous Page"
-        )
+        mapOf("es" to "Página anterior", "en" to "Previous Page")
     )
 }
 

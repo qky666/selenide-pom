@@ -1,9 +1,11 @@
 # selenide-pom
+
 Page Object Model utilities for Selenide.
 
 # Install
 
 ## Gradle
+
 ```
 allprojects {
     repositories {
@@ -20,6 +22,7 @@ dependencies {
 ```
 
 ## Maven
+
 ```
 <repositories>
     <repository>
@@ -50,13 +53,16 @@ dependencies {
 ```
 
 # Javadoc
+
 https://jitpack.io/com/github/qky666/selenide-pom/latest/javadoc/
 
 # Build status
+
 [![Release](https://jitpack.io/v/qky666/selenide-pom.svg)]
 (https://jitpack.io/#qky666/selenide-pom)
 
 # cookiecutter template
+
 Template for a Selenium Kotlin automation project using selenide-pom.
 
 ## Usage
@@ -66,39 +72,50 @@ See [cookiecutter documentation](https://cookiecutter.readthedocs.io/en/stable/i
     cookiecutter gh:qky666/selenide-pom --directory cookiecutter
 
 ## Requirements
+
 ### Kotlin
+
 Documentation: https://kotlinlang.org/
 
 Installed with IntelliJ IDEA
 
 ### Python
+
 Documentation: https://www.python.org/
 
 Required by allure-combine.
 
 ## Core technologies
+
 ### Test framework
+
 TestNG: https://testng.org/doc/index.html
 
 ### Logs
+
 Log4j: https://logging.apache.org/log4j/2.x/#
 
 ### Report
+
 Allure: https://docs.qameta.io/allure-report/
 
 allure-combine: https://github.com/MihanEntalpo/allure-single-html-file
 
 ## BDD
+
 Cucumber: https://cucumber.io/
 
 ## Selenium
+
 Selenide: https://selenide.org/index.html
 
 Selenide-POM: https://github.com/qky666/selenide-pom
 
 # Extra: Easy Windows setup (without Admin rights)
+
 ## Install scoop
-See [scoop homepage](https://scoop.sh/) for details. 
+
+See [scoop homepage](https://scoop.sh/) for details.
 
 Open a PowerShell terminal and run:
 

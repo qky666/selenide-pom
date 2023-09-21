@@ -14,7 +14,6 @@ public class MainPage extends Page {
 
     @Getter(lazy = true, onMethod_ = {@Required}) private final SelenideElement hideShowSidebar = $("button.tc-hide-sidebar-btn, button.tc-show-sidebar-btn");
 
-    @Required
-    @Getter(lazy = true)
+    @Required @Getter(lazy = true)
     private final SelenideElement hideShowSidebarBis = $("button.tc-hide-sidebar-btn, button.tc-show-sidebar-btn");
 }

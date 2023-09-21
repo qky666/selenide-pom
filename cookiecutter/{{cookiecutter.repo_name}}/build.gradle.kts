@@ -14,7 +14,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.48.0"
     id("io.qameta.allure") version "2.11.2"
     id("org.gradle.test-retry") version "1.5.5"
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     id("ru.vyarus.use-python") version "3.0.0"
 }
 
@@ -63,6 +62,14 @@ allure {
 {%- print("") -%}
 }
 
+kotlin {
+    jvmToolchain(20)
+}
+
+python {
+    pip("allure-combine:1.0.11")
+}
+
 tasks.test {
     useTestNG {
         suiteXmlFiles = listOf(File("src/test/resources/testng.xml"))
@@ -87,20 +94,12 @@ tasks.test {
 {%- print("") -%}
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
 tasks.compileTestKotlin {
     kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
 }
 
 tasks.compileTestJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
-}
-
-python {
-    pip("allure-combine:1.0.11")
 }
 
 task<PythonTask>("allureCombine") {

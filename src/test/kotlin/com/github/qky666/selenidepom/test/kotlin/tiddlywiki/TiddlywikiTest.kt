@@ -119,7 +119,6 @@ class TiddlywikiTest {
                     true,
                     object : MainPage() {
                         @Required val noExistsCollection = findAll("no-exists")
-
                         @Required val doExistsCollection = findAll("body")
                     }
                 ),
@@ -129,7 +128,6 @@ class TiddlywikiTest {
                     true,
                     object : MainPage() {
                         @Required val noExistsBy = By.cssSelector("no-exists")
-
                         @Required val doExistsBy = By.cssSelector("body")
                     }
                 ),
@@ -338,14 +336,14 @@ class TiddlywikiTest {
         TestData.init("tiddlywiki-prod")
 
         // Additional test for output in TestData
-        TestData.output["threadId"] = Thread.currentThread().id
+        TestData.output["threadId"] = Thread.currentThread().threadId()
     }
 
     @AfterEach
     fun afterEach() {
         SPConfig.quitCurrentThreadDriver()
         // Additional test for output in TestData
-        Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().id.toString())
+        Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().threadId().toString())
     }
 
     private fun setupSite(browserConfig: String, lang: String = "es") {
@@ -629,7 +627,7 @@ class TiddlywikiTest {
             override val badSelector = super.badSelector
         }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         myMainPage.shouldLoadRequired()
     }
 
@@ -648,7 +646,7 @@ class TiddlywikiTest {
 
             @Required val body = Body(find("body"))
         }
-        setupSite("chrome", "es")
+        setupSite("chrome")
         myMainPage.shouldLoadRequired()
     }
 
@@ -663,7 +661,7 @@ class TiddlywikiTest {
 
         val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         fake.setWidgetValue(searchString).widgetShould(searchCondition).widgetShould(searchCondition, timeout)
@@ -694,7 +692,7 @@ class TiddlywikiTest {
     fun widgetSelectedTest() {
         val fake = mainPage.sidebar.sidebarTabs.toolsTabContent.home.checkbox.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         mainPage.sidebar.sidebarTabs.toolsTabButton.click()
@@ -714,7 +712,7 @@ class TiddlywikiTest {
     fun widgetScrollTest() {
         val fake = mainPage.sidebar.sidebarTabs.toolsTabContent.more.button.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         mainPage.sidebar.sidebarTabs.toolsTabButton.click()
@@ -724,7 +722,7 @@ class TiddlywikiTest {
 
     @Test
     fun selenideElementScrollToCenterTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         mainPage.sidebar.sidebarTabs.toolsTabButton.scrollToCenter().click()
@@ -735,7 +733,7 @@ class TiddlywikiTest {
     fun widgetClicksTest() {
         val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         fake.clickWidget(ClickOptions.usingDefaultMethod()).doubleClickWidget().contextClickWidget()
@@ -745,7 +743,7 @@ class TiddlywikiTest {
     fun widgetHoverTest() {
         val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         fake.hoverWidget().hoverWidget(HoverOptions.withOffset(20, 30))
@@ -755,7 +753,7 @@ class TiddlywikiTest {
     fun widgetDragAndDropTest() {
         val fake = mainPage.sidebar.searchInput.asWidget { FakeWidget(it) }
 
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         fake.dragWidgetAndDrop(DragAndDropOptions.to(mainPage.sidebar.newTiddler))
@@ -763,7 +761,7 @@ class TiddlywikiTest {
 
     @Test
     fun findWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -774,7 +772,7 @@ class TiddlywikiTest {
 
     @Test
     fun firstWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -785,7 +783,7 @@ class TiddlywikiTest {
 
     @Test
     fun lastWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -796,7 +794,7 @@ class TiddlywikiTest {
 
     @Test
     fun shouldWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -811,7 +809,7 @@ class TiddlywikiTest {
 
     @Test
     fun filterWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -821,7 +819,7 @@ class TiddlywikiTest {
 
     @Test
     fun excludeWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -832,7 +830,7 @@ class TiddlywikiTest {
 
     @Test
     fun snapshotWidgetsCollectionTest() {
-        setupSite("chrome", "es")
+        setupSite("chrome")
         mainPage.shouldLoadRequired()
 
         val open = mainPage.sidebar.sidebarTabs.openTabContent.openItems
@@ -855,7 +853,7 @@ class TiddlywikiTest {
         val myPage = object : Page() {
             @Required val myObject = object {}
         }
-        setupSite("chrome", "es")
+        setupSite("chrome")
         myPage.shouldLoadRequired()
     }
 
@@ -865,7 +863,7 @@ class TiddlywikiTest {
         val myPage = object : Page() {
             val badElement = find("bad-element")
         }
-        setupSite("chrome", "es")
+        setupSite("chrome")
         val startTime = LocalDateTime.now()
         assertFalse { myPage.badElement.has(visible, Duration.ofSeconds(timeoutSeconds)) }
         assert(startTime.plusSeconds(timeoutSeconds) < LocalDateTime.now())
@@ -876,7 +874,7 @@ class TiddlywikiTest {
         val myPage = object : Page() {
             val badElement = find("bad-element")
         }
-        setupSite("chrome", "es")
+        setupSite("chrome")
         val startTime = LocalDateTime.now()
         assertTrue { myPage.badElement.has(not(visible), Duration.ofSeconds(5)) }
         assert(startTime.plusSeconds(1) > LocalDateTime.now())

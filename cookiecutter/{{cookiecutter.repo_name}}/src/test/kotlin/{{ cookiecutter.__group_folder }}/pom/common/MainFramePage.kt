@@ -13,11 +13,9 @@ import java.time.Duration
 open class MainFramePage : Page(), Logging {
     @Required val home = find("a.img-menu")
 
-    @Required(model = "desktop")
-    val desktopMenu = DesktopMenuWidget(find("nav.menu-pc"))
+    @Required(model = "desktop") val desktopMenu = DesktopMenuWidget(find("nav.menu-pc"))
 
-    @Required(model = "mobile")
-    val mobileMenu = MobileMenuWidget(find("div.menu-movil"))
+    @Required(model = "mobile") val mobileMenu = MobileMenuWidget(find("div.menu-movil"))
     val mobileMenuPopUp = MobileMenuPopUpWidget(find("div#menu-movil"))
     val cookiesBanner = CookiesBannerWidget(find("div#CybotCookiebotDialog"))
 
@@ -65,24 +63,22 @@ open class MainFramePage : Page(), Logging {
 
     fun setLangIfNeeded(lang: String = SPConfig.lang) {
         when (SPConfig.model) {
-            "mobile" -> {
-                if (!mobileMenu.selectedLang.text.contentEquals(lang, true)) {
-                    when (lang) {
-                        "en" -> mobileMenu.langEn.click()
-                        "es" -> mobileMenu.langEs.click()
-                        else -> throw RuntimeException("Language $lang not found")
-                    }
+            "mobile" -> if (!mobileMenu.selectedLang.text.contentEquals(lang, true)) {
+                when (lang) {
+                    "en" -> mobileMenu.langEn.click()
+                    "es" -> mobileMenu.langEs.click()
+                    else -> throw RuntimeException("Language $lang not found")
                 }
             }
-            "desktop" -> {
-                if (!desktopMenu.selectedLang.text.contentEquals(lang, true)) {
-                    when (lang) {
-                        "en" -> desktopMenu.langEn.click()
-                        "es" -> desktopMenu.langEs.click()
-                        else -> throw RuntimeException("Language $lang not found")
-                    }
+
+            "desktop" -> if (!desktopMenu.selectedLang.text.contentEquals(lang, true)) {
+                when (lang) {
+                    "en" -> desktopMenu.langEn.click()
+                    "es" -> desktopMenu.langEs.click()
+                    else -> throw RuntimeException("Language $lang not found")
                 }
             }
+
             else -> throw RuntimeException("Model ${SPConfig.model} not found")
         }
         shouldLoadRequired(lang = lang)
@@ -90,5 +86,4 @@ open class MainFramePage : Page(), Logging {
     }
 }
 
-@Suppress("unused")
-val mainFramePage = MainFramePage()
+@Suppress("unused") val mainFramePage = MainFramePage()

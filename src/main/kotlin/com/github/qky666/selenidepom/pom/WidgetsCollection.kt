@@ -19,7 +19,7 @@ import kotlin.reflect.jvm.javaField
  */
 class WidgetsCollection<T : Widget>(
     private val elementsCollection: ElementsCollection,
-    private val factory: (e: SelenideElement) -> T
+    private val factory: (e: SelenideElement) -> T,
 ) : ElementsCollection(elementsCollection.getCollectionSource()), Loadable {
 
     /**
@@ -115,8 +115,8 @@ class WidgetsCollection<T : Widget>(
      * <pre>
      * `$$(".text_list").should(containExactTextsCaseSensitive("text1", "text2"));
      * $$(".cat_list").should(allMatch("value==cat", el -> el.getAttribute("value").equals("cat")));
-     ` *
-     </pre> *
+    ` *
+    </pre> *
      */
     override fun should(vararg conditions: CollectionCondition?): WidgetsCollection<T> {
         return WidgetsCollection(super.should(*conditions), factory)
@@ -134,7 +134,7 @@ class WidgetsCollection<T : Widget>(
     override fun should(
         prefix: String,
         timeout: Duration,
-        vararg conditions: CollectionCondition?
+        vararg conditions: CollectionCondition?,
     ): WidgetsCollection<T> {
         return WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
     }

@@ -12,7 +12,7 @@ import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.Locale
+import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
@@ -49,10 +49,7 @@ interface Loadable {
     companion object {
 
         private fun objectShouldLoadRequired(
-            obj: Any,
-            end: LocalDateTime,
-            model: String,
-            lang: String
+            obj: Any, end: LocalDateTime, model: String, lang: String,
         ): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
@@ -180,86 +177,37 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is LangConditioned -> langConditionedShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is SelenideElement -> selenideElementShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is ElementsContainer -> elementsContainerShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
                 is WebElement -> webElementShouldLoad(
-                    element,
-                    end,
-                    model,
-                    lang,
-                    klassName,
-                    elementName,
-                    scroll,
-                    scrollString
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
                 else -> objectShouldLoadRequired(element, end, model, lang)
@@ -290,7 +238,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -300,7 +248,7 @@ interface Loadable {
                 element(by).shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (By): ${
-                    by.toString().replace("\n", "\\n")
+                        by.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(by, end, model, lang)
@@ -317,7 +265,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -327,7 +275,7 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (LangConditioned): ${
-                    element.toString().replace("\n", "\\n")
+                        element.toString().replace("\n", "\\n")
                     }"
                 }
                 element.shouldMeetCondition(timeout, lang)
@@ -345,7 +293,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -355,7 +303,7 @@ interface Loadable {
                 element.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (SelenideElement): ${
-                    element.toString().replace("\n", "\\n")
+                        element.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(element, end, model, lang)
@@ -372,7 +320,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -382,7 +330,7 @@ interface Loadable {
                 val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (ElementsCollection): ${
-                    collection.toString().replace("\n", "\\n")
+                        collection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
@@ -406,7 +354,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -416,7 +364,7 @@ interface Loadable {
                 val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 logger.debug {
                     "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): ${
-                    widgetsCollection.toString().replace("\n", "\\n")
+                        widgetsCollection.toString().replace("\n", "\\n")
                     }"
                 }
                 val errors = mutableListOf<Throwable>()
@@ -441,7 +389,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -451,7 +399,7 @@ interface Loadable {
                 container.self.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (ElementsContainer): ${
-                    container.self.toString().replace("\n", "\\n")
+                        container.self.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(container, end, model, lang)
@@ -468,7 +416,7 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String
+            scrollString: String,
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
@@ -479,7 +427,7 @@ interface Loadable {
                 selenideElement.shouldBe(visible, timeout)
                 logger.debug {
                     "Checked element $elementName in $klassName is visible (WebElement): ${
-                    element.toString().replace("\n", "\\n")
+                        element.toString().replace("\n", "\\n")
                     }"
                 }
                 objectShouldLoadRequired(element, end, model, lang)
@@ -497,6 +445,8 @@ interface Loadable {
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
+ * @param scroll if browser scrolls to the element before checking it. Default value: false
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
  */
@@ -505,12 +455,14 @@ interface Loadable {
 fun <T : Loadable> T.shouldLoadRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
     model: String = SPConfig.model,
-    lang: String = SPConfig.lang
+    lang: String = SPConfig.lang,
+    scroll: Boolean = false,
+    scrollString: String = "{behavior: \"auto\", block: \"center\", inline: \"center\"}",
 ): T {
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", false, "")
+    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", scroll, scrollString)
     if (errors.isNotEmpty()) {
         throw RequiredError(errors)
     }
@@ -524,6 +476,8 @@ fun <T : Loadable> T.shouldLoadRequired(
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
+ * @param scroll if browser scrolls to the element before checking it. Default value: false
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
 @Suppress("BooleanMethodIsAlwaysInverted")
@@ -531,10 +485,12 @@ fun <T : Loadable> T.shouldLoadRequired(
 fun <T : Loadable> T.hasLoadedRequired(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
     model: String = SPConfig.model,
-    lang: String = SPConfig.lang
+    lang: String = SPConfig.lang,
+    scroll: Boolean = false,
+    scrollString: String = "{behavior: \"auto\", block: \"center\", inline: \"center\"}",
 ): Boolean {
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
-    return Loadable.elementShouldLoad(this, end, model, lang, className, "root", false, "").isEmpty()
+    return Loadable.elementShouldLoad(this, end, model, lang, className, "root", scroll, scrollString).isEmpty()
 }

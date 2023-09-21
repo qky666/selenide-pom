@@ -172,8 +172,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
  * @return [T] instance based on provided [SelenideElement]
  */
 fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
-    @Suppress("UNCHECKED_CAST")
-    return this as? T ?: factory(this)
+    @Suppress("UNCHECKED_CAST") return this as? T ?: factory(this)
 }
 
 /**
@@ -337,7 +336,7 @@ fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T
 }
 
 /**
- * Same as [SelenideElement.as], but returns a [Widget] subclass instance instead of [SelenideElement]
+ * Same as [SelenideElement]'s "as" method, but returns a [Widget] subclass instance instead of [SelenideElement]
  */
 fun <T : Widget> T.widgetAs(alias: String): T {
     this.`as`(alias)

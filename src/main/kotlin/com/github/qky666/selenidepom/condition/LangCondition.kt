@@ -28,6 +28,7 @@ fun langCondition(conditions: Map<String, Condition>, strict: Boolean = true): C
     }
 }
 
+@Suppress("RedundantValueArgument")
 fun langCondition(conditions: Map<String, String>): Condition {
     return langCondition(conditions.mapValues { Condition.exactText(it.value) }, true)
 }

@@ -66,7 +66,6 @@ class DesktopMenuWidget(self: SelenideElement) : Widget(self) {
 
 class SearchMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val searchInput = find("input[name=s]")
-
     @Required val doSearch = find("button.search-submit")
 }
 

@@ -26,6 +26,7 @@ open class LangConditionedElement(
      * @param self the [SelenideElement]
      * @param exactTexts the map of expected exact text for [self] in each language
      */
+    @Suppress("RedundantValueArgument")
     constructor(self: SelenideElement, exactTexts: Map<String, String>) : this(
         self,
         exactTexts.mapValues { Condition.exactText(it.value) },

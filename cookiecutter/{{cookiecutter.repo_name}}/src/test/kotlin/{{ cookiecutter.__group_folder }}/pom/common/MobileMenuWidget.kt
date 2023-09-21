@@ -1,6 +1,6 @@
 package {{ cookiecutter.group }}.pom.common
 
-import com.codeborne.selenide.CollectionCondition
+import com.codeborne.selenide.CollectionCondition.allMatch
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
@@ -14,11 +14,8 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val mobileMenuButton = find("button.custom-menu-btn-flotante")
 
     @Required val languages = findAll("li.individual-menu-idioma>a")
-
     @Required val langEn = languages.findBy(text("en"))
-
     @Required val langEs = languages.findBy(text("es"))
-
     @Required val selectedLang = LangConditionedElement(
         find("li.individual-menu-idioma.idioma-activo>a"),
         mapOf("es" to "es", "en" to "en")
@@ -26,8 +23,7 @@ class MobileMenuWidget(self: SelenideElement) : Widget(self) {
 }
 
 class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
-    // First level menu items
-
+    // First level menú items
     // All first level menu items
     @Required val firstLevelMenuItems = findAll("li.uk-parent")
 
@@ -62,8 +58,7 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
         }
     }
 
-    @Required(lang = "es")
-    val blog = firstLevelMenuItems.findBy(exactText("Blog"))
+    @Required(lang = "es") val blog = firstLevelMenuItems.findBy(exactText("Blog"))
 
     @Required
     @JvmOverloads
@@ -105,10 +100,8 @@ class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {
     }
 
     fun shouldBeCollapsed() {
-        firstLevelMenuItems.shouldHave(
-            CollectionCondition.allMatch("All firstLevelMenuItems have aria-expanded=false") { element: WebElement ->
-                "false".equals(element.getAttribute("aria-expanded"), ignoreCase = true)
-            }
-        )
+        firstLevelMenuItems.shouldHave(allMatch("All firstLevelMenuItems have aria-expanded=false") {
+            "false".equals(it.getAttribute("aria-expanded"), ignoreCase = true)
+        })
     }
 }

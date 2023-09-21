@@ -41,14 +41,14 @@ interface LangConditioned : SelenideElement, Loadable {
 fun <T : LangConditioned> T.shouldMeetCondition(
     timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
     lang: String = SPConfig.lang,
-    strict: Boolean = this.strict
+    strict: Boolean = this.strict,
 ): LangConditioned {
     try {
         val condition = conditions.getValue(lang)
         this.should(condition, timeout)
         logger.debug {
             "Checked condition '$condition' (language '$lang') in element '${
-            this.toString().replace("\n", "\\n")
+                this.toString().replace("\n", "\\n")
             }'"
         }
     } catch (e: NoSuchElementException) {

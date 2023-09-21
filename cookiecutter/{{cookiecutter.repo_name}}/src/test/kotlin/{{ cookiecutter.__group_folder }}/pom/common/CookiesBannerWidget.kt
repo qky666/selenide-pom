@@ -10,14 +10,15 @@ import com.github.qky666.selenidepom.pom.shouldLoadRequired
 
 class CookiesBannerWidget(self: SelenideElement) : Widget(self) {
 
-    @Required
-    val decline = LangConditionedElement(
-        find("button#CybotCookiebotDialogBodyButtonDecline"), mapOf("es" to text("Denegar")), false
+    @Required val decline = LangConditionedElement(
+        find("button#CybotCookiebotDialogBodyButtonDecline"),
+        mapOf("es" to text("Denegar")),
+        false,
     )
-
-    @Required
-    val accept = LangConditionedElement(
-        find("button#CybotCookiebotDialogBodyButtonAccept"), mapOf("es" to text("Permitir todas")), false
+    @Required val accept = LangConditionedElement(
+        find("button#CybotCookiebotDialogBodyButtonAccept"),
+        mapOf("es" to text("Permitir todas")),
+        false,
     )
 
     fun acceptCookies() {

@@ -10,13 +10,7 @@ import org.testng.annotations.Test
 @CucumberOptions(
     features = ["@build/test-results/cucumber/failed_scenarios.txt"],
     glue = ["{{ cookiecutter.group }}.cucumber.steps"],
-    plugin = [
-        "{{ cookiecutter.group }}.cucumber.listener.CucumberListener",
-        "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-        "pretty",
-        "json:build/test-results/cucumber/rerun.json",
-        "rerun:build/test-results/cucumber/failed_again_scenarios.txt"
-    ],
+    plugin = ["{{ cookiecutter.group }}.cucumber.listener.CucumberListener", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm", "pretty", "json:build/test-results/cucumber/rerun.json", "rerun:build/test-results/cucumber/failed_again_scenarios.txt"],
     tags = "not @skip",
 )
 class CucumberTestNgFailedTestRunner : AbstractTestNGCucumberTests(), Logging {

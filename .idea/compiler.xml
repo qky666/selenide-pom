@@ -11,6 +11,6 @@
         <module name="selenide-pom.test" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="20" />
   </component>
 </project>

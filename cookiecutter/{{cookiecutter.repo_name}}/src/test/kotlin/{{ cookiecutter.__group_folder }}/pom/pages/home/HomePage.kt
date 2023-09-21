@@ -20,27 +20,21 @@ class HomePage : MainFramePage() {
 
 class MainBannerWidget(self: SelenideElement) : Widget(self) {
     @Required val title = LangConditionedElement(
-        find("h1"),
-        mapOf(
+        find("h1"), mapOf(
             "es" to "MTP, referencia en aseguramiento de negocios digitales",
             "en" to "MTP ensures quality digital public services"
         )
     )
 
     @Required val text = LangConditionedElement(
-        find("p"),
-        mapOf(
+        find("p"), mapOf(
             "es" to "Acompañamos a nuestros clientes en su transformación digital y asegurando la calidad de software, experiencia de usuario, seguridad y los desarrollos durante todo el ciclo de vida.",
             "en" to "MTP, the drive for the digital transformation of public administrations"
         )
     )
 
     @Required val moreInfo = LangConditionedElement(
-        find("a"),
-        mapOf(
-            "es" to "Más información",
-            "en" to "More information"
-        )
+        find("a"), mapOf("es" to "Más información", "en" to "More information")
     )
 }
 

@@ -78,15 +78,12 @@ class MtpStepsDefinition : Es, Logging {
                 searchResultsPage.pagination.pagesLinks.shouldHave(size(resultsPages))[resultsPages - 2].shouldHave(
                     exactText(resultsPages.toString())
                 )
-            } else {
-                searchResultsPage.pagination.shouldNotBe(visible)
-            }
+            } else searchResultsPage.pagination.shouldNotBe(visible)
         }
 
         Cuando("Se navega a la página {int} de {int} de resultados de la búsqueda") { page: Int, totalPages: Int ->
-            if (totalPages == 1 && page == 1) {
-                searchResultsPage.shouldLoadRequired().pagination.shouldNotBe(visible)
-            } else {
+            if (totalPages == 1 && page == 1) searchResultsPage.shouldLoadRequired().pagination.shouldNotBe(visible)
+            else {
                 searchResultsPage.shouldLoadRequired().pagination.shouldLoadRequired().pagesLinks.find(exactText(page.toString()))
                     .click()
                 searchResultsPage.shouldLoadRequired().pagination.shouldLoadRequired().currentPage.shouldHave(
@@ -96,9 +93,8 @@ class MtpStepsDefinition : Es, Logging {
         }
 
         Entonces("La página mostrada es la última del total de {int} páginas de resultados de la búsqueda") { totalPages: Int ->
-            if (totalPages == 1) {
-                searchResultsPage.shouldLoadRequired().pagination.shouldNotBe(visible)
-            } else {
+            if (totalPages == 1) searchResultsPage.shouldLoadRequired().pagination.shouldNotBe(visible)
+            else {
                 searchResultsPage.shouldLoadRequired().pagination.nextPage.should(disappear)
                 searchResultsPage.pagination.previousPage.shouldBe(visible)
             }
@@ -116,11 +112,8 @@ class MtpStepsDefinition : Es, Logging {
                 searchResultsPage.shouldLoadRequired().searchResults.filterBy(text(search)).shouldHave(size(1))[0]
             result.title.shouldHave(exactText(search))
 
-            if (textBody.isNotEmpty()) {
-                result.text.shouldHave(text(textBody))
-            } else {
-                result.text.shouldNotBe(visible)
-            }
+            if (textBody.isNotEmpty()) result.text.shouldHave(text(textBody))
+            else result.text.shouldNotBe(visible)
         }
     }
 }

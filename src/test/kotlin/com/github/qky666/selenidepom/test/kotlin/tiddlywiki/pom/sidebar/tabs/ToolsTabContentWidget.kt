@@ -338,6 +338,7 @@ class ToolItem(
 
     @Required val description = LangConditionedElement(find("i"), descriptionConditions, strict)
 
+    @Suppress("RedundantValueArgument")
     constructor(
         self: SelenideElement,
         buttonTexts: Map<String, String> = mapOf(),
