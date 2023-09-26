@@ -307,12 +307,13 @@ interface Loadable {
             return try {
                 if (scroll) collection.first().scrollIntoView(scrollString)
                 val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                val filteredSize = filtered.size
                 val collectionLog = collection.toString().replace("\n", "\\n")
                 logger.debug { "Checked at least one element $elementName in $klassName is visible (ElementsCollection): $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filtered' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
-                while (i < filtered.size) {
+                while (i < filtered.size && i < filteredSize) {
                     val element = filtered[i]
                     if (scroll) element.scrollIntoView(scrollString)
                     errors.addAll(objectShouldLoadRequired(element, end, model, lang))
@@ -338,12 +339,13 @@ interface Loadable {
             return try {
                 if (scroll) widgetsCollection.first().scrollIntoView(scrollString)
                 val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
+                val filteredElementsSize = filteredElements.size
                 val collectionLog = widgetsCollection.toString().replace("\n", "\\n")
                 logger.debug { "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filteredElements' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
-                while (i < filteredElements.size) {
+                while (i < filteredElements.size && i < filteredElementsSize) {
                     val widget = filteredElements[i]
                     if (scroll) widget.scrollIntoView(scrollString)
                     errors.addAll(objectShouldLoadRequired(widget, end, model, lang))
