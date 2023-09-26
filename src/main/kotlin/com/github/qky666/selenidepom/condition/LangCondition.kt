@@ -15,14 +15,9 @@ fun langCondition(conditions: Map<String, Condition>, strict: Boolean = true): C
             return try {
                 conditions.getValue(SPConfig.lang).check(driver, element)
             } catch (e: NoSuchElementException) {
-                if (strict) {
-                    throw ConditionNotDefinedError(
-                        LangConditionedElement(Selenide.element(element), conditions),
-                        SPConfig.lang
-                    )
-                } else {
-                    CheckResult(true, null)
-                }
+                val selenideElement = LangConditionedElement(Selenide.element(element), conditions)
+                if (strict) throw ConditionNotDefinedError(selenideElement, SPConfig.lang)
+                else CheckResult(true, null)
             }
         }
     }

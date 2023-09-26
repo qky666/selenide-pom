@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar
 
-import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Condition.cssClass
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
@@ -15,18 +15,14 @@ import java.time.Duration
 @Suppress("MemberVisibilityCanBePrivate")
 class SidebarWidget(self: SelenideElement) : Widget(self) {
     @Required val title = LangConditionedElement(
-        find("h1.tc-site-title"),
-        mapOf(
-            "en" to "My TiddlyWiki",
-            "es" to "Mi TiddlyWiki"
+        find("h1.tc-site-title"), mapOf(
+            "en" to "My TiddlyWiki", "es" to "Mi TiddlyWiki"
         )
     )
 
     @Required val subtitle = LangConditionedElement(
-        find(".tc-site-subtitle"),
-        mapOf(
-            "en" to "a non-linear personal web notebook",
-            "es" to "Cuaderno de notas personal no-lineal en la web"
+        find(".tc-site-subtitle"), mapOf(
+            "en" to "a non-linear personal web notebook", "es" to "Cuaderno de notas personal no-lineal en la web"
         )
     )
 
@@ -51,34 +47,26 @@ class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
     @Required val selectedTabButton = find("div.tc-tab-buttons button.tc-tab-selected")
 
     @Required val openTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 0),
-        mapOf(
-            "en" to "Open",
-            "es" to "Abiertos"
+        find("div.tc-tab-buttons button", 0), mapOf(
+            "en" to "Open", "es" to "Abiertos"
         )
     )
 
     @Required val recentTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 1),
-        mapOf(
-            "en" to "Recent",
-            "es" to "Recientes"
+        find("div.tc-tab-buttons button", 1), mapOf(
+            "en" to "Recent", "es" to "Recientes"
         )
     )
 
     @Required val toolsTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 2),
-        mapOf(
-            "en" to "Tools",
-            "es" to "Herramientas"
+        find("div.tc-tab-buttons button", 2), mapOf(
+            "en" to "Tools", "es" to "Herramientas"
         )
     )
 
     @Required val moreTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 3),
-        mapOf(
-            "en" to "More",
-            "es" to "Más"
+        find("div.tc-tab-buttons button", 3), mapOf(
+            "en" to "More", "es" to "Más"
         )
     )
 
@@ -96,10 +84,8 @@ class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
 
     override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
         super.customShouldLoadRequired(timeout, model, lang)
-        for ((tabButton, tabContent) in tabButtonToTabContentMap) {
-            if (tabButton.has(Condition.cssClass("tc-tab-selected"))) {
-                tabContent.shouldLoadRequired(timeout, model, lang)
-            }
+        tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
+            if (tabButton.has(cssClass("tc-tab-selected"))) tabContent.shouldLoadRequired(timeout, model, lang)
         }
     }
 }

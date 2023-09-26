@@ -252,9 +252,7 @@ class WidgetsCollection<T : Widget>(
  * @return The [CollectionSource] associated
  */
 fun <T : ElementsCollection> T.getCollectionSource(): CollectionSource {
-    if (this is WidgetsCollection<*>) {
-        return this.collectionSource
-    }
+    if (this is WidgetsCollection<*>) return this.collectionSource
     val field = this::class.memberProperties.find { it.name == "collection" }
     field!!.isAccessible = true
     return field.javaField!!.get(this) as CollectionSource

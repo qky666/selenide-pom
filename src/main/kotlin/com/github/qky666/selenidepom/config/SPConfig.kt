@@ -5,10 +5,13 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.WebDriverRunner
+import com.github.qky666.selenidepom.config.SPConfig.lang
+import com.github.qky666.selenidepom.config.SPConfig.model
+import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import java.util.Properties
+import java.util.*
 
 private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
 private const val DEFAULT_MODEL = "default"
@@ -32,18 +35,14 @@ object SPConfig {
     private val fileProperties = Properties()
 
     init {
-        val inputStream =
-            Thread.currentThread().contextClassLoader.getResourceAsStream(SELENIDE_POM_PROPERTIES_FILENAME)
-        if (inputStream != null) {
-            fileProperties.load(inputStream)
-        }
+        val classLoader = Thread.currentThread().contextClassLoader
+        val inputStream = classLoader.getResourceAsStream(SELENIDE_POM_PROPERTIES_FILENAME)
+        if (inputStream != null) fileProperties.load(inputStream)
     }
 
     private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
-        val initial = System.getProperty(
-            "selenide-pom.model",
-            fileProperties.getProperty("selenide-pom.model", DEFAULT_MODEL)
-        )
+        val default = fileProperties.getProperty("selenide-pom.model", DEFAULT_MODEL)
+        val initial = System.getProperty("selenide-pom.model", default)
         logger.debug { "Initial value for SPConfig.model: $initial" }
         initial
     }
@@ -62,10 +61,8 @@ object SPConfig {
         }
 
     private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
-        val initial = System.getProperty(
-            "selenide-pom.lang",
-            fileProperties.getProperty("selenide-pom.lang", DEFAULT_LANG)
-        )
+        val default = fileProperties.getProperty("selenide-pom.lang", DEFAULT_LANG)
+        val initial = System.getProperty("selenide-pom.lang", default)
         logger.debug { "Initial value for SPConfig.lang: $initial" }
         initial
     }
@@ -116,7 +113,7 @@ object SPConfig {
     @JvmOverloads
     fun setupBasicDesktopBrowser(
         browser: String = selenideConfig.browser(),
-        model: String = DEFAULT_DESKTOP_MODEL
+        model: String = DEFAULT_DESKTOP_MODEL,
     ) {
         selenideConfig.browser(browser)
         SPConfig.model = model

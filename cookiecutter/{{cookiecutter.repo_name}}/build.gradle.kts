@@ -103,8 +103,9 @@ tasks.compileTestJava {
 }
 
 task<PythonTask>("allureCombine") {
-    val buildDirectory = layout.buildDirectory.asFile.get()
-    command =
-        "-m allure_combine.combine $buildDirectory/reports/allure-report/allureReport --dest $buildDirectory/reports/allure-combine --auto-create-folders --remove-temp-files"
+    val buildDir = layout.buildDirectory.asFile.get()
+    val reportDir = "$buildDir/reports/allure-report/allureReport"
+    val combineDir = "$buildDir/reports/allure-combine"
+    command = "-m allure_combine.combine $reportDir --dest $combineDir --auto-create-folders --remove-temp-files"
     dependsOn.add("allureReport")
 }

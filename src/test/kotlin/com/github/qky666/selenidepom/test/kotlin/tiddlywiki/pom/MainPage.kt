@@ -29,9 +29,7 @@ open class MainPage : Page() {
 
     override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
         super.customShouldLoadRequired(timeout, model, lang)
-        if (hideSidebar.isDisplayed) {
-            sidebar.shouldLoadRequired(timeout, model, lang)
-        }
+        if (hideSidebar.isDisplayed) sidebar.shouldLoadRequired(timeout, model, lang)
     }
 }
 

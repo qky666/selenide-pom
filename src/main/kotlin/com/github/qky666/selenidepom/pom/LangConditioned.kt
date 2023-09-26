@@ -46,15 +46,10 @@ fun <T : LangConditioned> T.shouldMeetCondition(
     try {
         val condition = conditions.getValue(lang)
         this.should(condition, timeout)
-        logger.debug {
-            "Checked condition '$condition' (language '$lang') in element '${
-                this.toString().replace("\n", "\\n")
-            }'"
-        }
+        val elementLog = this.toString().replace("\n", "\\n")
+        logger.debug { "Checked condition '$condition' (language '$lang') in element '$elementLog'" }
     } catch (e: NoSuchElementException) {
-        if (strict) {
-            throw ConditionNotDefinedError(this, lang)
-        }
+        if (strict) throw ConditionNotDefinedError(this, lang)
     }
     return this
 }

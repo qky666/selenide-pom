@@ -38,8 +38,7 @@ class InternalTest {
         Assertions.assertEquals("https://sample.com", TestData.input.getProperty("data.input.baseUrl"))
         Assertions.assertEquals("internal-prod", TestData.env)
         Assertions.assertEquals(
-            listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"),
-            TestData.propertiesFiles
+            listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"), TestData.propertiesFiles
         )
     }
 
@@ -50,9 +49,7 @@ class InternalTest {
         Assertions.assertEquals("", TestData.input.getProperty("data.input.testThree"))
         TestData.init(
             listOf(
-                DEFAULT_DATA_PROPERTIES_FILENAME,
-                "data/low-priority.properties",
-                "data/high-priority.properties"
+                DEFAULT_DATA_PROPERTIES_FILENAME, "data/low-priority.properties", "data/high-priority.properties"
             )
         )
         Assertions.assertEquals("testOne_high", TestData.input.getProperty("data.input.testOne"))

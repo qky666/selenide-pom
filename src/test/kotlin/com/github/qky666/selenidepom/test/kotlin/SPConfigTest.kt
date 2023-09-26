@@ -31,10 +31,8 @@ class SPConfigTest {
     fun mobileEmulationTest() {
         SPConfig.setupBasicMobileBrowser()
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals(
-            "chrome",
-            SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
-        )
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
             "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
@@ -46,10 +44,8 @@ class SPConfigTest {
         val deviceName = "Nexus 4"
         SPConfig.setupBasicMobileBrowser(deviceName)
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals(
-            "chrome",
-            SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
-        )
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
             "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
@@ -120,7 +116,8 @@ class SPConfigTest {
         SPConfig.setupBasicMobileBrowser()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
             "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
@@ -140,7 +137,8 @@ class SPConfigTest {
         SPConfig.setupBasicMobileBrowser(deviceName, model)
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals("chrome", SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
             "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
@@ -158,7 +156,8 @@ class SPConfigTest {
         SPConfig.setupBasicDesktopBrowser()
 
         Assertions.assertEquals("chrome", SPConfig.selenideConfig.browser())
-        Assertions.assertEquals(null, SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals(null, browserName)
         Assertions.assertEquals(DEFAULT_DESKTOP_MODEL, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
@@ -174,7 +173,8 @@ class SPConfigTest {
         SPConfig.setupBasicDesktopBrowser(browser, model)
 
         Assertions.assertEquals(browser, SPConfig.selenideConfig.browser())
-        Assertions.assertEquals(null, SPConfig.selenideConfig.browserCapabilities().getCapability("browserName"))
+        val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
+        Assertions.assertEquals(null, browserName)
         Assertions.assertEquals(model, SPConfig.model)
 
         val createdDriver = SPConfig.setCurrentThreadDriver()
