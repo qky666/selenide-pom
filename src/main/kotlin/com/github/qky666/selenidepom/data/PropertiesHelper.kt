@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.data
 
-import java.util.Properties
+import java.util.*
 
 const val PROJECT_PROPERTIES_FILENAME = "project.properties"
 

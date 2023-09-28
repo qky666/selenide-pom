@@ -11,7 +11,8 @@ import com.codeborne.selenide.ex.UIAssertionError
  */
 class RequiredError(errors: List<Throwable>) : UIAssertionError(
     WebDriverRunner.driver(),
-    "Required elements not found in page or screen, or custom page load validation errors found: ${errors.size} errors. See suppressed errors"
+    "Required elements not found in page or screen, or custom page load validation errors found: " +
+            "${errors.size} errors. See suppressed errors"
 ) {
     init {
         errors.forEach { this.addSuppressed(it) }

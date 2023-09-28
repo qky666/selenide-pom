@@ -1,3 +1,5 @@
+@file:Suppress("LongLine")
+
 package com.github.qky666.selenidepom.test.kotlin
 
 import org.junit.platform.engine.ConfigurationParameters

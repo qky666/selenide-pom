@@ -1,7 +1,10 @@
+@file:Suppress("DEPRECATION")
+
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Container
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.Selenide.element
@@ -35,12 +38,14 @@ private val logger = KotlinLogging.logger {}
 interface Loadable {
 
     /**
-     * You can override this method to define custom validations performed when [shouldLoadRequired] or [hasLoadedRequired]
-     * are executed. The default implementation does nothing.
+     * You can override this method to define custom validations performed when [shouldLoadRequired]
+     * or [hasLoadedRequired] are executed. The default implementation does nothing.
      *
      * @param timeout the timeout for the operation. The internal logic of the method should be aware of this timeout
-     * @param model the `model` that should be used for the validations. The internal logic of the method should be aware of this `model`
-     * @param lang the `language` that should be used for the validations. The internal logic of the method should be aware of this `language`
+     * @param model the `model` that should be used for the validations. The internal logic of the method
+     * should be aware of this `model`
+     * @param lang the `language` that should be used for the validations. The internal logic of the method
+     * should be aware of this `language`
      */
     @Throws(Throwable::class)
     fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
@@ -56,7 +61,10 @@ interface Loadable {
             val objKlassName: String = objKlass.simpleName ?: "null"
 
             val allKlass = getAllSuperKlass(objKlass).filter {
-                it.isSubclassOf(Loadable::class) or it.isSubclassOf(ElementsContainer::class)
+                val loadable = { it.isSubclassOf(Loadable::class) }
+                val elementsContainer = { it.isSubclassOf(ElementsContainer::class) }
+                val container = { it.isSubclassOf(Container::class) }
+                loadable() || elementsContainer() || container()
             }
             val processedNames = mutableListOf<String>()
             for (currentKlass in allKlass) {
@@ -66,7 +74,9 @@ interface Loadable {
                         it.isAccessible = true
                         logger.debug { "Property (Kotlin)/field (Java) $it made accessible" }
                     } catch (ignored: Exception) {
-                        logger.debug { "Cannot make accessible property (Kotlin)/field (Java) $it. Ignored exception: $ignored" }
+                        val message =
+                            "Cannot make accessible property (Kotlin)/field (Java) $it. Ignored exception: $ignored"
+                        logger.debug { message }
                         return@forEach
                     }
                     if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
@@ -81,7 +91,9 @@ interface Loadable {
                                 // Using @Getter(lazy=true). Use getter method
                                 element = currentKlass.members.first { member ->
                                     member.name == "get" + it.name.replaceFirstChar { first ->
-                                        if (first.isLowerCase()) first.titlecase(Locale.getDefault()) else first.toString()
+                                        if (first.isLowerCase()) {
+                                            first.titlecase(Locale.getDefault())
+                                        } else first.toString()
                                     }
                                 }.call(obj)
                             }
@@ -114,11 +126,15 @@ interface Loadable {
                     }
                 }
                 // Methods: second, validate annotated functions with more than one parameter
-                currentKlass.functions.filter { it.isAccessible and it.hasAnnotation<Required>() and (it.parameters.size > 1) }
-                    .forEach {
-                        it.parameters.filterIndexed { index, _ -> index > 0 }
-                            .forEach { param -> assert(param.isOptional) { "Method $it is annotated as Required but has a parameter $param without default value" } }
+                currentKlass.functions.filter {
+                    it.isAccessible and it.hasAnnotation<Required>() and (it.parameters.size > 1)
+                }.forEach {
+                    it.parameters.filterIndexed { index, _ -> index > 0 }.forEach { param ->
+                        assert(param.isOptional) {
+                            "Method $it is annotated as Required but has a parameter $param without default value"
+                        }
                     }
+                }
                 // Methods: third, process
                 currentKlass.functions.filter { it.isAccessible and (it.parameters.isNotEmpty()) }.forEach {
                     if (!processedNames.contains(it.name) and it.hasAnnotation<Required>()) {
@@ -180,7 +196,6 @@ interface Loadable {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName, scroll, scrollString)
-
                 is LangConditioned -> langConditionedShouldLoad(
                     element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
@@ -201,6 +216,7 @@ interface Loadable {
                     element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
+                is Container -> objectShouldLoadRequired(element, end, model, lang)
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
                 is WebElement -> webElementShouldLoad(
                     element, end, model, lang, klassName, elementName, scroll, scrollString
@@ -308,8 +324,9 @@ interface Loadable {
                 if (scroll) collection.first().scrollIntoView(scrollString)
                 val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 val filteredSize = filtered.size
+                val checked = "Checked at least one element $elementName in $klassName is visible (ElementsCollection)"
                 val collectionLog = collection.toString().replace("\n", "\\n")
-                logger.debug { "Checked at least one element $elementName in $klassName is visible (ElementsCollection): $collectionLog" }
+                logger.debug { "$checked: $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filtered' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
@@ -340,8 +357,9 @@ interface Loadable {
                 if (scroll) widgetsCollection.first().scrollIntoView(scrollString)
                 val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
                 val filteredElementsSize = filteredElements.size
+                val checked = "Checked at least one element $elementName in $klassName is visible (WidgetsCollection)"
                 val collectionLog = widgetsCollection.toString().replace("\n", "\\n")
-                logger.debug { "Checked at least one element $elementName in $klassName is visible (WidgetsCollection): $collectionLog" }
+                logger.debug { "$checked: $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filteredElements' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
@@ -372,7 +390,9 @@ interface Loadable {
                 if (scroll) container.self.scrollIntoView(scrollString)
                 container.self.shouldBe(visible, timeout)
                 val containerLog = container.self.toString().replace("\n", "\\n")
-                logger.debug { "Checked element $elementName in $klassName is visible (ElementsContainer): $containerLog" }
+                logger.debug {
+                    "Checked element $elementName in $klassName is visible (ElementsContainer): $containerLog"
+                }
                 objectShouldLoadRequired(container, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
@@ -406,13 +426,15 @@ interface Loadable {
 
 /**
  * All properties with [Required] annotation are checked if visible. Returns `this`.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality
+ * (custom additional checks).
  *
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView].
+ * Default value: {behavior: "auto", block: "center", inline: "center"}
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
  */
@@ -428,20 +450,24 @@ fun <T : Loadable> T.shouldLoadRequired(
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting shouldLoadRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    val errors = Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", scroll, scrollString)
+    val errors = Loadable.elementShouldLoad(
+        this, end, model, lang, className, "class_$className", scroll, scrollString
+    )
     if (errors.isNotEmpty()) throw RequiredError(errors)
     return this
 }
 
 /**
  * Returns `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise.
- * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality (custom additional checks).
+ * You can override [Loadable.customShouldLoadRequired] method to add some extra functionality
+ * (custom additional checks).
  *
  * @param timeout the timeout waiting for elements to become visible. Default value: Selenide's timeout
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView].
+ * Default value: {behavior: "auto", block: "center", inline: "center"}
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
 @Suppress("BooleanMethodIsAlwaysInverted")
@@ -456,5 +482,7 @@ fun <T : Loadable> T.hasLoadedRequired(
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
-    return Loadable.elementShouldLoad(this, end, model, lang, className, "root", scroll, scrollString).isEmpty()
+    return Loadable.elementShouldLoad(
+        this, end, model, lang, className, "root", scroll, scrollString
+    ).isEmpty()
 }

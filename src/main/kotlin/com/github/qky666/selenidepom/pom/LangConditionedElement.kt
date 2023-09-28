@@ -10,27 +10,28 @@ import com.codeborne.selenide.SelenideElement
  * Can be helpful in all kind of web pages, but specially in those that are available in more than one language.
  *
  * @param self the [SelenideElement]
- * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition] for [self] in each language
- * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is no met
+ * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition]
+ * for [self] in each language
+ * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
+ * that condition is not met
  */
 open class LangConditionedElement(
     private val self: SelenideElement,
     override val conditions: Map<String, Condition>,
-    override val strict: Boolean = true
+    override val strict: Boolean = true,
 ) : SelenideElement by self, LangConditioned {
 
     /**
      * Creates a new instance using provided [exactTexts].
-     * The [LangConditionedElement] created is the same as if [Condition.exactText] is applied to every value in [exactTexts].
+     * The [LangConditionedElement] created is the same as if [Condition.exactText] is applied to every value
+     * in [exactTexts].
      *
      * @param self the [SelenideElement]
      * @param exactTexts the map of expected exact text for [self] in each language
      */
     @Suppress("RedundantValueArgument")
     constructor(self: SelenideElement, exactTexts: Map<String, String>) : this(
-        self,
-        exactTexts.mapValues { Condition.exactText(it.value) },
-        true
+        self, exactTexts.mapValues { Condition.exactText(it.value) }, true
     )
 
     /**
@@ -40,12 +41,11 @@ open class LangConditionedElement(
      *
      * @param self the [SelenideElement]
      * @param condition the expected [Condition] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is no met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
+     * that condition is not met
      */
     constructor(self: SelenideElement, condition: Condition, strict: Boolean = true) : this(
-        self,
-        mapOf<String, Condition>().withDefault { condition },
-        strict
+        self, mapOf<String, Condition>().withDefault { condition }, strict
     )
 
     /**
@@ -54,11 +54,10 @@ open class LangConditionedElement(
      *
      * @param self the [SelenideElement]
      * @param exactText the expected [Condition.exactText] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is no met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
+     * that condition is not met
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
-        self,
-        mapOf<String, Condition>().withDefault { Condition.exactText(exactText) },
-        strict
+        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
     )
 }

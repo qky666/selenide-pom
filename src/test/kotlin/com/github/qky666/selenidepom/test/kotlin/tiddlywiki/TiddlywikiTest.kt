@@ -1,3 +1,5 @@
+@file:Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+
 package com.github.qky666.selenidepom.test.kotlin.tiddlywiki
 
 import com.codeborne.selenide.ClickOptions
@@ -7,6 +9,7 @@ import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.exactValue
 import com.codeborne.selenide.Condition.not
 import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Container
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.HoverOptions
@@ -108,12 +111,13 @@ class TiddlywikiTest {
                 @Required val doExistsBy = By.cssSelector("body")
             }), Arguments.of("chromeMobile", "es", true, object : MainPage() {
                 @Required val badElementsContainer = object : ElementsContainer() {
+                    @Deprecated("Deprecated in Java")
                     override fun getSelf(): SelenideElement {
                         return find("no-exists", 1)
                     }
                 }
-
                 @Required val goodElementsContainer = object : ElementsContainer() {
+                    @Deprecated("Deprecated in Java")
                     override fun getSelf(): SelenideElement {
                         return find(By.xpath(".//body"), 0)
                     }
@@ -186,6 +190,13 @@ class TiddlywikiTest {
             }), Arguments.of("firefox", "en", false, object : MainPage() {
                 @Required val langConditionedElement =
                     LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
+            }), Arguments.of("chrome", "es", true, object : MainPage() {
+                @Required val badContainer = object : Container {
+                    @Required val noExists = find("no-exists")
+                }
+                @Required val goodContainer = object : Container {
+                    @Required val body = find("body")
+                }
             }))
         }
 
@@ -246,7 +257,7 @@ class TiddlywikiTest {
         setupSite(browserConfig, lang)
         val firstTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
         // GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired()
-        GettingStartedTiddlerViewWidget(Page.Companion.findAll(listOf(firstTiddler.toWebElement()))[0]).shouldLoadRequired()
+        GettingStartedTiddlerViewWidget(Page.findAll(listOf(firstTiddler.toWebElement()))[0]).shouldLoadRequired()
 
         mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(1))
         mainPage.sidebar.sidebarTabs.openTabContent.closeAll.click(ClickOptions.usingJavaScript())
@@ -298,7 +309,7 @@ class TiddlywikiTest {
         mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
-        // Selenide helpers for shadow dom not working here (do not know the reason), so we do it the hard way with switchTo
+        // Selenide helpers for shadow dom not working here (do not know why), so we do it the hard way with switchTo
         val webdriver = SPConfig.getCurrentWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)
@@ -342,7 +353,7 @@ class TiddlywikiTest {
         mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
-        // Selenide helpers for shadow dom not working here (do not know the reason), so we do it the hard way with switchTo
+        // Selenide helpers for shadow dom not working here (do not know why), so we do it the hard way with switchTo
         val webdriver = SPConfig.getCurrentWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)

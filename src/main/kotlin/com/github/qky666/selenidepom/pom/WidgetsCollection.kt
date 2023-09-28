@@ -233,7 +233,8 @@ class WidgetsCollection<T : Widget>(
      *
      *
      * Caution: you probably don't need this method.
-     * It's always a good idea to have the actual selector instead of "nice" description (which might be misleading or even lying).
+     * It's always a good idea to have the actual selector instead of "nice" description
+     * (which might be misleading or even lying).
      *
      * @param alias a human-readable name of this collection (null or empty string not allowed)
      * @return this collection
