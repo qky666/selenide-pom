@@ -54,7 +54,10 @@ interface Loadable {
     companion object {
 
         private fun objectShouldLoadRequired(
-            obj: Any, end: LocalDateTime, model: String, lang: String,
+            obj: Any,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
         ): List<Throwable> {
             val errors = mutableListOf<Throwable>()
             val objKlass = obj::class
@@ -74,8 +77,7 @@ interface Loadable {
                         it.isAccessible = true
                         logger.debug { "Property (Kotlin)/field (Java) $it made accessible" }
                     } catch (ignored: Exception) {
-                        val message =
-                            "Cannot make accessible property (Kotlin)/field (Java) $it. Ignored exception: $ignored"
+                        val message = "Cannot make accessible property/field $it. Ignored exception: $ignored"
                         logger.debug { message }
                         return@forEach
                     }
@@ -91,24 +93,17 @@ interface Loadable {
                                 // Using @Getter(lazy=true). Use getter method
                                 element = currentKlass.members.first { member ->
                                     member.name == "get" + it.name.replaceFirstChar { first ->
-                                        if (first.isLowerCase()) {
-                                            first.titlecase(Locale.getDefault())
-                                        } else first.toString()
+                                        if (first.isLowerCase()) first.titlecase(Locale.getDefault())
+                                        else first.toString()
                                     }
                                 }.call(obj)
                             }
                             val annotation = annotations.first()
+                            val scroll = annotation.scroll
+                            val scrollString = annotation.scrollString
+                            val name = it.name
                             errors.addAll(
-                                elementShouldLoad(
-                                    element,
-                                    end,
-                                    model,
-                                    lang,
-                                    objKlassName,
-                                    it.name,
-                                    annotation.scroll,
-                                    annotation.scrollString
-                                )
+                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, scrollString)
                             )
                         }
                     }
@@ -131,7 +126,7 @@ interface Loadable {
                 }.forEach {
                     it.parameters.filterIndexed { index, _ -> index > 0 }.forEach { param ->
                         assert(param.isOptional) {
-                            "Method $it is annotated as Required but has a parameter $param without default value"
+                            "Method $it is Required but has a parameter $param without default value"
                         }
                     }
                 }
@@ -146,17 +141,11 @@ interface Loadable {
                         if (annotations.isNotEmpty()) {
                             val element = it.callBy(mapOf(it.parameters[0] to obj))
                             val annotation = annotations.first()
+                            val scroll = annotation.scroll
+                            val scrollString = annotation.scrollString
+                            val name = it.name
                             errors.addAll(
-                                elementShouldLoad(
-                                    element,
-                                    end,
-                                    model,
-                                    lang,
-                                    objKlassName,
-                                    it.name,
-                                    annotation.scroll,
-                                    annotation.scrollString
-                                )
+                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, scrollString)
                             )
                         }
                     }
@@ -483,6 +472,6 @@ fun <T : Loadable> T.hasLoadedRequired(
     logger.debug { "Starting hasLoadedRequired in $className" }
     val end = LocalDateTime.now().plus(timeout)
     return Loadable.elementShouldLoad(
-        this, end, model, lang, className, "root", scroll, scrollString
+        this, end, model, lang, className, "class_$className", scroll, scrollString
     ).isEmpty()
 }

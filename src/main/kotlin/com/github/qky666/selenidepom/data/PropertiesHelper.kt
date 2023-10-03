@@ -15,9 +15,8 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
     private val properties = Properties()
 
     init {
-        propertiesFiles.forEach {
-            val inputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(it)
-            if (inputStream != null) properties.load(inputStream)
+        propertiesFiles.forEach { file ->
+            Thread.currentThread().contextClassLoader.getResourceAsStream(file)?.let { properties.load(it) }
         }
     }
 

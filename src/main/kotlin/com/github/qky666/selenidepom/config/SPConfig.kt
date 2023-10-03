@@ -155,7 +155,7 @@ object SPConfig {
     @JvmOverloads
     @Synchronized
     fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
-        val driver = (newDriver ?: createDriver())
+        val driver = newDriver ?: createDriver()
 
         val webDriver = driver.getAndCheckWebDriver()
         setCurrentThreadWebDriver(webDriver)
@@ -183,15 +183,14 @@ object SPConfig {
     fun quitCurrentThreadDriver() {
         // Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
         // Closing every window first is safer.
-        val driver = getCurrentWebDriver()
-        if (driver != null) {
-            while (driver.windowHandles.size > 1) {
-                driver.switchTo().window(driver.windowHandles.first())
-                driver.close()
+        getCurrentWebDriver()?.let {
+            while (it.windowHandles.size > 1) {
+                it.switchTo().window(it.windowHandles.first())
+                it.close()
             }
-            if (driver.windowHandles.size > 0) {
-                driver.switchTo().window(driver.windowHandles.first())
-                driver.close()
+            if (it.windowHandles.size > 0) {
+                it.switchTo().window(it.windowHandles.first())
+                it.close()
             }
         }
         Selenide.closeWebDriver()

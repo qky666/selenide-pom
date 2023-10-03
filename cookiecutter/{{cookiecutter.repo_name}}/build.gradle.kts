@@ -13,7 +13,7 @@ plugins {
     kotlin("jvm") version "1.9.10"
     id("com.github.ben-manes.versions") version "0.48.0"
     id("io.qameta.allure") version "2.11.2"
-    id("org.gradle.test-retry") version "1.5.5"
+    id("org.gradle.test-retry") version "1.5.6"
     id("ru.vyarus.use-python") version "3.0.0"
 }
 
