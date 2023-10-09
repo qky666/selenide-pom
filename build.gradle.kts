@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.21.2"
+version = "0.21.3"
 
 val javaVersionNumber = 20
 val javaVersion = JavaVersion.VERSION_20
@@ -10,8 +10,8 @@ plugins {
     // jitpack needs maven-publish plugin
     `maven-publish`
     kotlin("jvm") version "1.9.10"
-    id("io.freefair.lombok") version "8.3"
-    id("com.github.ben-manes.versions") version "0.48.0"
+    id("io.freefair.lombok") version "8.4"
+    id("com.github.ben-manes.versions") version "0.49.0"
 }
 
 publishing {

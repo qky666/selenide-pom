@@ -11,7 +11,7 @@ repositories {
 plugins {
     idea
     kotlin("jvm") version "1.9.10"
-    id("com.github.ben-manes.versions") version "0.48.0"
+    id("com.github.ben-manes.versions") version "0.49.0"
     id("io.qameta.allure") version "2.11.2"
     id("org.gradle.test-retry") version "1.5.6"
     id("ru.vyarus.use-python") version "3.0.0"
@@ -49,7 +49,7 @@ dependencies {
 
 allure {
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-commandline
-    version.set("2.24.0")
+    version.set("2.24.1")
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}

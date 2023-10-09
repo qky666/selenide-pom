@@ -7,6 +7,7 @@ import com.codeborne.selenide.appium.SelenideAppium
 import com.codeborne.selenide.appium.SelenideAppiumElement
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import kotlin.reflect.full.createInstance
 
 /**
  * Instances represent a whole web page.
@@ -15,6 +16,8 @@ import org.openqa.selenium.WebElement
  */
 abstract class Page : Loadable {
     companion object {
+        val pageInstances = mutableMapOf<String, Page>()
+
         /**
          * Same as [Selenide.element] `(cssSelector)`.
          *
@@ -173,4 +176,12 @@ abstract class Page : Loadable {
             return SelenideAppium.`$`(By.xpath(xpathExpression), index)
         }
     }
+}
+
+inline fun <reified T : Page> T.page(): T {
+    val klass = T::class
+    Page.pageInstances[klass.qualifiedName]?.let { return it as T }
+    val instance = klass.createInstance()
+    klass.qualifiedName?.let { Page.pageInstances[it] = instance }
+    return klass.createInstance()
 }
