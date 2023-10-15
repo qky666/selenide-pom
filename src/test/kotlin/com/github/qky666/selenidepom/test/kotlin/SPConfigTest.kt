@@ -11,6 +11,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
+import java.time.Duration
+import java.time.LocalDateTime
+import kotlin.test.assertTrue
 
 class SPConfigTest {
 
@@ -184,9 +187,20 @@ class SPConfigTest {
     }
 
     @Test
-    fun illegalWebDriverTest() {
+    fun illegalWebDriverStateTest() {
         SPConfig.setCurrentThreadDriver()
         Selenide.closeWebDriver()
         Assertions.assertNull(SPConfig.getCurrentWebDriver())
+    }
+
+    @Test
+    fun timeoutFromNowTest() {
+        val now = LocalDateTime.now()
+        val timeoutFromNow = SPConfig.timeoutFromNow()
+        val delta = Duration.ofMillis(100)
+        assertTrue { now <= timeoutFromNow }
+        assertTrue { now + SPConfig.timeout() <= timeoutFromNow }
+        assertTrue { now + Duration.ofMillis(SPConfig.selenideConfig.timeout()) <= timeoutFromNow }
+        assertTrue { now + SPConfig.timeout() + delta > timeoutFromNow }
     }
 }

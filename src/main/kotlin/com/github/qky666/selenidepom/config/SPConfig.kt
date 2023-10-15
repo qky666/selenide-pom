@@ -11,6 +11,8 @@ import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import java.time.Duration
+import java.time.LocalDateTime
 import java.util.*
 
 private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
@@ -172,6 +174,11 @@ object SPConfig {
         return newDriver
     }
 
+    /**
+     * Gets the current thread [WebDriver] and returns it if exists, null if not.
+     *
+     * @return Current thread [WebDriver] or null if it does not exist
+     */
     fun getCurrentWebDriver(): WebDriver? {
         return try {
             WebDriverRunner.getWebDriver()
@@ -180,9 +187,13 @@ object SPConfig {
         }
     }
 
+    /**
+     * Quits the current thread [WebDriver], closing its windows first to avoid problems.
+     *
+     * Note: Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
+     * Closing every window first is safer.
+     */
     fun quitCurrentThreadDriver() {
-        // Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
-        // Closing every window first is safer.
         getCurrentWebDriver()?.let {
             while (it.windowHandles.size > 1) {
                 it.switchTo().window(it.windowHandles.first())
@@ -194,5 +205,24 @@ object SPConfig {
             }
         }
         Selenide.closeWebDriver()
+    }
+
+    /**
+     * Returns current thread Selenide timeout as a [Duration] object.
+     *
+     * @return current thread Selenide timeout
+     */
+    fun timeout(): Duration {
+        return Duration.ofMillis(selenideConfig.timeout())
+    }
+
+    /**
+     * Returns a [LocalDateTime] object that represents the moment when current thread Selenide timeout is reached
+     * (starting from now).
+     *
+     * @return moment when current thread Selenide timeout is reached
+     */
+    fun timeoutFromNow(): LocalDateTime {
+        return LocalDateTime.now() + timeout()
     }
 }
