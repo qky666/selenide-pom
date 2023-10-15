@@ -708,6 +708,6 @@ class TiddlywikiTest {
         setupSite("chrome")
         val startTime = LocalDateTime.now()
         assertTrue { myPage.badElement.has(not(visible), Duration.ofSeconds(5)) }
-        assert(startTime.plusSeconds(3) > LocalDateTime.now())
+        assertTrue { startTime.plusSeconds(3) > LocalDateTime.now() }
     }
 }
