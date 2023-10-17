@@ -11,9 +11,13 @@ import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.io.path.toPath
 
 private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
 private const val DEFAULT_MODEL = "default"
@@ -37,9 +41,12 @@ object SPConfig {
     private val fileProperties = Properties()
 
     init {
-        val classLoader = Thread.currentThread().contextClassLoader
-        val inputStream = classLoader.getResourceAsStream(SELENIDE_POM_PROPERTIES_FILENAME)
-        if (inputStream != null) fileProperties.load(inputStream)
+        val url = Thread.currentThread().contextClassLoader.getResource(SELENIDE_POM_PROPERTIES_FILENAME)
+        val resource = url?.toURI()?.toPath()?.toFile()
+        resource?.let {
+            val input = InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8)
+            fileProperties.load(input)
+        }
     }
 
     private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {

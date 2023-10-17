@@ -4,12 +4,12 @@ const val DEFAULT_DATA_PROPERTIES_FILENAME = "data/default.properties"
 
 /**
  * Object that helps to manage test information:
- * - Input (predefined) test information: stored in properties files, using a [PropertiesHelper].
+ * - Input (predefined) test information stored in properties files, environment variables, using a [PropertiesHelper].
  * - Output (generated during test run) test information: stored in a [MutableMap].
  *
  * All properties in this object are thread safe, so it can be used when tests are run in parallel.
  *
- * You should call [init] in each test before you start using it.
+ * You should call [init] to reset the object in each test before you start using it.
  */
 object TestData {
     private val threadLocalPropertiesFiles = ThreadLocal.withInitial { listOf(DEFAULT_DATA_PROPERTIES_FILENAME) }
