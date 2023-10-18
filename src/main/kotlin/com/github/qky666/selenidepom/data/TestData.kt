@@ -24,28 +24,62 @@ object TestData {
         get() = threadLocalPropertiesFiles.get()
 
     /**
-     * Represents the 'environment' where test is run.
+     * Represents the 'environment' where test is run. Default value: empty string.
      */
     val env: String
         get() = threadLocalEnv.get()
 
     /**
      * The input test data. A [PropertiesHelper] instance.
+     * Usually there is no need to use [input] directly:
+     * [TestData.get], [TestData.set], [reset], [init] should be enough.
      */
     val input: PropertiesHelper
         get() = threadLocalInput.get()
 
     /**
      * The output test data. A [MutableMap] instance.
+     * Usually there is no need to use [input] directly:
+     * [TestData.get], [TestData.set], [reset], [init] should be enough.
      */
     val output: MutableMap<String, Any>
         get() = threadLocalOutput.get()
 
     /**
-     * Output data is reset to an empty [MutableMap].
+     * If key is empty, output data is reset to an empty [MutableMap] and `null` is returned.
+     * If key is not empty, the key in output data is removed and the previous value is returned
+     * (if previous value did not exist, `null` is returned).
+     *
+     * @param key the key to reset in output dictionary
+     * @return previous `output[key]` if existed, `null` otherwise
      */
-    fun resetOutputData() {
-        threadLocalOutput.set(mutableMapOf())
+    fun reset(key: String = ""): Any? {
+        if (key.isNotEmpty()) {
+            return output.remove(key)
+        } else {
+            threadLocalOutput.set(mutableMapOf())
+        }
+        return null
+    }
+
+    /**
+     * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
+     *
+     * @param key the key
+     * @return `output[key]` if exists, `input.getProperty(key)` otherwise
+     */
+    fun get(key: String): Any {
+        return output[key] ?: input.getProperty(key)
+    }
+
+    /**
+     * Sets `output[key]` to provided value.
+     *
+     * @param key the key
+     * @param value the value
+     */
+    fun set(key: String, value: Any) {
+        output[key] = value
     }
 
     /**
@@ -57,7 +91,7 @@ object TestData {
         threadLocalEnv.set("")
         threadLocalPropertiesFiles.set(files)
         threadLocalInput.set(PropertiesHelper(files))
-        resetOutputData()
+        reset()
     }
 
     /**
@@ -78,6 +112,6 @@ object TestData {
         threadLocalEnv.set(env)
         threadLocalPropertiesFiles.set(files)
         threadLocalInput.set(PropertiesHelper(files))
-        resetOutputData()
+        reset()
     }
 }

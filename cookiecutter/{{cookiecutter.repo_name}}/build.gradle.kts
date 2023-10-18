@@ -18,7 +18,7 @@ plugins {
 }
 
 dependencies {
-    val log4jVersion = "2.20.0"
+    val log4jVersion = "2.21.0"
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
@@ -43,13 +43,13 @@ dependencies {
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
-    testImplementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
+    testImplementation("org.apache.logging.log4j:log4j-api-kotlin:1.3.0")
     testImplementation(kotlin("test"))
 }
 
 allure {
-    // https://mvnrepository.com/artifact/io.qameta.allure/allure-commandline
-    version.set("2.24.1")
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
+    version.set("2.24.0")
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
@@ -67,6 +67,9 @@ kotlin {
 }
 
 python {
+    minPythonVersion = "3.12.0"
+    minPipVersion = "23.2.1"
+    virtualenvVersion = "20.24.5"
     pip("allure-combine:1.0.11")
 }
 
@@ -92,6 +95,21 @@ tasks.test {
     }
 {% endif %}
 {%- print("") -%}
+    System.getProperties().forEach { property, value ->
+        val propString = property.toString()
+        val valueString = value.toString()
+        listOf("project.", "data.", "selenide.", "selenide-pom.", "allure.").forEach {
+            if (propString.startsWith(it, true)) {
+                systemProperty(propString, valueString)
+            }
+        }
+        listOf("param.", "parameter.").forEach {
+            if (propString.startsWith(it, true)) {
+                val newPropString = propString.replaceFirst(it, "", true)
+                systemProperty(newPropString, valueString)
+            }
+        }
+    }
 }
 
 tasks.compileTestKotlin {

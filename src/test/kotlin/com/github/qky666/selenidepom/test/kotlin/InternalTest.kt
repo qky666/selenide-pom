@@ -33,9 +33,9 @@ class InternalTest {
 
     @Test
     fun verifyProdInputTestData() {
-        Assertions.assertEquals("", TestData.input.getProperty("data.input.baseUrl"))
+        Assertions.assertEquals("", TestData.get("data.input.baseUrl"))
         TestData.init("internal-prod")
-        Assertions.assertEquals("https://sample.com", TestData.input.getProperty("data.input.baseUrl"))
+        Assertions.assertEquals("https://sample.com", TestData.get("data.input.baseUrl"))
         Assertions.assertEquals("internal-prod", TestData.env)
         Assertions.assertEquals(
             listOf(DEFAULT_DATA_PROPERTIES_FILENAME, "data/internal-prod.properties"), TestData.propertiesFiles
@@ -44,26 +44,26 @@ class InternalTest {
 
     @Test
     fun verifyInputTestDataPriority() {
-        Assertions.assertEquals("", TestData.input.getProperty("data.input.testOne"))
-        Assertions.assertEquals("", TestData.input.getProperty("data.input.testTwo"))
-        Assertions.assertEquals("", TestData.input.getProperty("data.input.testThree"))
+        Assertions.assertEquals("", TestData.get("data.input.testOne"))
+        Assertions.assertEquals("", TestData.get("data.input.testTwo"))
+        Assertions.assertEquals("", TestData.get("data.input.testThree"))
         TestData.init(
             listOf(
                 DEFAULT_DATA_PROPERTIES_FILENAME, "data/low-priority.properties", "data/high-priority.properties"
             )
         )
-        Assertions.assertEquals("testOne_high", TestData.input.getProperty("data.input.testOne"))
-        Assertions.assertEquals("testTwo_low", TestData.input.getProperty("data.input.testTwo"))
-        Assertions.assertEquals("testThree_high", TestData.input.getProperty("data.input.testThree"))
+        Assertions.assertEquals("testOne_high", TestData.get("data.input.testOne"))
+        Assertions.assertEquals("testTwo_low", TestData.get("data.input.testTwo"))
+        Assertions.assertEquals("testThree_high", TestData.get("data.input.testThree"))
     }
 
     @Test
     fun verifyResetOutputTestData() {
         Assertions.assertEquals(0, TestData.output.size)
-        TestData.output["output.test"] = "Output test value"
+        TestData.set("output.test", "Output test value")
         Assertions.assertEquals(1, TestData.output.size)
-        Assertions.assertEquals("Output test value", TestData.output["output.test"])
-        TestData.resetOutputData()
+        Assertions.assertEquals("Output test value", TestData.get("output.test"))
+        TestData.reset()
         Assertions.assertEquals(0, TestData.output.size)
     }
 

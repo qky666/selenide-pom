@@ -32,7 +32,7 @@ repositories {
 dependencies {
     val jUnitVersion = "5.10.0"
 
-    implementation("com.codeborne:selenide-appium:6.19.0")
+    implementation("com.codeborne:selenide-appium:6.19.1")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.9")

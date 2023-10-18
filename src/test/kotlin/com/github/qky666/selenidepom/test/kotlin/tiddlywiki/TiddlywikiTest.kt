@@ -213,14 +213,14 @@ class TiddlywikiTest {
         TestData.init("tiddlywiki-prod")
 
         // Additional test for output in TestData
-        TestData.output["threadId"] = Thread.currentThread().threadId()
+        TestData.set("threadId", Thread.currentThread().threadId())
     }
 
     @AfterEach
     fun afterEach() {
         SPConfig.quitCurrentThreadDriver()
         // Additional test for output in TestData
-        Assertions.assertEquals(TestData.output["threadId"].toString(), Thread.currentThread().threadId().toString())
+        Assertions.assertEquals(TestData.get("threadId").toString(), Thread.currentThread().threadId().toString())
     }
 
     private fun setupSite(browserConfig: String, lang: String = "es") {
