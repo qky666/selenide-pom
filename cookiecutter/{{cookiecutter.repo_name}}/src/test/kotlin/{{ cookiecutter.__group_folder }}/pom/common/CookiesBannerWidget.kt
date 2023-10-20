@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package {{ cookiecutter.group }}.pom.common
 
 import com.codeborne.selenide.Condition.disappear
@@ -10,13 +12,13 @@ import com.github.qky666.selenidepom.pom.shouldLoadRequired
 
 class CookiesBannerWidget(self: SelenideElement) : Widget(self) {
 
-    @Required val decline = LangConditionedElement(
+    val decline = LangConditionedElement(
         find("button#CybotCookiebotDialogBodyButtonDecline"),
         mapOf("es" to text("Denegar")),
         false,
     )
     @Required val accept = LangConditionedElement(
-        find("button#CybotCookiebotDialogBodyButtonAccept"),
+        find("button#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"),
         mapOf("es" to text("Permitir todas")),
         false,
     )

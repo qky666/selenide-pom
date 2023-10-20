@@ -2,13 +2,13 @@ package {{ cookiecutter.group }}.pom.common
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Condition.disappear
+import com.codeborne.selenide.Condition.visible
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
-import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import org.apache.logging.log4j.kotlin.Logging
-import java.time.Duration
+import java.util.concurrent.TimeUnit
 
 open class MainFramePage : Page(), Logging {
     @Required val home = find("a.img-menu")
@@ -35,13 +35,15 @@ open class MainFramePage : Page(), Logging {
 
     private fun acceptCookiesDesktop() {
         for (retries in 1..5) {
-            if (cookiesBanner.hasLoadedRequired(Duration.ofSeconds(1))) {
-                cookiesBanner.acceptCookies()
+            if (cookiesBanner.`is`(visible)) {
+                cookiesBanner.shouldLoadRequired().acceptCookies()
+                logger.info { "Try number $retries to accept desktop cookies succeeded" }
                 break
             }
-            // Click on search button to trigger cookiesBanner
-            desktopMenu.searchOpen.click()
-            desktopMenu.langEs.click(ClickOptions.withOffset(0, -50))
+            // Click on home logo to trigger cookiesBanner
+            home.click()
+            TimeUnit.SECONDS.sleep(1)
+            logger.info { "Try number $retries to accept desktop cookies failed" }
         }
         cookiesBanner.should(disappear)
         shouldLoadRequired()
@@ -50,12 +52,15 @@ open class MainFramePage : Page(), Logging {
     private fun acceptCookiesMobile() {
         shouldLoadRequired()
         for (retries in 1..5) {
-            if (cookiesBanner.hasLoadedRequired(Duration.ofSeconds(1))) {
-                cookiesBanner.acceptCookies()
+            if (cookiesBanner.`is`(visible)) {
+                cookiesBanner.shouldLoadRequired().acceptCookies()
+                logger.info { "Try number $retries to accept mobilr cookies succeeded" }
                 break
             }
             // Click on menu button to trigger cookiesBanner
             mobileMenu.mobileMenuButton.click(ClickOptions.withOffset(0, 30))
+            TimeUnit.SECONDS.sleep(1)
+            logger.info { "Try number $retries to accept mobile cookies failed" }
         }
         cookiesBanner.should(disappear)
         shouldLoadRequired()
