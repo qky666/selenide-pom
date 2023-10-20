@@ -63,13 +63,14 @@ allure {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(20)
 }
 
 python {
     minPythonVersion = "3.12.0"
     minPipVersion = "23.2.1"
-    virtualenvVersion = "20.24.5"
+    // Run 'pip.exe install -U virtualenv' manually if virtualenv throws any error
+    minVirtualenvVersion = "20.24.5"
     pip("allure-combine:1.0.11")
 }
 
