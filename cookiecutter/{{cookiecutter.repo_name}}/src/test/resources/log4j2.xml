@@ -14,7 +14,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="testng" level="trace" />
+        <Logger name="testng" level="trace"/>
         <Root level="info">
             <AppenderRef ref="File"/>
             <AppenderRef ref="Console"/>

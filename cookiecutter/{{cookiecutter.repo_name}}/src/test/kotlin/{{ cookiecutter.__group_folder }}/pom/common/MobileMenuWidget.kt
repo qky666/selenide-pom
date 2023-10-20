@@ -8,7 +8,6 @@ import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
-import org.openqa.selenium.WebElement
 
 class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val mobileMenuButton = find("button.custom-menu-btn-flotante")

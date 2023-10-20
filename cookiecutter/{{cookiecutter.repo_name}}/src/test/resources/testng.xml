@@ -3,7 +3,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="methods" thread-count="4">
     <parameter name="env" value="prod"/>
-    <test name="TestNG MTP Firefox Desktop Spanish tests " enabled="true" >
+    <test name="TestNG MTP Firefox Desktop Spanish tests " enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
@@ -81,15 +81,17 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Firefox Desktop Spanish Search Mexico test " enabled="true" >
+    <test name="TestNG MTP Firefox Desktop Spanish Search Mexico test " enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Mexico"/>
         <parameter name="resultsPagesExpected" value="2"/>
         <parameter name="lastPageResultsExpected" value="4"/>
-        <parameter name="lastPageResultTitle" value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
-        <parameter name="lastPageResultText" value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+        <parameter name="lastPageResultTitle"
+                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+        <parameter name="lastPageResultText"
+                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -99,15 +101,17 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Chrome Desktop Spanish Search Mexico test " enabled="true" >
+    <test name="TestNG MTP Chrome Desktop Spanish Search Mexico test " enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Mexico"/>
         <parameter name="resultsPagesExpected" value="2"/>
         <parameter name="lastPageResultsExpected" value="4"/>
-        <parameter name="lastPageResultTitle" value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
-        <parameter name="lastPageResultText" value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+        <parameter name="lastPageResultTitle"
+                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+        <parameter name="lastPageResultText"
+                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -117,7 +121,7 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Firefox Desktop Spanish Search Viajero test " enabled="true" >
+    <test name="TestNG MTP Firefox Desktop Spanish Search Viajero test " enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
@@ -125,7 +129,8 @@
         <parameter name="resultsPagesExpected" value="2"/>
         <parameter name="lastPageResultsExpected" value="1"/>
         <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
-        <parameter name="lastPageResultText" value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+        <parameter name="lastPageResultText"
+                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -135,7 +140,7 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Chrome Desktop Spanish Search Viajero test " enabled="true" >
+    <test name="TestNG MTP Chrome Desktop Spanish Search Viajero test " enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
@@ -143,7 +148,8 @@
         <parameter name="resultsPagesExpected" value="2"/>
         <parameter name="lastPageResultsExpected" value="1"/>
         <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
-        <parameter name="lastPageResultText" value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+        <parameter name="lastPageResultText"
+                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -153,7 +159,7 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Firefox Desktop English Search Mexico test " enabled="true" >
+    <test name="TestNG MTP Firefox Desktop English Search Mexico test " enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="en"/>
@@ -171,7 +177,7 @@
             <class name="{{ cookiecutter.group }}.testng.MtpKotlinTest"/>
         </classes>
     </test>
-    <test name="TestNG MTP Chrome Desktop English Search Mexico test " enabled="true" >
+    <test name="TestNG MTP Chrome Desktop English Search Mexico test " enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="en"/>

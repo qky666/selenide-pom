@@ -95,7 +95,7 @@ tasks.test {
         }
     }
 {% endif %}
-{%- print("") -%}
+{%- print("    ") -%}
     System.getProperties().forEach { property, value ->
         val propString = property.toString()
         val valueString = value.toString()

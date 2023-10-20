@@ -1,6 +1,4 @@
-package
-
-{ { cookiecutter.group } }.testng
+package {{ cookiecutter.group }}.testng
 
 import com.codeborne.selenide.CollectionCondition.size
 import com.codeborne.selenide.Condition.disappear
@@ -114,7 +112,7 @@ open class MtpKotlinTest : Logging {
 
         searchResultsPage.shouldLoadRequired().breadcrumb.activeBreadcrumbItem.shouldHave(exactText("Results: $search"))
         searchResultsPage.breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
-        Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().count(), maxResultsPerPageExpected)
+        Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().size, maxResultsPerPageExpected)
         val pages = resultsPagesExpected.toInt()
         val pagination = searchResultsPage.pagination
         if (pages > 1) {
@@ -129,7 +127,7 @@ open class MtpKotlinTest : Logging {
             pagination.previousPage.shouldBe(visible)
         } else pagination.shouldNotBe(visible)
         val results = lastPageResultsExpected.toInt()
-        Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().count(), results)
+        Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().size, results)
         val result = searchResultsPage.searchResults.filterBy(text(lastPageResultTitle)).shouldHave(size(1))[0]
         result.title.shouldHave(exactText(lastPageResultTitle))
         if (lastPageResultText.isNotEmpty()) result.text.shouldHave(text(lastPageResultText))
