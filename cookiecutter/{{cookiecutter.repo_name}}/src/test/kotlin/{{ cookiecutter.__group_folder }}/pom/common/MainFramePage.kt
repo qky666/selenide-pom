@@ -8,6 +8,8 @@ import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import org.apache.logging.log4j.kotlin.Logging
+import org.openqa.selenium.Keys
+import org.openqa.selenium.interactions.Actions
 import java.util.concurrent.TimeUnit
 
 open class MainFramePage : Page(), Logging {
@@ -20,6 +22,7 @@ open class MainFramePage : Page(), Logging {
     val cookiesBanner = CookiesBannerWidget(find("div#CybotCookiebotDialog"))
 
     fun acceptCookies() {
+        shouldLoadRequired()
         // This is what it should be, but for some reason, cookies message is not displayed when page loads.
         // It is displayed only when you "move the mouse" over the page.
         // shouldLoadRequired().cookiesBanner.acceptCookies()
@@ -30,40 +33,38 @@ open class MainFramePage : Page(), Logging {
             "desktop" -> acceptCookiesDesktop()
             else -> throw RuntimeException("Model ${SPConfig.model} not found")
         }
+        shouldLoadRequired()
         logger.info { "Cookies accepted" }
     }
 
     private fun acceptCookiesDesktop() {
+        val driver = SPConfig.getCurrentWebDriver()!!
+        val pressEnter = Actions(driver).moveToElement(desktopMenu.langEs).moveToElement(home).sendKeys("${Keys.ENTER}")
+        pressEnter.perform()
+        TimeUnit.SECONDS.sleep(1)
         for (retries in 1..5) {
-            if (cookiesBanner.`is`(visible)) {
-                cookiesBanner.shouldLoadRequired().acceptCookies()
-                logger.info { "Try number $retries to accept desktop cookies succeeded" }
-                break
-            }
+            if (cookiesBanner.`is`(visible)) break
             // Click on home logo to trigger cookiesBanner
-            home.click()
+            pressEnter.perform()
             TimeUnit.SECONDS.sleep(1)
             logger.info { "Try number $retries to accept desktop cookies failed" }
         }
+        cookiesBanner.shouldLoadRequired().acceptCookies()
+        logger.info { "Desktop cookies accepted" }
         cookiesBanner.should(disappear)
-        shouldLoadRequired()
     }
 
     private fun acceptCookiesMobile() {
-        shouldLoadRequired()
         for (retries in 1..5) {
-            if (cookiesBanner.`is`(visible)) {
-                cookiesBanner.shouldLoadRequired().acceptCookies()
-                logger.info { "Try number $retries to accept mobilr cookies succeeded" }
-                break
-            }
+            if (cookiesBanner.`is`(visible)) break
             // Click on menu button to trigger cookiesBanner
             mobileMenu.mobileMenuButton.click(ClickOptions.withOffset(0, 30))
             TimeUnit.SECONDS.sleep(1)
             logger.info { "Try number $retries to accept mobile cookies failed" }
         }
+        cookiesBanner.shouldLoadRequired().acceptCookies()
+        logger.info { "Mobile cookies accepted" }
         cookiesBanner.should(disappear)
-        shouldLoadRequired()
     }
 
     fun setLangIfNeeded(lang: String = SPConfig.lang) {
