@@ -7,9 +7,10 @@ import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import io.cucumber.java8.Es
 import io.cucumber.java8.Scenario
+import org.apache.logging.log4j.kotlin.Logging
 import org.openqa.selenium.OutputType
 
-class CucumberHooks : Es {
+class CucumberHooks : Es, Logging {
 
     init {
         Before { scenario: Scenario ->
