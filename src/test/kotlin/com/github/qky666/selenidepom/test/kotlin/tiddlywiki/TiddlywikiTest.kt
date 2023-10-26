@@ -1,5 +1,3 @@
-@file:Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-
 package com.github.qky666.selenidepom.test.kotlin.tiddlywiki
 
 import com.codeborne.selenide.ClickOptions
@@ -11,7 +9,6 @@ import com.codeborne.selenide.Condition.not
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Container
 import com.codeborne.selenide.DragAndDropOptions
-import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
@@ -109,19 +106,6 @@ class TiddlywikiTest {
             }), Arguments.of("firefox", "en", true, object : MainPage() {
                 @Required val noExistsBy = By.cssSelector("no-exists")
                 @Required val doExistsBy = By.cssSelector("body")
-            }), Arguments.of("chromeMobile", "es", true, object : MainPage() {
-                @Required val badElementsContainer = object : ElementsContainer() {
-                    @Deprecated("Deprecated in Java")
-                    override fun getSelf(): SelenideElement {
-                        return find("no-exists", 1)
-                    }
-                }
-                @Required val goodElementsContainer = object : ElementsContainer() {
-                    @Deprecated("Deprecated in Java")
-                    override fun getSelf(): SelenideElement {
-                        return find(By.xpath(".//body"), 0)
-                    }
-                }
             }), Arguments.of("chromeMobile", "en", true, object : MainPage() {
                 inner class MyWidget(self: SelenideElement) : Widget(self) {
                     @Required val noExists = Companion.find("no-exists")

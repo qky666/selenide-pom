@@ -2,6 +2,7 @@ package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.WebElementCondition
 import java.time.Duration
 
 /**
@@ -11,7 +12,7 @@ import java.time.Duration
  * @param timeout the maximum waiting time until condition is true
  * @return true if the element matches given [Condition], false if not
  */
-fun SelenideElement.has(condition: Condition, timeout: Duration): Boolean {
+fun SelenideElement.has(condition: WebElementCondition, timeout: Duration): Boolean {
     try {
         this.should(condition, timeout)
     } catch (_: Throwable) {

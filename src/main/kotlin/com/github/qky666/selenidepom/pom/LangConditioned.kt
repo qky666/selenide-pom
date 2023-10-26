@@ -1,7 +1,7 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.WebElementCondition
 import com.github.qky666.selenidepom.config.SPConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.time.Duration
@@ -9,16 +9,16 @@ import java.time.Duration
 private val logger = KotlinLogging.logger {}
 
 interface LangConditioned : SelenideElement, Loadable {
-    val conditions: Map<String, Condition>
+    val conditions: Map<String, WebElementCondition>
     val strict: Boolean
 
     /**
-     * Returns true if the element meets the expected [Condition] for a given language [lang].
+     * Returns true if the element meets the expected [WebElementCondition] for a given language [lang].
      *
      * @param lang language used to get the condition to verify. Default value: `SPConfig.lang`
      * @param strict if strict is `true`, a [ConditionNotDefinedError] is thrown
      * if no condition is found for given [lang]
-     * @return true if the element meets the expected [Condition] for a given language [lang], false otherwise
+     * @return true if the element meets the expected [WebElementCondition] for a given language [lang], false otherwise
      */
     fun meetsCondition(lang: String = SPConfig.lang, strict: Boolean = this.strict): Boolean {
         return try {
@@ -31,7 +31,7 @@ interface LangConditioned : SelenideElement, Loadable {
 }
 
 /**
- * Verifies that the element meets the expected [Condition] for a given language [lang].
+ * Verifies that the element meets the expected [WebElementCondition] for a given language [lang].
  *
  * @param timeout the timeout of the operation. Default value: Configured timeout in `Selenide`
  * @param lang language used to get the condition to verify. Default value: `SPConfig.lang`

@@ -2,6 +2,7 @@ package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.WebElementCondition
 
 /**
  * Represents a [SelenideElement] with a 'Language (String) -> [Condition]' map associated, so it is possible to check
@@ -17,7 +18,7 @@ import com.codeborne.selenide.SelenideElement
  */
 open class LangConditionedElement(
     private val self: SelenideElement,
-    override val conditions: Map<String, Condition>,
+    override val conditions: Map<String, WebElementCondition>,
     override val strict: Boolean = true,
 ) : SelenideElement by self, LangConditioned {
 
@@ -40,12 +41,12 @@ open class LangConditionedElement(
      * (if, for example, provided condition affects the element's text) is the same in all languages.
      *
      * @param self the [SelenideElement]
-     * @param condition the expected [Condition] for [self] in every language
+     * @param condition the expected [WebElementCondition] for [self] in every language
      * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
      * that condition is not met
      */
-    constructor(self: SelenideElement, condition: Condition, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { condition }, strict
+    constructor(self: SelenideElement, condition: WebElementCondition, strict: Boolean = true) : this(
+        self, mapOf<String, WebElementCondition>().withDefault { condition }, strict
     )
 
     /**
@@ -58,6 +59,6 @@ open class LangConditionedElement(
      * that condition is not met
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
+        self, mapOf<String, WebElementCondition>().withDefault { Condition.exactText(exactText) }, strict
     )
 }

@@ -1,29 +1,22 @@
 package com.github.qky666.selenidepom.condition
 
-import com.codeborne.selenide.CheckResult
 import com.codeborne.selenide.Condition
-import com.codeborne.selenide.Driver
-import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.WebElementCondition
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
-import com.github.qky666.selenidepom.pom.LangConditionedElement
-import org.openqa.selenium.WebElement
+import com.github.qky666.selenidepom.pom.Page
 
-fun langCondition(conditions: Map<String, Condition>, strict: Boolean = true): Condition {
-    return object : Condition("langCondition") {
-        override fun check(driver: Driver, element: WebElement): CheckResult {
-            return try {
-                conditions.getValue(SPConfig.lang).check(driver, element)
-            } catch (e: NoSuchElementException) {
-                val selenideElement = LangConditionedElement(Selenide.element(element), conditions)
-                if (strict) throw ConditionNotDefinedError(selenideElement, SPConfig.lang)
-                else CheckResult(true, null)
-            }
-        }
+fun langCondition(conditions: Map<String, WebElementCondition>, strict: Boolean = true): WebElementCondition {
+    return Condition.match("lang") { webElement ->
+        val element = Page.find(webElement)
+        conditions[SPConfig.lang]?.let { element.has(it) } ?: if (strict) throw ConditionNotDefinedError(
+            element,
+            SPConfig.lang
+        ) else true
     }
 }
 
 @Suppress("RedundantValueArgument")
-fun langCondition(conditions: Map<String, String>): Condition {
+fun langCondition(conditions: Map<String, String>): WebElementCondition {
     return langCondition(conditions.mapValues { Condition.exactText(it.value) }, true)
 }

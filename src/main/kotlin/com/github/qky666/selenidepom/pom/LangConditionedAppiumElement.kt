@@ -3,23 +3,24 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Condition
+import com.codeborne.selenide.WebElementCondition
 import com.codeborne.selenide.appium.SelenideAppiumElement
 
 /**
- * Represents a [SelenideAppiumElement] with a 'Language (String) -> [Condition]' map associated,
+ * Represents a [SelenideAppiumElement] with a 'Language (String) -> [WebElementCondition]' map associated,
  * so it is possible to check that the element meets the condition given a determined language.
  * It is intended to be used to verify that the element's text is correct.
  * Can be helpful in all kind of web pages, but specially in those that are available in more than one language.
  *
  * @param self the [SelenideAppiumElement]
- * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition]
+ * @param conditions the 'Language (String) -> [WebElementCondition]' map with the expected [WebElementCondition]
  * for [self] in each language
  * @param strict if true, when a given language (key) does not exist in [conditions]
  * it is considered that condition is not met
  */
 class LangConditionedAppiumElement(
     private val self: SelenideAppiumElement,
-    override val conditions: Map<String, Condition>,
+    override val conditions: Map<String, WebElementCondition>,
     override val strict: Boolean = true,
 ) : SelenideAppiumElement by self, LangConditioned {
 
@@ -42,12 +43,12 @@ class LangConditionedAppiumElement(
      * (if, for example, provided condition affects the element's text) is the same in all languages.
      *
      * @param self the [SelenideAppiumElement]
-     * @param condition the expected [Condition] for [self] in every language
+     * @param condition the expected [WebElementCondition] for [self] in every language
      * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
      * that condition is not met
      */
-    constructor(self: SelenideAppiumElement, condition: Condition, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { condition }, strict
+    constructor(self: SelenideAppiumElement, condition: WebElementCondition, strict: Boolean = true) : this(
+        self, mapOf<String, WebElementCondition>().withDefault { condition }, strict
     )
 
     /**
@@ -60,6 +61,6 @@ class LangConditionedAppiumElement(
      * that condition is not met
      */
     constructor(self: SelenideAppiumElement, exactText: String, strict: Boolean = true) : this(
-        self, mapOf<String, Condition>().withDefault { Condition.exactText(exactText) }, strict
+        self, mapOf<String, WebElementCondition>().withDefault { Condition.exactText(exactText) }, strict
     )
 }

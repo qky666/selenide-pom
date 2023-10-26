@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.22.2"
+version = "0.23.0"
 
 val javaVersionNumber = 20
 val javaVersion = JavaVersion.VERSION_20
@@ -32,7 +32,7 @@ repositories {
 dependencies {
     val jUnitVersion = "5.10.0"
 
-    implementation("com.codeborne:selenide-appium:6.19.1")
+    implementation("com.codeborne:selenide-appium:7.0.0")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.9")

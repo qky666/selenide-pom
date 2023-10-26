@@ -1,9 +1,9 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.CollectionCondition
-import com.codeborne.selenide.Condition
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.WebElementCondition
 import com.codeborne.selenide.impl.CollectionSource
 import java.time.Duration
 import kotlin.reflect.full.memberProperties
@@ -47,7 +47,7 @@ class WidgetsCollection<T : Widget>(
      * @return SelenideElement
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun find(condition: Condition): T {
+    override fun find(condition: WebElementCondition): T {
         return super.find(condition).asWidget(factory)
     }
 
@@ -59,7 +59,7 @@ class WidgetsCollection<T : Widget>(
      * @see .find
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun findBy(condition: Condition): T {
+    override fun findBy(condition: WebElementCondition): T {
         return super.findBy(condition).asWidget(factory)
     }
 
@@ -175,7 +175,7 @@ class WidgetsCollection<T : Widget>(
      * @return ElementsCollection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun filter(condition: Condition): WidgetsCollection<T> {
+    override fun filter(condition: WebElementCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.filter(condition), factory)
     }
 
@@ -187,7 +187,7 @@ class WidgetsCollection<T : Widget>(
      * @see .filter
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun filterBy(condition: Condition): WidgetsCollection<T> {
+    override fun filterBy(condition: WebElementCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.filterBy(condition), factory)
     }
 
@@ -198,7 +198,7 @@ class WidgetsCollection<T : Widget>(
      * @return ElementsCollection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun exclude(condition: Condition): WidgetsCollection<T> {
+    override fun exclude(condition: WebElementCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.exclude(condition), factory)
     }
 
@@ -210,7 +210,7 @@ class WidgetsCollection<T : Widget>(
      * @see .exclude
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun excludeWith(condition: Condition): WidgetsCollection<T> {
+    override fun excludeWith(condition: WebElementCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.excludeWith(condition), factory)
     }
 

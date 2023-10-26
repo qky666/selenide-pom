@@ -1,12 +1,9 @@
-@file:Suppress("DEPRECATION")
-
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Container
 import com.codeborne.selenide.ElementsCollection
-import com.codeborne.selenide.ElementsContainer
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
@@ -65,9 +62,8 @@ interface Loadable {
 
             val allKlass = getAllSuperKlass(objKlass).filter {
                 val loadable = { it.isSubclassOf(Loadable::class) }
-                val elementsContainer = { it.isSubclassOf(ElementsContainer::class) }
                 val container = { it.isSubclassOf(Container::class) }
-                loadable() || elementsContainer() || container()
+                loadable() || container()
             }
             val processedNames = mutableListOf<String>()
             for (currentKlass in allKlass) {
@@ -201,10 +197,6 @@ interface Loadable {
                     element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
 
-                is ElementsContainer -> elementsContainerShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
-                )
-
                 is Container -> objectShouldLoadRequired(element, end, model, lang)
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
                 is WebElement -> webElementShouldLoad(
@@ -312,14 +304,14 @@ interface Loadable {
             return try {
                 if (scroll) collection.first().scrollIntoView(scrollString)
                 val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
-                val filteredSize = filtered.size
+                val filteredSize = filtered.size()
                 val checked = "Checked at least one element $elementName in $klassName is visible (ElementsCollection)"
                 val collectionLog = collection.toString().replace("\n", "\\n")
                 logger.debug { "$checked: $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filtered' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
-                while (i < filtered.size && i < filteredSize) {
+                while (i < filtered.size() && i < filteredSize) {
                     val element = filtered[i]
                     if (scroll) element.scrollIntoView(scrollString)
                     errors.addAll(objectShouldLoadRequired(element, end, model, lang))
@@ -345,44 +337,20 @@ interface Loadable {
             return try {
                 if (scroll) widgetsCollection.first().scrollIntoView(scrollString)
                 val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), timeout)
-                val filteredElementsSize = filteredElements.size
+                val filteredElementsSize = filteredElements.size()
                 val checked = "Checked at least one element $elementName in $klassName is visible (WidgetsCollection)"
                 val collectionLog = widgetsCollection.toString().replace("\n", "\\n")
                 logger.debug { "$checked: $collectionLog" }
                 val errors = mutableListOf<Throwable>()
                 // 'filteredElements' can change during the operation, so 'while' is used instead of 'forEach'
                 var i = 0
-                while (i < filteredElements.size && i < filteredElementsSize) {
+                while (i < filteredElements.size() && i < filteredElementsSize) {
                     val widget = filteredElements[i]
                     if (scroll) widget.scrollIntoView(scrollString)
                     errors.addAll(objectShouldLoadRequired(widget, end, model, lang))
                     i += 1
                 }
                 errors.toList()
-            } catch (e: Throwable) {
-                listOf(e)
-            }
-        }
-
-        private fun elementsContainerShouldLoad(
-            container: ElementsContainer,
-            end: LocalDateTime,
-            model: String,
-            lang: String,
-            klassName: String,
-            elementName: String,
-            scroll: Boolean,
-            scrollString: String,
-        ): List<Throwable> {
-            val timeout = calculateTimeout(end)
-            return try {
-                if (scroll) container.self.scrollIntoView(scrollString)
-                container.self.shouldBe(visible, timeout)
-                val containerLog = container.self.toString().replace("\n", "\\n")
-                logger.debug {
-                    "Checked element $elementName in $klassName is visible (ElementsContainer): $containerLog"
-                }
-                objectShouldLoadRequired(container, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
             }

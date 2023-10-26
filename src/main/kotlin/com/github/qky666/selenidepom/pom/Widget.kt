@@ -1,13 +1,13 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.ClickOptions
-import com.codeborne.selenide.Condition
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.TypeOptions
+import com.codeborne.selenide.WebElementCondition
 import org.openqa.selenium.By
 import java.time.Duration
 
@@ -242,7 +242,7 @@ fun <T : Widget> T.setSelectedWidget(selected: Boolean): T {
 /**
  * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShould(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShould(condition: WebElementCondition, timeout: Duration): T {
     this.should(condition, timeout)
     return this
 }
@@ -250,7 +250,7 @@ fun <T : Widget> T.widgetShould(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.should], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShould(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShould(vararg condition: WebElementCondition): T {
     this.should(*condition)
     return this
 }
@@ -258,7 +258,7 @@ fun <T : Widget> T.widgetShould(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldHave(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShouldHave(vararg condition: WebElementCondition): T {
     this.shouldHave(*condition)
     return this
 }
@@ -266,7 +266,7 @@ fun <T : Widget> T.widgetShouldHave(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldHave(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShouldHave(condition: WebElementCondition, timeout: Duration): T {
     this.shouldHave(condition, timeout)
     return this
 }
@@ -274,7 +274,7 @@ fun <T : Widget> T.widgetShouldHave(condition: Condition, timeout: Duration): T 
 /**
  * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldBe(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShouldBe(vararg condition: WebElementCondition): T {
     this.shouldBe(*condition)
     return this
 }
@@ -282,7 +282,7 @@ fun <T : Widget> T.widgetShouldBe(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldBe(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShouldBe(condition: WebElementCondition, timeout: Duration): T {
     this.shouldBe(condition, timeout)
     return this
 }
@@ -290,7 +290,7 @@ fun <T : Widget> T.widgetShouldBe(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNot(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShouldNot(vararg condition: WebElementCondition): T {
     this.shouldNot(*condition)
     return this
 }
@@ -298,7 +298,7 @@ fun <T : Widget> T.widgetShouldNot(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNot], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNot(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShouldNot(condition: WebElementCondition, timeout: Duration): T {
     this.shouldNot(condition, timeout)
     return this
 }
@@ -306,7 +306,7 @@ fun <T : Widget> T.widgetShouldNot(condition: Condition, timeout: Duration): T {
 /**
  * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotHave(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShouldNotHave(vararg condition: WebElementCondition): T {
     this.shouldNotHave(*condition)
     return this
 }
@@ -314,7 +314,7 @@ fun <T : Widget> T.widgetShouldNotHave(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNotHave], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotHave(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShouldNotHave(condition: WebElementCondition, timeout: Duration): T {
     this.shouldNotHave(condition, timeout)
     return this
 }
@@ -322,7 +322,7 @@ fun <T : Widget> T.widgetShouldNotHave(condition: Condition, timeout: Duration):
 /**
  * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotBe(vararg condition: Condition): T {
+fun <T : Widget> T.widgetShouldNotBe(vararg condition: WebElementCondition): T {
     this.shouldNotBe(*condition)
     return this
 }
@@ -330,7 +330,7 @@ fun <T : Widget> T.widgetShouldNotBe(vararg condition: Condition): T {
 /**
  * Same as [SelenideElement.shouldNotBe], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.widgetShouldNotBe(condition: Condition, timeout: Duration): T {
+fun <T : Widget> T.widgetShouldNotBe(condition: WebElementCondition, timeout: Duration): T {
     this.shouldNotBe(condition, timeout)
     return this
 }

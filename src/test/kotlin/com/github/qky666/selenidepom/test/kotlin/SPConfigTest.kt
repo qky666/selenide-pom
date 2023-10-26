@@ -37,7 +37,7 @@ class SPConfigTest {
         val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
-            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
+            "{args=[], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
     }
@@ -50,7 +50,7 @@ class SPConfigTest {
         val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
-            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
+            "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
     }
@@ -122,7 +122,7 @@ class SPConfigTest {
         val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
-            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
+            "{args=[], extensions=[], mobileEmulation={deviceName=$DEFAULT_DEVICE_NAME}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
         Assertions.assertEquals(DEFAULT_MOBILE_MODEL, SPConfig.model)
@@ -143,7 +143,7 @@ class SPConfigTest {
         val browserName = SPConfig.selenideConfig.browserCapabilities().getCapability("browserName")
         Assertions.assertEquals("chrome", browserName)
         Assertions.assertEquals(
-            "{args=[--remote-allow-origins=*], extensions=[], mobileEmulation={deviceName=$deviceName}}",
+            "{args=[], extensions=[], mobileEmulation={deviceName=$deviceName}}",
             SPConfig.selenideConfig.browserCapabilities().getCapability("goog:chromeOptions").toString()
         )
         Assertions.assertEquals(model, SPConfig.model)

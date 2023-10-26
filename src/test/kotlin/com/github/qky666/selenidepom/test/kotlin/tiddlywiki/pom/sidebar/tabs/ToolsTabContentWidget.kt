@@ -2,6 +2,7 @@ package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
+import com.codeborne.selenide.WebElementCondition
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
@@ -178,8 +179,8 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
 
 class ToolItem(
     self: SelenideElement,
-    buttonConditions: Map<String, Condition> = mapOf(),
-    descriptionConditions: Map<String, Condition> = mapOf(),
+    buttonConditions: Map<String, WebElementCondition> = mapOf(),
+    descriptionConditions: Map<String, WebElementCondition> = mapOf(),
     strict: Boolean = true,
 ) : Widget(self) {
     @Required val checkbox = find("input")
