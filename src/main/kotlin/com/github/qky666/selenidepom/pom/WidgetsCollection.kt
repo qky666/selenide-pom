@@ -1,9 +1,9 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebElementCondition
+import com.codeborne.selenide.WebElementsCondition
 import com.codeborne.selenide.impl.CollectionSource
 import java.time.Duration
 import kotlin.reflect.full.memberProperties
@@ -118,7 +118,7 @@ class WidgetsCollection<T : Widget>(
     ` *
     </pre> *
      */
-    override fun should(vararg conditions: CollectionCondition?): WidgetsCollection<T> {
+    override fun should(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
         return WidgetsCollection(super.should(*conditions), factory)
     }
 
@@ -127,14 +127,14 @@ class WidgetsCollection<T : Widget>(
      *
      * @param timeout maximum waiting time
      */
-    override fun should(condition: CollectionCondition, timeout: Duration): WidgetsCollection<T> {
+    override fun should(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
         return WidgetsCollection(super.should(condition, timeout), factory)
     }
 
     override fun should(
         prefix: String,
         timeout: Duration,
-        vararg conditions: CollectionCondition?,
+        vararg conditions: WebElementsCondition?,
     ): WidgetsCollection<T> {
         return WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
     }
@@ -142,11 +142,11 @@ class WidgetsCollection<T : Widget>(
     /**
      * For example: `$$(".error").shouldBe(empty)`
      */
-    override fun shouldBe(vararg conditions: CollectionCondition?): WidgetsCollection<T> {
+    override fun shouldBe(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldBe(*conditions), factory)
     }
 
-    override fun shouldBe(condition: CollectionCondition, timeout: Duration): WidgetsCollection<T> {
+    override fun shouldBe(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldBe(condition, timeout), factory)
     }
 
@@ -155,7 +155,7 @@ class WidgetsCollection<T : Widget>(
      * `$$(".error").shouldHave(size(3))`
      * `$$(".error").shouldHave(texts("Error1", "Error2"))`
      */
-    override fun shouldHave(vararg conditions: CollectionCondition?): WidgetsCollection<T> {
+    override fun shouldHave(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldHave(*conditions), factory)
     }
 
@@ -164,7 +164,7 @@ class WidgetsCollection<T : Widget>(
      *
      * @param timeout maximum waiting time
      */
-    override fun shouldHave(condition: CollectionCondition, timeout: Duration): WidgetsCollection<T> {
+    override fun shouldHave(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldHave(condition, timeout), factory)
     }
 
