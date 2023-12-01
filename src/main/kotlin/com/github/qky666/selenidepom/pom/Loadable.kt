@@ -66,7 +66,7 @@ interface Loadable {
                 loadable() || container()
             }
             val processedNames = mutableListOf<String>()
-            for (currentKlass in allKlass) {
+            allKlass.forEach all@{ currentKlass ->
                 // Properties (Kotlin) and Fields (Java)
                 currentKlass.memberProperties.forEach {
                     try {

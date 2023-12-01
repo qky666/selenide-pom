@@ -10,19 +10,19 @@ repositories {
 
 plugins {
     idea
-    kotlin("jvm") version "1.9.20"
-    id("com.github.ben-manes.versions") version "0.49.0"
+    kotlin("jvm") version "1.9.21"
+    id("com.github.ben-manes.versions") version "0.50.0"
     id("io.qameta.allure") version "2.11.2"
-    id("org.gradle.test-retry") version "1.5.6"
+    id("org.gradle.test-retry") version "1.5.7"
     id("ru.vyarus.use-python") version "3.0.0"
 }
 
 dependencies {
-    val log4jVersion = "2.21.0"
+    val log4jVersion = "2.22.0"
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
-    val cucumberVersion = "7.14.0"
+    val cucumberVersion = "7.14.1"
 {% endif %}
 {%- print("\n    ") -%}
     testImplementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")

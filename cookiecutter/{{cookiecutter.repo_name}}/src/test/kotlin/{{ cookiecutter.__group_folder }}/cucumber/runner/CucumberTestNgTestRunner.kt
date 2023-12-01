@@ -11,7 +11,7 @@ import org.testng.annotations.Test
     features = ["src/test/resources/features"],
     glue = ["{{ cookiecutter.group }}.cucumber.steps"],
     plugin = ["{{ cookiecutter.group }}.cucumber.listener.CucumberListener", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm", "pretty", "json:build/test-results/cucumber/run.json", "rerun:build/test-results/cucumber/failed_scenarios.txt"],
-    tags = "not @skip",
+    tags = "not @skip or @force",
 )
 class CucumberTestNgTestRunner : AbstractTestNGCucumberTests(), Logging {
     @DataProvider(parallel = true)
