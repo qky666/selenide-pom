@@ -30,7 +30,11 @@ class MtpStepsDefinition : Es, Logging {
         }
 
         Dado("Se aceptan las cookies") {
+            // Accept cookies before selecting language
+            val lang = SPConfig.lang
+            SPConfig.lang = "es"
             mainFramePage.acceptCookies()
+            SPConfig.lang = lang
         }
 
         Cuando("Se navega a Servicios -> Aseguramiento de la calidad") {
