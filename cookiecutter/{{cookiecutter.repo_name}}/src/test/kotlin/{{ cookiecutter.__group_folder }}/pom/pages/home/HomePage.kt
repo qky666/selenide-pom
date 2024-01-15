@@ -13,7 +13,7 @@ class HomePage : MainFramePage() {
     @Required val mainBanner = MainBannerWidget(find("div.custom-bg-primary"))
 
     fun open() {
-        Selenide.open(TestData.get("data.input.baseUrl").toString())
+        Selenide.open(TestData.getString("data.input.baseUrl"))
         shouldLoadRequired(lang = "es")
     }
 }

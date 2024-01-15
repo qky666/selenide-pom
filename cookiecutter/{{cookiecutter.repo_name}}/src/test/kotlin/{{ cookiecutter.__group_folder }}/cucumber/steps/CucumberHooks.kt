@@ -26,7 +26,7 @@ class CucumberHooks : Es, Logging {
                 else -> throw RuntimeException("Model ${SPConfig.model} not found")
             }
             SPConfig.lang = lang
-            SPConfig.setCurrentThreadDriver()
+            SPConfig.setDriver()
 
             // Set env
             TestData.init("prod")
@@ -41,12 +41,11 @@ class CucumberHooks : Es, Logging {
                     scenario.log(message)
                     logger.debug { message }
                 }
-                SPConfig.getCurrentWebDriver()
-                    ?.let { scenario.attach(it.pageSource, "text/html;charset=utf-8", "source") }
+                SPConfig.getWebDriver()?.let { scenario.attach(it.pageSource, "text/html;charset=utf-8", "source") }
             }
 
             // Quit webdriver
-            SPConfig.quitCurrentThreadDriver()
+            SPConfig.quitDriver()
         }
     }
 

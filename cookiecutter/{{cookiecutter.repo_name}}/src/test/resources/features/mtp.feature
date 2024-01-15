@@ -2,6 +2,7 @@
 # language: es
 
 #noinspection NonAsciiCharacters,CucumberTableInspection,CucumberUndefinedStep
+@retry
 Característica: Web de MTP
   Validación de la Web de MTP.
   Vamos a usarlo a modo de ejemplo.

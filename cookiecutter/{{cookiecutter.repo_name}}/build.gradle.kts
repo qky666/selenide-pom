@@ -10,19 +10,19 @@ repositories {
 
 plugins {
     idea
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "1.9.22"
     id("com.github.ben-manes.versions") version "0.50.0"
     id("io.qameta.allure") version "2.11.2"
-    id("org.gradle.test-retry") version "1.5.7"
+    id("org.gradle.test-retry") version "1.5.8"
     id("ru.vyarus.use-python") version "3.0.0"
 }
 
 dependencies {
-    val log4jVersion = "2.22.0"
+    val log4jVersion = "2.22.1"
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}
-    val cucumberVersion = "7.14.1"
+    val cucumberVersion = "7.15.0"
 {% endif %}
 {%- print("\n    ") -%}
     testImplementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")
@@ -37,19 +37,19 @@ dependencies {
 {%- print("    ") -%}
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.24.0")
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.25.0")
 {% endif %}
 {%- print("    ") -%}
-    testImplementation("org.testng:testng:7.8.0")
+    testImplementation("org.testng:testng:7.9.0")
     testImplementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
-    testImplementation("org.apache.logging.log4j:log4j-api-kotlin:1.3.0")
+    testImplementation("org.apache.logging.log4j:log4j-api-kotlin:1.4.0")
     testImplementation(kotlin("test"))
 }
 
 allure {
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
-    version.set("2.24.0")
+    version.set("2.25.0")
 {%- print("\n") -%}
 {%- if cookiecutter.use_cucumber == "yes" -%}
 {%- print("    ") -%}

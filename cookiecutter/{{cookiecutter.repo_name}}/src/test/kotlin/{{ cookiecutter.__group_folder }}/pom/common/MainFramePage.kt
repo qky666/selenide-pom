@@ -38,7 +38,7 @@ open class MainFramePage : Page(), Logging {
     }
 
     private fun acceptCookiesDesktop() {
-        val driver = SPConfig.getCurrentWebDriver()!!
+        val driver = SPConfig.getWebDriver()!!
         val pressEnter = Actions(driver).moveToElement(desktopMenu.langEs).moveToElement(home).sendKeys("${Keys.ENTER}")
         pressEnter.perform()
         TimeUnit.SECONDS.sleep(1)

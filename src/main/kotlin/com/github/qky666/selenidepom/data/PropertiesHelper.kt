@@ -36,7 +36,7 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
      * @param defaultValue default value returned if property does not exist in properties files
      */
     @JvmOverloads
-    fun getProperty(property: String, defaultValue: String = ""): String {
+    fun getProperty(property: String, defaultValue: String? = null): String? {
         return System.getProperty(property, properties.getProperty(property, defaultValue))
     }
 }

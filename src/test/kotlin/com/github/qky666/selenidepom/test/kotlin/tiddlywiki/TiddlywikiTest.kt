@@ -202,7 +202,7 @@ class TiddlywikiTest {
 
     @AfterEach
     fun afterEach() {
-        SPConfig.quitCurrentThreadDriver()
+        SPConfig.quitDriver()
         // Additional test for output in TestData
         Assertions.assertEquals(TestData.get("threadId").toString(), Thread.currentThread().threadId().toString())
     }
@@ -210,7 +210,7 @@ class TiddlywikiTest {
     private fun setupSite(browserConfig: String, lang: String = "es") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) SPConfig.setupBasicMobileBrowser()
         else SPConfig.setupBasicDesktopBrowser(browserConfig)
-        SPConfig.setCurrentThreadDriver()
+        SPConfig.setDriver()
         SPConfig.lang = lang
         Selenide.open(url)
         changeSiteLanguageIfNeeded()
@@ -294,7 +294,7 @@ class TiddlywikiTest {
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
         // Selenide helpers for shadow dom not working here (do not know why), so we do it the hard way with switchTo
-        val webdriver = SPConfig.getCurrentWebDriver()!!
+        val webdriver = SPConfig.getWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)
         webdriver.switchTo().defaultContent()
@@ -338,7 +338,7 @@ class TiddlywikiTest {
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.titleInput.value = newTiddlerTitle
         // Selenide helpers for shadow dom not working here (do not know why), so we do it the hard way with switchTo
-        val webdriver = SPConfig.getCurrentWebDriver()!!
+        val webdriver = SPConfig.getWebDriver()!!
         webdriver.switchTo().frame(newTiddlerEdit.bodyEditorIframe.wrappedElement)
         webdriver.findElement(By.cssSelector("textarea")).sendKeys(newTiddlerBody)
         webdriver.switchTo().defaultContent()

@@ -10,7 +10,6 @@ import com.github.qky666.selenidepom.config.SPConfig.model
 import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeOptions
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
@@ -132,16 +131,13 @@ object SPConfig {
      * Sets up a basic mobile browser on thread local [selenideConfig] configuration using the provided [deviceName]
      * to add mobile emulation and sets the default [model] to use.
      *
-     * @param deviceName The type of `WebDriver` to create (chrome, firefox, edge, etc.)
+     * @param deviceName The name of the emulated mobile device
      * @param model The default `model` to use
      */
     @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = DEFAULT_DEVICE_NAME, model: String = DEFAULT_MOBILE_MODEL) {
-        selenideConfig.browser("chrome")
-        val chromeOptions = ChromeOptions()
-        chromeOptions.setExperimentalOption("mobileEmulation", mapOf("deviceName" to deviceName))
-        val newCapabilities = chromeOptions.merge(selenideConfig.browserCapabilities())
-        selenideConfig.browserCapabilities(newCapabilities)
+        ChromeMobileDriverFactory.deviceName = deviceName
+        selenideConfig.browser(ChromeMobileDriverFactory::class.qualifiedName)
         SPConfig.model = model
     }
 
@@ -163,12 +159,26 @@ object SPConfig {
      */
     @JvmOverloads
     @Synchronized
-    fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
+    fun setDriver(newDriver: Driver? = null): Driver {
         val driver = newDriver ?: createDriver()
 
         val webDriver = driver.getAndCheckWebDriver()
-        setCurrentThreadWebDriver(webDriver)
+        setWebDriver(webDriver)
         return driver
+    }
+
+    /**
+     * Sets [newDriver] as the current thread [Driver] and returns it.
+     * If [newDriver] is `null`, a new [Driver] instance is created using current thread local
+     * [selenideConfig] configuration.
+     *
+     * @return [Driver] instance
+     */
+    @JvmOverloads
+    @Synchronized
+    @Deprecated("Changed name to setDriver", replaceWith = ReplaceWith("setDriver(newDriver)"))
+    fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
+        return setDriver(newDriver)
     }
 
     /**
@@ -176,9 +186,19 @@ object SPConfig {
      *
      * @return [WebDriver] the same [newDriver] object
      */
-    fun setCurrentThreadWebDriver(newDriver: WebDriver): WebDriver {
+    fun setWebDriver(newDriver: WebDriver): WebDriver {
         WebDriverRunner.setWebDriver(newDriver)
         return newDriver
+    }
+
+    /**
+     * Sets [newDriver] as the current thread [WebDriver] and returns it.
+     *
+     * @return [WebDriver] the same [newDriver] object
+     */
+    @Deprecated("Changed name to setWebDriver", replaceWith = ReplaceWith("setWebDriver(newDriver)"))
+    fun setCurrentThreadWebDriver(newDriver: WebDriver): WebDriver {
+        return setCurrentThreadWebDriver(newDriver)
     }
 
     /**
@@ -186,7 +206,7 @@ object SPConfig {
      *
      * @return Current thread [WebDriver] or null if it does not exist
      */
-    fun getCurrentWebDriver(): WebDriver? {
+    fun getWebDriver(): WebDriver? {
         return try {
             WebDriverRunner.getWebDriver()
         } catch (e: IllegalStateException) {
@@ -195,13 +215,23 @@ object SPConfig {
     }
 
     /**
+     * Gets the current thread [WebDriver] and returns it if exists, null if not.
+     *
+     * @return Current thread [WebDriver] or null if it does not exist
+     */
+    @Deprecated("Changed name to getWebDriver", replaceWith = ReplaceWith("getWebDriver()"))
+    fun getCurrentWebDriver(): WebDriver? {
+        return getWebDriver()
+    }
+
+    /**
      * Quits the current thread [WebDriver], closing its windows first to avoid problems.
      *
      * Note: Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
      * Closing every window first is safer.
      */
-    fun quitCurrentThreadDriver() {
-        getCurrentWebDriver()?.let {
+    fun quitDriver() {
+        getWebDriver()?.let {
             while (it.windowHandles.size > 1) {
                 it.switchTo().window(it.windowHandles.first())
                 it.close()
@@ -212,6 +242,17 @@ object SPConfig {
             }
         }
         Selenide.closeWebDriver()
+    }
+
+    /**
+     * Quits the current thread [WebDriver], closing its windows first to avoid problems.
+     *
+     * Note: Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
+     * Closing every window first is safer.
+     */
+    @Deprecated("Changed name to quitDriver", replaceWith = ReplaceWith("quitDriver()"))
+    fun quitCurrentThreadDriver() {
+        quitDriver()
     }
 
     /**

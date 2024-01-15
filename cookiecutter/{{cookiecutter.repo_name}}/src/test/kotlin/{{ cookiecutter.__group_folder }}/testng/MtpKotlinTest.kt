@@ -32,7 +32,7 @@ open class MtpKotlinTest : Logging {
         // Configure webdriver
         if (mobile.equals("true", true)) SPConfig.setupBasicMobileBrowser()
         else SPConfig.setupBasicDesktopBrowser(browser)
-        SPConfig.setCurrentThreadDriver()
+        SPConfig.setDriver()
 
         // Set env
         TestData.init(env)
@@ -50,7 +50,7 @@ open class MtpKotlinTest : Logging {
         if (result.status != ITestResult.SUCCESS) ReportHelper.attachScreenshot("Test failed screenshot")
 
         // Quit webdriver
-        SPConfig.quitCurrentThreadDriver()
+        SPConfig.quitDriver()
         logger.info { "Closed webdriver for test ${result.name}. Status: ${result.status}" }
     }
 

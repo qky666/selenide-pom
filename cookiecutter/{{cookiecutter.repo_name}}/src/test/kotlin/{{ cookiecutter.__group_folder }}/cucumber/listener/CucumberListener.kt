@@ -21,6 +21,7 @@ class CucumberListener @JvmOverloads constructor(private val lifecycle: AllureLi
     }
 
     private fun handleTestStepFinished(event: TestStepFinished) {
+        if (TestData.getString("project.cucumber.stepScreenshot", "false") != "true") return
         val step = event.testStep
         if (step is PickleStepTestStep) ReportHelper.attachScreenshot("After step screenshot")
     }

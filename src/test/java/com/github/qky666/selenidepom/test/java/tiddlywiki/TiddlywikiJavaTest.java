@@ -47,13 +47,13 @@ public class TiddlywikiJavaTest {
 
     @AfterEach
     public void afterEach() {
-        SPConfig.INSTANCE.quitCurrentThreadDriver();
+        SPConfig.INSTANCE.quitDriver();
     }
 
     private void setupSite(@NotNull String browserConfig) {
         if (browserConfig.equalsIgnoreCase("chromeMobile")) SPConfig.INSTANCE.setupBasicMobileBrowser();
         else SPConfig.INSTANCE.setupBasicDesktopBrowser(browserConfig);
-        SPConfig.INSTANCE.setCurrentThreadDriver();
+        SPConfig.INSTANCE.setDriver();
         SPConfig.INSTANCE.setLang("es");
         Selenide.open(url);
     }

@@ -32,7 +32,7 @@ object TestData {
     /**
      * The input test data. A [PropertiesHelper] instance.
      * Usually there is no need to use [input] directly:
-     * [TestData.get], [TestData.set], [reset], [init] should be enough.
+     * [TestData.get], [TestData.getString], [TestData.set], [reset], [init] should be enough.
      */
     val input: PropertiesHelper
         get() = threadLocalInput.get()
@@ -40,7 +40,7 @@ object TestData {
     /**
      * The output test data. A [MutableMap] instance.
      * Usually there is no need to use [input] directly:
-     * [TestData.get], [TestData.set], [reset], [init] should be enough.
+     * [TestData.get], [TestData.getString], [TestData.set], [reset], [init] should be enough.
      */
     val output: MutableMap<String, Any>
         get() = threadLocalOutput.get()
@@ -64,12 +64,38 @@ object TestData {
 
     /**
      * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
+     * If none of them exists, default value is returned.
+     * If no value is found, and no default value is provided (default = `Unit`), a RuntimeException is thrown.
      *
      * @param key the key
-     * @return `output[key]` if exists, `input.getProperty(key)` otherwise
+     * @param default the default value returned if no value is found
+     * @return found value, or default value (if provided)
+     * @throws RuntimeException
      */
-    fun get(key: String): Any {
-        return output[key] ?: input.getProperty(key)
+    @Throws(RuntimeException::class)
+    fun get(key: String, default: Any? = Unit): Any? {
+        val value = output[key] ?: input.getProperty(key)
+        if (value != null) return value
+        else if (default == Unit) throw RuntimeException("No value found for key $key")
+        else return default
+    }
+
+    /**
+     * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
+     * If none of them exists, default value is returned.
+     * If no value is found, and no default value is provided (default = `null`), a RuntimeException is thrown.
+     *
+     * @param key the key
+     * @param default the default value returned if no value is found
+     * @return found value, or default value (if provided)
+     * @throws RuntimeException
+     */
+    @Throws(RuntimeException::class)
+    fun getString(key: String, default: String? = null): String {
+        val value = get(key, default)
+        if (value is String) return value
+        else if (value == null) throw RuntimeException("No value found for key $key")
+        else throw RuntimeException("Value found for key '$key' is not a String: $value")
     }
 
     /**
