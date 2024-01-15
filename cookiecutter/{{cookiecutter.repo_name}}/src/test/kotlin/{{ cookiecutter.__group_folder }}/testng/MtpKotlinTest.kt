@@ -39,9 +39,9 @@ open class MtpKotlinTest : Logging {
 
         // Open URL and set up site
         homePage.open()
+        homePage.acceptCookies()
         SPConfig.lang = lang
         homePage.setLangIfNeeded()
-        homePage.acceptCookies()
     }
 
     @AfterMethod(description = "Close browser", alwaysRun = true)

@@ -126,8 +126,8 @@
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Viajero"/>
-        <parameter name="resultsPagesExpected" value="2"/>
-        <parameter name="lastPageResultsExpected" value="1"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
         <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
         <parameter name="lastPageResultText"
                    value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
@@ -145,8 +145,8 @@
         <parameter name="mobile" value="false"/>
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Viajero"/>
-        <parameter name="resultsPagesExpected" value="2"/>
-        <parameter name="lastPageResultsExpected" value="1"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
         <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
         <parameter name="lastPageResultText"
                    value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>

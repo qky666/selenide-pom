@@ -9,8 +9,8 @@ Característica: Web de MTP
 
   Antecedentes:
     * Se accede a la web de MTP
-    * Se establece el idioma
     * Se aceptan las cookies
+    * Se establece el idioma
 
   @desktop @mobile
   Esquema del escenario: Acceso a Aseguramiento de la calidad. Navegador: <Navegador>; Modelo: <Modelo>; Idioma: <Idioma>
@@ -62,8 +62,8 @@ Característica: Web de MTP
     Ejemplos:
       | Navegador | Modelo  | Idioma | Búsqueda | PáginasDeResultados | ResultadosEnÚltimaPágina | TítuloDeResultadoEnÚltimaPágina                                                | TextoDeResultadoEnÚltimaPágina                                          |
       | chrome    | desktop | es     | Mexico   | 2                   | 4                        | MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales | MTP es hoy una empresa de referencia en Digital Business Assurance      |
-      | chrome    | desktop | es     | Viajero  | 2                   | 1                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
+      | chrome    | desktop | es     | Viajero  | 1                   | 5                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
       | chrome    | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                                     |                                                                         |
       | firefox   | desktop | es     | Mexico   | 2                   | 4                        | MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales | MTP es hoy una empresa de referencia en Digital Business Assurance      |
-      | firefox   | desktop | es     | Viajero  | 2                   | 1                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
+      | firefox   | desktop | es     | Viajero  | 1                   | 5                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
       | firefox   | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                                     |                                                                         |
