@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.24.1"
+version = "0.24.2"
 
 val javaVersionNumber = 21
 val javaVersion = JavaVersion.VERSION_21
