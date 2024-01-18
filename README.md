@@ -14,10 +14,10 @@ allprojects {
 }
 
 dependencies {
-    testImplementation 'com.github.qky666:selenide-pom:0.18.5'
+    testImplementation 'com.github.qky666:selenide-pom:0.24.3'
     // should add 'selenide' or 'selenide-appium' too
-    // testImplementation("com.codeborne:selenide:6.15.0")
-    // testImplementation("com.codeborne:selenide-appium:6.15.0")
+    // testImplementation("com.codeborne:selenide:7.0.4")
+    // testImplementation("com.codeborne:selenide-appium:7.0.4")
 }
 ```
 
@@ -34,20 +34,20 @@ dependencies {
 <dependency>
     <groupId>com.github.qky666</groupId>
     <artifactId>selenide-pom</artifactId>
-    <version>0.18.5</version>
+    <version>0.24.3</version>
 </dependency>
 
 <!-- should add 'selenide' or 'selenide-appium' too
 <dependency>
     <groupId>com.codeborne</groupId>
     <artifactId>selenide</artifactId>
-    <version>6.15.0</version>
+    <version>7.0.4</version>
 </dependency>
 
 <dependency>
     <groupId>com.codeborne</groupId>
     <artifactId>selenide-appium</artifactId>
-    <version>6.15.0</version>
+    <version>7.0.4</version>
 </dependency>
 -->
 ```
@@ -125,4 +125,19 @@ Open a PowerShell terminal and run:
 ## Install packages
 
     scoop bucket add extras    
-    scoop install jetbrains-toolbox python cookiecutter allure chromedriver geckodriver
+    scoop bucket add java
+    scoop install oraclejdk-lts jetbrains-toolbox python cookiecutter allure chromedriver geckodriver
+
+## Update packages
+
+To update scoop:
+
+    scoop update
+
+To know if any package needs update:
+
+    scoop status
+
+To update all installed packages:
+
+    scoop update *

@@ -168,20 +168,6 @@ object SPConfig {
     }
 
     /**
-     * Sets [newDriver] as the current thread [Driver] and returns it.
-     * If [newDriver] is `null`, a new [Driver] instance is created using current thread local
-     * [selenideConfig] configuration.
-     *
-     * @return [Driver] instance
-     */
-    @JvmOverloads
-    @Synchronized
-    @Deprecated("Changed name to setDriver", replaceWith = ReplaceWith("setDriver(newDriver)"))
-    fun setCurrentThreadDriver(newDriver: Driver? = null): Driver {
-        return setDriver(newDriver)
-    }
-
-    /**
      * Sets [newDriver] as the current thread [WebDriver] and returns it.
      *
      * @return [WebDriver] the same [newDriver] object
@@ -189,16 +175,6 @@ object SPConfig {
     fun setWebDriver(newDriver: WebDriver): WebDriver {
         WebDriverRunner.setWebDriver(newDriver)
         return newDriver
-    }
-
-    /**
-     * Sets [newDriver] as the current thread [WebDriver] and returns it.
-     *
-     * @return [WebDriver] the same [newDriver] object
-     */
-    @Deprecated("Changed name to setWebDriver", replaceWith = ReplaceWith("setWebDriver(newDriver)"))
-    fun setCurrentThreadWebDriver(newDriver: WebDriver): WebDriver {
-        return setCurrentThreadWebDriver(newDriver)
     }
 
     /**
@@ -212,16 +188,6 @@ object SPConfig {
         } catch (e: IllegalStateException) {
             null
         }
-    }
-
-    /**
-     * Gets the current thread [WebDriver] and returns it if exists, null if not.
-     *
-     * @return Current thread [WebDriver] or null if it does not exist
-     */
-    @Deprecated("Changed name to getWebDriver", replaceWith = ReplaceWith("getWebDriver()"))
-    fun getCurrentWebDriver(): WebDriver? {
-        return getWebDriver()
     }
 
     /**
@@ -242,17 +208,6 @@ object SPConfig {
             }
         }
         Selenide.closeWebDriver()
-    }
-
-    /**
-     * Quits the current thread [WebDriver], closing its windows first to avoid problems.
-     *
-     * Note: Sometimes Selenide.closeWebDriver() does not close the WebDriver correctly (possible WebDriver bug).
-     * Closing every window first is safer.
-     */
-    @Deprecated("Changed name to quitDriver", replaceWith = ReplaceWith("quitDriver()"))
-    fun quitCurrentThreadDriver() {
-        quitDriver()
     }
 
     /**

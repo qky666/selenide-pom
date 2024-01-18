@@ -3,7 +3,6 @@ package com.github.qky666.selenidepom.test.kotlin
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.ChromeMobileDriverFactory
 import com.github.qky666.selenidepom.config.DEFAULT_DESKTOP_MODEL
-import com.github.qky666.selenidepom.config.DEFAULT_DEVICE_NAME
 import com.github.qky666.selenidepom.config.DEFAULT_MOBILE_MODEL
 import com.github.qky666.selenidepom.config.SPConfig
 import io.github.oshai.kotlinlogging.KotlinLogging

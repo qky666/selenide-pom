@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: es
 
-#noinspection NonAsciiCharacters,CucumberTableInspection,CucumberUndefinedStep
+#noinspection NonAsciiCharacters
 @retry
 Característica: Web de MTP
   Validación de la Web de MTP.
