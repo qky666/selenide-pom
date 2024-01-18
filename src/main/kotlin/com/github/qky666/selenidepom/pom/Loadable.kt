@@ -235,10 +235,12 @@ interface Loadable {
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                if (scroll) element(by).scrollIntoView(scrollString)
-                element(by).shouldBe(visible, timeout)
-                val elementLog = by.toString().replace("\n", "\\n")
-                logger.debug { "Checked element $elementName in $klassName is visible (By): $elementLog" }
+                if (scroll) {
+                    element(by).scrollIntoView(scrollString)
+                    element(by).shouldBe(visible, timeout)
+                    val elementLog = by.toString().replace("\n", "\\n")
+                    logger.debug { "Checked element $elementName in $klassName is visible (By): $elementLog" }
+                }
                 objectShouldLoadRequired(by, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
@@ -257,10 +259,12 @@ interface Loadable {
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                if (scroll) element.scrollIntoView(scrollString)
-                element.shouldBe(visible, timeout)
-                val elementLog = element.toString().replace("\n", "\\n")
-                logger.debug { "Checked element $elementName in $klassName is visible (LangConditioned): $elementLog" }
+                if (scroll) {
+                    element.scrollIntoView(scrollString)
+                    element.shouldBe(visible, timeout)
+                    val elementLog = element.toString().replace("\n", "\\n")
+                    logger.debug { "Checked element $elementName in $klassName is visible (LangConditioned): $elementLog" }
+                }
                 element.shouldMeetCondition(timeout, lang)
                 objectShouldLoadRequired(element, end, model, lang)
             } catch (e: Throwable) {
@@ -280,10 +284,12 @@ interface Loadable {
         ): List<Throwable> {
             val timeout = calculateTimeout(end)
             return try {
-                if (scroll) element.scrollIntoView(scrollString)
-                element.shouldBe(visible, timeout)
-                val elementLog = element.toString().replace("\n", "\\n")
-                logger.debug { "Checked element $elementName in $klassName is visible (SelenideElement): $elementLog" }
+                if (scroll) {
+                    element.scrollIntoView(scrollString)
+                    element.shouldBe(visible, timeout)
+                    val elementLog = element.toString().replace("\n", "\\n")
+                    logger.debug { "Checked element $elementName in $klassName is visible (SelenideElement): $elementLog" }
+                }
                 objectShouldLoadRequired(element, end, model, lang)
             } catch (e: Throwable) {
                 listOf(e)
