@@ -22,8 +22,7 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
         propertiesFiles.forEach { fileName ->
             val resource = Thread.currentThread().contextClassLoader.getResource(fileName)?.toURI()?.toPath()?.toFile()
             resource?.let {
-                val input = InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8)
-                properties.load(input)
+                InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> properties.load(input) }
             }
         }
     }

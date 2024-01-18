@@ -46,8 +46,7 @@ class SPConfigTest {
         Assertions.assertNull(browserName)
         Assertions.assertNull(driver.config().browserCapabilities().getCapability("goog:chromeOptions"))
         Assertions.assertFalse(driver.browser().isChrome)
-        val screenshot = Selenide.screenshot(OutputType.BYTES)!!.inputStream()
-        val image = ImageIO.read(screenshot)
+        val image = Selenide.screenshot(OutputType.BYTES)!!.inputStream().use { ImageIO.read(it) }
         logger.info { "Size: ${image.width}x${image.height}" }
         Assertions.assertEquals(1080, image.width)
         Assertions.assertEquals(1920, image.height)
@@ -65,8 +64,7 @@ class SPConfigTest {
         Assertions.assertNull(browserName)
         Assertions.assertNull(driver.config().browserCapabilities().getCapability("goog:chromeOptions"))
         Assertions.assertFalse(driver.browser().isChrome)
-        val screenshot = Selenide.screenshot(OutputType.BYTES)!!.inputStream()
-        val image = ImageIO.read(screenshot)
+        val image = Selenide.screenshot(OutputType.BYTES)!!.inputStream().use { ImageIO.read(it) }
         logger.info { "Size: ${image.width}x${image.height}" }
         Assertions.assertEquals(768, image.width)
         Assertions.assertEquals(1280, image.height)
@@ -142,8 +140,7 @@ class SPConfigTest {
         Assertions.assertNull(browserName)
         Assertions.assertNull(driver.config().browserCapabilities().getCapability("goog:chromeOptions"))
         Assertions.assertFalse(driver.browser().isChrome)
-        val screenshot = Selenide.screenshot(OutputType.BYTES)!!.inputStream()
-        val image = ImageIO.read(screenshot)
+        val image = Selenide.screenshot(OutputType.BYTES)!!.inputStream().use { ImageIO.read(it) }
         logger.info { "Size: ${image.width}x${image.height}" }
         Assertions.assertEquals(1080, image.width)
         Assertions.assertEquals(1920, image.height)
@@ -166,8 +163,7 @@ class SPConfigTest {
         Assertions.assertNull(browserName)
         Assertions.assertNull(driver.config().browserCapabilities().getCapability("goog:chromeOptions"))
         Assertions.assertFalse(driver.browser().isChrome)
-        val screenshot = Selenide.screenshot(OutputType.BYTES)!!.inputStream()
-        val image = ImageIO.read(screenshot)
+        val image = Selenide.screenshot(OutputType.BYTES)!!.inputStream().use { ImageIO.read(it) }
         logger.info { "Size: ${image.width}x${image.height}" }
         Assertions.assertEquals(768, image.width)
         Assertions.assertEquals(1280, image.height)

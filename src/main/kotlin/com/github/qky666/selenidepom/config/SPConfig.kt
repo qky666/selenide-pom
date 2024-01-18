@@ -43,8 +43,10 @@ object SPConfig {
         val url = Thread.currentThread().contextClassLoader.getResource(SELENIDE_POM_PROPERTIES_FILENAME)
         val resource = url?.toURI()?.toPath()?.toFile()
         resource?.let {
-            val input = InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8)
-            fileProperties.load(input)
+//            val input = InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8)
+//            fileProperties.load(input)
+//            input.close()
+            InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> fileProperties.load(input) }
         }
     }
 
