@@ -49,7 +49,7 @@ interface Loadable {
 
     companion object {
 
-        internal fun objectShouldLoadRequired(
+        private fun objectShouldLoadRequired(
             obj: Any,
             end: LocalDateTime,
             model: String,
@@ -167,7 +167,7 @@ interface Loadable {
             return klass.superclasses
         }
 
-        private fun elementShouldLoad(
+        internal fun elementShouldLoad(
             element: Any?,
             end: LocalDateTime,
             model: String,
@@ -180,6 +180,10 @@ interface Loadable {
             val errors = when (element) {
                 null -> return listOf()
                 is By -> byShouldLoad(element, end, model, lang, klassName, elementName, scroll, scrollString)
+                is Iframe -> iframeShouldLoad(
+                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                )
+
                 is LangConditioned -> langConditionedShouldLoad(
                     element, end, model, lang, klassName, elementName, scroll, scrollString
                 )
@@ -215,7 +219,7 @@ interface Loadable {
             return errors
         }
 
-        internal fun calculateTimeout(end: LocalDateTime): Duration {
+        private fun calculateTimeout(end: LocalDateTime): Duration {
             val signedTimeout: Duration = Duration.between(LocalDateTime.now(), end)
             // Used when timeout has been already reached, to avoid setting a ZERO timeout
             val minMillisTimeout = 100L
@@ -240,6 +244,28 @@ interface Loadable {
                 val elementLog = by.toString().replace("\n", "\\n")
                 logger.debug { "Checked element $elementName in $klassName is visible (By): $elementLog" }
                 objectShouldLoadRequired(by, end, model, lang)
+            } catch (e: Throwable) {
+                listOf(e)
+            }
+        }
+
+        private fun iframeShouldLoad(
+            iframe: Iframe,
+            end: LocalDateTime,
+            model: String,
+            lang: String,
+            klassName: String,
+            elementName: String,
+            scroll: Boolean,
+            scrollString: String,
+        ): List<Throwable> {
+            val timeout = calculateTimeout(end)
+            return try {
+                if (scroll) iframe.scrollIntoView(scrollString)
+                iframe.shouldBe(visible, timeout)
+                val elementLog = iframe.toString().replace("\n", "\\n")
+                logger.debug { "Checked element $elementName in $klassName is visible (Iframe): $elementLog" }
+                iframe.switch { objectShouldLoadRequired(iframe, end, model, lang) }
             } catch (e: Throwable) {
                 listOf(e)
             }
@@ -389,22 +415,8 @@ private fun <T : Loadable> T.errorsLoadingRequired(
 ): List<Throwable> {
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting errorsLoadingRequired in class $className" }
-    if (scroll) {
-        when (this) {
-            is By -> Page.find(this).scrollIntoView(scrollString)
-            is SelenideElement -> this.scrollIntoView(scrollString)
-            is ElementsCollection -> this.first().scrollIntoView(scrollString)
-            is WebElement -> Page.find(this).scrollIntoView(scrollString)
-        }
-    }
     val end = LocalDateTime.now().plus(timeout)
-    val errors = Loadable.objectShouldLoadRequired(this, end, model, lang).toMutableList()
-    try {
-        this.customShouldLoadRequired(timeout, model, lang)
-    } catch (e: Throwable) {
-        errors.add(e)
-    }
-    return errors.toList()
+    return Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", scroll, scrollString)
 }
 
 /**

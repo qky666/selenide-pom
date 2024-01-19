@@ -30,6 +30,7 @@ import java.time.Duration
  * @constructor creates a new instance using provided [SelenideElement] as container
  */
 abstract class Widget(private val self: SelenideElement) : SelenideElement by self, Loadable {
+    protected open val container: SelenideElement? = self
 
     /**
      * Same as [SelenideElement.type] `(CharSequence(textToType))`.
@@ -106,7 +107,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [SelenideElement] found
      */
     final override fun find(cssSelector: String): SelenideElement {
-        return self.find(cssSelector)
+        return container?.find(cssSelector) ?: Page.find(cssSelector)
     }
 
     /**
@@ -117,7 +118,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [SelenideElement] found
      */
     final override fun find(seleniumSelector: By): SelenideElement {
-        return self.find(seleniumSelector)
+        return container?.find(seleniumSelector) ?: Page.find(seleniumSelector)
     }
 
     /**
@@ -128,7 +129,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [SelenideElement] found
      */
     final override fun find(cssSelector: String, index: Int): SelenideElement {
-        return self.find(cssSelector, index)
+        return container?.find(cssSelector, index) ?: Page.find(cssSelector, index)
     }
 
     /**
@@ -139,7 +140,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [SelenideElement] found
      */
     final override fun find(seleniumSelector: By, index: Int): SelenideElement {
-        return self.find(seleniumSelector, index)
+        return container?.find(seleniumSelector, index) ?: Page.find(seleniumSelector, index)
     }
 
     /**
@@ -150,7 +151,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [ElementsCollection] found
      */
     final override fun findAll(cssSelector: String): ElementsCollection {
-        return self.findAll(cssSelector)
+        return container?.findAll(cssSelector) ?: Page.findAll(cssSelector)
     }
 
     /**
@@ -161,7 +162,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @return the [ElementsCollection] found
      */
     final override fun findAll(seleniumSelector: By): ElementsCollection {
-        return self.findAll(seleniumSelector)
+        return container?.findAll(seleniumSelector) ?: Page.findAll(seleniumSelector)
     }
 }
 
