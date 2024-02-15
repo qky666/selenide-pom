@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.26.1"
+version = "0.27.0"
 
 val javaVersionNumber = 21
 val javaVersion = JavaVersion.VERSION_21
@@ -11,7 +11,7 @@ plugins {
     `maven-publish`
     kotlin("jvm") version "1.9.22"
     id("io.freefair.lombok") version "8.4"
-    id("com.github.ben-manes.versions") version "0.50.0"
+    id("com.github.ben-manes.versions") version "0.51.0"
 }
 
 publishing {
@@ -30,9 +30,9 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.10.1"
+    val jUnitVersion = "5.10.2"
 
-    implementation("com.codeborne:selenide-appium:7.0.4")
+    implementation("com.codeborne:selenide-appium:7.1.0")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
     testImplementation("org.slf4j:slf4j-simple:2.0.11")
