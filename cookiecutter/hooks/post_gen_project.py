@@ -4,12 +4,14 @@ import shutil
 
 REMOVE_PATHS = [
     {% if cookiecutter.use_cucumber == "yes" %}
-    'src/test/kotlin/{{ cookiecutter.__group_folder }}/testng',
-    'src/test/resources/selenide-pom.properties'
+    'modules/mtphome/src/test/kotlin/{{ cookiecutter.__group_folder }}/testng',
+    'modules/mtphome/src/test/resources/selenide-pom.properties'
     {%- else -%}
-    'src/test/kotlin/{{ cookiecutter.__group_folder }}/cucumber',
-    'src/test/resources/features',
-    'src/test/resources/cucumber.properties'
+    'modules/mtphome/src/test/kotlin/{{ cookiecutter.__group_folder }}/cucumber',
+    'modules/mtphome/src/test/resources/features',
+    'modules/mtphome/src/test/resources/cucumber.properties',
+    'modules/mtphome/src/test/resources/testng-retry.xml',
+    'modules/mtphome/src/test/resources/testng-wip.xml'
     {% endif %}
 ]
 

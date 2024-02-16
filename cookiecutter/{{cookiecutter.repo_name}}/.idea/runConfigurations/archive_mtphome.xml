@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dependencyUpdates" type="GradleRunConfiguration" factoryName="Gradle" folderName="update">
+  <configuration default="false" name="archive mtphome" type="GradleRunConfiguration" factoryName="Gradle" folderName="mtphome">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="dependencyUpdates" />
+          <option value="mtphome:exportAllureHistory" />
         </list>
       </option>
       <option name="vmOptions" />

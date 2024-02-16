@@ -1,16 +1,21 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dependencyUpdates" type="GradleRunConfiguration" factoryName="Gradle" folderName="update">
+  <configuration default="false" name="test all" type="GradleRunConfiguration" factoryName="Gradle" folderName="all">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="" />
+      <option name="scriptParameters" value="--continue -Pretry=&quot;0&quot;" />
       <option name="taskDescriptions">
         <list />
       </option>
       <option name="taskNames">
         <list>
-          <option value="dependencyUpdates" />
+          <option value=":cleanAll" />
+          <option value=":testAll" />
+          <option value=":importAllureHistoryAll" />
+          <option value=":allureReportAll" />
+          <option value=":allureAggregateReport" />
+          <option value=":allureCombineAll" />
         </list>
       </option>
       <option name="vmOptions" />

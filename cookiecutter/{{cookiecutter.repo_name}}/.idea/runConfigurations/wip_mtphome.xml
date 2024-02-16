@@ -1,16 +1,18 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dependencyUpdates" type="GradleRunConfiguration" factoryName="Gradle" folderName="update">
+  <configuration default="false" name="wip mtphome" type="GradleRunConfiguration" factoryName="Gradle" folderName="mtphome">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="" />
+      <option name="scriptParameters" value="--continue -Pwip=&quot;true&quot; -Pselenide.headless=&quot;false&quot;" />
       <option name="taskDescriptions">
         <list />
       </option>
       <option name="taskNames">
         <list>
-          <option value="dependencyUpdates" />
+          <option value="mtphome:clean" />
+          <option value="mtphome:test" />
+          <option value="mtphome:allureReport" />
         </list>
       </option>
       <option name="vmOptions" />

@@ -14,10 +14,10 @@ allprojects {
 }
 
 dependencies {
-    testImplementation 'com.github.qky666:selenide-pom:0.24.3'
+    testImplementation 'com.github.qky666:selenide-pom:0.27.1'
     // should add 'selenide' or 'selenide-appium' too
-    // testImplementation("com.codeborne:selenide:7.0.4")
-    // testImplementation("com.codeborne:selenide-appium:7.0.4")
+    // testImplementation("com.codeborne:selenide:7.1.0")
+    // testImplementation("com.codeborne:selenide-appium:7.1.0")
 }
 ```
 
@@ -34,20 +34,20 @@ dependencies {
 <dependency>
     <groupId>com.github.qky666</groupId>
     <artifactId>selenide-pom</artifactId>
-    <version>0.24.3</version>
+    <version>0.27.1</version>
 </dependency>
 
 <!-- should add 'selenide' or 'selenide-appium' too
 <dependency>
     <groupId>com.codeborne</groupId>
     <artifactId>selenide</artifactId>
-    <version>7.0.4</version>
+    <version>7.1.0</version>
 </dependency>
 
 <dependency>
     <groupId>com.codeborne</groupId>
     <artifactId>selenide-appium</artifactId>
-    <version>7.0.4</version>
+    <version>7.1.0</version>
 </dependency>
 -->
 ```
