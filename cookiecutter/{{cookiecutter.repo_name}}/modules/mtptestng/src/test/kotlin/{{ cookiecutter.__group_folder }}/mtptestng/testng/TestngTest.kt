@@ -9,7 +9,7 @@ import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import {{ cookiecutter.group }}.common.testng.Retry
-import {{ cookiecutter.group }}.common.util.ReportHelper
+import {{ cookiecutter.group }}.common.util.AllureReportHelper
 import {{ cookiecutter.group }}.mtptestng.pom.pages.home.homePage
 import {{ cookiecutter.group }}.mtptestng.pom.pages.searchresults.searchResultsPage
 import {{ cookiecutter.group }}.mtptestng.pom.pages.services.qualityAssurancePage
