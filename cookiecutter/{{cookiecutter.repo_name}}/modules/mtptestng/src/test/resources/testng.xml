@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="methods" thread-count="4">
+    <groups>
+        <run>
+            <exclude name="skip"/>
+            <exclude name="wip"/>
+        </run>
+    </groups>
+    <parameter name="env" value="prod"/>
+    <test name="TestNG MTP Firefox Desktop Spanish tests " enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <groups>
+            <run>
+                <include name="desktop"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Firefox Desktop English tests " enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <groups>
+            <run>
+                <include name="desktop"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Chrome Desktop Spanish tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <groups>
+            <run>
+                <include name="desktop"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Chrome Desktop English tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <groups>
+            <run>
+                <include name="desktop"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Mobile Spanish tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="true"/>
+        <parameter name="lang" value="es"/>
+        <groups>
+            <run>
+                <include name="mobile"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Mobile English tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="true"/>
+        <parameter name="lang" value="en"/>
+        <groups>
+            <run>
+                <include name="mobile"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Firefox Desktop Spanish Search Mexico test " enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <parameter name="search" value="Mexico"/>
+        <parameter name="resultsPagesExpected" value="2"/>
+        <parameter name="lastPageResultsExpected" value="4"/>
+        <parameter name="lastPageResultTitle"
+                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+        <parameter name="lastPageResultText"
+                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Chrome Desktop Spanish Search Mexico test " enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <parameter name="search" value="Mexico"/>
+        <parameter name="resultsPagesExpected" value="2"/>
+        <parameter name="lastPageResultsExpected" value="4"/>
+        <parameter name="lastPageResultTitle"
+                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+        <parameter name="lastPageResultText"
+                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Firefox Desktop Spanish Search Viajero test " enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <parameter name="search" value="Viajero"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
+        <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
+        <parameter name="lastPageResultText"
+                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Chrome Desktop Spanish Search Viajero test " enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <parameter name="search" value="Viajero"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
+        <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
+        <parameter name="lastPageResultText"
+                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Firefox Desktop English Search Mexico test " enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <parameter name="search" value="Mexico"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
+        <parameter name="lastPageResultTitle" value="Contact us"/>
+        <parameter name="lastPageResultText" value=""/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG MTP Chrome Desktop English Search Mexico test " enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <parameter name="search" value="Mexico"/>
+        <parameter name="resultsPagesExpected" value="1"/>
+        <parameter name="lastPageResultsExpected" value="5"/>
+        <parameter name="lastPageResultTitle" value="Contact us"/>
+        <parameter name="lastPageResultText" value=""/>
+        <groups>
+            <run>
+                <include name="desktop.search"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="{{ cookiecutter.group }}.mtptestng.testng.TestngTest"/>
+        </classes>
+    </test>
+</suite>

@@ -4,7 +4,7 @@ package {{ cookiecutter.group }}.common.cucumber.steps
 
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
-import es.mtp.sedelantik.common.util.CucumberHelper
+import {{ cookiecutter.group }}.common.util.CucumberHelper
 import io.cucumber.java8.Es
 import io.cucumber.java8.Scenario
 import org.apache.logging.log4j.kotlin.Logging

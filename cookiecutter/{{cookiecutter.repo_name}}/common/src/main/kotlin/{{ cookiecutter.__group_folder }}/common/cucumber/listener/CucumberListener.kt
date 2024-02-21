@@ -1,7 +1,7 @@
 package {{ cookiecutter.group }}.common.cucumber.listener
 
-import es.mtp.sedelantik.common.util.AllureReportHelper
-import es.mtp.sedelantik.common.util.CucumberHelper
+import {{ cookiecutter.group }}.common.util.AllureReportHelper
+import {{ cookiecutter.group }}.common.util.CucumberHelper
 import io.cucumber.plugin.ConcurrentEventListener
 import io.cucumber.plugin.event.EventHandler
 import io.cucumber.plugin.event.EventPublisher

@@ -22,12 +22,10 @@
   "_testng_version": "7.9.0",
   "_log4j_api_kotlin_version_url": "https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api-kotlin",
   "_log4j_api_kotlin_version": "1.4.0",
-  "_allure_commandline_version_url": "https://mvnrepository.com/artifact/io.qameta.allure/allure-commandline",
-  "_allure_commandline_version": "2.27.0",
   "_min_python_version_url": "https://www.python.org/downloads/",
   "_min_python_version": "3.12.2",
   "_min_pip_version_url": "https://pypi.org/project/pip/",
-  "_min_pip_version": "24.0",
+  "_min_pip_version": "23.3.2",
   "_min_virtualenv_version_url": "https://pypi.org/project/virtualenv/",
   "_min_virtualenv_version": "20.25.0",
   "_allure_combine_version_url": "https://pypi.org/project/allure-combine/",
@@ -36,14 +34,6 @@
   "repo_name": "{{ cookiecutter.name | lower | replace(' ', '_') }}",
   "group": "my.group.{{ cookiecutter.repo_name | replace('-', '') | replace('_', '') }}",
   "__group_folder": "{{ cookiecutter.group | replace('.', '/') }}",
-  "use_appium": [
-    "no",
-    "yes"
-  ],
-  "use_cucumber": [
-    "no",
-    "yes"
-  ],
   "_copy_without_render": [
     ".idea/*",
     "gradle/*",

@@ -2,7 +2,6 @@ group = "com.github.qky666"
 version = "0.27.1"
 
 val javaVersionNumber = 21
-val javaVersion = JavaVersion.VERSION_21
 
 plugins {
     idea
@@ -49,6 +48,7 @@ kotlin {
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersionNumber))
     // This is redundant, but jitpack.io seems to need it
+    val javaVersion = JavaVersion.toVersion(javaVersionNumber)
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 }

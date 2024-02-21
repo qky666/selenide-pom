@@ -2,33 +2,52 @@ group = "{{ cookiecutter.group }}"
 version = "0.0.1-SNAPSHOT"
 
 plugins {
-    id("aggregate-report-build")
+    id("aggregatereport-base-build")
 }
 
-val modules = subprojects.filter { it.name != "common" }
+evaluationDependsOnChildren()
+val modules get() = subprojects.filter { it.name != "common" }
+val cleanTasks get() = subprojects.map { it.tasks.clean }
+val testsTasks get() = subprojects.map { it.tasks.test }
+val importAllureHistoryTasks get() = modules.map { it.tasks.importAllureHistory }
+val allureReportTasks get() = modules.map { it.tasks.named("allureReport") }
+val allureCombineTasks get() = modules.map { it.tasks.allureCombine }
+val exportAllureHistoryTasks get() = modules.map { it.tasks.exportAllureHistory }
 
-task("cleanAll") {
+val cleanAll = tasks.register("cleanAll") {
     dependsOn(tasks.clean)
-    dependsOn(subprojects.map { subproject -> subproject.tasks.matching { it.name == "clean" } })
+    dependsOn(*cleanTasks.toTypedArray())
 }
 
-task("testAll") {
-    dependsOn(subprojects.map { subproject -> subproject.tasks.matching { it.name == "test" } })
+val testAll = tasks.register("testAll") {
+    dependsOn(testsTasks)
 }
 
-task("importAllureHistoryAll") {
-    dependsOn(modules.map { module -> module.tasks.matching { it.name == "importAllureHistory" } })
+val importAllureHistoryAll = tasks.register("importAllureHistoryAll") {
+    dependsOn(importAllureHistoryTasks)
 }
 
-task("allureReportAll") {
-    dependsOn(modules.map { module -> module.tasks.matching { it.name == "allureReport" } })
+val allureReportAll = tasks.register("allureReportAll") {
+    dependsOn(allureReportTasks)
 }
 
-task("allureCombineAll") {
-    dependsOn(modules.map { module -> module.tasks.matching { it.name == "allureCombine" } })
+tasks.allureAggregateReport {
+    mustRunAfter(testAll)
+    mustRunAfter(*testsTasks.toTypedArray())
+    mustRunAfter(importAllureHistoryAll)
+    mustRunAfter(*importAllureHistoryTasks.toTypedArray())
+    mustRunAfter(allureReportAll)
+    mustRunAfter(allureReportTasks)
+}
+
+tasks.register("allureCombineAll") {
+    dependsOn(allureCombineTasks)
     dependsOn(tasks.allureCombine)
 }
 
-task("exportAllureHistoryAll") {
-    dependsOn(modules.map { module -> module.tasks.matching { it.name == "exportAllureHistory" } })
+tasks.register("exportAllureHistoryAll") {
+    dependsOn(exportAllureHistoryTasks)
+    dependsOn(tasks.exportAllureHistory)
+    shouldRunAfter(allureReportAll)
+    shouldRunAfter(*allureReportTasks.toTypedArray())
 }

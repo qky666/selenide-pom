@@ -135,7 +135,7 @@ class AllureExtrasPlugin : Plugin<Project> {
                 Selenide.open("")
                 // Switch to desired language
                 val lang = extension.summaryLang.get()
-                Selenide.element("button[data-ga4-event=language_menu_click]").click()
+                Selenide.element("button.side-nav__language-small").click()
                 Selenide.element("div.language-select li[data-id=$lang]").scrollIntoView(true).click()
                 val overview = Selenide.element("div.app__content").should(be(visible), not(have(text("Loading"))))
                     .scrollIntoView(true)
