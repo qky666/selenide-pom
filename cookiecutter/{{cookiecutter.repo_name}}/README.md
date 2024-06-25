@@ -46,14 +46,14 @@ See [scoop homepage](https://scoop.sh/) for details.
 
 Open a PowerShell terminal and run:
 
-    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-    irm get.scoop.sh | iex
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
 ## Install packages
 
     scoop bucket add extras    
     scoop bucket add java
-    scoop install oraclejdk-lts jetbrains-toolbox python cookiecutter allure chromedriver geckodriver
+    scoop install openjdk python idea cookiecutter allure chromedriver geckodriver
 
 ## Update packages
 
@@ -67,4 +67,12 @@ To know if any package needs update:
 
 To update all installed packages:
 
-    scoop update *
+    scoop update -a
+
+To clean scoop cache and old apps:
+
+    scoop cleanup -k -a
+
+To identify problems with scoop:
+
+    scoop checkup
