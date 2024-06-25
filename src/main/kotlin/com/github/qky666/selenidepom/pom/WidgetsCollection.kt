@@ -1,14 +1,12 @@
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.BaseElementsCollection
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebElementCondition
 import com.codeborne.selenide.WebElementsCondition
 import com.codeborne.selenide.impl.CollectionSource
 import java.time.Duration
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
-import kotlin.reflect.jvm.javaField
 
 /**
  * Almost the same as [ElementsCollection], but most methods return a [Widget] instead of a [SelenideElement].
@@ -254,7 +252,7 @@ class WidgetsCollection<T : Widget>(
  */
 fun <T : ElementsCollection> T.getCollectionSource(): CollectionSource {
     if (this is WidgetsCollection<*>) return this.collectionSource
-    val field = this::class.memberProperties.find { it.name == "collection" }
-    field!!.isAccessible = true
-    return field.javaField!!.get(this) as CollectionSource
+    val field = BaseElementsCollection::class.java.getDeclaredField("collection")
+    field.isAccessible = true
+    return field.get(this) as CollectionSource
 }

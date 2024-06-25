@@ -32,7 +32,6 @@ import com.github.qky666.selenidepom.pom.clickWidget
 import com.github.qky666.selenidepom.pom.contextClickWidget
 import com.github.qky666.selenidepom.pom.doubleClickWidget
 import com.github.qky666.selenidepom.pom.dragWidgetAndDrop
-import com.github.qky666.selenidepom.pom.has
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.hoverWidget
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
