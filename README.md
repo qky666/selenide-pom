@@ -111,6 +111,15 @@ Selenide: https://selenide.org/index.html
 
 Selenide-POM: https://github.com/qky666/selenide-pom
 
+# Test Matrix
+
+selenide version used to test selenide-pom:
+
+| selenide-pom version | selenide version |
+|----------------------|------------------|
+| 0.28.1               | 7.3.3            |
+
+
 # Extra: Easy Windows setup (without Admin rights)
 
 ## Install scoop
