@@ -114,10 +114,10 @@ class TestngTest : Logging {
 
         searchResultsPage.shouldLoadRequired().breadcrumb.activeBreadcrumbItem.shouldHave(exactText("Results: $search"))
         searchResultsPage.breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
-        Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().size(), maxResultsPerPageExpected)
         val pages = resultsPagesExpected.toInt()
         val pagination = searchResultsPage.pagination
         if (pages > 1) {
+            Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().size(), maxResultsPerPageExpected)
             pagination.shouldLoadRequired().currentPage.shouldHave(exactText("1"))
             pagination.nextPage.shouldBe(visible)
             pagination.pagesLinks.shouldHave(size(pages))[pages - 2].shouldHave(exactText(resultsPagesExpected))
@@ -134,5 +134,12 @@ class TestngTest : Logging {
         result.title.shouldHave(exactText(lastPageResultTitle))
         if (lastPageResultText.isNotEmpty()) result.text.shouldHave(text(lastPageResultText))
         else result.text.shouldNotBe(visible)
+    }
+
+    @Test(description = "WIP. User navigate to Quality Assurance (desktop)", groups = arrayOf("desktop", "wip"))
+    fun userNavigateToQualityAssuranceDesktopWip() {
+        homePage.desktopMenu.services.hover()
+        homePage.desktopMenu.servicesPopUp.qualityAssurance.click()
+        qualityAssurancePage.shouldLoadRequired()
     }
 }

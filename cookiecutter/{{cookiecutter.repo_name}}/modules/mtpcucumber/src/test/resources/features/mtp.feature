@@ -54,7 +54,7 @@ Característica: Web de MTP
       | firefox   | desktop | en     |
 
   @desktop
-  Esquema del escenario: Búsqueda en la web de MTP <Búsqueda>. Navegador: <Navegador>; Modelo: <Modelo>; Idioma: <Idioma>
+  Esquema del escenario: Búsqueda en la web de MTP '<Búsqueda>'. Navegador: <Navegador>; Modelo: <Modelo>; Idioma: <Idioma>
     * Se busca el término '<Búsqueda>'
     * El número de páginas de resultados para la búsqueda '<Búsqueda>' es <PáginasDeResultados>
     * Se navega a la página <PáginasDeResultados> de <PáginasDeResultados> de resultados de la búsqueda
@@ -62,10 +62,21 @@ Característica: Web de MTP
     * El número de resultados para la búsqueda mostrados es <ResultadosEnÚltimaPágina>
     * Se muestra un resultado para la búsqueda con título '<TítuloDeResultadoEnÚltimaPágina>' y texto '<TextoDeResultadoEnÚltimaPágina>'
     Ejemplos:
-      | Navegador | Modelo  | Idioma | Búsqueda | PáginasDeResultados | ResultadosEnÚltimaPágina | TítuloDeResultadoEnÚltimaPágina                                                | TextoDeResultadoEnÚltimaPágina                                          |
-      | chrome    | desktop | es     | Mexico   | 2                   | 4                        | MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales | MTP es hoy una empresa de referencia en Digital Business Assurance      |
-      | chrome    | desktop | es     | Viajero  | 1                   | 5                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
-      | chrome    | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                                     |                                                                         |
-      | firefox   | desktop | es     | Mexico   | 2                   | 4                        | MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales | MTP es hoy una empresa de referencia en Digital Business Assurance      |
-      | firefox   | desktop | es     | Viajero  | 1                   | 5                        | Los valores MTP, claves para este 2020                                         | Este año 2020 ha sido un año particular y totalmente atípico para todos |
-      | firefox   | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                                     |                                                                         |
+      | Navegador | Modelo  | Idioma | Búsqueda | PáginasDeResultados | ResultadosEnÚltimaPágina | TítuloDeResultadoEnÚltimaPágina                                       | TextoDeResultadoEnÚltimaPágina                                    |
+      | chrome    | desktop | es     | Mexico   | 2                   | 1                        | El valor de los principios de diseño UX                               | Recientemente he tenido la oportunidad de trabajar en un proyecto |
+      | chrome    | desktop | es     | Viajero  | 1                   | 1                        | Siete aplicaciones para disfrutar de unas vacaciones por todo lo alto | Ha llegado la hora de desconectar unos días                       |
+      | chrome    | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                            |                                                                   |
+      | firefox   | desktop | es     | Mexico   | 2                   | 1                        | El valor de los principios de diseño UX                               | Recientemente he tenido la oportunidad de trabajar en un proyecto |
+      | firefox   | desktop | es     | Viajero  | 1                   | 1                        | Siete aplicaciones para disfrutar de unas vacaciones por todo lo alto | Ha llegado la hora de desconectar unos días                       |
+      | firefox   | desktop | en     | Mexico   | 1                   | 5                        | Contact us                                                            |                                                                   |
+
+  @wip @desktop
+  Esquema del escenario: WIP. Acceso a Aseguramiento de la calidad. Navegador: <Navegador>; Modelo: <Modelo>; Idioma: <Idioma>
+    * Se navega a Servicios -> Aseguramiento de la calidad
+    * Se carga la página Aseguramiento de la calidad
+    Ejemplos:
+      | Navegador | Modelo  | Idioma |
+      | chrome    | desktop | es     |
+      | chrome    | desktop | en     |
+      | firefox   | desktop | es     |
+      | firefox   | desktop | en     |

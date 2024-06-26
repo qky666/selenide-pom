@@ -61,7 +61,7 @@ tasks.test {
 }
 
 tasks.compileTestKotlin {
-    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
+    compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
 
 tasks.compileTestJava {

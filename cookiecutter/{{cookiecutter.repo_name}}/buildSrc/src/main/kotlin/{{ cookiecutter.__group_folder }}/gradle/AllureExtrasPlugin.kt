@@ -15,6 +15,7 @@ import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.Input
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.task
 import report
@@ -73,13 +74,11 @@ class AllureExtrasPlugin : Plugin<Project> {
     }
 
     private fun createAllureCombineTask(project: Project, extension: AllureExtrasPluginExtension): PythonTask {
-        return project.task<PythonTask>("allureCombine") {
+        return project.task<AllureCombineTask>("allureCombine") {
             group = "verification"
             description = "Combine Allure report in a single HTML file"
-            val reportDir = extension.allureReportDir.asFile.get().canonicalPath
-            val combineDir = extension.allureCombineDir.asFile.get().canonicalPath
-            command =
-                "-m allure_combine.combine $reportDir --dest $combineDir --auto-create-folders --remove-temp-files"
+            reportDir = extension.allureReportDir.asFile.get().canonicalPath
+            combineDir = extension.allureCombineDir.asFile.get().canonicalPath
 
             project.tasks.findByName(AllureAggregateReportPlugin.REPORT_TASK_NAME)?.let { mustRunAfter(it) }
             project.tasks.findByName(AllureAggregateReportPlugin.SERVE_TASK_NAME)?.let { mustRunAfter(it) }
@@ -151,5 +150,17 @@ class AllureExtrasPlugin : Plugin<Project> {
                 Selenide.closeWebDriver()
             }
         }
+    }
+}
+
+abstract class AllureCombineTask : PythonTask() {
+    @Input var reportDir = "reportDir"
+    @Input var combineDir = "combineDir"
+
+    override fun getCommand(): Property<Any> {
+        val combineCommand = project.objects.property(String::class.java)
+        combineCommand.set("-m allure_combine.combine $reportDir --dest $combineDir --auto-create-folders --remove-temp-files")
+        @Suppress("UNCHECKED_CAST")
+        return combineCommand as Property<Any>
     }
 }

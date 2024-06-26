@@ -92,11 +92,11 @@
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Mexico"/>
         <parameter name="resultsPagesExpected" value="2"/>
-        <parameter name="lastPageResultsExpected" value="4"/>
+        <parameter name="lastPageResultsExpected" value="1"/>
         <parameter name="lastPageResultTitle"
-                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+                   value="El valor de los principios de diseño UX"/>
         <parameter name="lastPageResultText"
-                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+                   value="Recientemente he tenido la oportunidad de trabajar en un proyecto"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -112,11 +112,11 @@
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Mexico"/>
         <parameter name="resultsPagesExpected" value="2"/>
-        <parameter name="lastPageResultsExpected" value="4"/>
+        <parameter name="lastPageResultsExpected" value="1"/>
         <parameter name="lastPageResultTitle"
-                   value="MTP, 25 años como empresa de referencia en aseguramiento de negocios digitales"/>
+                   value="El valor de los principios de diseño UX"/>
         <parameter name="lastPageResultText"
-                   value="MTP es hoy una empresa de referencia en Digital Business Assurance"/>
+                   value="Recientemente he tenido la oportunidad de trabajar en un proyecto"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -132,10 +132,11 @@
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Viajero"/>
         <parameter name="resultsPagesExpected" value="1"/>
-        <parameter name="lastPageResultsExpected" value="5"/>
-        <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
+        <parameter name="lastPageResultsExpected" value="1"/>
+        <parameter name="lastPageResultTitle"
+                   value="Siete aplicaciones para disfrutar de unas vacaciones por todo lo alto"/>
         <parameter name="lastPageResultText"
-                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+                   value="Ha llegado la hora de desconectar unos días"/>
         <groups>
             <run>
                 <include name="desktop.search"/>
@@ -151,10 +152,11 @@
         <parameter name="lang" value="es"/>
         <parameter name="search" value="Viajero"/>
         <parameter name="resultsPagesExpected" value="1"/>
-        <parameter name="lastPageResultsExpected" value="5"/>
-        <parameter name="lastPageResultTitle" value="Los valores MTP, claves para este 2020"/>
+        <parameter name="lastPageResultsExpected" value="1"/>
+        <parameter name="lastPageResultTitle"
+                   value="Siete aplicaciones para disfrutar de unas vacaciones por todo lo alto"/>
         <parameter name="lastPageResultText"
-                   value="Este año 2020 ha sido un año particular y totalmente atípico para todos"/>
+                   value="Ha llegado la hora de desconectar unos días"/>
         <groups>
             <run>
                 <include name="desktop.search"/>

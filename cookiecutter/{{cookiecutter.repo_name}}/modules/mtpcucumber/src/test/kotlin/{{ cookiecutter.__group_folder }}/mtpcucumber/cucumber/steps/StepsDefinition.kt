@@ -73,9 +73,9 @@ class MtpStepsDefinition : Es, Logging {
             val maxResultsPerPage = 5
             searchResultsPage.shouldLoadRequired().breadcrumb.activeBreadcrumbItem.shouldHave(exactText("Results: $search"))
             searchResultsPage.breadcrumb.breadcrumbItems[0].shouldHave(exactText("Home"))
-            Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().count(), maxResultsPerPage)
 
             if (resultsPages > 1) {
+                Assert.assertEquals(searchResultsPage.searchResults.shouldLoadRequired().count(), maxResultsPerPage)
                 searchResultsPage.pagination.shouldLoadRequired().currentPage.shouldHave(exactText("1"))
                 searchResultsPage.pagination.nextPage.shouldBe(visible)
                 searchResultsPage.pagination.pagesLinks.shouldHave(size(resultsPages))[resultsPages - 2].shouldHave(
