@@ -126,16 +126,42 @@ selenide version used to test selenide-pom:
 
 See [scoop homepage](https://scoop.sh/) for details.
 
-Open a PowerShell terminal and run:
+To install scoop, open a PowerShell terminal and run:
 
-    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-    irm get.scoop.sh | iex
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+## Post install
+
+Some basic scoop configuration and packages:
+
+    scoop install git sudo
+    C:\Users\<user>\scoop\apps\7zip\current\install-context.reg
+    git config --global credential.helper manager
+    C:\Users\<user>\scoop\apps\git\current\install-context.reg
+    C:\Users\<user>\scoop\apps\git\current\install-file-associations.reg
+    scoop update
+    # The next 3 commands may need Admin rights:
+    sudo Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+    scoop install innounp
+    scoop install dark
+    # It is also recommended to activate developer mode in Windows configuration.
 
 ## Install packages
 
-    scoop bucket add extras    
+Some basic packages for Selenium/Selenide:
+
+    scoop bucket add extras
     scoop bucket add java
-    scoop install oraclejdk-lts jetbrains-toolbox python cookiecutter allure chromedriver geckodriver
+    scoop install openjdk python cookiecutter allure idea
+
+## Check scoop
+
+To check potential problems in scoop:
+
+    scoop checkup
+
+After executing this command, scoop will suggest you actions to fix problems found.
 
 ## Update packages
 
@@ -149,4 +175,8 @@ To know if any package needs update:
 
 To update all installed packages:
 
-    scoop update *
+    scoop update -a
+
+To clean cache and old apps:
+
+    scoop cleanup -k -a
