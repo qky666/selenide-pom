@@ -118,6 +118,7 @@ selenide version used to test selenide-pom:
 | selenide-pom version | selenide version |
 |----------------------|------------------|
 | 0.28.1               | 7.3.3            |
+| 0.28.2               | 7.3.3            |
 
 
 # Extra: Easy Windows setup (without Admin rights)
