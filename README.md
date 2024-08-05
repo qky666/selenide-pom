@@ -113,13 +113,13 @@ Selenide-POM: https://github.com/qky666/selenide-pom
 
 # Test Matrix
 
-selenide version used to test selenide-pom:
+Versions used to test selenide-pom:
 
-| selenide-pom version | selenide version |
-|----------------------|------------------|
-| 0.28.1               | 7.3.3            |
-| 0.28.2               | 7.3.3            |
-
+| selenide-pom version | selenide version | Gradle version | Java version |
+|----------------------|------------------|----------------|--------------|
+| 0.28.1               | 7.3.3            | 8.8            | 21           |
+| 0.28.2               | 7.3.3            | 8.8            | 21           |
+| 0.28.3               | 7.4.1            | 8.9            | 21           |
 
 # Extra: Easy Windows setup (without Admin rights)
 
