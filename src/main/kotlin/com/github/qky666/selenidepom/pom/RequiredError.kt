@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.ex.UIAssertionError
 
 /**
@@ -9,8 +8,7 @@ import com.codeborne.selenide.ex.UIAssertionError
  *
  * @param errors list of errors found during page load (required elements not found, or custom load validation errors)
  */
-class RequiredError(errors: List<Throwable>) : UIAssertionError(
-    WebDriverRunner.driver(),
+class RequiredError(private val errors: List<Throwable>) : UIAssertionError(
     "Required elements not found in page or screen, or custom page load validation errors found: " +
             "${errors.size} errors. See suppressed errors"
 ) {

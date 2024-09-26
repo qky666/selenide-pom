@@ -8,8 +8,8 @@ plugins {
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "2.0.0"
-    id("io.freefair.lombok") version "8.6"
+    kotlin("jvm") version "2.0.20"
+    id("io.freefair.lombok") version "8.10"
     id("com.github.ben-manes.versions") version "0.51.0"
 }
 
@@ -29,12 +29,12 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.10.3"
+    val jUnitVersion = "5.11.1"
 
-    implementation("com.codeborne:selenide-appium:7.4.1")
+    implementation("com.codeborne:selenide-appium:7.5.1")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
-    testImplementation("org.slf4j:slf4j-simple:2.0.13")
+    testImplementation("org.slf4j:slf4j-simple:2.0.16")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
@@ -60,12 +60,10 @@ tasks.test {
 }
 
 tasks.compileKotlin {
-//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
     compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
 
 tasks.compileTestKotlin {
-//    kotlinOptions.freeCompilerArgs += "-Xjvm-default=all"
     compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
 

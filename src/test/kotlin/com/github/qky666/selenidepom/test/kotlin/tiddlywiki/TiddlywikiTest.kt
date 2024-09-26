@@ -15,7 +15,6 @@ import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
-import com.codeborne.selenide.ex.UIAssertionError
 import com.github.qky666.selenidepom.condition.langCondition
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
@@ -72,7 +71,6 @@ import java.time.Duration
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class TiddlywikiTest {
@@ -362,12 +360,9 @@ class TiddlywikiTest {
         searchResultsText.shouldBe(langCondition(mapOf("en" to exactText("1 matches")), false))
 
         // Incomplete LangCondition
-        // val incompleteLangCondition = langCondition(mapOf("en" to "1 matches"))
         val incompleteLangCondition = langCondition(mapOf("en" to exactText("1 matches")))
         if (SPConfig.lang == "es") {
-            val error = assertThrows<UIAssertionError> { searchResultsText.shouldBe(incompleteLangCondition) }
-            assertNotNull(error.cause)
-            assertEquals(error.cause!!::class, ConditionNotDefinedError::class)
+            assertThrows<ConditionNotDefinedError> { searchResultsText.shouldBe(incompleteLangCondition) }
         } else searchResultsText.shouldBe(incompleteLangCondition)
 
         firstSearchResult.click()
