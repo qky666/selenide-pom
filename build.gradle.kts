@@ -9,7 +9,7 @@ plugins {
     // jitpack needs maven-publish plugin
     `maven-publish`
     kotlin("jvm") version "2.0.20"
-    id("io.freefair.lombok") version "8.10"
+    id("io.freefair.lombok") version "8.10.2"
     id("com.github.ben-manes.versions") version "0.51.0"
 }
 
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.11.1"
+    val jUnitVersion = "5.11.2"
 
     implementation("com.codeborne:selenide-appium:7.5.1")
     implementation(kotlin("reflect"))
