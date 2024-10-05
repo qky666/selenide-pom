@@ -5,9 +5,6 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.WebDriverRunner
-import com.github.qky666.selenidepom.config.SPConfig.lang
-import com.github.qky666.selenidepom.config.SPConfig.model
-import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import java.io.FileInputStream
@@ -187,7 +184,7 @@ object SPConfig {
     fun getWebDriver(): WebDriver? {
         return try {
             WebDriverRunner.getWebDriver()
-        } catch (e: IllegalStateException) {
+        } catch (_: IllegalStateException) {
             null
         }
     }
@@ -204,7 +201,7 @@ object SPConfig {
                 it.switchTo().window(it.windowHandles.first())
                 it.close()
             }
-            if (it.windowHandles.size > 0) {
+            if (it.windowHandles.isNotEmpty()) {
                 it.switchTo().window(it.windowHandles.first())
                 it.close()
             }

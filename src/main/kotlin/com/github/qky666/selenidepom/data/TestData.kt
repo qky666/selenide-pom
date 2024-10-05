@@ -75,9 +75,9 @@ object TestData {
     @Throws(RuntimeException::class)
     fun get(key: String, default: Any? = Unit): Any? {
         val value = output[key] ?: input.getProperty(key)
-        if (value != null) return value
+        return if (value != null) value
         else if (default == Unit) throw RuntimeException("No value found for key $key")
-        else return default
+        else default
     }
 
     /**
