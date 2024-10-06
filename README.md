@@ -120,6 +120,7 @@ Versions used to test selenide-pom:
 | 0.28.1               | 7.3.3            | 8.8            | 21           |
 | 0.28.2               | 7.3.3            | 8.8            | 21           |
 | 0.28.3               | 7.5.1            | 8.10.2         | 21           |
+| 0.28.4               | 7.5.1            | 8.10.2         | 21           |
 
 # Extra: Easy Windows setup (without Admin rights)
 
