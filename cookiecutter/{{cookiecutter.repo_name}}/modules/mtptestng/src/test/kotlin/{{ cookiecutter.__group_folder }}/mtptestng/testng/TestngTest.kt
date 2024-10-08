@@ -56,14 +56,14 @@ class TestngTest : Logging {
         logger.info { "Closed webdriver for test ${result.name}. Status: ${result.status}" }
     }
 
-    @Test(description = "User navigate to Quality Assurance (desktop)", groups = arrayOf("desktop"))
+    @Test(description = "User navigate to Quality Assurance (desktop)", groups = ["desktop"])
     fun userNavigateToQualityAssuranceDesktop() {
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.qualityAssurance.click()
         qualityAssurancePage.shouldLoadRequired()
     }
 
-    @Test(description = "User navigate to Quality Assurance (mobile)", groups = arrayOf("mobile"))
+    @Test(description = "User navigate to Quality Assurance (mobile)", groups = ["mobile"])
     fun userNavigateToQualityAssuranceMobile() {
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -73,19 +73,19 @@ class TestngTest : Logging {
         qualityAssurancePage.shouldLoadRequired()
     }
 
-    @Test(description = "Forced failure", groups = arrayOf("desktop", "mobile"))
+    @Test(description = "Forced failure", groups = ["desktop", "mobile"])
     fun forcedFailure() {
         servicesPage.shouldLoadRequired()
     }
 
-    @Test(description = "Cookies should not reappear after accepted (desktop)", groups = arrayOf("desktop"))
+    @Test(description = "Cookies should not reappear after accepted (desktop)", groups = ["desktop"])
     fun userNavigateToQualityAssuranceCookiesShouldNotReappearDesktop() {
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.qualityAssurance.click()
         qualityAssurancePage.shouldLoadRequired().cookiesBanner.shouldNotBe(visible)
     }
 
-    @Test(description = "Cookies should not reappear after accepted (mobile)", groups = arrayOf("mobile"))
+    @Test(description = "Cookies should not reappear after accepted (mobile)", groups = ["mobile"])
     fun userNavigateToQualityAssuranceCookiesShouldNotReappearMobile() {
         homePage.mobileMenu.mobileMenuButton.click()
         val mobileMenu = homePage.mobileMenuPopUp
@@ -95,7 +95,7 @@ class TestngTest : Logging {
         qualityAssurancePage.shouldLoadRequired().cookiesBanner.shouldNotBe(visible)
     }
 
-    @Test(description = "Search (desktop)", groups = arrayOf("desktop.search"))
+    @Test(description = "Search (desktop)", groups = ["desktop.search"])
     @Parameters(
         "search", "resultsPagesExpected", "lastPageResultsExpected", "lastPageResultTitle", "lastPageResultText"
     )
@@ -136,7 +136,7 @@ class TestngTest : Logging {
         else result.text.shouldNotBe(visible)
     }
 
-    @Test(description = "WIP. User navigate to Quality Assurance (desktop)", groups = arrayOf("desktop", "wip"))
+    @Test(description = "WIP. User navigate to Quality Assurance (desktop)", groups = ["desktop", "wip"])
     fun userNavigateToQualityAssuranceDesktopWip() {
         homePage.desktopMenu.services.hover()
         homePage.desktopMenu.servicesPopUp.qualityAssurance.click()
