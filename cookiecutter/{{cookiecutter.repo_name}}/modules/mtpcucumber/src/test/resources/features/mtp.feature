@@ -12,7 +12,6 @@ Característica: Web de MTP
   Antecedentes:
     * Se accede a la web de MTP
     * Se aceptan las cookies
-    * Se establece el idioma
 
   @desktop @mobile
   Esquema del escenario: Acceso a Aseguramiento de la calidad. Navegador: <Navegador>; Modelo: <Modelo>; Idioma: <Idioma>

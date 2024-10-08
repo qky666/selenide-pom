@@ -2,6 +2,7 @@ package {{ cookiecutter.group }}.mtptestng.pom.pages.home
 
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
@@ -13,8 +14,13 @@ class HomePage : MainFramePage() {
     @Required val mainBanner = MainBannerWidget(find("div.custom-bg-primary"))
 
     fun open() {
-        Selenide.open(TestData.getString("data.baseUrl"))
-        shouldLoadRequired(lang = "es")
+        val url = when (SPConfig.lang) {
+            "es" -> TestData.getString("data.baseUrl")
+            "en" -> TestData.getString("data.baseUrlEn")
+            else -> throw RuntimeException("Idioma no esperado: ${SPConfig.lang}")
+        }
+        Selenide.open(url)
+        shouldLoadRequired()
     }
 }
 

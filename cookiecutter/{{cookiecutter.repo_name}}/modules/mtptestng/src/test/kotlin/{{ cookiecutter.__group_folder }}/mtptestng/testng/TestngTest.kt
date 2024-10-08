@@ -40,10 +40,9 @@ class TestngTest : Logging {
         TestData.init(env)
 
         // Open URL and set up site
-        homePage.open()
-        homePage.acceptCookies("es")
         SPConfig.lang = lang
-        homePage.setLangIfNeeded()
+        homePage.open()
+        homePage.acceptCookies()
     }
 
     @AfterMethod(description = "Close browser", alwaysRun = true)

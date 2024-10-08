@@ -66,30 +66,6 @@ open class MainFramePage : Page(), Logging {
         logger.info { "Mobile cookies accepted" }
         cookiesBanner.should(disappear)
     }
-
-    fun setLangIfNeeded(lang: String = SPConfig.lang) {
-        when (SPConfig.model) {
-            "mobile" -> if (!mobileMenu.selectedLang.text.contentEquals(lang, true)) {
-                when (lang) {
-                    "en" -> mobileMenu.langEn.click()
-                    "es" -> mobileMenu.langEs.click()
-                    else -> throw RuntimeException("Language $lang not found")
-                }
-            }
-
-            "desktop" -> if (!desktopMenu.selectedLang.text.contentEquals(lang, true)) {
-                when (lang) {
-                    "en" -> desktopMenu.langEn.click()
-                    "es" -> desktopMenu.langEs.click()
-                    else -> throw RuntimeException("Language $lang not found")
-                }
-            }
-
-            else -> throw RuntimeException("Model ${SPConfig.model} not found")
-        }
-        shouldLoadRequired(lang = lang)
-        logger.info { "Set site language: $lang" }
-    }
 }
 
 @Suppress("unused") val mainFramePage = MainFramePage()

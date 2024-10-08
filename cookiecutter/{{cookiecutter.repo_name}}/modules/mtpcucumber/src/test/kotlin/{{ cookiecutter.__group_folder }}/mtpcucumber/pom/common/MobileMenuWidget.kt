@@ -2,23 +2,13 @@ package {{ cookiecutter.group }}.mtpcucumber.pom.common
 
 import com.codeborne.selenide.CollectionCondition.allMatch
 import com.codeborne.selenide.Condition.exactText
-import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
-import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
 
 class MobileMenuWidget(self: SelenideElement) : Widget(self) {
     @Required val mobileMenuButton = find("button.custom-menu-btn-flotante")
-
-    @Required val languages = findAll("li.individual-menu-idioma>a")
-    @Required val langEn = languages.findBy(text("en"))
-    @Required val langEs = languages.findBy(text("es"))
-    @Required val selectedLang = LangConditionedElement(
-        find("li.individual-menu-idioma.idioma-activo>a"),
-        mapOf("es" to "es", "en" to "en")
-    )
 }
 
 class MobileMenuPopUpWidget(self: SelenideElement) : Widget(self) {

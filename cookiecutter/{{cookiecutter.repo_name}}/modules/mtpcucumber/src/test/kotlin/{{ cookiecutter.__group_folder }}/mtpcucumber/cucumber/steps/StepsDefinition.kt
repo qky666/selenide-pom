@@ -25,12 +25,7 @@ class MtpStepsDefinition : Es, Logging {
             homePage.open()
         }
 
-        Dado("Se establece el idioma") {
-            homePage.setLangIfNeeded()
-        }
-
         Dado("Se aceptan las cookies") {
-            // Accept cookies before selecting language
             mainFramePage.acceptCookies("es")
         }
 
