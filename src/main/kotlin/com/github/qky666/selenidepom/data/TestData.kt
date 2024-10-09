@@ -1,5 +1,8 @@
 package com.github.qky666.selenidepom.data
 
+import com.github.qky666.selenidepom.data.TestData.init
+import com.github.qky666.selenidepom.data.TestData.input
+
 const val DEFAULT_DATA_PROPERTIES_FILENAME = "data/default.properties"
 
 /**
@@ -74,28 +77,24 @@ object TestData {
      */
     @Throws(RuntimeException::class)
     fun get(key: String, default: Any? = Unit): Any? {
-        val value = output[key] ?: input.getProperty(key)
-        return if (value != null) value
-        else if (default == Unit) throw RuntimeException("No value found for key $key")
+        return output[key] ?: input.getProperty(key)
+        ?: if (default == Unit) throw RuntimeException("No value found for key $key")
         else default
     }
 
     /**
      * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
      * If none of them exists, default value is returned.
-     * If no value is found, and no default value is provided (default = `null`), a RuntimeException is thrown.
      *
      * @param key the key
      * @param default the default value returned if no value is found
-     * @return found value, or default value (if provided)
-     * @throws RuntimeException
+     * @return found value, or default value (if not found)
      */
-    @Throws(RuntimeException::class)
-    fun getString(key: String, default: String? = null): String {
-        val value = get(key, default)
-        if (value is String) return value
-        else if (value == null) throw RuntimeException("No value found for key $key")
-        else throw RuntimeException("Value found for key '$key' is not a String: $value")
+    fun getString(key: String, default: String? = null): String? {
+        return when (val value = get(key, default)) {
+            is String? -> value
+            else -> value.toString()
+        }
     }
 
     /**

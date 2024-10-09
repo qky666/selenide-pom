@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <!-- WIP: Add 'wip' group in class and enable corresponding tests-->
+    <groups>
+        <run>
+            <include name="wip"/>
+        </run>
+    </groups>
+    <parameter name="env" value="prod"/>
+    <test name="TestNG TiddlyWiki Firefox Desktop Spanish tests" enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <classes>
+            <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG TiddlyWiki Firefox Desktop English tests" enabled="true">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <classes>
+            <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG TiddlyWiki Chrome Desktop Spanish tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="es"/>
+        <classes>
+            <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
+        </classes>
+    </test>
+    <test name="TestNG TiddlyWiki Chrome Desktop English tests" enabled="true">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="mobile" value="false"/>
+        <parameter name="lang" value="en"/>
+        <classes>
+            <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
+        </classes>
+    </test>
+</suite>

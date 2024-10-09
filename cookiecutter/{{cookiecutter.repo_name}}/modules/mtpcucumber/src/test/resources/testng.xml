@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Complete suite" data-provider-thread-count="4">
-    <test name="Complete plan" enabled="true" parallel="methods">
-        <classes>
-            <class name="{{ cookiecutter.group }}.mtpcucumber.cucumber.runner.AllTestRunner"/>
-        </classes>
-    </test>
-</suite>

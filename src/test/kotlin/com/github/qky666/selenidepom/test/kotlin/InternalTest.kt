@@ -36,7 +36,7 @@ class InternalTest {
         Assertions.assertEquals("", TestData.getString("data.input.baseUrl", ""))
         Assertions.assertNull(TestData.get("data.input.baseUrl", null))
         Assertions.assertThrows(RuntimeException::class.java) { TestData.get("data.input.baseUrl") }
-        Assertions.assertThrows(RuntimeException::class.java) { TestData.getString("data.input.baseUrl") }
+        Assertions.assertNull(TestData.getString("data.input.baseUrl"))
         TestData.init("internal-prod")
         Assertions.assertEquals("https://sample.com", TestData.get("data.input.baseUrl"))
         Assertions.assertEquals("https://sample.com", TestData.getString("data.input.baseUrl"))
