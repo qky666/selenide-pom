@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package {{ cookiecutter.group }}.common.cucumber.steps
 
 import com.github.qky666.selenidepom.config.SPConfig
