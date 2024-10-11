@@ -12,7 +12,7 @@ dependencies {
     // Gradle plugins
     implementation("ru.vyarus:gradle-use-python-plugin:{{ cookiecutter._use_python_version }}")
     // Vulnerable dependency for gradle-use-python-plugin:4.0.0: org.apache.commons:commons-compress:1.24.0. Upgrade to: 1.26.0
-    implementation("org.apache.commons:commons-compress:{{ _commons_compress_version }}")
+    implementation("org.apache.commons:commons-compress:{{ cookiecutter._commons_compress_version }}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:{{ cookiecutter._kotlin_jvm_version }}")
     implementation("com.github.ben-manes:gradle-versions-plugin:{{ cookiecutter._versions_version }}")
     implementation("io.qameta.allure.gradle.allure:allure-plugin:{{ cookiecutter._allure_version }}")
