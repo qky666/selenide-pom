@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/selenide-pom.iml" filepath="$PROJECT_DIR$/.idea/modules/selenide-pom.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/selenide-pom.test.iml" filepath="$PROJECT_DIR$/.idea/modules/selenide-pom.test.iml" />
     </modules>
   </component>
 </project>

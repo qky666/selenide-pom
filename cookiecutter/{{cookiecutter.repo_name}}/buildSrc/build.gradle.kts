@@ -21,3 +21,7 @@ dependencies {
     // Vulnerable dependency com.squareup.okio:okio-jvm:3.2.0. Upgrade to: 3.4.0
     implementation("com.squareup.okio:okio-jvm:{{ cookiecutter._okio_jvm_version }}")
 }
+
+kotlin {
+    jvmToolchain(21)
+}
