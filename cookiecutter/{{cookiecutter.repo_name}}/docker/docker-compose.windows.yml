@@ -1,0 +1,35 @@
+# Windows image NoVNC password: secret
+# Windows: Docker Desktop - Settings - General - Expose daemon on tcp://localhost:2375 without TLS [checked]
+# See https://github.com/dockur/windows for Windows container customization.
+
+services:
+  windows:
+    image: dockurr/windows
+    container_name: windows
+    environment:
+      VERSION: "11"
+      DISK_SIZE: "64G"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      # USERNAME: "docker"
+      # PASSWORD: "docker"
+      LANGUAGE: "Spanish"
+      REGION: "es-ES"
+      KEYBOARD: "es-ES"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "5000:5000"
+      - "8006:8006"
+      - "3389:3389/tcp"
+      - "3389:3389/udp"
+    stop_grace_period: 2m
+    volumes:
+      - "C:/docker/win_storage:/storage"
+      - "C:/docker/win_data:/data"
+#    networks:
+#      vlan_win:
+#        ipv4_address: 192.168.1.96

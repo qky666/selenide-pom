@@ -1,0 +1,48 @@
+@file:Suppress("unused")
+
+package {{ cookiecutter.group }}.calculatorandroidcucumber.pom
+
+import io.appium.java_client.AppiumBy.accessibilityId
+
+class ViewsPage : ApiDemosCommonFramePage() {
+    val animation = findAppium(accessibilityId("Animation"))
+    val autoComplete = findAppium(accessibilityId("Auto Complete"))
+    val buttons = findAppium(accessibilityId("Buttons"))
+    val chronometer = findAppium(accessibilityId("Chronometer"))
+    val controls = findAppium(accessibilityId("Controls"))
+    val custom = findAppium(accessibilityId("Custom"))
+    val dateWidgets = findAppium(accessibilityId("Date Widgets"))
+    val dragAndDrop = findAppium(accessibilityId("Drag and Drop"))
+    val expandableLists = findAppium(accessibilityId("Expandable Lists"))
+    val focus = findAppium(accessibilityId("Focus"))
+    val gallery = findAppium(accessibilityId("Gallery"))
+    val gameControllerInput = findAppium(accessibilityId("Game Controller Input"))
+    val grid = findAppium(accessibilityId("Grid"))
+    val hoverEvents = findAppium(accessibilityId("Hover Events"))
+    val imageButton = findAppium(accessibilityId("ImageButton"))
+    val imageSwitcher = findAppium(accessibilityId("ImageSwitcher"))
+    val imageView = findAppium(accessibilityId("ImageView"))
+    val layoutAnimation = findAppium(accessibilityId("Layout Animation"))
+    val layouts = findAppium(accessibilityId("Layouts"))
+    val lists = findAppium(accessibilityId("Lists"))
+    val popupMenu = findAppium(accessibilityId("Popup Menu"))
+    val progressBar = findAppium(accessibilityId("Progress Bar"))
+    val radioGroup = findAppium(accessibilityId("Radio Group"))
+    val ratingBar = findAppium(accessibilityId("Rating Bar"))
+    val rotatingButton = findAppium(accessibilityId("Rotating Button"))
+    val scrollBars = findAppium(accessibilityId("ScrollBars"))
+    val searchView = findAppium(accessibilityId("Search View"))
+    val secureView = findAppium(accessibilityId("Secure View"))
+    val seekBar = findAppium(accessibilityId("Seek Bar"))
+    val spinner = findAppium(accessibilityId("Spinner"))
+    val splittingTouchesAcrossViews = findAppium(accessibilityId("Splitting Touches across Views"))
+    val switches = findAppium(accessibilityId("Switches"))
+    val systemUIVisibility = findAppium(accessibilityId("System UI Visibility"))
+    val tabs = findAppium(accessibilityId("Tabs"))
+    val textClock = findAppium(accessibilityId("TextClock"))
+    val textSwitcher = findAppium(accessibilityId("TextSwitcher"))
+    val visibility = findAppium(accessibilityId("Visibility"))
+    val webView = findAppium(accessibilityId("WebView"))
+}
+
+val viewsPage = ViewsPage()

@@ -5,7 +5,9 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version ("{{ cookiecutter._foojay_resolver_convention_version }}")
 }
 
-include("common")
+include("common_web")
+include("common_android")
+include("common_win")
 
 file("modules").listFiles(File::isDirectory)?.forEach { dir ->
     val name = dir.name

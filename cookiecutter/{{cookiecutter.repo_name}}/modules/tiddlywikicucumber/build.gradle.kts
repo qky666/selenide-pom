@@ -2,11 +2,11 @@ group = "{{ cookiecutter.group }}.tiddlywikicucumber"
 version = "0.0.1-SNAPSHOT"
 
 plugins {
-    id("common-simplereport-base-build")
+    id("common_web-simplereport-base-build")
 }
 
 dependencies {
-    testImplementation(project(":common"))
+    testImplementation(project(":common_web"))
 }
 
 tasks.test {

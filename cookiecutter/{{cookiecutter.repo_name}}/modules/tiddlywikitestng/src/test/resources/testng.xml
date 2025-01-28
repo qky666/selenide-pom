@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="methods" thread-count="4">
+<suite name="All Test Suite" parallel="tests" thread-count="4">
     <groups>
         <run>
             <exclude name="skip"/>
             <exclude name="wip"/>
         </run>
     </groups>
-    <parameter name="env" value="prod"/>
+    <parameter name="env" value="test"/>
     <test name="TestNG TiddlyWiki Firefox Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>

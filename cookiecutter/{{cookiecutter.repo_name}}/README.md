@@ -76,3 +76,49 @@ To clean scoop cache and old apps:
 To identify problems with scoop:
 
     scoop checkup
+
+## FlaUI.WebDriver (Windows automation only)
+
+Download FlaUI.WebDriver from https://github.com/FlaUI/FlaUI.WebDriver/releases.
+
+In order to run `calculatorwincucumber` module tests, you need to run `FlaUI.WebDriver.exe` on a terminal.
+
+Note: `FlaUI.WebDriver.exe` needs `dotnet-sdk` to run (`scoop install dotnet-sdk`).
+
+## Selenium Grid with Docker
+
+### Docker Desktop (Windows host)
+
+To run a Selenium Grid using Docker, install Docker Desktop.
+An easy way to install Docker Desktop:
+
+    winget install --id Docker.DockerDesktop
+
+See comments in `docker/docker-compose.yml` in order to set up the application to work with dynamic grids.
+To start the grid, run (from `docker` folder):
+
+    docker-compose up -d
+    docker-compose down
+
+If you want to start the grid with Android (appium) support, try:
+
+    docker-compose -f docker-compose.yml -f docker-compose.android.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.android.yml down
+
+If you want to start the grid with Windows support, try:
+
+    docker-compose -f docker-compose.yml -f docker-compose.windows.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.windows.yml down
+
+Note that you will need to install all required software in the Windows container.
+See [FlaUI.WebDriver (Windows automation only)](#flauiwebdriver-windows-automation-only).
+
+If you want both:
+
+    docker-compose -f docker-compose.yml -f docker-compose.android.yml -f docker-compose.windows.yml up -d
+    docker-compose -f docker-compose.yml -f docker-compose.android.yml -f docker-compose.windows.yml down
+
+## Known bugs
+
+- FlaUI.Webdriver not responding when used inside docker container.
+- Appium `images` plugin is not working with `geckodriver` (appium version 2.12.0).

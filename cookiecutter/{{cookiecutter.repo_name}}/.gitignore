@@ -270,3 +270,7 @@ gradle-app.setting
 
 ### This Project ###
 .idea/workspace.xml
+docker/assets/*
+!docker/assets/assets.txt
+docker/downloads/*
+!docker/downloads/downloads.txt

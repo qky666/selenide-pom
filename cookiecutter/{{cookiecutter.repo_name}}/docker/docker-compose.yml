@@ -1,0 +1,64 @@
+# NOTE: Change vlan_win network configuration as needed. Important: macvlan only works on Linux hosts.
+
+networks:
+  selenium_network:
+#  vlan_win:
+#    driver: macvlan
+#    driver_opts:
+#      parent: eth0
+#    ipam:
+#      config:
+#        - subnet: "192.168.1.0/24"
+#          ip_range: "192.168.1.96/28"
+#          gateway: "192.168.1.1"
+
+services:
+  selenium_hub:
+    image: selenium/hub:latest
+    container_name: selenium_hub
+    restart: always
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    environment:
+      - SE_ENABLE_TRACING=false
+    networks:
+      - selenium_network
+
+  selenium_node:
+    image: selenium/node-docker:latest
+    container_name: selenium_node
+    shm_size: 2gb
+    volumes:
+      - ./assets:/opt/selenium/assets
+      - ./downloads:/home/seluser/Downloads
+      - ./config.toml:/opt/selenium/docker.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - selenium_hub
+      - docker-host
+    expose:
+      - 5555
+    environment:
+      - SE_NODE_DOCKER_CONFIG_FILENAME=docker.toml
+      - SE_ENABLE_TRACING=false
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_START_VNC=true
+      # - SE_NODE_MAX_SESSIONS=1
+      # - SE_VIDEO_RECORD_STANDALONE=true
+      # - SE_VIDEO_FILE_NAME=auto
+    networks:
+      - selenium_network
+
+  docker-host:
+    image: qoomon/docker-host:latest
+    container_name: docker-host
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    restart: on-failure
+    environment:
+      - PORTS=2375
+    networks:
+      - selenium_network

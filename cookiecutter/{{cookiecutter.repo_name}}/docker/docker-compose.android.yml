@@ -1,0 +1,17 @@
+services:
+  android:
+    image: budtmo/docker-android:emulator_9.0
+    container_name: android
+    ports:
+      - "6080:6080"
+      - "4723:4723"
+    restart:
+      always
+    devices:
+      - /dev/kvm
+    environment:
+      - EMULATOR_DEVICE=Samsung Galaxy S10
+      - WEB_VNC=true
+      - VNC_PASSWORD=MyAndroidPass
+      - APPIUM=true
+      - APPIUM_ADDITIONAL_ARGS=--allow-cors

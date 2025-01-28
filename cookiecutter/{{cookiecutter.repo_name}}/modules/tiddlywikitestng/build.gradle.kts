@@ -2,12 +2,12 @@ group = "{{ cookiecutter.group }}.tiddlywikitestng"
 version = "0.0.1-SNAPSHOT"
 
 plugins {
-    id("common-simplereport-base-build")
+    id("common_web-simplereport-base-build")
     id("org.gradle.test-retry") version "{{ cookiecutter._test_retry_version }}"
 }
 
 dependencies {
-    testImplementation(project(":common"))
+    testImplementation(project(":common_web"))
 }
 
 tasks.test {

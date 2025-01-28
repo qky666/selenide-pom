@@ -7,7 +7,7 @@
             <include name="wip"/>
         </run>
     </groups>
-    <parameter name="env" value="prod"/>
+    <parameter name="env" value="test"/>
     <test name="TestNG TiddlyWiki Firefox Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>

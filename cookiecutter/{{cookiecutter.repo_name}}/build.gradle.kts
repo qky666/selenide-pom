@@ -6,7 +6,7 @@ plugins {
 }
 
 evaluationDependsOnChildren()
-val modules get() = subprojects.filter { it.name != "common" }
+val modules get() = subprojects.filter { it.name !in arrayOf("common_web", "common_win", "common_android") }
 val cleanTasks get() = subprojects.map { it.tasks.clean }
 val testsTasks get() = subprojects.map { it.tasks.test }
 val importAllureHistoryTasks get() = modules.map { it.tasks.importAllureHistory }
