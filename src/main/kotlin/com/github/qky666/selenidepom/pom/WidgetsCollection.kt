@@ -116,7 +116,7 @@ class WidgetsCollection<T : Widget>(
     ` *
     </pre> *
      */
-    override fun should(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
+    override fun should(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.should(*conditions), factory)
     }
 
@@ -132,7 +132,7 @@ class WidgetsCollection<T : Widget>(
     override fun should(
         prefix: String,
         timeout: Duration,
-        vararg conditions: WebElementsCondition?,
+        vararg conditions: WebElementsCondition,
     ): WidgetsCollection<T> {
         return WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
     }
@@ -140,7 +140,7 @@ class WidgetsCollection<T : Widget>(
     /**
      * For example: `$$(".error").shouldBe(empty)`
      */
-    override fun shouldBe(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
+    override fun shouldBe(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldBe(*conditions), factory)
     }
 
@@ -153,7 +153,7 @@ class WidgetsCollection<T : Widget>(
      * `$$(".error").shouldHave(size(3))`
      * `$$(".error").shouldHave(texts("Error1", "Error2"))`
      */
-    override fun shouldHave(vararg conditions: WebElementsCondition?): WidgetsCollection<T> {
+    override fun shouldHave(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
         return WidgetsCollection(super.shouldHave(*conditions), factory)
     }
 

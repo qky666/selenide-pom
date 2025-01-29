@@ -136,7 +136,7 @@ object SPConfig {
     @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = DEFAULT_DEVICE_NAME, model: String = DEFAULT_MOBILE_MODEL) {
         ChromeMobileDriverFactory.deviceName = deviceName
-        selenideConfig.browser(ChromeMobileDriverFactory::class.qualifiedName)
+        selenideConfig.browser(ChromeMobileDriverFactory::class.qualifiedName!!)
         SPConfig.model = model
     }
 

@@ -40,7 +40,7 @@ class DemoqaTest {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) SPConfig.setupBasicMobileBrowser()
         else SPConfig.setupBasicDesktopBrowser(browserConfig)
         SPConfig.setDriver()
-        Selenide.open(TestData.getString("data.url"))
+        Selenide.open(TestData.getString("data.url")!!)
     }
 
     @ParameterizedTest
