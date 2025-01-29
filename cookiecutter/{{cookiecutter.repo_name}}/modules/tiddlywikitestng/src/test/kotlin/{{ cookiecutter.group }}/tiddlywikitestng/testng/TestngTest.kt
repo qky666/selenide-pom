@@ -10,12 +10,14 @@ import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import {{ cookiecutter.group }}.common.testng.Retry
-import {{ cookiecutter.group }}.common.util.AllureReportHelper
+import {{ cookiecutter.group }}.common_web.testng.Retry
+import {{ cookiecutter.group }}.common_web.util.AllureReportHelper
 import {{ cookiecutter.group }}.tiddlywikitestng.pom.mainPage
 import {{ cookiecutter.group }}.tiddlywikitestng.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.apache.logging.log4j.kotlin.Logging
 import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.firefox.FirefoxOptions
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
@@ -29,17 +31,32 @@ class TestngTest : Logging {
     @Parameters("browser", "mobile", "env", "lang")
     fun beforeMethod(browser: String, mobile: String, env: String, lang: String) {
         SPConfig.resetConfig()
-        // Configure webdriver
-        if (mobile.equals("true", true)) SPConfig.setupBasicMobileBrowser()
-        else SPConfig.setupBasicDesktopBrowser(browser)
-        SPConfig.setDriver()
 
         // Set env
         TestData.init(env)
 
+        // Configure webdriver
+        if (mobile.equals("true", true)) SPConfig.setupBasicMobileBrowser()
+        else SPConfig.setupBasicDesktopBrowser(browser)
+        val config = SPConfig.selenideConfig
+        config.remote()?.let {
+            val options = if (browser.equals("firefox", ignoreCase = true)) {
+                FirefoxOptions()
+            } else if (browser.equals("chrome", ignoreCase = true)) {
+                ChromeOptions()
+            } else {
+                throw RuntimeException("Invalid browser: $browser")
+            }
+            options.setPlatformName("linux")
+            val merge = config.browserCapabilities().merge(options)
+            config.browserCapabilities(merge)
+        }
+
+        SPConfig.setDriver()
+
         // Open URL
         SPConfig.lang = lang
-        Selenide.open(TestData.getString("data.baseUrl"))
+        Selenide.open(TestData.getString("project.baseUrl")!!)
 
         // Set up site
         mainPage.shouldLoadRequired(lang = "es").changeSiteLanguageIfNeeded()
@@ -84,6 +101,7 @@ class TestngTest : Logging {
         mainPage.sidebar.sidebarTabs.recentTabContent.shouldLoadRequired().dateItems.shouldHave(size(1))
     }
 
+    @Suppress("TestFailedLine", "RedundantSuppression")
     @Test(description = "Error forzado: Existe un tiddler abierto no esperado", groups = ["desktop", "mobile"])
     fun forcedError() {
         mainPage.shouldLoadRequired().storyRiver.tiddlerViews.shouldHave(size(0))

@@ -1,13 +1,16 @@
 import os
-import shutil
 
-
-REMOVE_PATHS = []
-
-for path in REMOVE_PATHS:
-    path = path.strip()
-    if path and os.path.exists(path):
-        if os.path.isdir(path):
-            shutil.rmtree(path)
-        else:
-            os.unlink(path)
+group = '{{ cookiecutter.group }}'
+packages = group.split('.')
+if len(packages) > 1:
+    modules = os.listdir("modules")
+    for module in modules:
+        kotlin_folder = f"modules/{module}/src/test/kotlin"
+        folder = kotlin_folder
+        for index in range(len(packages) - 1):
+            package = packages[index]
+            folder = f"{folder}/{package}"
+            os.mkdir(folder)
+        packages_folder = f"{kotlin_folder}/{group}"
+        new_last_package_folder = f"{folder}/{packages[-1]}"
+        os.rename(packages_folder, new_last_package_folder)
