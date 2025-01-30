@@ -34,7 +34,7 @@ dependencies {
     implementation("com.codeborne:selenide-appium:7.7.1")
     implementation(kotlin("reflect"))
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
-    implementation("org.bytedeco:javacv-platform:1.5.11")
+    implementation("com.sikulix:sikulixapi:2.0.5")
     testImplementation("org.slf4j:slf4j-simple:2.0.16")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
