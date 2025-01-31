@@ -1,5 +1,6 @@
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.Selenide
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.OutputType
@@ -15,12 +16,17 @@ import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
 
-class ByImage(private val imagePath: String, private val similarity: Double = 0.7) : By() {
+class ByImage(
+    private val imagePath: String,
+    private val offsetX: Int = 0,
+    private val offsetY: Int = 0,
+    private val similarity: Double = 0.7,
+) : By() {
     override fun findElement(context: SearchContext?): ImageWebElement {
         val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
         val screenshot = ImageIO.read(screenshotStream)
         val finder = Finder(screenshot)
-        val pattern: Pattern = Pattern(imagePath).similar(similarity)
+        val pattern: Pattern = Pattern(imagePath).similar(similarity).targetOffset(offsetX, offsetY)
         if (finder.find(pattern) == null) {
             throw RuntimeException("Find setup for image $imagePath with similarity $similarity is not possible in context $context")
         } else if (finder.hasNext()) {
@@ -51,16 +57,14 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
 
     override fun findElement(by: By): WebElement {
         val elements = findElements(by)
-        if (elements.isEmpty()) throw NoSuchElementException("Not found any element in image ${match.name} using criteria $by")
+        if (elements.isEmpty()) throw NoSuchElementException("Element not found in image ${match.name} using criteria $by")
         else return elements.first()
     }
 
     override fun <X : Any> getScreenshotAs(target: OutputType<X>): X {
         val byteArray = ByteArrayOutputStream().use {
             ImageIO.write(
-                match.image.get().getSubimage(match.getX(), match.getY(), match.getW(), match.getH()),
-                "png",
-                it
+                match.image.get().getSubimage(match.getX(), match.getY(), match.getW(), match.getH()), "png", it
             )
             it.toByteArray()
         }
@@ -68,8 +72,14 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
     }
 
     override fun click() {
-        if (context is WebElement) {
-
+        when (context) {
+            is WebElement -> {
+                val contextCenterX = context.size.width / 2
+                val contextCenterY = context.size.height / 2
+                val offsetX = contextCenterX + match.targetOffset.x
+                val offsetY = contextCenterY + match.targetOffset.y
+                Selenide.actions().moveToElement(context, offsetX, offsetY).click()
+            }
         }
     }
 
