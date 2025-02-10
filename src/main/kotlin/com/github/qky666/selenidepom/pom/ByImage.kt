@@ -8,6 +8,7 @@ import org.openqa.selenium.Point
 import org.openqa.selenium.Rectangle
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.TakesScreenshot
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.sikuli.script.Finder
 import org.sikuli.script.Match
@@ -26,7 +27,7 @@ class ByImage(
         val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
         val screenshot = ImageIO.read(screenshotStream)
         val finder = Finder(screenshot)
-        val pattern: Pattern = Pattern(imagePath).similar(similarity).targetOffset(offsetX, offsetY)
+        val pattern = Pattern(imagePath).similar(similarity).targetOffset(offsetX, offsetY)
         if (finder.find(pattern) == null) {
             throw RuntimeException("Find setup for image $imagePath with similarity $similarity is not possible in context $context")
         } else if (finder.hasNext()) {
@@ -40,7 +41,7 @@ class ByImage(
         val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
         val screenshot = ImageIO.read(screenshotStream)
         val finder = Finder(screenshot)
-        val pattern: Pattern = Pattern(imagePath).similar(similarity)
+        val pattern = Pattern(imagePath).similar(similarity)
         if (finder.find(pattern) == null) {
             throw RuntimeException("Find setup for image $imagePath with similarity $similarity is not possible in context $context")
         } else {
@@ -73,6 +74,11 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
 
     override fun click() {
         when (context) {
+            is WebDriver -> {
+                val x = match.center.x
+                val y = match.center.y
+            }
+
             is WebElement -> {
                 val contextCenterX = context.size.width / 2
                 val contextCenterY = context.size.height / 2
