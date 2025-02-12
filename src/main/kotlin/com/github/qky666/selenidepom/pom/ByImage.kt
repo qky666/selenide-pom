@@ -74,16 +74,16 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
 
     override fun click() {
         when (context) {
-            is WebDriver -> {
-                val x = match.center.x + match.targetOffset.x
-                val y = match.center.y + match.targetOffset.y
-                Selenide.actions().moveToLocation(x, y).click().perform()
-            }
-
             is WebElement -> {
                 val xFromContext = match.center.x + match.targetOffset.x
                 val yFromContext = match.center.y + match.targetOffset.y
                 Selenide.actions().moveToElement(context, xFromContext, yFromContext).click().perform()
+            }
+
+            is WebDriver -> {
+                val x = match.center.x + match.targetOffset.x
+                val y = match.center.y + match.targetOffset.y
+                Selenide.actions().moveToLocation(x, y).click().perform()
             }
         }
     }
