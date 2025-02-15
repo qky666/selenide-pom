@@ -54,6 +54,7 @@ import com.github.qky666.selenidepom.pom.widgetVal
 import com.github.qky666.selenidepom.test.kotlin.downloadTiddlywikiEs
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
+import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.ControlPanelTiddlerViewWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
@@ -687,5 +688,13 @@ class TiddlywikiTest {
         val startTime = LocalDateTime.now()
         assertTrue { myPage.badElement.has(not(visible), Duration.ofSeconds(5)) }
         assertTrue { startTime.plusSeconds(3) > LocalDateTime.now() }
+    }
+
+    @Test
+    fun byImageTest() {
+        setupSite("chrome")
+        mainPage.shouldLoadRequired().sidebar.controlPanelImage.click()
+        val controlPanel = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
+        ControlPanelTiddlerViewWidget(controlPanel).shouldLoadRequired()
     }
 }

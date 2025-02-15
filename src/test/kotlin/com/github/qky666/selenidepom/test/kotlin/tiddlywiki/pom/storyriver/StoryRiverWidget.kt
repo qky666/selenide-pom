@@ -42,3 +42,7 @@ class GettingStartedTiddlerViewWidget(self: SelenideElement) : TiddlerViewWidget
         )
     )
 }
+
+class ControlPanelTiddlerViewWidget(self: SelenideElement) : TiddlerViewWidget(self) {
+    @Required override val title = LangConditionedElement(super.title, "ControlPanel")
+}

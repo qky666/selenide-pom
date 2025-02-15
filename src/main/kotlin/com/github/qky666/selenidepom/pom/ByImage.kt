@@ -15,6 +15,7 @@ import org.sikuli.script.Match
 import org.sikuli.script.Pattern
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
+import kotlin.io.path.toPath
 
 
 class ByImage(
@@ -152,4 +153,13 @@ fun Rectangle.isContainedIn(other: Rectangle): Boolean {
 
 fun Rectangle.contains(other: Rectangle): Boolean {
     return other.isContainedIn(this)
+}
+
+class ImageHelper {
+    companion object {
+        fun pathToImage(image: String): String {
+            val relativePath = "images/$image"
+            return Thread.currentThread().contextClassLoader.getResource(relativePath)?.toURI()?.toPath().toString()
+        }
+    }
 }
