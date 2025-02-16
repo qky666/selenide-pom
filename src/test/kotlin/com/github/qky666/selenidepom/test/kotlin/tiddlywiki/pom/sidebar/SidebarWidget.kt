@@ -12,7 +12,6 @@ import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.Mor
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.OpenTabContentWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.RecentTabContentWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs.ToolsTabContentWidget
-import java.awt.Image
 import java.time.Duration
 
 @Suppress("MemberVisibilityCanBePrivate")
