@@ -88,7 +88,13 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
     }
 
     override fun getLocation(): Point {
-        return Point(match.getX(), match.getY())
+        val (x, y) = if (context is WebElement) {
+            listOf(context.location.x + match.topLeft.x, context.location.y + match.topLeft.y)
+        } else {
+            listOf(match.topLeft.x, match.topLeft.y)
+        }
+        logger.debug { "Location point: ($x, $y)" }
+        return Point(x, y)
     }
 
     override fun getSize(): Dimension {

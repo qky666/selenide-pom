@@ -28,11 +28,13 @@ import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.pom.appendToWidget
 import com.github.qky666.selenidepom.pom.asWidget
 import com.github.qky666.selenidepom.pom.clickWidget
+import com.github.qky666.selenidepom.pom.contains
 import com.github.qky666.selenidepom.pom.contextClickWidget
 import com.github.qky666.selenidepom.pom.doubleClickWidget
 import com.github.qky666.selenidepom.pom.dragWidgetAndDrop
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.hoverWidget
+import com.github.qky666.selenidepom.pom.isContainedIn
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
 import com.github.qky666.selenidepom.pom.pressEscapeInWidget
 import com.github.qky666.selenidepom.pom.pressTabInWidget
@@ -474,12 +476,20 @@ class TiddlywikiTest {
         setupSite("chrome")
         mainPage.shouldLoadRequired()
 
-        fake.setWidgetValue(searchString).widgetShould(searchCondition).widgetShould(searchCondition, timeout)
-            .widgetShouldBe(searchCondition).widgetShouldBe(searchCondition, timeout).widgetShouldHave(searchCondition)
-            .widgetShouldHave(searchCondition, timeout).widgetShouldNot(emptyCondition)
-            .widgetShouldNot(emptyCondition, timeout).widgetShouldNotBe(emptyCondition)
-            .widgetShouldNotBe(emptyCondition, timeout).widgetShouldNotHave(emptyCondition)
-            .widgetShouldNotHave(emptyCondition, timeout).clear()
+        fake.setWidgetValue(searchString)
+            .widgetShould(searchCondition)
+            .widgetShould(searchCondition, timeout)
+            .widgetShouldBe(searchCondition)
+            .widgetShouldBe(searchCondition, timeout)
+            .widgetShouldHave(searchCondition)
+            .widgetShouldHave(searchCondition, timeout)
+            .widgetShouldNot(emptyCondition)
+            .widgetShouldNot(emptyCondition, timeout)
+            .widgetShouldNotBe(emptyCondition)
+            .widgetShouldNotBe(emptyCondition, timeout)
+            .widgetShouldNotHave(emptyCondition)
+            .widgetShouldNotHave(emptyCondition, timeout)
+            .clear()
         fake.widgetShould(emptyCondition).widgetShould(emptyCondition, timeout)
 
         fake.setWidgetValue(SetValueOptions.withText(searchString)).widgetShouldHave(searchCondition).clear()
@@ -488,8 +498,11 @@ class TiddlywikiTest {
         fake.widgetVal(searchString).widgetShouldHave(searchCondition).clear()
         fake.widgetShouldHave(emptyCondition)
 
-        fake.appendToWidget(searchString).widgetShouldHave(searchCondition).appendToWidget(appendString)
-            .widgetShouldHave(appendCondition).clear()
+        fake.appendToWidget(searchString)
+            .widgetShouldHave(searchCondition)
+            .appendToWidget(appendString)
+            .widgetShouldHave(appendCondition)
+            .clear()
         fake.widgetShouldHave(emptyCondition)
 
         fake.pressEnterInWidget().pressEscapeInWidget().pressTabInWidget()
@@ -693,8 +706,16 @@ class TiddlywikiTest {
     @Test
     fun byImageTest() {
         setupSite("chrome")
-        mainPage.shouldLoadRequired().sidebar.controlPanelImage.click()
-        val controlPanel = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
-        ControlPanelTiddlerViewWidget(controlPanel).shouldLoadRequired()
+        val cpImage = mainPage.sidebar.controlPanelImage
+        val cp = mainPage.sidebar.controlPanel
+        mainPage.shouldLoadRequired()
+        cpImage.click()
+        val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
+        ControlPanelTiddlerViewWidget(controlPanelTiddler).shouldLoadRequired()
+        assertTrue { cpImage.rect.contains(cp.rect) }
+        assertFalse { cpImage.rect.isContainedIn(cp.rect) }
+        cpImage.findAll("button[class*=control-panel]").shouldHave(size(1))
+        cpImage.findAll("non-existent").shouldHave(size(0))
+        cpImage.find("button[class*=control-panel]").shouldBe(visible)
     }
 }
