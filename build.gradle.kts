@@ -40,6 +40,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
     testImplementation(kotlin("test"))
+    implementation(kotlin("test"))
 }
 
 kotlin {

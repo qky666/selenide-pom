@@ -1,16 +1,7 @@
 package com.github.qky666.selenidepom.pom
 
 import org.openqa.selenium.Rectangle
-import kotlin.io.path.toPath
 
-class ImageHelper {
-    companion object {
-        fun pathToImage(image: String): String {
-            val relativePath = "images/$image"
-            return Thread.currentThread().contextClassLoader.getResource(relativePath)?.toURI()?.toPath().toString()
-        }
-    }
-}
 
 fun Rectangle.isContainedIn(other: Rectangle): Boolean {
     if (this.x < other.x) return false

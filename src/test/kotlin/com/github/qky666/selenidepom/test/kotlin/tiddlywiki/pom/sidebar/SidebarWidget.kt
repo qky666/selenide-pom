@@ -3,7 +3,6 @@ package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar
 import com.codeborne.selenide.Condition.cssClass
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.pom.ByImage
-import com.github.qky666.selenidepom.pom.ImageHelper
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
@@ -31,7 +30,7 @@ class SidebarWidget(self: SelenideElement) : Widget(self) {
     @Required val newTiddler = find("button[class*=new-tiddler]")
 
     @Required val controlPanel = find("button[class*=control-panel]")
-    @Required val controlPanelImage = find(ByImage(ImageHelper.pathToImage("gear.png")))
+    val controlPanelImage = find(ByImage.name("gear"))
 
     @Required val saveWiki = find("button[class*=save-wiki]")
 

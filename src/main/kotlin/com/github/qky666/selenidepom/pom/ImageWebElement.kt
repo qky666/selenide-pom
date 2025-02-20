@@ -15,7 +15,12 @@ import javax.imageio.ImageIO
 
 private val logger = KotlinLogging.logger {}
 
-class ImageWebElement(private val match: Match, private val context: SearchContext?) : WebElement {
+class ImageWebElement(
+    private val match: Match,
+    private val context: SearchContext?,
+    private val enabled: Boolean = true,
+    private val selected: Boolean = false,
+) : WebElement {
     override fun findElements(by: By): List<WebElement> {
         val elements = context?.findElements(by) ?: listOf()
         return elements.filter { it.rect.isContainedIn(this.rect) }
@@ -72,11 +77,11 @@ class ImageWebElement(private val match: Match, private val context: SearchConte
     }
 
     override fun isSelected(): Boolean {
-        throw UnsupportedOperationException("isSelected")
+        return selected
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return enabled
     }
 
     override fun getText(): String {
