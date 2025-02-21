@@ -18,17 +18,15 @@ import kotlin.io.path.toPath
 import kotlin.test.assertTrue
 
 class ByImage(
-    private val imageEnabledPaths: List<Path>,
-    private val imageDisabledPaths: List<Path> = listOf(),
-    private val imageSelectedPaths: List<Path> = listOf(),
+    private val imageElementDefinitions: List<ImageElementDefinition>,
     private val offsetX: Int = 0,
     private val offsetY: Int = 0,
-    private val similarity: Double = 0.7,
+    private val similarity: Double = DEFAULT_SIMILARITY,
 ) : By() {
     private val logger = KotlinLogging.logger {}
 
-    constructor(imageEnabledPath: Path, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = 0.7) : this(
-        listOf(imageEnabledPath), listOf(), listOf(), offsetX, offsetY, similarity
+    constructor(imagePath: Path, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
+        listOf(ImageElementDefinition(imagePath)), offsetX, offsetY, similarity
     )
 
     override fun findElement(context: SearchContext?): ImageWebElement {
@@ -36,41 +34,19 @@ class ByImage(
         val screenshot = ImageIO.read(screenshotStream)
         val finder = Finder(screenshot)
 
-        imageEnabledPaths.forEach {
-            val pattern = Pattern(it.toString()).similar(similarity).targetOffset(offsetX, offsetY)
+        imageElementDefinitions.forEach {
+            val pattern = Pattern(it.path.toString()).similar(similarity).targetOffset(offsetX, offsetY)
             if (finder.find(pattern) == null) {
                 throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
             } else if (finder.hasNext()) {
                 val match = finder.next()
                 logger.debug { "Match: (${match.x}, ${match.y}. Match score: ${match.score}" }
-                return ImageWebElement(match, context)
-            }
-        }
-        imageDisabledPaths.forEach {
-            val pattern = Pattern(it.toString()).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else if (finder.hasNext()) {
-                val match = finder.next()
-                logger.debug { "Match: (${match.x}, ${match.y}. Match score: ${match.score}" }
-                return ImageWebElement(match, context, enabled = false)
-            }
-        }
-        imageSelectedPaths.forEach {
-            val pattern = Pattern(
-                it.toString()
-            ).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else if (finder.hasNext()) {
-                val match = finder.next()
-                logger.debug { "Match: (${match.x}, ${match.y}. Match score: ${match.score}" }
-                return ImageWebElement(match, context, selected = true)
+                return ImageWebElement(match, context, it.enabled, it.selected)
             }
         }
         // Debug
         ImageIO.write(screenshot, "png", File("build/tmp/screenshot.png"))
-        throw NoSuchElementException("Image $imageEnabledPaths, $imageDisabledPaths, $imageSelectedPaths not found in context $context")
+        throw NoSuchElementException("Image $imageElementDefinitions not found in context $context")
     }
 
     override fun findElements(context: SearchContext?): List<ImageWebElement> {
@@ -78,52 +54,31 @@ class ByImage(
         val screenshot = ImageIO.read(screenshotStream)
         val finder = Finder(screenshot)
         val elements = mutableListOf<ImageWebElement>()
-        imageEnabledPaths.forEach {
-            val pattern = Pattern(it.toString()).similar(similarity).targetOffset(offsetX, offsetY)
+        imageElementDefinitions.forEach {
+            val pattern = Pattern(it.path.toString()).similar(similarity).targetOffset(offsetX, offsetY)
             if (finder.find(pattern) == null) {
                 throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
             } else {
-                elements.addAll(finder.list.map { ImageWebElement(it, context) })
-            }
-        }
-        imageDisabledPaths.forEach {
-            val pattern = Pattern(it.toString()).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else {
-                elements.addAll(finder.list.map { ImageWebElement(it, context, enabled = false) })
-            }
-        }
-        imageSelectedPaths.forEach {
-            val pattern = Pattern(it.toString()).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else {
-                elements.addAll(finder.list.map { ImageWebElement(it, context, selected = true) })
+                elements.addAll(finder.list.map { match -> ImageWebElement(match, context, it.enabled, it.selected) })
             }
         }
         return elements
     }
 
     companion object {
-        fun name(value: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = 0.7): ByImage {
+        private const val DEFAULT_SIMILARITY = 0.7
+
+        fun name(value: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY): ByImage {
             val folder = Thread.currentThread().contextClassLoader.getResource("images/$value")!!.toURI()!!.toPath()
             assertTrue("$folder should be a directory") { folder.isDirectory() }
             val files = folder.listDirectoryEntries()
             assertTrue("$folder should not contain directories") { files.all { !it.isDirectory() } }
-            val enabled = mutableListOf<Path>()
-            val disabled = mutableListOf<Path>()
-            val selected = mutableListOf<Path>()
-            files.filter { it.isRegularFile() }.forEach {
-                if (it.name.contains("selected", ignoreCase = true)) {
-                    selected.add(it)
-                } else if (it.name.contains("disabled", ignoreCase = true)) {
-                    disabled.add(it)
-                } else {
-                    enabled.add(it)
-                }
+            val definitions = files.filter { it.isRegularFile() }.map {
+                val enabled = !it.name.contains("disabled", ignoreCase = true)
+                val selected = it.name.contains("selected", ignoreCase = true)
+                ImageElementDefinition(it, enabled, selected)
             }
-            return ByImage(enabled, disabled, selected, offsetX, offsetY, similarity)
+            return ByImage(definitions, offsetX, offsetY, similarity)
         }
     }
 }

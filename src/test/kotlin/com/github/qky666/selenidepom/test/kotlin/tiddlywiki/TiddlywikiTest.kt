@@ -713,8 +713,8 @@ class TiddlywikiTest {
         cpImage.click()
         val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
         ControlPanelTiddlerViewWidget(controlPanelTiddler).shouldLoadRequired()
-        assertTrue { cpImage.rect.contains(cp.rect) }
-        assertFalse { cpImage.rect.isContainedIn(cp.rect) }
+        assertTrue { cp.rect.contains(cpImage.rect) }
+        assertFalse { cp.rect.isContainedIn(cpImage.rect) }
         cpImage.findAll("button[class*=control-panel]").shouldHave(size(1))
         cpImage.findAll("non-existent").shouldHave(size(0))
         cpImage.find("button[class*=control-panel]").shouldBe(visible)
