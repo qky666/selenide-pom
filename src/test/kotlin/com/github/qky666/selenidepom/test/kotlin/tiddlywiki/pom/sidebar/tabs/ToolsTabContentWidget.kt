@@ -3,6 +3,7 @@ package com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.sidebar.tabs
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebElementCondition
+import com.github.qky666.selenidepom.pom.ByImage
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
@@ -202,6 +203,8 @@ class ToolItem(
 
 class LanguageChooser(self: SelenideElement) : Widget(self) {
     @Required val enGB = find("a[href$=en-GB]")
+    @Required val enGBImage = find(ByImage.name("flag-en"))
     @Required val esES = find("a[href$=es-ES]")
+    @Required val esESImage = find(ByImage.name("flag-es"))
     @Required val chosen = find("div.tc-chosen a")
 }

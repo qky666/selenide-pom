@@ -15,9 +15,11 @@ import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
+import com.github.qky666.selenidepom.condition.ImageCondition.Companion.imageContent
 import com.github.qky666.selenidepom.condition.langCondition
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
+import com.github.qky666.selenidepom.pom.ByImage
 import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
 import com.github.qky666.selenidepom.pom.LangConditionedElement
 import com.github.qky666.selenidepom.pom.Page
@@ -72,6 +74,7 @@ import org.openqa.selenium.WebElement
 import java.net.URL
 import java.time.Duration
 import java.time.LocalDateTime
+import kotlin.io.path.toPath
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -90,7 +93,17 @@ class TiddlywikiTest {
                 Arguments.of("firefox", "es"),
                 Arguments.of("firefox", "en"),
                 Arguments.of("chromeMobile", "es"),
-                Arguments.of("chromeMobile", "en")
+                Arguments.of("chromeMobile", "en"),
+            )
+        }
+
+        @JvmStatic
+        fun desktopBrowserConfigAndLangSource(): List<Arguments> {
+            return listOf(
+                Arguments.of("chrome", "es"),
+                Arguments.of("chrome", "en"),
+                Arguments.of("firefox", "es"),
+                Arguments.of("firefox", "en"),
             )
         }
 
@@ -704,7 +717,7 @@ class TiddlywikiTest {
     }
 
     @ParameterizedTest
-    @MethodSource("browserConfigAndLangSource")
+    @MethodSource("desktopBrowserConfigAndLangSource")
     fun byImageTest(browserConfig: String, lang: String) {
         setupSite(browserConfig, lang)
         val cpImage = mainPage.sidebar.controlPanelImage
@@ -713,10 +726,34 @@ class TiddlywikiTest {
         cpImage.click()
         val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
         ControlPanelTiddlerViewWidget(controlPanelTiddler).shouldLoadRequired()
-        assertTrue { cp.rect.contains(cpImage.rect) }
-        assertFalse { cp.rect.isContainedIn(cpImage.rect) }
+        assertTrue { cpImage.rect.contains(cp.rect) }
+        assertFalse { cpImage.rect.isContainedIn(cp.rect) }
         cpImage.findAll("button[class*=control-panel]").shouldHave(size(1))
         cpImage.findAll("non-existent").shouldHave(size(0))
         cpImage.find("button[class*=control-panel]").shouldBe(visible)
+    }
+
+    @Test
+    fun byImageSimpleConstructor() {
+        setupSite("chrome")
+        val loader = Thread.currentThread().contextClassLoader
+        mainPage.shouldLoadRequired().storyRiver.findAll(
+            ByImage(
+                loader.getResource("images/no_exists/image.png")!!.toURI()!!.toPath().toString()
+            )
+        ).shouldHave(size(0))
+    }
+
+    @Test
+    fun imageCondition() {
+        setupSite("chrome")
+        val sidebarTabs = mainPage.sidebar.sidebarTabs
+        sidebarTabs.toolsTabButton.click()
+        sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
+        val loader = Thread.currentThread().contextClassLoader
+        val chooser = sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired()
+        chooser.enGB.shouldHave(imageContent(loader.getResource("images/flag-en/en-28x14.png")!!.toURI()!!.toPath()))
+        chooser.esES.shouldHave(imageContent(loader.getResource("images/flag-es/es-21x14.png")!!.toURI()!!.toPath()))
+        sidebarTabs.shouldNotHave(imageContent(loader.getResource("images/no_exists/image.png")!!.toURI()!!.toPath()))
     }
 }

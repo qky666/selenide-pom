@@ -29,6 +29,10 @@ class ByImage(
         listOf(ImageElementDefinition(imagePath)), offsetX, offsetY, similarity
     )
 
+    constructor(imagePath: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
+        Path.of(imagePath)
+    )
+
     override fun findElement(context: SearchContext?): ImageWebElement {
         val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
         val screenshot = ImageIO.read(screenshotStream)
@@ -66,10 +70,12 @@ class ByImage(
     }
 
     companion object {
-        private const val DEFAULT_SIMILARITY = 0.7
+        const val DEFAULT_SIMILARITY = 0.7
 
         fun name(value: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY): ByImage {
-            val folder = Thread.currentThread().contextClassLoader.getResource("images/$value")!!.toURI()!!.toPath()
+            val folder =
+                Thread.currentThread().contextClassLoader.getResource("images/$value")?.toURI()?.toPath()
+                    ?: throw RuntimeException("Resource 'images/$value' does not exist")
             assertTrue("$folder should be a directory") { folder.isDirectory() }
             val files = folder.listDirectoryEntries()
             assertTrue("$folder should not contain directories") { files.all { !it.isDirectory() } }
