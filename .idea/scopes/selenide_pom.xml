@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="selenide-pom" pattern="!file[selenide-pom]:cookiecutter//*&amp;&amp;!file[selenide-pom]:gradle/wrapper//*&amp;&amp;!file[selenide-pom]:gradlew&amp;&amp;!file[selenide-pom]:gradlew.bat" />
+</component>

@@ -16,8 +16,7 @@ interface LangConditioned : SelenideElement, Loadable {
      * Returns true if the element meets the expected [WebElementCondition] for a given language [lang].
      *
      * @param lang language used to get the condition to verify. Default value: `SPConfig.lang`
-     * @param strict if strict is `true`, a [ConditionNotDefinedError] is thrown
-     * if no condition is found for given [lang]
+     * @param strict if strict is `true`, a [ConditionNotDefinedError] is thrown if no condition is found for given [lang]
      * @return true if the element meets the expected [WebElementCondition] for a given language [lang], false otherwise
      */
     fun meetsCondition(lang: String = SPConfig.lang, strict: Boolean = this.strict): Boolean {

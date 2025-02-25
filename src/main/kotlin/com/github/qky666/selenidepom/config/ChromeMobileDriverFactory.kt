@@ -8,6 +8,9 @@ import org.openqa.selenium.Proxy
 import org.openqa.selenium.chrome.ChromeOptions
 import java.io.File
 
+/**
+ * A [ChromeDriverFactory] that creates a Chrome driver that emulates a mobile Chrome browser.
+ */
 class ChromeMobileDriverFactory : ChromeDriverFactory() {
 
     private val logger = KotlinLogging.logger {}
@@ -18,6 +21,9 @@ class ChromeMobileDriverFactory : ChromeDriverFactory() {
             DEFAULT_DEVICE_NAME
         }
 
+        /**
+         * The device name used for the mobile emulation. Default value: [DEFAULT_DEVICE_NAME].
+         */
         @JvmStatic
         var deviceName: String
             get() = threadLocalDeviceName.get()

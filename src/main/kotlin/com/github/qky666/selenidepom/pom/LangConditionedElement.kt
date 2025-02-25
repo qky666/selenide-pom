@@ -11,10 +11,8 @@ import com.codeborne.selenide.WebElementCondition
  * Can be helpful in all kind of web pages, but specially in those that are available in more than one language.
  *
  * @param self the [SelenideElement]
- * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition]
- * for [self] in each language
- * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
- * that condition is not met
+ * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition] for [self] in each language
+ * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
  */
 open class LangConditionedElement(
     private val self: SelenideElement,
@@ -42,8 +40,7 @@ open class LangConditionedElement(
      *
      * @param self the [SelenideElement]
      * @param condition the expected [WebElementCondition] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
-     * that condition is not met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
      */
     constructor(self: SelenideElement, condition: WebElementCondition, strict: Boolean = true) : this(
         self, mapOf<String, WebElementCondition>().withDefault { condition }, strict
@@ -55,8 +52,7 @@ open class LangConditionedElement(
      *
      * @param self the [SelenideElement]
      * @param exactText the expected [Condition.exactText] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
-     * that condition is not met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
      */
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
         self, mapOf<String, WebElementCondition>().withDefault { Condition.exactText(exactText) }, strict

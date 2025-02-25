@@ -1,5 +1,7 @@
 package com.github.qky666.selenidepom.pom
 
+import com.github.qky666.selenidepom.condition.ImageElementDefinition
+import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
@@ -14,9 +16,18 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
-import kotlin.io.path.toPath
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
+/**
+ * A [By] subclass tha uses images (a list of [ImageElementDefinition]) to locate web elements in a web page.
+ *
+ * @param imageElementDefinitions list of images ([ImageElementDefinition]) used to locate the element
+ * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+ * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+ * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+ * @constructor created [By] instance
+ */
 class ByImage(
     private val imageElementDefinitions: List<ImageElementDefinition>,
     private val offsetX: Int = 0,
@@ -25,12 +36,28 @@ class ByImage(
 ) : By() {
     private val logger = KotlinLogging.logger {}
 
+    /**
+     * Same as default constructor, but uses a single image [Path] instead of a list of [ImageElementDefinition].
+     *
+     * @param imagePath the [Path] of the image used to search in web page
+     * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+     * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+     * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+     */
     constructor(imagePath: Path, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
         listOf(ImageElementDefinition(imagePath)), offsetX, offsetY, similarity
     )
 
+    /**
+     * Same as default constructor, but uses a single image path ([String]) instead of a list of [ImageElementDefinition].
+     *
+     * @param imagePath the path ([String]) of the image used to search in web page
+     * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+     * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+     * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+     */
     constructor(imagePath: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
-        Path.of(imagePath)
+        Path.of(imagePath), offsetX, offsetY, similarity
     )
 
     override fun findElement(context: SearchContext?): ImageWebElement {
@@ -72,10 +99,26 @@ class ByImage(
     companion object {
         const val DEFAULT_SIMILARITY = 0.7
 
+        /**
+         * Utility function used to create a [ByImage] instance using the files in a `resources/images` subfolder.
+         * All files in [value] folder are used to create a list of [ImageElementDefinition],
+         * and the [ByImage] instance is created using them.
+         * If a file contains `disabled` in its name, the corresponding [ImageElementDefinition]
+         * is created with [ImageElementDefinition.enabled] property as `false`.
+         * If a file contains `selected` in its name, the corresponding [ImageElementDefinition]
+         * is created with [ImageElementDefinition.selected] property as `true`.
+         * Otherwise, the [ImageElementDefinition] are created with [ImageElementDefinition.enabled] property as `true`
+         * and [ImageElementDefinition.selected] property as `false`.
+         *
+         * @param value relative path to the folder in `resources/images`
+         * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+         * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
+         * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+         * @return the [ByImage] instance created
+         */
         fun name(value: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY): ByImage {
-            val folder =
-                Thread.currentThread().contextClassLoader.getResource("images/$value")?.toURI()?.toPath()
-                    ?: throw RuntimeException("Resource 'images/$value' does not exist")
+            val folder = getResourcePath("images/$value")
+            assertNotNull(folder, "Resource 'images/$value' does not exist")
             assertTrue("$folder should be a directory") { folder.isDirectory() }
             val files = folder.listDirectoryEntries()
             assertTrue("$folder should not contain directories") { files.all { !it.isDirectory() } }

@@ -428,8 +428,7 @@ private fun <T : Loadable> T.errorsLoadingRequired(
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView].
- * Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
  */
@@ -456,8 +455,7 @@ fun <T : Loadable> T.shouldLoadRequired(
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView].
- * Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
 @Suppress("BooleanMethodIsAlwaysInverted")

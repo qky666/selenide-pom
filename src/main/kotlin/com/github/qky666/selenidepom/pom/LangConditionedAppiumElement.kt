@@ -13,10 +13,8 @@ import com.codeborne.selenide.appium.SelenideAppiumElement
  * Can be helpful in all kind of web pages, but specially in those that are available in more than one language.
  *
  * @param self the [SelenideAppiumElement]
- * @param conditions the 'Language (String) -> [WebElementCondition]' map with the expected [WebElementCondition]
- * for [self] in each language
- * @param strict if true, when a given language (key) does not exist in [conditions]
- * it is considered that condition is not met
+ * @param conditions the 'Language (String) -> [WebElementCondition]' map with the expected [WebElementCondition] for [self] in each language
+ * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
  */
 class LangConditionedAppiumElement(
     private val self: SelenideAppiumElement,
@@ -44,8 +42,7 @@ class LangConditionedAppiumElement(
      *
      * @param self the [SelenideAppiumElement]
      * @param condition the expected [WebElementCondition] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
-     * that condition is not met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
      */
     constructor(self: SelenideAppiumElement, condition: WebElementCondition, strict: Boolean = true) : this(
         self, mapOf<String, WebElementCondition>().withDefault { condition }, strict
@@ -57,8 +54,7 @@ class LangConditionedAppiumElement(
      *
      * @param self the [SelenideAppiumElement]
      * @param exactText the expected [Condition.exactText] for [self] in every language
-     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered
-     * that condition is not met
+     * @param strict if true, when a given language (key) does not exist in [conditions] it is considered that condition is not met
      */
     constructor(self: SelenideAppiumElement, exactText: String, strict: Boolean = true) : this(
         self, mapOf<String, WebElementCondition>().withDefault { Condition.exactText(exactText) }, strict

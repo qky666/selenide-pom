@@ -1,10 +1,10 @@
 package com.github.qky666.selenidepom.data
 
+import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourceFile
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import java.util.*
-import kotlin.io.path.toPath
 
 const val PROJECT_PROPERTIES_FILENAME = "project.properties"
 
@@ -20,7 +20,7 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
 
     init {
         propertiesFiles.forEach { fileName ->
-            val resource = Thread.currentThread().contextClassLoader.getResource(fileName)?.toURI()?.toPath()?.toFile()
+            val resource = getResourceFile(fileName)
             resource?.let {
                 InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> properties.load(input) }
             }

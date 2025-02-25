@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.WebDriverRunner
+import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourceFile
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
 import java.io.FileInputStream
@@ -13,7 +14,6 @@ import java.nio.charset.StandardCharsets
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.io.path.toPath
 
 private const val SELENIDE_POM_PROPERTIES_FILENAME = "selenide-pom.properties"
 private const val DEFAULT_MODEL = "default"
@@ -37,12 +37,8 @@ object SPConfig {
     private val fileProperties = Properties()
 
     init {
-        val url = Thread.currentThread().contextClassLoader.getResource(SELENIDE_POM_PROPERTIES_FILENAME)
-        val resource = url?.toURI()?.toPath()?.toFile()
+        val resource = getResourceFile(SELENIDE_POM_PROPERTIES_FILENAME)
         resource?.let {
-//            val input = InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8)
-//            fileProperties.load(input)
-//            input.close()
             InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> fileProperties.load(input) }
         }
     }

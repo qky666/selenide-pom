@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement
 /**
  * Same as [SelenideElement.scrollIntoView] ("{behavior: \"auto\", block: \"center\", inline: \"center\"}")
  *
- * @return this
+ * @return `this`
  */
 fun <T : SelenideElement> T.scrollToCenter(): T {
     this.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}")

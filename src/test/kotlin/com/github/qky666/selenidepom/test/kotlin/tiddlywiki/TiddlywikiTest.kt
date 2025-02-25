@@ -15,9 +15,11 @@ import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
-import com.github.qky666.selenidepom.condition.ImageCondition.Companion.imageContent
+import com.github.qky666.selenidepom.condition.containsImage
 import com.github.qky666.selenidepom.condition.langCondition
 import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
+import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePathString
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.ByImage
 import com.github.qky666.selenidepom.pom.ConditionNotDefinedError
@@ -74,7 +76,6 @@ import org.openqa.selenium.WebElement
 import java.net.URL
 import java.time.Duration
 import java.time.LocalDateTime
-import kotlin.io.path.toPath
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -736,12 +737,13 @@ class TiddlywikiTest {
     @Test
     fun byImageSimpleConstructor() {
         setupSite("chrome")
-        val loader = Thread.currentThread().contextClassLoader
-        mainPage.shouldLoadRequired().storyRiver.findAll(
-            ByImage(
-                loader.getResource("images/no_exists/image.png")!!.toURI()!!.toPath().toString()
-            )
-        ).shouldHave(size(0))
+        mainPage.shouldLoadRequired().storyRiver.findAll(ByImage(getResourcePathString("images/no_exists/image.png")!!))
+            .shouldHave(size(0))
+        mainPage.sidebar.find(ByImage(getResourcePathString("images/toolbar/toolbar.png")!!, -30, 2, 0.5)).click()
+        val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
+        newTiddlerEdit.save.click()
+        val newTiddlerView = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0]
+        newTiddlerView.title.shouldHave(exactText("Nuevo Tiddler"))
     }
 
     @Test
@@ -750,10 +752,9 @@ class TiddlywikiTest {
         val sidebarTabs = mainPage.sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
-        val loader = Thread.currentThread().contextClassLoader
         val chooser = sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired()
-        chooser.enGB.shouldHave(imageContent(loader.getResource("images/flag-en/en-28x14.png")!!.toURI()!!.toPath()))
-        chooser.esES.shouldHave(imageContent(loader.getResource("images/flag-es/es-21x14.png")!!.toURI()!!.toPath()))
-        sidebarTabs.shouldNotHave(imageContent(loader.getResource("images/no_exists/image.png")!!.toURI()!!.toPath()))
+        chooser.enGB.shouldHave(containsImage(getResourcePath("images/flag-en/en-28x14.png")!!))
+        chooser.esES.shouldHave(containsImage(getResourcePathString("images/flag-es/es-21x14.png")!!))
+        sidebarTabs.shouldNotHave(containsImage(getResourcePath("images/no_exists/image.png")!!))
     }
 }

@@ -10,4 +10,4 @@ import com.codeborne.selenide.SelenideElement
  * @param lang the language that has not been found in [LangConditionedElement]
  */
 class ConditionNotDefinedError(element: SelenideElement, lang: String) :
-    Error("Text not defined for language $lang in TextElement ${element.searchCriteria}")
+    Error("Text not defined for language $lang in element ${element.searchCriteria}")

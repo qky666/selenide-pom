@@ -15,6 +15,14 @@ import javax.imageio.ImageIO
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * Represents a [WebElement] defined by an image ([match]) that has been found inside a search [context] screenshot.
+ *
+ * @param match the image (defined as a [Match]) that has been found inside [context]
+ * @param context the [SearchContext], usually a [WebElement] or a `WebDriver`
+ * @param enabled if the found element is considered enabled or not
+ * @param selected if the found element is considered selected or not
+ */
 class ImageWebElement(
     private val match: Match,
     private val context: SearchContext?,
