@@ -2,16 +2,24 @@ package com.github.qky666.selenidepom.pom
 
 import com.github.qky666.selenidepom.condition.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
+import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
 import io.github.oshai.kotlinlogging.KotlinLogging
+import org.bytedeco.javacpp.indexer.FloatIndexer
+import org.bytedeco.opencv.global.opencv_core.CV_32FC1
+import org.bytedeco.opencv.global.opencv_imgcodecs.imread
+import org.bytedeco.opencv.global.opencv_imgproc.TM_CCOEFF_NORMED
+import org.bytedeco.opencv.global.opencv_imgproc.matchTemplate
+import org.bytedeco.opencv.opencv_core.Mat
+import org.bytedeco.opencv.opencv_core.Point as CVPoint
+import org.bytedeco.opencv.opencv_core.Rect as CVRect
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.TakesScreenshot
-import org.sikuli.script.Finder
-import org.sikuli.script.Pattern
 import java.io.File
+import java.nio.file.Files
 import java.nio.file.Path
-import javax.imageio.ImageIO
+import java.nio.file.StandardCopyOption
 import kotlin.io.path.isDirectory
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.listDirectoryEntries
@@ -19,19 +27,16 @@ import kotlin.io.path.name
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
+
 /**
  * A [By] subclass tha uses images (a list of [ImageElementDefinition]) to locate web elements in a web page.
  *
  * @param imageElementDefinitions list of images ([ImageElementDefinition]) used to locate the element
- * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
- * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
  * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
  * @constructor created [By] instance
  */
 class ByImage(
     private val imageElementDefinitions: List<ImageElementDefinition>,
-    private val offsetX: Int = 0,
-    private val offsetY: Int = 0,
     private val similarity: Double = DEFAULT_SIMILARITY,
 ) : By() {
     private val logger = KotlinLogging.logger {}
@@ -40,58 +45,67 @@ class ByImage(
      * Same as default constructor, but uses a single image [Path] instead of a list of [ImageElementDefinition].
      *
      * @param imagePath the [Path] of the image used to search in web page
-     * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
-     * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
      * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
      */
-    constructor(imagePath: Path, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
-        listOf(ImageElementDefinition(imagePath)), offsetX, offsetY, similarity
+    constructor(imagePath: Path, similarity: Double = DEFAULT_SIMILARITY) : this(
+        listOf(ImageElementDefinition(imagePath)), similarity
     )
 
     /**
      * Same as default constructor, but uses a single image path ([String]) instead of a list of [ImageElementDefinition].
      *
      * @param imagePath the path ([String]) of the image used to search in web page
-     * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
-     * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
      * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
      */
-    constructor(imagePath: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY) : this(
-        Path.of(imagePath), offsetX, offsetY, similarity
-    )
+    constructor(imagePath: String, similarity: Double = DEFAULT_SIMILARITY) : this(Path.of(imagePath), similarity)
+
+    private fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
+        val matches = mutableListOf<CVPoint>()
+        val indexer = m.createIndexer<FloatIndexer>()
+        for (y in 0..<m.rows()) {
+            for (x in 0..<m.cols()) {
+                if (indexer[y.toLong(), x.toLong()] > t) matches.add(CVPoint(x, y))
+            }
+        }
+        return matches
+    }
 
     override fun findElement(context: SearchContext?): ImageWebElement {
-        val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
-        val screenshot = ImageIO.read(screenshotStream)
-        val finder = Finder(screenshot)
+        val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
+        val screenshot = imread(screenshotFile.absolutePath)
 
         imageElementDefinitions.forEach {
-            val pattern = Pattern(it.path.toString()).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else if (finder.hasNext()) {
-                val match = finder.next()
-                logger.debug { "Match: (${match.x}, ${match.y}. Match score: ${match.score}" }
-                return ImageWebElement(match, context, it.enabled, it.selected)
+            val pattern = imread(it.path.toString())
+            val result = Mat(screenshot.cols() - pattern.cols() + 1, screenshot.rows() - pattern.rows() + 1, CV_32FC1)
+            matchTemplate(screenshot, pattern, result, TM_CCOEFF_NORMED)
+            val matchPoint = getFirstPointFromMatAboveThreshold(result, similarity.toFloat())
+            matchPoint?.let { mp ->
+                val matchSize = pattern.size()
+                logger.debug { "Match in findElement: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
+                return ImageWebElement(screenshot, CVRect(mp, matchSize), context, it.enabled, it.selected)
             }
         }
         // Debug
-        ImageIO.write(screenshot, "png", File("build/tmp/screenshot.png"))
+        Files.copy(
+            screenshotFile.toPath(), File("build/tmp/screenshot.png").toPath(), StandardCopyOption.REPLACE_EXISTING
+        )
         throw NoSuchElementException("Image $imageElementDefinitions not found in context $context")
     }
 
     override fun findElements(context: SearchContext?): List<ImageWebElement> {
-        val screenshotStream = (context as TakesScreenshot).getScreenshotAs(OutputType.BYTES).inputStream()
-        val screenshot = ImageIO.read(screenshotStream)
-        val finder = Finder(screenshot)
+        val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
+        val screenshot = imread(screenshotFile.absolutePath)
         val elements = mutableListOf<ImageWebElement>()
         imageElementDefinitions.forEach {
-            val pattern = Pattern(it.path.toString()).similar(similarity).targetOffset(offsetX, offsetY)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in context $context")
-            } else {
-                elements.addAll(finder.list.map { match -> ImageWebElement(match, context, it.enabled, it.selected) })
-            }
+            val pattern = imread(it.path.toString())
+            val result = Mat(screenshot.cols() - pattern.cols() + 1, screenshot.rows() - pattern.rows() + 1, CV_32FC1)
+            matchTemplate(screenshot, pattern, result, TM_CCOEFF_NORMED)
+            val matchPoints = getPointsFromMatAboveThreshold(result, similarity.toFloat())
+            elements.addAll(matchPoints.map { mp ->
+                val matchSize = pattern.size()
+                logger.debug { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
+                ImageWebElement(screenshot, CVRect(mp, matchSize), context, it.enabled, it.selected)
+            })
         }
         return elements
     }
@@ -111,12 +125,10 @@ class ByImage(
          * and [ImageElementDefinition.selected] property as `false`.
          *
          * @param value relative path to the folder in `resources/images`
-         * @param offsetX x-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
-         * @param offsetY y-axis offset from the center (in pixels) used for click operations in found web elements. Default value: 0
          * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
          * @return the [ByImage] instance created
          */
-        fun name(value: String, offsetX: Int = 0, offsetY: Int = 0, similarity: Double = DEFAULT_SIMILARITY): ByImage {
+        fun name(value: String, similarity: Double = DEFAULT_SIMILARITY): ByImage {
             val folder = getResourcePath("images/$value")
             assertNotNull(folder, "Resource 'images/$value' does not exist")
             assertTrue("$folder should be a directory") { folder.isDirectory() }
@@ -127,7 +139,7 @@ class ByImage(
                 val selected = it.name.contains("selected", ignoreCase = true)
                 ImageElementDefinition(it, enabled, selected)
             }
-            return ByImage(definitions, offsetX, offsetY, similarity)
+            return ByImage(definitions, similarity)
         }
     }
 }

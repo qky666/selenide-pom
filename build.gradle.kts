@@ -31,32 +31,17 @@ repositories {
 dependencies {
     val jUnitVersion = "5.12.0"
 
-    implementation("com.codeborne:selenide-appium:7.7.3")
     implementation(kotlin("reflect"))
+    implementation(kotlin("test"))
+    implementation("com.codeborne:selenide-appium:7.7.3")
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.4")
-    implementation("com.sikulix:sikulixapi:2.0.5")
-    // Vulnerable declared dependency (com.sikulix:sikulixapi:2.0.5)
-//    implementation("org.apache.pdfbox:pdfbox:3.0.4")
-//    implementation("commons-beanutils:commons-beanutils:1.10.1")
-//    implementation("commons-collections:commons-collections:20040616")
-//    implementation("org.apache.xmlgraphics:xmlgraphics-commons:2.10")
-//    implementation("commons-io:commons-io:2.18.0")
-    // Other vulnerable declared dependency
-    implementation("org.apache.commons:commons-compress:1.27.1")
-//    implementation("com.lowagie:itext:5.5.13.3")
-//    implementation("org.bouncycastle:bcprov-jdk15on:1.78")
-    implementation("org.bouncycastle:bcprov-jdk18on:1.80")
-    implementation("io.netty:netty-handler:4.1.118.Final")
-//    implementation("io.netty:netty-codec:4.1.68.Final")
-    implementation("org.apache.ant:ant:1.10.15")
-    implementation("net.sourceforge.tess4j:tess4j:5.15.0")
+    implementation("org.bytedeco:javacv-platform:1.5.11")
 
+    testImplementation(kotlin("test"))
     testImplementation("org.slf4j:slf4j-simple:2.0.16")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
-    testImplementation(kotlin("test"))
-    implementation(kotlin("test"))
 }
 
 kotlin {

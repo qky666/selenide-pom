@@ -1,5 +1,8 @@
 package com.github.qky666.selenidepom.pom
 
+import org.bytedeco.javacpp.indexer.FloatIndexer
+import org.bytedeco.opencv.opencv_core.Mat
+import org.bytedeco.opencv.opencv_core.Point
 import org.openqa.selenium.Rectangle
 
 /**
@@ -24,4 +27,21 @@ fun Rectangle.isContainedIn(other: Rectangle): Boolean {
  */
 fun Rectangle.contains(other: Rectangle): Boolean {
     return other.isContainedIn(this)
+}
+
+/**
+ * Returns the first point above given threshold in a [Mat]
+ *
+ * @param m the [Mat]
+ * @param t the threshold
+ * @return the point found, or `null` if there are no points above given threshold
+ */
+fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): Point? {
+    val indexer = m.createIndexer<FloatIndexer>()
+    for (y in 0..<m.rows()) {
+        for (x in 0..<m.cols()) {
+            if (indexer[y.toLong(), x.toLong()] > t) return Point(x, y)
+        }
+    }
+    return null
 }

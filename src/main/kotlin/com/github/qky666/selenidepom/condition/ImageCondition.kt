@@ -3,11 +3,14 @@ package com.github.qky666.selenidepom.condition
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.WebElementCondition
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
+import com.github.qky666.selenidepom.pom.getFirstPointFromMatAboveThreshold
+import org.bytedeco.opencv.global.opencv_core.CV_32FC1
+import org.bytedeco.opencv.global.opencv_imgcodecs.imread
+import org.bytedeco.opencv.global.opencv_imgproc.TM_CCOEFF_NORMED
+import org.bytedeco.opencv.global.opencv_imgproc.matchTemplate
+import org.bytedeco.opencv.opencv_core.Mat
 import org.openqa.selenium.OutputType
-import org.sikuli.script.Finder
-import org.sikuli.script.Pattern
 import java.nio.file.Path
-import javax.imageio.ImageIO
 
 /**
  * Creates a [WebElementCondition] that checks if a web element screenshot contains any of a list of predefined images.
@@ -18,16 +21,14 @@ import javax.imageio.ImageIO
  */
 fun containsImage(images: List<String>, similarity: Double = DEFAULT_SIMILARITY): WebElementCondition {
     return Condition.match("image") { webElement ->
-        val screenshotStream = webElement.getScreenshotAs(OutputType.BYTES).inputStream()
-        val screenshot = ImageIO.read(screenshotStream)
-        val finder = Finder(screenshot)
+        val screenshotFile = webElement.getScreenshotAs(OutputType.FILE)
+        val screenshot = imread(screenshotFile.absolutePath)
+
         images.forEach {
-            val pattern = Pattern(it).similar(similarity)
-            if (finder.find(pattern) == null) {
-                throw RuntimeException("Find setup for image $it with similarity $similarity is not possible in webElement $webElement")
-            } else if (finder.hasNext()) {
-                return@match true
-            }
+            val pattern = imread(it)
+            val result = Mat(screenshot.cols() - pattern.cols() + 1, screenshot.rows() - pattern.rows() + 1, CV_32FC1)
+            matchTemplate(screenshot, pattern, result, TM_CCOEFF_NORMED)
+            getFirstPointFromMatAboveThreshold(result, similarity.toFloat())?.let { return@match true }
         }
         return@match false
     }

@@ -739,7 +739,8 @@ class TiddlywikiTest {
         setupSite("chrome")
         mainPage.shouldLoadRequired().storyRiver.findAll(ByImage(getResourcePathString("images/no_exists/image.png")!!))
             .shouldHave(size(0))
-        mainPage.sidebar.find(ByImage(getResourcePathString("images/toolbar/toolbar.png")!!, -30, 2, 0.5)).click()
+        mainPage.sidebar.find(ByImage(getResourcePathString("images/toolbar/toolbar.png")!!, 0.5))
+            .click(ClickOptions.withOffset(-30, 2))
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.save.click()
         val newTiddlerView = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0]
@@ -749,6 +750,7 @@ class TiddlywikiTest {
     @Test
     fun imageCondition() {
         setupSite("chrome")
+//        Page.find(ByImage.name("tiddlywiki-title")).shouldHave(text("Mi TiddlyWiki"))
         val sidebarTabs = mainPage.sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
