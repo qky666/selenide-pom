@@ -29,7 +29,7 @@ class ImageWebElement(
     private val selected: Boolean = false,
 ) : WebElement by container {
 
-    private val center: Point
+    private val matchCenter: Point
         get() = Point(matchRect.x + matchRect.width / 2, matchRect.y + matchRect.height / 2)
 
     private val matchCVRectInContainer: CVRect
@@ -38,7 +38,7 @@ class ImageWebElement(
         )
 
     override fun click() {
-        Selenide.actions().moveToLocation(center.x, center.y).click().perform()
+        Selenide.actions().moveToLocation(matchCenter.x, matchCenter.y).click().perform()
     }
 
     override fun isSelected(): Boolean {
