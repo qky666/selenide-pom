@@ -4,18 +4,18 @@ import com.github.qky666.selenidepom.condition.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.bytedeco.javacpp.indexer.FloatIndexer
 import org.bytedeco.opencv.global.opencv_core.CV_32FC1
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgproc.TM_CCOEFF_NORMED
 import org.bytedeco.opencv.global.opencv_imgproc.matchTemplate
 import org.bytedeco.opencv.opencv_core.Mat
-import org.bytedeco.opencv.opencv_core.Point as CVPoint
 import org.bytedeco.opencv.opencv_core.Rect as CVRect
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
+import org.openqa.selenium.Rectangle
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.TakesScreenshot
+import org.openqa.selenium.WebElement
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -39,7 +39,6 @@ class ByImage(
     private val imageElementDefinitions: List<ImageElementDefinition>,
     private val similarity: Double = DEFAULT_SIMILARITY,
 ) : By() {
-    private val logger = KotlinLogging.logger {}
 
     /**
      * Same as default constructor, but uses a single image [Path] instead of a list of [ImageElementDefinition].
@@ -59,18 +58,30 @@ class ByImage(
      */
     constructor(imagePath: String, similarity: Double = DEFAULT_SIMILARITY) : this(Path.of(imagePath), similarity)
 
-    private fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
-        val matches = mutableListOf<CVPoint>()
-        val indexer = m.createIndexer<FloatIndexer>()
-        for (y in 0..<m.rows()) {
-            for (x in 0..<m.cols()) {
-                if (indexer[y.toLong(), x.toLong()] > t) matches.add(CVPoint(x, y))
+    private val logger = KotlinLogging.logger {}
+
+    private fun smallestContainer(context: SearchContext, rect: Rectangle): WebElement {
+        val elements = context.findElements(xpath(".//*"))
+        var container = context as? WebElement
+        elements.forEach {
+            val elementRect = it.rect
+            if ((container == null || elementRect.isContainedIn(container!!.rect)) && elementRect.contains(rect)) {
+                container = it
             }
         }
-        return matches
+        assertNotNull(container) { "Could not find smallest container for Rectangle $rect in $context. This should never happen" }
+        return container!!
     }
 
-    override fun findElement(context: SearchContext?): ImageWebElement {
+    private fun rectInPage(context: SearchContext, rect: CVRect): Rectangle {
+        return if (context is WebElement) {
+            Rectangle(context.location.x + rect.x(), context.location.y + rect.y(), rect.height(), rect.width())
+        } else {
+            Rectangle(rect.x(), rect.y(), rect.height(), rect.width())
+        }
+    }
+
+    override fun findElement(context: SearchContext): ImageWebElement {
         val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
         val screenshot = imread(screenshotFile.absolutePath)
 
@@ -82,7 +93,9 @@ class ByImage(
             matchPoint?.let { mp ->
                 val matchSize = pattern.size()
                 logger.debug { "Match in findElement: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
-                return ImageWebElement(screenshot, CVRect(mp, matchSize), context, it.enabled, it.selected)
+                val matchRect = rectInPage(context, CVRect(mp, matchSize))
+                val container = smallestContainer(context, matchRect)
+                return ImageWebElement(container, matchRect, it.enabled, it.selected)
             }
         }
         // Debug
@@ -92,7 +105,7 @@ class ByImage(
         throw NoSuchElementException("Image $imageElementDefinitions not found in context $context")
     }
 
-    override fun findElements(context: SearchContext?): List<ImageWebElement> {
+    override fun findElements(context: SearchContext): List<ImageWebElement> {
         val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
         val screenshot = imread(screenshotFile.absolutePath)
         val elements = mutableListOf<ImageWebElement>()
@@ -104,7 +117,9 @@ class ByImage(
             elements.addAll(matchPoints.map { mp ->
                 val matchSize = pattern.size()
                 logger.debug { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
-                ImageWebElement(screenshot, CVRect(mp, matchSize), context, it.enabled, it.selected)
+                val matchRect = rectInPage(context, CVRect(mp, matchSize))
+                val container = smallestContainer(context, matchRect)
+                ImageWebElement(container, matchRect, it.enabled, it.selected)
             })
         }
         return elements

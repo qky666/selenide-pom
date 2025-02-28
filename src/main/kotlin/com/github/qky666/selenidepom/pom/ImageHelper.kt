@@ -2,7 +2,7 @@ package com.github.qky666.selenidepom.pom
 
 import org.bytedeco.javacpp.indexer.FloatIndexer
 import org.bytedeco.opencv.opencv_core.Mat
-import org.bytedeco.opencv.opencv_core.Point
+import org.bytedeco.opencv.opencv_core.Point as CVPoint
 import org.openqa.selenium.Rectangle
 
 /**
@@ -36,12 +36,30 @@ fun Rectangle.contains(other: Rectangle): Boolean {
  * @param t the threshold
  * @return the point found, or `null` if there are no points above given threshold
  */
-fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): Point? {
+fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): CVPoint? {
     val indexer = m.createIndexer<FloatIndexer>()
     for (y in 0..<m.rows()) {
         for (x in 0..<m.cols()) {
-            if (indexer[y.toLong(), x.toLong()] > t) return Point(x, y)
+            if (indexer[y.toLong(), x.toLong()] > t) return CVPoint(x, y)
         }
     }
     return null
+}
+
+/**
+ * Returns all points above given threshold in a [Mat]
+ *
+ * @param m the [Mat]
+ * @param t the threshold
+ * @return the points found
+ */
+fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
+    val matches = mutableListOf<CVPoint>()
+    val indexer = m.createIndexer<FloatIndexer>()
+    for (y in 0..<m.rows()) {
+        for (x in 0..<m.cols()) {
+            if (indexer[y.toLong(), x.toLong()] > t) matches.add(CVPoint(x, y))
+        }
+    }
+    return matches
 }
