@@ -1,5 +1,6 @@
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.condition.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
@@ -65,23 +66,26 @@ class ByImage(
         var container = context as? WebElement
         elements.forEach {
             val elementRect = it.rect
-            if ((container == null || elementRect.isContainedIn(container!!.rect)) && elementRect.contains(rect)) {
+            if ((container == null || elementRect.isContainedIn(container.rect)) && elementRect.contains(rect)) {
                 container = it
             }
         }
         assertNotNull(container) { "Could not find smallest container for Rectangle $rect in $context. This should never happen" }
-        return container!!
+        logger.info { "Found smallest container for Rectangle '$rect': $container" }
+        return container
     }
 
     private fun rectInPage(context: SearchContext, rect: CVRect): Rectangle {
-        return if (context is WebElement) {
+        val rectPage = if (context is WebElement) {
             Rectangle(context.location.x + rect.x(), context.location.y + rect.y(), rect.height(), rect.width())
         } else {
             Rectangle(rect.x(), rect.y(), rect.height(), rect.width())
         }
+        logger.info { "Rectangle in page found for CVRect '$rect' in context '${context}': $rectPage" }
+        return rectPage
     }
 
-    override fun findElement(context: SearchContext): ImageWebElement {
+    override fun findElement(context: SearchContext): ImageElement {
         val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
         val screenshot = imread(screenshotFile.absolutePath)
 
@@ -95,7 +99,7 @@ class ByImage(
                 logger.debug { "Match in findElement: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
                 val matchRect = rectInPage(context, CVRect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
-                return ImageWebElement(container, matchRect, it.enabled, it.selected)
+                return ImageElement(Selenide.element(container), matchRect, it.enabled, it.selected)
             }
         }
         // Debug
@@ -105,10 +109,10 @@ class ByImage(
         throw NoSuchElementException("Image $imageElementDefinitions not found in context $context")
     }
 
-    override fun findElements(context: SearchContext): List<ImageWebElement> {
+    override fun findElements(context: SearchContext): List<ImageElement> {
         val screenshotFile = (context as TakesScreenshot).getScreenshotAs(OutputType.FILE)
         val screenshot = imread(screenshotFile.absolutePath)
-        val elements = mutableListOf<ImageWebElement>()
+        val elements = mutableListOf<ImageElement>()
         imageElementDefinitions.forEach {
             val pattern = imread(it.path.toString())
             val result = Mat(screenshot.cols() - pattern.cols() + 1, screenshot.rows() - pattern.rows() + 1, CV_32FC1)
@@ -119,7 +123,7 @@ class ByImage(
                 logger.debug { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
                 val matchRect = rectInPage(context, CVRect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
-                ImageWebElement(container, matchRect, it.enabled, it.selected)
+                ImageElement(Selenide.element(container), matchRect, it.enabled, it.selected)
             })
         }
         return elements

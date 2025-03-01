@@ -1,6 +1,7 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.SelenideElement
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite
 import org.bytedeco.opencv.opencv_core.Mat
@@ -22,20 +23,17 @@ import org.bytedeco.opencv.opencv_core.Rect as CVRect
  * @param enabled if the found element is considered enabled or not
  * @param selected if the found element is considered selected or not
  */
-class ImageWebElement(
-    private val container: WebElement,
+class ImageElement(
+    private val container: SelenideElement,
     private val matchRect: Rectangle,
     private val enabled: Boolean = true,
     private val selected: Boolean = false,
-) : WebElement by container {
+) : SelenideElement by container {
 
-    private val matchCenter: Point
-        get() = Point(matchRect.x + matchRect.width / 2, matchRect.y + matchRect.height / 2)
-
-    private val matchCVRectInContainer: CVRect
-        get() = CVRect(
-            matchRect.x - container.location.x, matchRect.y - container.location.y, matchRect.width, matchRect.height
-        )
+    private val matchCenter = Point(matchRect.x + matchRect.width / 2, matchRect.y + matchRect.height / 2)
+    private val matchCVRectInContainer = CVRect(
+        matchRect.x - container.location.x, matchRect.y - container.location.y, matchRect.width, matchRect.height
+    )
 
     override fun click() {
         Selenide.actions().moveToLocation(matchCenter.x, matchCenter.y).click().perform()
@@ -49,15 +47,15 @@ class ImageWebElement(
         return enabled
     }
 
-    override fun findElements(by: By): List<WebElement> {
-        val elements = container.findElements(by)
+    override fun findElements(by: By): List<SelenideElement> {
+        val elements = container.findAll(by)
         return elements.filter { it.rect.isContainedIn(this.rect) }
     }
 
     override fun findElement(by: By): WebElement {
-        val elements = findElements(by)
-        if (elements.isEmpty()) throw NoSuchElementException("Element not found in image using criteria $by")
-        else return elements.first()
+        val element = container.find(by)
+        if (element.rect.isContainedIn(this.rect)) return element
+        else throw NoSuchElementException("Element not found in image using criteria $by")
     }
 
     override fun isDisplayed(): Boolean {
