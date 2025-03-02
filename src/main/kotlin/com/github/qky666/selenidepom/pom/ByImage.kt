@@ -71,7 +71,7 @@ class ByImage(
             }
         }
         assertNotNull(container) { "Could not find smallest container for Rectangle $rect in $context. This should never happen" }
-        logger.info { "Found smallest container for Rectangle '$rect': $container" }
+        logger.info { "Found smallest container for Rectangle 'x: ${rect.x}, y: ${rect.y}, width: ${rect.width}, height: ${rect.height}': $container" }
         return container
     }
 
@@ -81,7 +81,9 @@ class ByImage(
         } else {
             Rectangle(rect.x(), rect.y(), rect.height(), rect.width())
         }
-        logger.info { "Rectangle in page found for CVRect '$rect' in context '${context}': $rectPage" }
+        logger.info {
+            "Rectangle in page found for CVRect 'x: ${rect.x()}, y: ${rect.y()}, width: ${rect.width()}, height: ${rect.height()}' in context '${context}': 'x: ${rectPage.x}, y: ${rectPage.y}, width: ${rectPage.width}, height: ${rectPage.height}"
+        }
         return rectPage
     }
 
@@ -96,7 +98,7 @@ class ByImage(
             val matchPoint = getFirstPointFromMatAboveThreshold(result, similarity.toFloat())
             matchPoint?.let { mp ->
                 val matchSize = pattern.size()
-                logger.debug { "Match in findElement: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
+                logger.info { "Match in findElement: (${mp.x()}, ${mp.y()}). Size: $matchSize" }
                 val matchRect = rectInPage(context, CVRect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
                 return ImageElement(Selenide.element(container), matchRect, it.enabled, it.selected)

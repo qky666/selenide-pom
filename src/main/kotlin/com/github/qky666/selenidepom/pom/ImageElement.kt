@@ -1,10 +1,15 @@
 package com.github.qky666.selenidepom.pom
 
+import com.codeborne.selenide.ClickMethod
+import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.config.SPConfig
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgcodecs.imwrite
 import org.bytedeco.opencv.opencv_core.Mat
+import org.bytedeco.opencv.opencv_core.Rect
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.OutputType
@@ -13,12 +18,11 @@ import org.openqa.selenium.Rectangle
 import org.openqa.selenium.WebElement
 import java.nio.file.Files
 import kotlin.io.path.deleteIfExists
-import org.bytedeco.opencv.opencv_core.Rect as CVRect
 
 /**
- * Represents a [WebElement] defined by an image that has been found inside a web page (or a [WebElement]) screenshot.
+ * Represents a [SelenideElement] defined by an image that has been found inside a web page (or a [WebElement]) screenshot.
  *
- * @param container the smallest [WebElement] that contains the image found
+ * @param container the smallest [SelenideElement] that contains the image found
  * @param matchRect the [Rectangle] where the image has been found inside the web page
  * @param enabled if the found element is considered enabled or not
  * @param selected if the found element is considered selected or not
@@ -30,13 +34,45 @@ class ImageElement(
     private val selected: Boolean = false,
 ) : SelenideElement by container {
 
+    private val logger = KotlinLogging.logger {}
+
     private val matchCenter = Point(matchRect.x + matchRect.width / 2, matchRect.y + matchRect.height / 2)
-    private val matchCVRectInContainer = CVRect(
+    private val containerCenter =
+        Point(container.rect.x + container.rect.width / 2, container.rect.y + container.rect.height / 2)
+    private val offsetContainerToMatchX = matchCenter.x - containerCenter.x
+    private val offsetContainerToMatchY = matchCenter.y - containerCenter.y
+    private val matchRectInContainer = Rect(
         matchRect.x - container.location.x, matchRect.y - container.location.y, matchRect.width, matchRect.height
     )
 
+    fun correctClickOptionOffset(clickOption: ClickOptions): ClickOptions {
+        val basicOption = when (clickOption.clickMethod()) {
+            ClickMethod.DEFAULT -> ClickOptions.usingDefaultMethod()
+            ClickMethod.JS -> ClickOptions.usingJavaScript()
+        }.offsetX(clickOption.offsetX() + offsetContainerToMatchX)
+            .offsetY(clickOption.offsetY() + offsetContainerToMatchY)
+        val timeoutOption = clickOption.timeout()?.let { basicOption.timeout(it) } ?: basicOption
+        val option = if (clickOption.isForce) timeoutOption.force() else timeoutOption
+        return option
+    }
+
     override fun click() {
-        Selenide.actions().moveToLocation(matchCenter.x, matchCenter.y).click().perform()
+        val option =
+            if (SPConfig.selenideConfig.clickViaJs()) ClickOptions.usingJavaScript() else ClickOptions.usingDefaultMethod()
+        this.click(option)
+    }
+
+    override fun click(clickOption: ClickOptions): SelenideElement {
+        val option = correctClickOptionOffset(clickOption)
+        try {
+            container.click(option)
+            logger.info { "Image clicked using SelenideElement (container) click with corrected ClickOptions: $option. Original ClickOptions: $clickOption" }
+        } catch (_: Exception) {
+            val clickPoint = Point(matchCenter.x + option.offsetX(), matchCenter.y + option.offsetY())
+            Selenide.actions().moveToLocation(clickPoint.x, clickPoint.y).click().perform()
+            logger.info { "Image clicked using coordinates: $clickPoint" }
+        }
+        return this
     }
 
     override fun isSelected(): Boolean {
@@ -52,10 +88,8 @@ class ImageElement(
         return elements.filter { it.rect.isContainedIn(this.rect) }
     }
 
-    override fun findElement(by: By): WebElement {
-        val element = container.find(by)
-        if (element.rect.isContainedIn(this.rect)) return element
-        else throw NoSuchElementException("Element not found in image using criteria $by")
+    override fun findElement(by: By): SelenideElement {
+        return findElements(by).first()
     }
 
     override fun isDisplayed(): Boolean {
@@ -77,7 +111,7 @@ class ImageElement(
     override fun <X : Any> getScreenshotAs(target: OutputType<X>): X {
         val containerScreenshotFile = container.getScreenshotAs(OutputType.FILE)
         val containerScreenshot = imread(containerScreenshotFile.path.toString())
-        val matchScreenshot = Mat(containerScreenshot, matchCVRectInContainer)
+        val matchScreenshot = Mat(containerScreenshot, matchRectInContainer)
         val tempFile = kotlin.io.path.createTempFile("match", ".png")
         imwrite(tempFile.toAbsolutePath().toString(), matchScreenshot)
         val bytes = Files.readAllBytes(tempFile)

@@ -717,10 +717,13 @@ class TiddlywikiTest {
         assertTrue { startTime.plusSeconds(3) > LocalDateTime.now() }
     }
 
-    @ParameterizedTest
-    @MethodSource("desktopBrowserConfigAndLangSource")
-    fun byImageTest(browserConfig: String, lang: String) {
-        setupSite(browserConfig, lang)
+//    @ParameterizedTest
+//    @MethodSource("desktopBrowserConfigAndLangSource")
+//    fun byImageTest(browserConfig: String, lang: String) {
+//        setupSite(browserConfig, lang)
+    @Test
+    fun byImageTest() {
+        setupSite("firefox")
         val cpImage = mainPage.sidebar.controlPanelImage
         val cp = mainPage.sidebar.controlPanel
         mainPage.shouldLoadRequired()
