@@ -3,7 +3,6 @@ package com.github.qky666.selenidepom.pom
 import com.codeborne.selenide.ClickMethod
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
@@ -20,19 +19,19 @@ import java.nio.file.Files
 import kotlin.io.path.deleteIfExists
 
 /**
- * Represents a [SelenideElement] defined by an image that has been found inside a web page (or a [WebElement]) screenshot.
+ * Represents a [WebElement] defined by an image that has been found inside a web page (or a [WebElement]) screenshot.
  *
- * @param container the smallest [SelenideElement] that contains the image found
+ * @param container the smallest [WebElement] that contains the image found
  * @param matchRect the [Rectangle] where the image has been found inside the web page
  * @param enabled if the found element is considered enabled or not
  * @param selected if the found element is considered selected or not
  */
 class ImageElement(
-    private val container: SelenideElement,
+    private val container: WebElement,
     private val matchRect: Rectangle,
     private val enabled: Boolean = true,
     private val selected: Boolean = false,
-) : SelenideElement by container {
+) : WebElement by container {
 
     private val logger = KotlinLogging.logger {}
 
@@ -45,7 +44,7 @@ class ImageElement(
         matchRect.x - container.location.x, matchRect.y - container.location.y, matchRect.width, matchRect.height
     )
 
-    fun correctClickOptionOffset(clickOption: ClickOptions): ClickOptions {
+    private fun correctClickOptionOffset(clickOption: ClickOptions): ClickOptions {
         val basicOption = when (clickOption.clickMethod()) {
             ClickMethod.DEFAULT -> ClickOptions.usingDefaultMethod()
             ClickMethod.JS -> ClickOptions.usingJavaScript()
@@ -57,22 +56,21 @@ class ImageElement(
     }
 
     override fun click() {
-        val option =
+        val optionMethod =
             if (SPConfig.selenideConfig.clickViaJs()) ClickOptions.usingJavaScript() else ClickOptions.usingDefaultMethod()
-        this.click(option)
+        clickImage(optionMethod)
     }
 
-    override fun click(clickOption: ClickOptions): SelenideElement {
+    fun clickImage(clickOption: ClickOptions) {
         val option = correctClickOptionOffset(clickOption)
         try {
-            container.click(option)
+            Selenide.element(container).click(option)
             logger.info { "Image clicked using SelenideElement (container) click with corrected ClickOptions: $option. Original ClickOptions: $clickOption" }
         } catch (_: Exception) {
             val clickPoint = Point(matchCenter.x + option.offsetX(), matchCenter.y + option.offsetY())
             Selenide.actions().moveToLocation(clickPoint.x, clickPoint.y).click().perform()
             logger.info { "Image clicked using coordinates: $clickPoint" }
         }
-        return this
     }
 
     override fun isSelected(): Boolean {
@@ -83,12 +81,12 @@ class ImageElement(
         return enabled
     }
 
-    override fun findElements(by: By): List<SelenideElement> {
-        val elements = container.findAll(by)
+    override fun findElements(by: By): List<WebElement> {
+        val elements = container.findElements(by)
         return elements.filter { it.rect.isContainedIn(this.rect) }
     }
 
-    override fun findElement(by: By): SelenideElement {
+    override fun findElement(by: By): WebElement {
         return findElements(by).first()
     }
 

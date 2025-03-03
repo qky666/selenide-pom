@@ -66,10 +66,9 @@ fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
     for (y in 0..<m.rows()) {
         for (x in 0..<m.cols()) {
             val similarity = indexer[y.toLong(), x.toLong()]
-            logger.info { "getPointsFromMatAboveThreshold. Target threshold: $t. Similarity found: $similarity" }
             if (similarity > t) matches.add(CVPoint(x, y))
         }
     }
-    logger.info { "getPointsFromMatAboveThreshold. Point above threshold $t found: ${matches.size}" }
+    logger.info { "getPointsFromMatAboveThreshold. Points above threshold $t found: ${matches.size}" }
     return matches
 }

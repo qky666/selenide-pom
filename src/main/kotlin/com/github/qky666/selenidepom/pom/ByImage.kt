@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.condition.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
@@ -10,7 +9,7 @@ import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgproc.TM_CCOEFF_NORMED
 import org.bytedeco.opencv.global.opencv_imgproc.matchTemplate
 import org.bytedeco.opencv.opencv_core.Mat
-import org.bytedeco.opencv.opencv_core.Rect as CVRect
+import org.bytedeco.opencv.opencv_core.Rect
 import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.Rectangle
@@ -63,26 +62,25 @@ class ByImage(
 
     private fun smallestContainer(context: SearchContext, rect: Rectangle): WebElement {
         val elements = context.findElements(xpath(".//*"))
-        var container = context as? WebElement
-        elements.forEach {
-            val elementRect = it.rect
-            if ((container == null || elementRect.isContainedIn(container.rect)) && elementRect.contains(rect)) {
-                container = it
+        var container = context as? WebElement ?: context.findElement(xpath("./*"))
+        elements.forEach { element ->
+            val elementRect = element.rect
+            if (elementRect.isContainedIn(container.rect) && elementRect.contains(rect)) {
+                container = element
             }
         }
-        assertNotNull(container) { "Could not find smallest container for Rectangle $rect in $context. This should never happen" }
         logger.info { "Found smallest container for Rectangle 'x: ${rect.x}, y: ${rect.y}, width: ${rect.width}, height: ${rect.height}': $container" }
         return container
     }
 
-    private fun rectInPage(context: SearchContext, rect: CVRect): Rectangle {
+    private fun rectInPage(context: SearchContext, rect: Rect): Rectangle {
         val rectPage = if (context is WebElement) {
             Rectangle(context.location.x + rect.x(), context.location.y + rect.y(), rect.height(), rect.width())
         } else {
             Rectangle(rect.x(), rect.y(), rect.height(), rect.width())
         }
         logger.info {
-            "Rectangle in page found for CVRect 'x: ${rect.x()}, y: ${rect.y()}, width: ${rect.width()}, height: ${rect.height()}' in context '${context}': 'x: ${rectPage.x}, y: ${rectPage.y}, width: ${rectPage.width}, height: ${rectPage.height}"
+            "Rectangle in page found for Rect 'x: ${rect.x()}, y: ${rect.y()}, width: ${rect.width()}, height: ${rect.height()}' in context '${context}': 'x: ${rectPage.x}, y: ${rectPage.y}, width: ${rectPage.width}, height: ${rectPage.height}"
         }
         return rectPage
     }
@@ -98,10 +96,10 @@ class ByImage(
             val matchPoint = getFirstPointFromMatAboveThreshold(result, similarity.toFloat())
             matchPoint?.let { mp ->
                 val matchSize = pattern.size()
-                logger.info { "Match in findElement: (${mp.x()}, ${mp.y()}). Size: $matchSize" }
-                val matchRect = rectInPage(context, CVRect(mp, matchSize))
+                logger.info { "Match in findElement: (${mp.x()}, ${mp.y()}). Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
+                val matchRect = rectInPage(context, Rect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
-                return ImageElement(Selenide.element(container), matchRect, it.enabled, it.selected)
+                return ImageElement(container, matchRect, it.enabled, it.selected)
             }
         }
         // Debug
@@ -122,10 +120,10 @@ class ByImage(
             val matchPoints = getPointsFromMatAboveThreshold(result, similarity.toFloat())
             elements.addAll(matchPoints.map { mp ->
                 val matchSize = pattern.size()
-                logger.debug { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: $matchSize" }
-                val matchRect = rectInPage(context, CVRect(mp, matchSize))
+                logger.info { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
+                val matchRect = rectInPage(context, Rect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
-                ImageElement(Selenide.element(container), matchRect, it.enabled, it.selected)
+                ImageElement(container, matchRect, it.enabled, it.selected)
             })
         }
         return elements

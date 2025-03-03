@@ -6,6 +6,7 @@ import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.exactValue
 import com.codeborne.selenide.Condition.not
+import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Container
 import com.codeborne.selenide.DragAndDropOptions
@@ -31,6 +32,7 @@ import com.github.qky666.selenidepom.pom.Widget
 import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.pom.appendToWidget
 import com.github.qky666.selenidepom.pom.asWidget
+import com.github.qky666.selenidepom.pom.clickImage
 import com.github.qky666.selenidepom.pom.clickWidget
 import com.github.qky666.selenidepom.pom.contains
 import com.github.qky666.selenidepom.pom.contextClickWidget
@@ -39,6 +41,7 @@ import com.github.qky666.selenidepom.pom.dragWidgetAndDrop
 import com.github.qky666.selenidepom.pom.hasLoadedRequired
 import com.github.qky666.selenidepom.pom.hoverWidget
 import com.github.qky666.selenidepom.pom.isContainedIn
+import com.github.qky666.selenidepom.pom.ocrText
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
 import com.github.qky666.selenidepom.pom.pressEscapeInWidget
 import com.github.qky666.selenidepom.pom.pressTabInWidget
@@ -62,6 +65,7 @@ import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.MainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.mainPage
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.ControlPanelTiddlerViewWidget
 import com.github.qky666.selenidepom.test.kotlin.tiddlywiki.pom.storyriver.GettingStartedTiddlerViewWidget
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
@@ -84,6 +88,7 @@ class TiddlywikiTest {
     class FakeWidget(self: SelenideElement) : Widget(self)
 
     companion object {
+        private val logger = KotlinLogging.logger {}
         private lateinit var url: URL
 
         @JvmStatic
@@ -717,13 +722,11 @@ class TiddlywikiTest {
         assertTrue { startTime.plusSeconds(3) > LocalDateTime.now() }
     }
 
-//    @ParameterizedTest
-//    @MethodSource("desktopBrowserConfigAndLangSource")
-//    fun byImageTest(browserConfig: String, lang: String) {
-//        setupSite(browserConfig, lang)
-    @Test
-    fun byImageTest() {
-        setupSite("firefox")
+    @ParameterizedTest
+    @MethodSource("desktopBrowserConfigAndLangSource")
+    fun byImageTest(browserConfig: String, lang: String) {
+        SPConfig.selenideConfig.headless(false)
+        setupSite(browserConfig, lang)
         val cpImage = mainPage.sidebar.controlPanelImage
         val cp = mainPage.sidebar.controlPanel
         mainPage.shouldLoadRequired()
@@ -742,8 +745,8 @@ class TiddlywikiTest {
         setupSite("chrome")
         mainPage.shouldLoadRequired().storyRiver.findAll(ByImage(getResourcePathString("images/no_exists/image.png")!!))
             .shouldHave(size(0))
-        mainPage.sidebar.find(ByImage(getResourcePathString("images/toolbar/toolbar.png")!!, 0.5))
-            .click(ClickOptions.withOffset(-30, 2))
+        val toolbar = mainPage.sidebar.find(ByImage(getResourcePathString("images/toolbar/toolbar.png")!!, 0.5))
+        toolbar.clickImage(ClickOptions.withOffset(-30, 2))
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
         newTiddlerEdit.save.click()
         val newTiddlerView = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0]
@@ -753,7 +756,9 @@ class TiddlywikiTest {
     @Test
     fun imageCondition() {
         setupSite("chrome")
-//        Page.find(ByImage.name("tiddlywiki-title")).shouldHave(text("Mi TiddlyWiki"))
+        val title = Page.find(ByImage.name("tiddlywiki-title"))
+        title.shouldHave(text("Mi TiddlyWiki"))
+        logger.info { title.ocrText() }
         val sidebarTabs = mainPage.sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
