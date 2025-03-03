@@ -2,6 +2,7 @@ package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.config.SPConfig
 import org.bytedeco.opencv.global.opencv_imgcodecs
 import org.bytedeco.opencv.global.opencv_imgcodecs.imread
 import org.bytedeco.opencv.global.opencv_imgproc
@@ -37,16 +38,21 @@ fun <T : SelenideElement> T.clickImage(clickOption: ClickOptions): T {
 
 /**
  * Returns the text contained in `this` [SelenideElement] using OCR to get it.
+ * For possible [language] values, see [tesseract documentation](https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html)
  *
+ * @param language the language used by `tesseract` to extract the text
+ * @param tessdata directory where `tesseract` data files are located
  * @return the extracted text
  */
-fun <T : SelenideElement> T.ocrText(): String {
+fun <T : SelenideElement> T.ocrText(
+    language: String = SPConfig.lang,
+    tessdata: String = System.getenv("TESSDATA_PREFIX"),
+): String {
     screenshot()?.let {
         val image = imread(it.absolutePath, opencv_imgcodecs.IMREAD_GRAYSCALE)
         opencv_imgproc.threshold(image, image, 0.0, 255.0, opencv_imgproc.THRESH_BINARY or opencv_imgproc.THRESH_OTSU)
-
         val tesseract = TessBaseAPI()
-        tesseract.Init(".", "eng") // Initialize with English language
+        tesseract.Init(tessdata, language)
         tesseract.SetImage(image.data(), image.cols(), image.rows(), image.channels(), image.step1().toInt())
         val extractedText = tesseract.GetUTF8Text().string
         tesseract.End()
