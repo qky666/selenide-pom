@@ -758,7 +758,7 @@ class TiddlywikiTest {
         setupSite("chrome")
         val title = Page.find(ByImage.name("tiddlywiki-title"))
         title.shouldHave(text("Mi TiddlyWiki"))
-        logger.info { title.ocrText() }
+        logger.info { "Título encontrado por OCR: ${title.ocrText()}" }
         val sidebarTabs = mainPage.sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
