@@ -1,6 +1,6 @@
 package com.github.qky666.selenidepom.pom
 
-import com.github.qky666.selenidepom.condition.ImageElementDefinition
+import com.github.qky666.selenidepom.pom.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
 import io.github.oshai.kotlinlogging.KotlinLogging

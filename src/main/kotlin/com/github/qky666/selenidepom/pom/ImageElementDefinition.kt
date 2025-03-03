@@ -1,9 +1,9 @@
-package com.github.qky666.selenidepom.condition
+package com.github.qky666.selenidepom.pom
 
 import java.nio.file.Path
 
 /**
- * Represents a unique image (stored as a [Path]) used to search in a web page screenshot.
+ * Represents a unique image (stored as a [java.nio.file.Path]) used to search in a web page screenshot.
  * Properties [enabled] and [selected] set if the found web element is considered to be enabled or selected.
  *
  * @param path path to the image
