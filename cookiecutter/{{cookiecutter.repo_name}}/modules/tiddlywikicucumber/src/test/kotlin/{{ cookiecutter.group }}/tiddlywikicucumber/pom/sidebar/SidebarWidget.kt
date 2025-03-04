@@ -16,13 +16,13 @@ import java.time.Duration
 class SidebarWidget(self: SelenideElement) : Widget(self) {
     @Required val title = LangConditionedElement(
         find("h1.tc-site-title"), mapOf(
-            "en" to "My TiddlyWiki", "es" to "Mi TiddlyWiki"
+            "eng" to "My TiddlyWiki", "spa" to "Mi TiddlyWiki"
         )
     )
 
     @Required val subtitle = LangConditionedElement(
         find(".tc-site-subtitle"), mapOf(
-            "en" to "a non-linear personal web notebook", "es" to "Cuaderno de notas personal no-lineal en la web"
+            "eng" to "a non-linear personal web notebook", "spa" to "Cuaderno de notas personal no-lineal en la web"
         )
     )
 
@@ -48,25 +48,25 @@ class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
 
     @Required val openTabButton = LangConditionedElement(
         find("div.tc-tab-buttons button", 0), mapOf(
-            "en" to "Open", "es" to "Abiertos"
+            "eng" to "Open", "spa" to "Abiertos"
         )
     )
 
     @Required val recentTabButton = LangConditionedElement(
         find("div.tc-tab-buttons button", 1), mapOf(
-            "en" to "Recent", "es" to "Recientes"
+            "eng" to "Recent", "spa" to "Recientes"
         )
     )
 
     @Required val toolsTabButton = LangConditionedElement(
         find("div.tc-tab-buttons button", 2), mapOf(
-            "en" to "Tools", "es" to "Herramientas"
+            "eng" to "Tools", "spa" to "Herramientas"
         )
     )
 
     @Required val moreTabButton = LangConditionedElement(
         find("div.tc-tab-buttons button", 3), mapOf(
-            "en" to "More", "es" to "Más"
+            "eng" to "More", "spa" to "Más"
         )
     )
 

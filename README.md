@@ -158,6 +158,10 @@ Some basic packages for Selenium/Selenide:
     scoop bucket add java
     scoop install openjdk python cookiecutter allure idea
 
+Scoop packages for OCR:
+
+    scoop install tesseract tesseract-languages
+
 ## Check scoop
 
 To check potential problems in scoop:

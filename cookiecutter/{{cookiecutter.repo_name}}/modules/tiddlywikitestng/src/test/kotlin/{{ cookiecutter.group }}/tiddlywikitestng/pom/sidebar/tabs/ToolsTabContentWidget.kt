@@ -12,84 +12,84 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
     @Required val tiddlywikiVersion = findX("./p")
 
     @Required val home = ToolItem(
-        find("div[class$=home]"), mapOf("en" to "home", "es" to "Inicio"), mapOf(
-            "en" to "Open the default tiddlers",
-            "es" to "Cierra todos los tiddlers abiertos y abre los que se muestran por defecto al inicio"
+        find("div[class$=home]"), mapOf("eng" to "home", "spa" to "Inicio"), mapOf(
+            "eng" to "Open the default tiddlers",
+            "spa" to "Cierra todos los tiddlers abiertos y abre los que se muestran por defecto al inicio"
         )
     )
 
     @Required val closeAll = ToolItem(
-        find("div[class$=close-all]"), mapOf("en" to "close all", "es" to "Cerrar todo"), mapOf(
-            "en" to "Close all tiddlers", "es" to "Cierra todos los tiddlers"
+        find("div[class$=close-all]"), mapOf("eng" to "close all", "spa" to "Cerrar todo"), mapOf(
+            "eng" to "Close all tiddlers", "spa" to "Cierra todos los tiddlers"
         )
     )
 
     @Required val foldAll = ToolItem(
-        find("div[class$=fold-all]"), mapOf("en" to "fold all tiddlers", "es" to "Comprimir todos"), mapOf(
-            "en" to "Fold the bodies of all opened tiddlers", "es" to "Comprime la vista de todos los tiddlers abiertos"
+        find("div[class$=fold-all]"), mapOf("eng" to "fold all tiddlers", "spa" to "Comprimir todos"), mapOf(
+            "eng" to "Fold the bodies of all opened tiddlers", "spa" to "Comprime la vista de todos los tiddlers abiertos"
         )
     )
 
     @Required val unfoldAll = ToolItem(
-        find("div[class$=unfold-all]"), mapOf("en" to "unfold all tiddlers", "es" to "Desplegar todos"), mapOf(
-            "en" to "Unfold the bodies of all opened tiddlers",
-            "es" to "Despliega y muestra el contenido de todos los tiddlers abiertos"
+        find("div[class$=unfold-all]"), mapOf("eng" to "unfold all tiddlers", "spa" to "Desplegar todos"), mapOf(
+            "eng" to "Unfold the bodies of all opened tiddlers",
+            "spa" to "Despliega y muestra el contenido de todos los tiddlers abiertos"
         )
     )
 
     @Required val permaview = ToolItem(
-        find("div[class$=permaview]"), mapOf("en" to "permaview", "es" to "Permaview"), mapOf(
-            "en" to "Set browser address bar to a direct link to all the tiddlers in this story",
-            "es" to "Crea en la barra de direcciones del navegador un enlace directo a todos los tiddlers abiertos"
+        find("div[class$=permaview]"), mapOf("eng" to "permaview", "spa" to "Permaview"), mapOf(
+            "eng" to "Set browser address bar to a direct link to all the tiddlers in this story",
+            "spa" to "Crea en la barra de direcciones del navegador un enlace directo a todos los tiddlers abiertos"
         )
     )
 
     @Required val newTiddler = ToolItem(
         find("div[class$=new-tiddler]"),
-        mapOf("en" to "new tiddler", "es" to "Nuevo tiddler"),
-        mapOf("en" to "Create a new tiddler", "es" to "Crea un tiddler nuevo")
+        mapOf("eng" to "new tiddler", "spa" to "Nuevo tiddler"),
+        mapOf("eng" to "Create a new tiddler", "spa" to "Crea un tiddler nuevo")
     )
 
     @Required val newJournal = ToolItem(
         find("div[class$=new-journal]"),
-        mapOf("en" to "new journal", "es" to "Nueva entrada"),
-        mapOf("en" to "Create a new journal tiddler", "es" to "Crea una nueva entrada de diario")
+        mapOf("eng" to "new journal", "spa" to "Nueva entrada"),
+        mapOf("eng" to "Create a new journal tiddler", "spa" to "Crea una nueva entrada de diario")
     )
 
     @Required val newImage = ToolItem(
         find("div[class$=new-image]"),
-        mapOf("en" to "new image", "es" to "Nueva imagen"),
-        mapOf("en" to "Create a new image tiddler", "es" to "Crea un nuevo tiddler de imagen")
+        mapOf("eng" to "new image", "spa" to "Nueva imagen"),
+        mapOf("eng" to "Create a new image tiddler", "spa" to "Crea un nuevo tiddler de imagen")
     )
 
     @Required val import = ToolItem(
-        find("div[class$=import]"), mapOf("en" to "import", "es" to "Importar"), mapOf(
-            "en" to "Import many types of file including text, image, TiddlyWiki or JSON",
-            "es" to "Importa multitud de tipos de archivo, incluyendo textos, imágenes, TiddlyWiki y JSON"
+        find("div[class$=import]"), mapOf("eng" to "import", "spa" to "Importar"), mapOf(
+            "eng" to "Import many types of file including text, image, TiddlyWiki or JSON",
+            "spa" to "Importa multitud de tipos de archivo, incluyendo textos, imágenes, TiddlyWiki y JSON"
         )
     )
 
     @Required val exportAll = ToolItem(
         find("div[class$=export-page]"),
-        mapOf("en" to "export all", "es" to "Exportar todos"),
-        mapOf("en" to "Export all tiddlers", "es" to "Exporta todos los tiddlers")
+        mapOf("eng" to "export all", "spa" to "Exportar todos"),
+        mapOf("eng" to "Export all tiddlers", "spa" to "Exporta todos los tiddlers")
     )
 
     @Required val controlPanel = ToolItem(
         find("div[class$=control-panel]"),
-        mapOf("en" to "control panel", "es" to "Panel de Control"),
-        mapOf("en" to "Open control panel", "es" to "Abre el Panel de Control")
+        mapOf("eng" to "control panel", "spa" to "Panel de Control"),
+        mapOf("eng" to "Open control panel", "spa" to "Abre el Panel de Control")
     )
 
     @Required val advancedSearch = ToolItem(
         find("div[class$=advanced-search]"),
-        mapOf("en" to "advanced search", "es" to "Búsqueda avanzada"),
-        mapOf("en" to "Advanced search", "es" to "Búsqueda avanzada")
+        mapOf("eng" to "advanced search", "spa" to "Búsqueda avanzada"),
+        mapOf("eng" to "Advanced search", "es" to "Búsqueda avanzada")
     )
 
     @Required val tiddlerManager = ToolItem(
         find("div[class$=manager]", 0),
-        mapOf("en" to "tiddler manager", "es" to "Administrador tiddler"),
+        mapOf("eng" to "tiddler manager", "es" to "Administrador tiddler"),
         mapOf("en" to "Open tiddler manager", "es" to "Abre el administrador del tiddler")
     )
 

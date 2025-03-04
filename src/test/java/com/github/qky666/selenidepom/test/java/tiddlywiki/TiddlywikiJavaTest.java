@@ -54,7 +54,7 @@ public class TiddlywikiJavaTest {
         if (browserConfig.equalsIgnoreCase("chromeMobile")) SPConfig.INSTANCE.setupBasicMobileBrowser();
         else SPConfig.INSTANCE.setupBasicDesktopBrowser(browserConfig);
         SPConfig.INSTANCE.setDriver();
-        SPConfig.INSTANCE.setLang("es");
+        SPConfig.INSTANCE.setLang("spa");
         Selenide.open(url);
     }
 

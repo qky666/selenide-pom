@@ -10,7 +10,7 @@ class OpenTabContentWidget(self: SelenideElement) : Widget(self) {
     val openItems = WidgetsCollection(findAll("div.tc-sidebar-tab-open-item"), ::OpenItemWidget)
 
     @Required val closeAll = LangConditionedElement(
-        find("div.tc-sidebar-tab-open>div:last-child button"), mapOf("en" to "close all", "es" to "Cerrar todo")
+        find("div.tc-sidebar-tab-open>div:last-child button"), mapOf("eng" to "close all", "spa" to "Cerrar todo")
     )
 }
 

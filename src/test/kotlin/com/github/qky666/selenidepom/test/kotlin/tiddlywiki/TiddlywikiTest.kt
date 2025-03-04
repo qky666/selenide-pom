@@ -16,8 +16,10 @@ import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.ex.ElementNotFound
 import com.codeborne.selenide.ex.ElementShould
-import com.github.qky666.selenidepom.condition.containsImage
-import com.github.qky666.selenidepom.condition.langCondition
+import com.github.qky666.selenidepom.condition.ImageCondition.containsImage
+import com.github.qky666.selenidepom.condition.OcrTextCondition.exactOcrText
+import com.github.qky666.selenidepom.condition.LangCondition.langCondition
+import com.github.qky666.selenidepom.condition.OcrTextCondition.ocrText
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePathString
@@ -33,6 +35,7 @@ import com.github.qky666.selenidepom.pom.WidgetsCollection
 import com.github.qky666.selenidepom.pom.appendToWidget
 import com.github.qky666.selenidepom.pom.asWidget
 import com.github.qky666.selenidepom.pom.clickImage
+import com.github.qky666.selenidepom.pom.clickOcrText
 import com.github.qky666.selenidepom.pom.clickWidget
 import com.github.qky666.selenidepom.pom.contains
 import com.github.qky666.selenidepom.pom.contextClickWidget
@@ -94,38 +97,38 @@ class TiddlywikiTest {
         @JvmStatic
         fun browserConfigAndLangSource(): List<Arguments> {
             return listOf(
-                Arguments.of("chrome", "es"),
-                Arguments.of("chrome", "en"),
-                Arguments.of("firefox", "es"),
-                Arguments.of("firefox", "en"),
-                Arguments.of("chromeMobile", "es"),
-                Arguments.of("chromeMobile", "en"),
+                Arguments.of("chrome", "spa"),
+                Arguments.of("chrome", "eng"),
+                Arguments.of("firefox", "spa"),
+                Arguments.of("firefox", "eng"),
+                Arguments.of("chromeMobile", "spa"),
+                Arguments.of("chromeMobile", "eng"),
             )
         }
 
         @JvmStatic
         fun desktopBrowserConfigAndLangSource(): List<Arguments> {
             return listOf(
-                Arguments.of("chrome", "es"),
-                Arguments.of("chrome", "en"),
-                Arguments.of("firefox", "es"),
-                Arguments.of("firefox", "en"),
+                Arguments.of("chrome", "spa"),
+                Arguments.of("chrome", "eng"),
+                Arguments.of("firefox", "spa"),
+                Arguments.of("firefox", "eng"),
             )
         }
 
         @JvmStatic
         fun requiredSource(): List<Arguments> {
-            return listOf(Arguments.of("chrome", "es", true, object : MainPage() {
+            return listOf(Arguments.of("chrome", "spa", true, object : MainPage() {
                 @Required override val searchPopup = super.searchPopup
-            }), Arguments.of("chrome", "en", true, object : MainPage() {
+            }), Arguments.of("chrome", "eng", true, object : MainPage() {
                 @Required val noExists = find(By.cssSelector("no-exists"))
-            }), Arguments.of("firefox", "es", true, object : MainPage() {
+            }), Arguments.of("firefox", "spa", true, object : MainPage() {
                 @Required val noExistsCollection = findAll("no-exists")
                 @Required val doExistsCollection = findAll("body")
-            }), Arguments.of("firefox", "en", true, object : MainPage() {
+            }), Arguments.of("firefox", "eng", true, object : MainPage() {
                 @Required val noExistsBy = By.cssSelector("no-exists")
                 @Required val doExistsBy = By.cssSelector("body")
-            }), Arguments.of("chromeMobile", "en", true, object : MainPage() {
+            }), Arguments.of("chromeMobile", "eng", true, object : MainPage() {
                 inner class MyWidget(self: SelenideElement) : Widget(self) {
                     @Required val noExists = Companion.find("no-exists")
                 }
@@ -133,13 +136,13 @@ class TiddlywikiTest {
                 @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
 
                 @Suppress("unused") val notRequiredWidgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
-            }), Arguments.of("firefox", "es", true, object : MainPage() {
+            }), Arguments.of("firefox", "spa", true, object : MainPage() {
                 inner class MyWidget(self: SelenideElement) : Widget(self) {
                     @Required val doExists = Companion.find("body")
                 }
 
                 @Required val widgetsCollection = WidgetsCollection(findAll("no-exists"), ::MyWidget)
-            }), Arguments.of("chrome", "es", true, object : MainPage() {
+            }), Arguments.of("chrome", "spa", true, object : MainPage() {
                 @Required
                 fun getParameterElement(
                     model: String = SPConfig.model,
@@ -147,24 +150,24 @@ class TiddlywikiTest {
                 ): SelenideElement {
                     return find("no-exists-$model-$lang")
                 }
-            }), Arguments.of("chrome", "en", true, object : MainPage() {
+            }), Arguments.of("chrome", "eng", true, object : MainPage() {
                 @Required
                 fun getElement(): SelenideElement {
                     return find("no-exists")
                 }
-            }), Arguments.of("chrome", "es", false, object : MainPage() {
+            }), Arguments.of("chrome", "spa", false, object : MainPage() {
                 @Required(model = "mobile") val noExistsModel = find("no-exists")
-            }), Arguments.of("firefox", "en", false, object : MainPage() {
+            }), Arguments.of("firefox", "eng", false, object : MainPage() {
                 @Required(model = "mobile") val noExistsModel = find("no-exists")
-            }), Arguments.of("chromeMobile", "es", true, object : MainPage() {
+            }), Arguments.of("chromeMobile", "spa", true, object : MainPage() {
                 @Required(model = "mobile") val noExistsModel = find("no-exists")
-            }), Arguments.of("chrome", "es", true, object : MainPage() {
-                @Required(lang = "es") val noExistsLang = find("no-exists")
-            }), Arguments.of("firefox", "en", false, object : MainPage() {
-                @Required(lang = "es") val noExistsLang = find("no-exists")
-            }), Arguments.of("chromeMobile", "es", true, object : MainPage() {
-                @Required(lang = "es") val noExistsLang = find("no-exists")
-            }), Arguments.of("firefox", "es", true, object : MainPage() {
+            }), Arguments.of("chrome", "spa", true, object : MainPage() {
+                @Required(lang = "spa") val noExistsLang = find("no-exists")
+            }), Arguments.of("firefox", "eng", false, object : MainPage() {
+                @Required(lang = "spa") val noExistsLang = find("no-exists")
+            }), Arguments.of("chromeMobile", "spa", true, object : MainPage() {
+                @Required(lang = "spa") val noExistsLang = find("no-exists")
+            }), Arguments.of("firefox", "spa", true, object : MainPage() {
                 @Required
                 fun getBadWebElement(): WebElement {
                     return this.sidebar.toWebElement()
@@ -179,21 +182,21 @@ class TiddlywikiTest {
                 fun getOtherGoodWebElement(): WebElement {
                     return find(this.hideShowSidebar.toWebElement())
                 }
-            }), Arguments.of("firefox", "en", true, object : MainPage() {
+            }), Arguments.of("firefox", "eng", true, object : MainPage() {
                 @Required val langConditionedElement = LangConditionedElement(find("no-exists"), "NoText")
-            }), Arguments.of("chrome", "es", true, object : MainPage() {
+            }), Arguments.of("chrome", "spa", true, object : MainPage() {
                 @Required val langConditionedElement =
-                    LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
-            }), Arguments.of("chrome", "en", true, object : MainPage() {
+                    LangConditionedElement(super.hideShowSidebar, mapOf("spa" to "BadText"))
+            }), Arguments.of("chrome", "eng", true, object : MainPage() {
                 @Required val langConditionedElement =
-                    LangConditionedElement(super.hideShowSidebar, mapOf("es" to "BadText"))
-            }), Arguments.of("firefox", "es", true, object : MainPage() {
+                    LangConditionedElement(super.hideShowSidebar, mapOf("spa" to "BadText"))
+            }), Arguments.of("firefox", "spa", true, object : MainPage() {
                 @Required val langConditionedElement =
-                    LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
-            }), Arguments.of("firefox", "en", false, object : MainPage() {
+                    LangConditionedElement(super.hideShowSidebar, mapOf("spa" to exactText("BadText")), false)
+            }), Arguments.of("firefox", "eng", false, object : MainPage() {
                 @Required val langConditionedElement =
-                    LangConditionedElement(super.hideShowSidebar, mapOf("es" to exactText("BadText")), false)
-            }), Arguments.of("chrome", "es", true, object : MainPage() {
+                    LangConditionedElement(super.hideShowSidebar, mapOf("spa" to exactText("BadText")), false)
+            }), Arguments.of("chrome", "spa", true, object : MainPage() {
                 @Required val badContainer = object : Container {
                     @Required val noExists = find("no-exists")
                 }
@@ -226,7 +229,7 @@ class TiddlywikiTest {
         Assertions.assertEquals(TestData.get("threadId").toString(), Thread.currentThread().threadId().toString())
     }
 
-    private fun setupSite(browserConfig: String, lang: String = "es") {
+    private fun setupSite(browserConfig: String, lang: String = "spa") {
         if (browserConfig.equals("chromeMobile", ignoreCase = true)) SPConfig.setupBasicMobileBrowser()
         else SPConfig.setupBasicDesktopBrowser(browserConfig)
         SPConfig.setDriver()
@@ -235,7 +238,7 @@ class TiddlywikiTest {
         changeSiteLanguageIfNeeded()
     }
 
-    private fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "es") {
+    private fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "spa") {
         if (!newLang.contentEquals(currentLang, true)) {
             if (mainPage.shouldLoadRequired(lang = currentLang).showSidebar.isDisplayed) {
                 mainPage.showSidebar.click()
@@ -245,7 +248,7 @@ class TiddlywikiTest {
             sidebarTabs.toolsTabButton.click()
             sidebarTabs.toolsTabContent.shouldLoadRequired(lang = currentLang).language.button.click()
             sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired(lang = currentLang)
-            if (newLang.contentEquals("es", true)) sidebarTabs.toolsTabContent.languageChooser.esES.click()
+            if (newLang.contentEquals("spa", true)) sidebarTabs.toolsTabContent.languageChooser.esES.click()
             else sidebarTabs.toolsTabContent.languageChooser.enGB.click()
             sidebarTabs.toolsTabContent.languageChooser.should(disappear)
             mainPage.shouldLoadRequired(lang = newLang)
@@ -332,7 +335,7 @@ class TiddlywikiTest {
         mainPage.sidebar.searchInput.value = newTiddlerTitle
         val firstSearchResult = mainPage.searchPopup.shouldLoadRequired().matches.shouldHave(size(2))[0]
         val searchResultsText = mainPage.sidebar.searchResultsText
-        searchResultsText.shouldBe(langCondition(mapOf("en" to "1 matches", "es" to "1 coincidencias")))
+        searchResultsText.shouldBe(langCondition(mapOf("eng" to "1 matches", "spa" to "1 coincidencias")))
 
         firstSearchResult.click()
 
@@ -376,14 +379,14 @@ class TiddlywikiTest {
         mainPage.sidebar.searchInput.value = newTiddlerTitle
         val firstSearchResult = mainPage.searchPopup.shouldLoadRequired().matches.shouldHave(size(2))[0]
         val searchResultsText = mainPage.sidebar.searchResultsText
-        searchResultsText.shouldBe(langCondition(mapOf("en" to "1 matches", "es" to "1 coincidencias")))
+        searchResultsText.shouldBe(langCondition(mapOf("eng" to "1 matches", "spa" to "1 coincidencias")))
 
         // Incomplete LangCondition (non strict)
-        searchResultsText.shouldBe(langCondition(mapOf("en" to exactText("1 matches")), false))
+        searchResultsText.shouldBe(langCondition(mapOf("eng" to exactText("1 matches")), false))
 
         // Incomplete LangCondition
-        val incompleteLangCondition = langCondition(mapOf("en" to exactText("1 matches")))
-        if (SPConfig.lang == "es") {
+        val incompleteLangCondition = langCondition(mapOf("eng" to exactText("1 matches")))
+        if (SPConfig.lang == "spa") {
             assertThrows<ConditionNotDefinedError> { searchResultsText.shouldBe(incompleteLangCondition) }
         } else searchResultsText.shouldBe(incompleteLangCondition)
 
@@ -404,15 +407,15 @@ class TiddlywikiTest {
         Assertions.assertTrue(gettingStartedTiddler.title.meetsCondition())
 
         val nonExistingElement = LangConditionedElement(
-            Page.find("non-existing"), mapOf("en" to exactText("Non existing")), false
+            Page.find("non-existing"), mapOf("eng" to exactText("Non existing")), false
         )
-        Assertions.assertEquals(SPConfig.lang == "es", nonExistingElement.meetsCondition())
-        if (SPConfig.lang == "es") nonExistingElement.shouldMeetCondition(Duration.ZERO)
+        Assertions.assertEquals(SPConfig.lang == "spa", nonExistingElement.meetsCondition())
+        if (SPConfig.lang == "spa") nonExistingElement.shouldMeetCondition(Duration.ZERO)
         else assertThrows<ElementNotFound> { nonExistingElement.shouldMeetCondition(Duration.ZERO) }
 
-        val strict = LangConditionedElement(Page.find("non-existing"), mapOf("en" to "Non existing"))
+        val strict = LangConditionedElement(Page.find("non-existing"), mapOf("eng" to "Non existing"))
         Assertions.assertEquals(false, strict.meetsCondition())
-        if (SPConfig.lang == "es") assertThrows<ConditionNotDefinedError> { strict.shouldMeetCondition(Duration.ZERO) }
+        if (SPConfig.lang == "spa") assertThrows<ConditionNotDefinedError> { strict.shouldMeetCondition(Duration.ZERO) }
         else assertThrows<ElementNotFound> { strict.shouldMeetCondition(Duration.ZERO) }
     }
 
@@ -422,7 +425,7 @@ class TiddlywikiTest {
         val myMainPage = object : MainPage() {
             override fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
                 super.customShouldLoadRequired(timeout, model, lang)
-                if (model.equals("mobile", true) or lang.equals("es", true)) {
+                if (model.equals("mobile", true) or lang.equals("spa", true)) {
                     find("no-exists").shouldBe(visible, Duration.ZERO)
                 }
             }
@@ -430,7 +433,7 @@ class TiddlywikiTest {
 
         setupSite(browserConfig, lang)
 
-        if (browserConfig.equals("chromeMobile", true) or lang.equals("es", true)) {
+        if (browserConfig.equals("chromeMobile", true) or lang.equals("spa", true)) {
             val requiredError = assertThrows<RequiredError> { myMainPage.shouldLoadRequired() }
             assertEquals(1, requiredError.suppressed.size)
         } else myMainPage.shouldLoadRequired()
@@ -725,7 +728,7 @@ class TiddlywikiTest {
     @ParameterizedTest
     @MethodSource("desktopBrowserConfigAndLangSource")
     fun byImageTest(browserConfig: String, lang: String) {
-        SPConfig.selenideConfig.headless(false)
+        // SPConfig.selenideConfig.headless(false)
         setupSite(browserConfig, lang)
         val cpImage = mainPage.sidebar.controlPanelImage
         val cp = mainPage.sidebar.controlPanel
@@ -757,8 +760,13 @@ class TiddlywikiTest {
     fun imageCondition() {
         setupSite("chrome")
         val title = Page.find(ByImage.name("tiddlywiki-title"))
+        val ocrTitle = title.ocrText()
+        logger.info { "Title found using OCR: $ocrTitle" }
+        assertEquals("Mi TiddlyWiki", ocrTitle)
         title.shouldHave(text("Mi TiddlyWiki"))
-        logger.info { "Título encontrado por OCR: ${title.ocrText()}" }
+            .shouldHave(exactOcrText("Mi TiddlyWiki"))
+            .shouldHave(ocrText("TiddlyWiki"))
+            .shouldNotHave(ocrText("Other text"))
         val sidebarTabs = mainPage.sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
@@ -766,5 +774,16 @@ class TiddlywikiTest {
         chooser.enGB.shouldHave(containsImage(getResourcePath("images/flag-en/en-28x14.png")!!))
         chooser.esES.shouldHave(containsImage(getResourcePathString("images/flag-es/es-21x14.png")!!))
         sidebarTabs.shouldNotHave(containsImage(getResourcePath("images/no_exists/image.png")!!))
+    }
+
+    @Test
+    fun clickOcrTextTest() {
+        SPConfig.selenideConfig.headless(false)
+        setupSite("chrome")
+        mainPage.shouldLoadRequired()
+        val firstTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
+        GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired().clickOcrText("panel de control")
+        val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
+        ControlPanelTiddlerViewWidget(controlPanelTiddler).shouldLoadRequired()
     }
 }

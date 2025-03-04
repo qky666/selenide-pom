@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.pom
 
-import com.codeborne.selenide.ClickMethod
 import com.codeborne.selenide.ClickOptions
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
@@ -44,25 +43,19 @@ class ImageElement(
         matchRect.x - container.location.x, matchRect.y - container.location.y, matchRect.width, matchRect.height
     )
 
-    private fun correctClickOptionOffset(clickOption: ClickOptions): ClickOptions {
-        val basicOption = when (clickOption.clickMethod()) {
-            ClickMethod.DEFAULT -> ClickOptions.usingDefaultMethod()
-            ClickMethod.JS -> ClickOptions.usingJavaScript()
-        }.offsetX(clickOption.offsetX() + offsetContainerToMatchX)
-            .offsetY(clickOption.offsetY() + offsetContainerToMatchY)
-        val timeoutOption = clickOption.timeout()?.let { basicOption.timeout(it) } ?: basicOption
-        val option = if (clickOption.isForce) timeoutOption.force() else timeoutOption
-        return option
-    }
-
     override fun click() {
         val optionMethod =
             if (SPConfig.selenideConfig.clickViaJs()) ClickOptions.usingJavaScript() else ClickOptions.usingDefaultMethod()
         clickImage(optionMethod)
     }
 
+    /**
+     * Clicks using the center of the detected image as reference, using provided [clickOption].
+     *
+     * @param clickOption the [ClickOptions] used
+     */
     fun clickImage(clickOption: ClickOptions) {
-        val option = correctClickOptionOffset(clickOption)
+        val option = correctClickOptionOffset(clickOption, offsetContainerToMatchX, offsetContainerToMatchY)
         try {
             Selenide.element(container).click(option)
             logger.info { "Image clicked using SelenideElement (container) click with corrected ClickOptions: $option. Original ClickOptions: $clickOption" }

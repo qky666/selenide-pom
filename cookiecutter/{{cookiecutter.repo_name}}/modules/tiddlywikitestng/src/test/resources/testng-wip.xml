@@ -11,7 +11,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <classes>
             <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
         </classes>
@@ -19,7 +19,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop English tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <classes>
             <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
         </classes>
@@ -27,7 +27,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <classes>
             <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
         </classes>
@@ -35,7 +35,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop English tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <classes>
             <class name="{{ cookiecutter.group }}.tiddlywikitestng.testng.TestngTest"/>
         </classes>

@@ -59,7 +59,7 @@ class TestngTest : Logging {
         Selenide.open(TestData.getString("project.baseUrl")!!)
 
         // Set up site
-        mainPage.shouldLoadRequired(lang = "es").changeSiteLanguageIfNeeded()
+        mainPage.shouldLoadRequired(lang = "spa").changeSiteLanguageIfNeeded()
         val firstTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
         GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired()
         mainPage.sidebar.sidebarTabs.openTabContent.openItems.shouldHave(size(1))

@@ -26,7 +26,7 @@ class SPConfigTest {
     fun beforeEach() {
         SPConfig.resetConfig()
         // Test SPConfig initial values
-        Assertions.assertEquals(SPConfig.lang, "es")
+        Assertions.assertEquals(SPConfig.lang, "spa")
         Assertions.assertEquals(SPConfig.model, "fileModel")
     }
 

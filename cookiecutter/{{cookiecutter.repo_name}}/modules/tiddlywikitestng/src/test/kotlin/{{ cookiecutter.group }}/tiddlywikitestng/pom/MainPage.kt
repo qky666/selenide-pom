@@ -24,7 +24,7 @@ class MainPage : Page() {
         if (hideSidebar.isDisplayed) sidebar.shouldLoadRequired(timeout, model, lang)
     }
 
-    fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "es") {
+    fun changeSiteLanguageIfNeeded(newLang: String = SPConfig.lang, currentLang: String = "spa") {
         if (!newLang.contentEquals(currentLang, true)) {
             if (shouldLoadRequired(lang = currentLang).showSidebar.isDisplayed) {
                 showSidebar.click()
@@ -33,7 +33,7 @@ class MainPage : Page() {
             sidebar.sidebarTabs.toolsTabButton.click()
             sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired(lang = currentLang).language.button.click()
             sidebar.sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired(lang = currentLang)
-            if (newLang.contentEquals("es", true)) sidebar.sidebarTabs.toolsTabContent.languageChooser.esES.click()
+            if (newLang.contentEquals("spa", true)) sidebar.sidebarTabs.toolsTabContent.languageChooser.esES.click()
             else sidebar.sidebarTabs.toolsTabContent.languageChooser.enGB.click()
             sidebar.sidebarTabs.toolsTabContent.languageChooser.should(disappear)
             mainPage.shouldLoadRequired(lang = newLang)

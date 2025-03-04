@@ -11,7 +11,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <groups>
             <run>
                 <include name="desktop"/>
@@ -24,7 +24,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop English tests" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <groups>
             <run>
                 <include name="desktop"/>
@@ -37,7 +37,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop Spanish tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <groups>
             <run>
                 <include name="desktop"/>
@@ -50,7 +50,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop English tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <groups>
             <run>
                 <include name="desktop"/>
@@ -63,7 +63,7 @@
     <test name="TestNG TiddlyWiki Mobile Spanish tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="true"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <groups>
             <run>
                 <include name="mobile"/>
@@ -76,7 +76,7 @@
     <test name="TestNG TiddlyWiki Mobile English tests" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="true"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <groups>
             <run>
                 <include name="mobile"/>
@@ -89,7 +89,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop Spanish Create tiddler and search test" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <parameter name="title" value="Título de mi nuevo tiddler"/>
         <parameter name="body" value="Contenido de mi nuevo tiddler"/>
         <parameter name="searchResult" value="1 coincidencias"/>
@@ -105,7 +105,7 @@
     <test name="TestNG TiddlyWiki Firefox Desktop English Create tiddler and search test" enabled="true">
         <parameter name="browser" value="firefox"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <parameter name="title" value="My new tiddler title"/>
         <parameter name="body" value="My new tiddler body"/>
         <parameter name="searchResult" value="1 matches"/>
@@ -121,7 +121,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop Spanish Create tiddler and search test" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <parameter name="title" value="Título de mi nuevo tiddler"/>
         <parameter name="body" value="Contenido de mi nuevo tiddler"/>
         <parameter name="searchResult" value="1 coincidencias"/>
@@ -137,7 +137,7 @@
     <test name="TestNG TiddlyWiki Chrome Desktop English Create tiddler and search test" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="false"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <parameter name="title" value="My new tiddler title"/>
         <parameter name="body" value="My new tiddler body"/>
         <parameter name="searchResult" value="1 matches"/>
@@ -153,7 +153,7 @@
     <test name="TestNG TiddlyWiki Mobile Spanish Create tiddler and search test" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="true"/>
-        <parameter name="lang" value="es"/>
+        <parameter name="lang" value="spa"/>
         <parameter name="title" value="Título de mi nuevo tiddler"/>
         <parameter name="body" value="Contenido de mi nuevo tiddler"/>
         <parameter name="searchResult" value="1 coincidencias"/>
@@ -169,7 +169,7 @@
     <test name="TestNG TiddlyWiki Mobile English Create tiddler and search test" enabled="true">
         <parameter name="browser" value="chrome"/>
         <parameter name="mobile" value="true"/>
-        <parameter name="lang" value="en"/>
+        <parameter name="lang" value="eng"/>
         <parameter name="title" value="My new tiddler title"/>
         <parameter name="body" value="My new tiddler body"/>
         <parameter name="searchResult" value="1 matches"/>

@@ -37,8 +37,8 @@ class GettingStartedTiddlerViewWidget(self: SelenideElement) : TiddlerViewWidget
     @Required val titleAgain = LangConditionedElement(super.title, exactText("GettingStarted"))
     @Required override val body = LangConditionedElement(
         super.body, mapOf(
-            "en" to text("Welcome to TiddlyWiki and the TiddlyWiki community"),
-            "es" to text("Bienvenido a TiddlyWiki y a su comunidad de usuarios")
+            "eng" to text("Welcome to TiddlyWiki and the TiddlyWiki community"),
+            "spa" to text("Bienvenido a TiddlyWiki y a su comunidad de usuarios")
         )
     )
 }
