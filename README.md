@@ -122,6 +122,7 @@ Versions used to test selenide-pom:
 | 0.28.3               | 7.5.1            | 8.10.2         | 21           |
 | 0.28.4               | 7.5.1            | 8.10.2         | 21           |
 | 0.29.0               | 7.5.1            | 8.10.2         | 21           |
+| 0.30.0               | 7.7.3            | 8.13           | 21           |
 
 # Extra: Easy Windows setup (without Admin rights)
 
@@ -152,15 +153,11 @@ Some basic scoop configuration and packages:
 
 ## Install packages
 
-Some basic packages for Selenium/Selenide:
+Some basic packages for Selenium/Selenide (and OCR):
 
     scoop bucket add extras
     scoop bucket add java
-    scoop install openjdk python cookiecutter allure idea
-
-Scoop packages for OCR:
-
-    scoop install tesseract tesseract-languages
+    scoop install openjdk python cookiecutter allure idea tesseract tesseract-languages
 
 ## Check scoop
 
