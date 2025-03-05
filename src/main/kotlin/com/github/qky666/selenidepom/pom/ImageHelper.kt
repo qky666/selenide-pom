@@ -42,7 +42,7 @@ fun Rectangle.contains(other: Rectangle): Boolean {
  * @return the point found, or `null` if there are no points above given threshold
  */
 fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): CVPoint? {
-    logger.info { "Starting getFirstPointFromMatAboveThreshold. Target threshold: $t" }
+    logger.debug { "Starting getFirstPointFromMatAboveThreshold. Target threshold: $t" }
     val indexer = m.createIndexer<FloatIndexer>()
     for (y in 0 until m.rows()) {
         for (x in 0 until m.cols()) {
@@ -50,7 +50,7 @@ fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): CVPoint? {
             if (similarity > t) return CVPoint(x, y)
         }
     }
-    logger.info { "getFirstPointFromMatAboveThreshold. No point above threshold $t found" }
+    logger.debug { "getFirstPointFromMatAboveThreshold. No point above threshold $t found" }
     return null
 }
 
@@ -62,7 +62,7 @@ fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): CVPoint? {
  * @return the points found
  */
 fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
-    logger.info { "Starting getPointsFromMatAboveThreshold. Target threshold: $t" }
+    logger.debug { "Starting getPointsFromMatAboveThreshold. Target threshold: $t" }
     val matches = mutableListOf<CVPoint>()
     val indexer = m.createIndexer<FloatIndexer>()
     for (y in 0 until m.rows()) {
@@ -71,7 +71,7 @@ fun getPointsFromMatAboveThreshold(m: Mat, t: Float): List<CVPoint> {
             if (similarity > t) matches.add(CVPoint(x, y))
         }
     }
-    logger.info { "getPointsFromMatAboveThreshold. Points above threshold $t found: ${matches.size}" }
+    logger.debug { "getPointsFromMatAboveThreshold. Points above threshold $t found: ${matches.size}" }
     return matches
 }
 

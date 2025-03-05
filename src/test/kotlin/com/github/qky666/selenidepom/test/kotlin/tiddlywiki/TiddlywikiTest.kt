@@ -778,12 +778,11 @@ class TiddlywikiTest {
 
     @Test
     fun clickOcrTextTest() {
-        SPConfig.selenideConfig.headless(false)
         setupSite("chrome")
         mainPage.shouldLoadRequired()
         val firstTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
         GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired().clickOcrText("panel de control")
-        val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[0].shouldLoadRequired()
+        val controlPanelTiddler = mainPage.storyRiver.tiddlerViews.shouldHave(size(2))[1].shouldLoadRequired()
         ControlPanelTiddlerViewWidget(controlPanelTiddler).shouldLoadRequired()
     }
 }

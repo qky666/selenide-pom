@@ -9,6 +9,7 @@ import com.github.qky666.selenidepom.pom.Page
 /**
  * Some functions that create [WebElementCondition] related to current [SPConfig.lang].
  */
+@Suppress("unused")
 object LangCondition {
     /**
      * Returns the [WebElementCondition] corresponding to current [SPConfig.lang] in [conditions].

@@ -16,6 +16,7 @@ import java.nio.file.Path
 /**
  * Some functions that create [WebElementCondition] related to element's image (screenshot).
  */
+@Suppress("unused")
 object ImageCondition {
     /**
      * Creates a [WebElementCondition] that checks if a web element screenshot contains any of a list of predefined images.

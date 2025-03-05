@@ -9,7 +9,7 @@ plugins {
     // jitpack needs maven-publish plugin
     `maven-publish`
     kotlin("jvm") version "2.1.10"
-    id("io.freefair.lombok") version "8.12.2"
+    id("io.freefair.lombok") version "8.12.2.1"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
@@ -36,9 +36,10 @@ dependencies {
     implementation("com.codeborne:selenide-appium:7.7.3")
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.4")
     implementation("org.bytedeco:javacv-platform:1.5.11")
+    implementation("net.sourceforge.tess4j:tess4j:5.15.0")
 
     testImplementation(kotlin("test"))
-    testImplementation("org.slf4j:slf4j-simple:2.0.16")
+    testImplementation("org.slf4j:slf4j-simple:2.0.17")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")

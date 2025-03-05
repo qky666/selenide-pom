@@ -1,6 +1,5 @@
 package com.github.qky666.selenidepom.pom
 
-import com.github.qky666.selenidepom.pom.ImageElementDefinition
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourcePath
 import com.github.qky666.selenidepom.pom.ByImage.Companion.DEFAULT_SIMILARITY
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -69,7 +68,7 @@ class ByImage(
                 container = element
             }
         }
-        logger.info { "Found smallest container for Rectangle 'x: ${rect.x}, y: ${rect.y}, width: ${rect.width}, height: ${rect.height}': $container" }
+        logger.debug { "Found smallest container for Rectangle 'x: ${rect.x}, y: ${rect.y}, width: ${rect.width}, height: ${rect.height}': $container" }
         return container
     }
 
@@ -79,7 +78,7 @@ class ByImage(
         } else {
             Rectangle(rect.x(), rect.y(), rect.height(), rect.width())
         }
-        logger.info {
+        logger.debug {
             "Rectangle in page found for Rect 'x: ${rect.x()}, y: ${rect.y()}, width: ${rect.width()}, height: ${rect.height()}' in context '${context}': 'x: ${rectPage.x}, y: ${rectPage.y}, width: ${rectPage.width}, height: ${rectPage.height}"
         }
         return rectPage
@@ -96,17 +95,17 @@ class ByImage(
             val matchPoint = getFirstPointFromMatAboveThreshold(result, similarity.toFloat())
             matchPoint?.let { mp ->
                 val matchSize = pattern.size()
-                logger.info { "Match in findElement: (${mp.x()}, ${mp.y()}). Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
+                logger.debug { "Match in findElement: (${mp.x()}, ${mp.y()}). Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
                 val matchRect = rectInPage(context, Rect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
                 return ImageElement(container, matchRect, it.enabled, it.selected)
             }
         }
-        // Debug
-        Files.copy(
-            screenshotFile.toPath(), File("build/tmp/screenshot.png").toPath(), StandardCopyOption.REPLACE_EXISTING
-        )
-        throw NoSuchElementException("Image $imageElementDefinitions not found in context $context")
+        // Debug if image not found
+        val path = screenshotFile.toPath()
+        val name = path.name
+        val copied = Files.copy(path, File("build/tmp").toPath().resolve(name), StandardCopyOption.REPLACE_EXISTING)
+        throw NoSuchElementException("Image $imageElementDefinitions not found in context $context. Screenshot saved to $copied")
     }
 
     override fun findElements(context: SearchContext): List<ImageElement> {
@@ -120,7 +119,7 @@ class ByImage(
             val matchPoints = getPointsFromMatAboveThreshold(result, similarity.toFloat())
             elements.addAll(matchPoints.map { mp ->
                 val matchSize = pattern.size()
-                logger.info { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
+                logger.debug { "Match in findElements: (${mp.x()}, ${mp.y()}. Size: width: ${matchSize.width()}, height: ${matchSize.height()}" }
                 val matchRect = rectInPage(context, Rect(mp, matchSize))
                 val container = smallestContainer(context, matchRect)
                 ImageElement(container, matchRect, it.enabled, it.selected)
