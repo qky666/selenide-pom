@@ -1,8 +1,10 @@
 package com.github.qky666.selenidepom.pom
 
 import com.codeborne.selenide.ClickOptions
+import com.codeborne.selenide.Command
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.FluentCommand
 import com.codeborne.selenide.HoverOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
@@ -67,6 +69,43 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      */
     override fun getOptions(): ElementsCollection {
         return self.options
+    }
+
+    /**
+     * Same as [SelenideElement.execute] `(Command(command))`.
+     *
+     * NOTE: Solves a problem added in selenide 7.7.3: If not present, Widget subclasses need to override this method.
+     *
+     * @param command the command
+     * @return the [ReturnType] obtained
+     */
+    override fun <ReturnType : Any> execute(command: Command<ReturnType>): ReturnType? {
+        return self.execute(command)
+    }
+
+    /**
+     * Same as [SelenideElement.execute] `(Command(command), (Duration(timeout))`.
+     *
+     * NOTE: Solves a problem added in selenide 7.7.3: If not present, Widget subclasses need to override this method.
+     *
+     * @param command the command
+     * @param timeout the timeout
+     * @return the [ReturnType] obtained
+     */
+    override fun <ReturnType : Any> execute(command: Command<ReturnType>, timeout: Duration): ReturnType? {
+        return self.execute(command, timeout)
+    }
+
+    /**
+     * Same as [SelenideElement.execute] `(FluentCommand(command))`.
+     *
+     * NOTE: Solves a problem added in selenide 7.7.3: If not present, Widget subclasses need to override this method.
+     *
+     * @param command the command
+     * @return the [ReturnType] obtained
+     */
+    override fun <ReturnType : SelenideElement> execute(command: FluentCommand): ReturnType {
+        return self.execute(command)
     }
 
     /**
@@ -173,8 +212,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
  * @return [T] instance based on provided [SelenideElement]
  */
 fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
-    @Suppress("UNCHECKED_CAST")
-    return this as? T ?: factory(this)
+    @Suppress("UNCHECKED_CAST") return this as? T ?: factory(this)
 }
 
 /**
