@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package {{ cookiecutter.group }}.calculatorandroidcucumber.pom
+package {{ cookiecutter.group }}.apidemosandroidcucumber.pom
 
 import io.appium.java_client.AppiumBy.accessibilityId
 

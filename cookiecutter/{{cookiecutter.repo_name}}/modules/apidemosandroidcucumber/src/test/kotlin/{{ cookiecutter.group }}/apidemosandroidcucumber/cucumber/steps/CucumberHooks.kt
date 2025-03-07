@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package {{ cookiecutter.group }}.calculatorandroidcucumber.cucumber.steps
+package {{ cookiecutter.group }}.apidemosandroidcucumber.cucumber.steps
 
 import {{ cookiecutter.group }}.common_android.cucumber.steps.BaseCucumberHooks
 

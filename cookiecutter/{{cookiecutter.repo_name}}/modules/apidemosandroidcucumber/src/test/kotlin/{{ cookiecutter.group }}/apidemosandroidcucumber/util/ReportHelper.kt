@@ -1,4 +1,4 @@
-package {{ cookiecutter.group }}.calculatorandroidcucumber.util
+package {{ cookiecutter.group }}.apidemosandroidcucumber.util
 
 import com.codeborne.selenide.Selenide
 import io.qameta.allure.Allure

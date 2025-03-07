@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package {{ cookiecutter.group }}.calculatorandroidcucumber.cucumber.steps
+package {{ cookiecutter.group }}.apidemosandroidcucumber.cucumber.steps
 
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
@@ -9,9 +9,9 @@ import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.appium.SelenideAppium
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.apiDemosStartPage
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.viewsDragAndDropPage
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.viewsPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.apiDemosStartPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsDragAndDropPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsPage
 import io.cucumber.java8.Es
 import org.apache.logging.log4j.kotlin.Logging
 import java.util.concurrent.TimeUnit

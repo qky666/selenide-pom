@@ -3,7 +3,7 @@
 <suite name="Failed tests retry suite" data-provider-thread-count="1">
     <test name="Failed tests retry" enabled="true" parallel="none">
         <classes>
-            <class name="{{ cookiecutter.group }}.calculatorandroidcucumber.cucumber.runner.FailedTestRunner"/>
+            <class name="{{ cookiecutter.group }}.apidemosandroidcucumber.cucumber.runner.FailedTestRunner"/>
         </classes>
     </test>
 </suite>

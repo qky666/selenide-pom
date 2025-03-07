@@ -3,7 +3,7 @@
 <suite name="Complete suite" data-provider-thread-count="1">
     <test name="Complete plan" enabled="true" parallel="none">
         <classes>
-            <class name="{{ cookiecutter.group }}.calculatorandroidcucumber.cucumber.runner.AllTestRunner"/>
+            <class name="{{ cookiecutter.group }}.apidemosandroidcucumber.cucumber.runner.AllTestRunner"/>
         </classes>
     </test>
 </suite>

@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="common:pipUpdates" />
+          <option value="common_web:pipUpdates" />
         </list>
       </option>
       <option name="vmOptions" />

@@ -89,90 +89,90 @@ class ToolsTabContentWidget(self: SelenideElement) : Widget(self) {
 
     @Required val tiddlerManager = ToolItem(
         find("div[class$=manager]", 0),
-        mapOf("eng" to "tiddler manager", "es" to "Administrador tiddler"),
-        mapOf("en" to "Open tiddler manager", "es" to "Abre el administrador del tiddler")
+        mapOf("eng" to "tiddler manager", "spa" to "Administrador tiddler"),
+        mapOf("eng" to "Open tiddler manager", "spa" to "Abre el administrador del tiddler")
     )
 
     @Required val tagManager = ToolItem(
         find("div[class$=tag-manager]"),
-        mapOf("en" to "tag manager", "es" to "Administrador de etiquetas"),
-        mapOf("en" to "Open tag manager", "es" to "Abre el gestor de etiquetas")
+        mapOf("eng" to "tag manager", "spa" to "Administrador de etiquetas"),
+        mapOf("eng" to "Open tag manager", "spa" to "Abre el gestor de etiquetas")
     )
 
     @Required val language = ToolItem(
         find("div[class$=language]"),
-        mapOf("en" to "language", "es" to "Idioma"),
-        mapOf("en" to "Choose the user interface language", "es" to "Selecciona idioma de la interfaz de usuario")
+        mapOf("eng" to "language", "spa" to "Idioma"),
+        mapOf("eng" to "Choose the user interface language", "spa" to "Selecciona idioma de la interfaz de usuario")
     )
 
     val languageChooser = LanguageChooser(Page.find("div.tc-language-chooser"))
 
     @Required val palette = ToolItem(
         find("div[class$=palette]"),
-        mapOf("en" to "palette", "es" to "Paleta"),
-        mapOf("en" to " Choose the colour palette", "es" to "Selecciona la paleta de color")
+        mapOf("eng" to "palette", "spa" to "Paleta"),
+        mapOf("eng" to " Choose the colour palette", "spa" to "Selecciona la paleta de color")
     )
 
     @Required val theme = ToolItem(
         find("div[class$=theme]"),
-        mapOf("en" to "theme", "es" to "Tema"),
-        mapOf("en" to "Choose the display theme", "es" to "Selecciona un estilo visual para el wiki")
+        mapOf("eng" to "theme", "spa" to "Tema"),
+        mapOf("eng" to "Choose the display theme", "spa" to "Selecciona un estilo visual para el wiki")
     )
 
     @Required val layout = ToolItem(
         find("div[class$=layout]"),
-        mapOf("en" to "layout", "es" to "disposición"),
-        mapOf("en" to "Open the layout switcher", "es" to "Abre el selector de diseño")
+        mapOf("eng" to "layout", "spa" to "disposición"),
+        mapOf("eng" to "Open the layout switcher", "spa" to "Abre el selector de diseño")
     )
 
     @Required val storyview = ToolItem(
         find("div[class$=storyview]"),
-        mapOf("en" to "storyview", "es" to "Vista"),
-        mapOf("en" to "Choose the story visualisation", "es" to "Selecciona el modo de visualización de los tiddlers")
+        mapOf("eng" to "storyview", "spa" to "Vista"),
+        mapOf("eng" to "Choose the story visualisation", "spa" to "Selecciona el modo de visualización de los tiddlers")
     )
 
     @Required val setPassword = ToolItem(
-        find("div[class$=encryption]"), mapOf("en" to "set password", "es" to "Asignar contraseña"), mapOf(
-            "en" to "Set or clear a password for saving this wiki",
-            "es" to "Asigna o revoca la contraseña de cifrado para este wiki"
+        find("div[class$=encryption]"), mapOf("eng" to "set password", "spa" to "Asignar contraseña"), mapOf(
+            "eng" to "Set or clear a password for saving this wiki",
+            "spa" to "Asigna o revoca la contraseña de cifrado para este wiki"
         )
     )
 
     @Required val timestamp = ToolItem(
-        find("div[class$=timestamp]"), mapOf("en" to "timestamps are", "es" to "las marcas de tiempo están"), mapOf(
-            "en" to "Choose whether modifications update timestamps",
-            "es" to "Elige si las modificaciones actualizan las marcas de tiempo"
+        find("div[class$=timestamp]"), mapOf("eng" to "timestamps are", "spa" to "las marcas de tiempo están"), mapOf(
+            "eng" to "Choose whether modifications update timestamps",
+            "spa" to "Elige si las modificaciones actualizan las marcas de tiempo"
         )
     )
 
     @Required val fullScreen = ToolItem(
         find("div[class$=full-screen]"),
-        mapOf("en" to "full-screen", "es" to "Pantalla completa"),
-        mapOf("en" to "Enter or leave full-screen mode", "es" to "Entra y sale del modo de pantalla completa")
+        mapOf("eng" to "full-screen", "spa" to "Pantalla completa"),
+        mapOf("eng" to "Enter or leave full-screen mode", "spa" to "Entra y sale del modo de pantalla completa")
     )
 
     @Required val printPage = ToolItem(
         find("div[class$=print]"),
-        mapOf("en" to "print page", "es" to "Imprimir página"),
-        mapOf("en" to "Print the current page", "es" to "Imprime la página actual")
+        mapOf("eng" to "print page", "spa" to "Imprimir página"),
+        mapOf("eng" to "Print the current page", "spa" to "Imprime la página actual")
     )
 
     @Required val saveChanges = ToolItem(
         find("div[class$=save-wiki]"),
-        mapOf("en" to "save changes", "es" to "Guardar cambios"),
-        mapOf("en" to "Save changes", "es" to "Confirma y guarda todos los cambios realizados en el wiki")
+        mapOf("eng" to "save changes", "spa" to "Guardar cambios"),
+        mapOf("eng" to "Save changes", "spa" to "Confirma y guarda todos los cambios realizados en el wiki")
     )
 
     @Required val refresh = ToolItem(
         find("div[class$=refresh]"),
-        mapOf("en" to "refresh", "es" to "Recargar"),
-        mapOf("en" to "Perform a full refresh of the wiki", "es" to "Actualiza completamente este wiki")
+        mapOf("eng" to "refresh", "spa" to "Recargar"),
+        mapOf("eng" to "Perform a full refresh of the wiki", "spa" to "Actualiza completamente este wiki")
     )
 
     @Required val more = ToolItem(
         find("div[class$=more-page-actions]"),
-        mapOf("en" to "more", "es" to "Más"),
-        mapOf("en" to "More actions", "es" to "Otras acciones")
+        mapOf("eng" to "more", "spa" to "Más"),
+        mapOf("eng" to "More actions", "spa" to "Otras acciones")
     )
 }
 

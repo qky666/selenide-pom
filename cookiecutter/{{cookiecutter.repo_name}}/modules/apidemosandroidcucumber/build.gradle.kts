@@ -1,4 +1,4 @@
-group = "{{ cookiecutter.group }}.calculatorandroidcucumber"
+group = "{{ cookiecutter.group }}.apidemosandroidcucumber"
 version = "0.0.1-SNAPSHOT"
 
 plugins {

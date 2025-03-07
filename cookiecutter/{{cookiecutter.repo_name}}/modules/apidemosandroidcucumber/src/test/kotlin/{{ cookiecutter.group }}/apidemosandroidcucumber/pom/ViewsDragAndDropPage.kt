@@ -1,4 +1,4 @@
-package {{ cookiecutter.group }}.calculatorandroidcucumber.pom
+package {{ cookiecutter.group }}.apidemosandroidcucumber.pom
 
 import com.github.qky666.selenidepom.pom.LangConditionedAppiumElement
 import com.github.qky666.selenidepom.pom.Required

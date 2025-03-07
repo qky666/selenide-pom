@@ -2,7 +2,7 @@
  * NOT USED!
  ************/
 
-package {{ cookiecutter.group }}.calculatorandroidcucumber.testng
+package {{ cookiecutter.group }}.apidemosandroidcucumber.testng
 
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
@@ -13,9 +13,9 @@ import com.codeborne.selenide.appium.SelenideAppium
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.apiDemosStartPage
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.viewsDragAndDropPage
-import {{ cookiecutter.group }}.calculatorandroidcucumber.pom.viewsPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.apiDemosStartPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsDragAndDropPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsPage
 import {{ cookiecutter.group }}.common_android.util.AllureReportHelper
 import org.apache.logging.log4j.kotlin.Logging
 import org.testng.ITestResult

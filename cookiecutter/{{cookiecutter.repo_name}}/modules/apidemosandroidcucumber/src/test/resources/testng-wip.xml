@@ -3,7 +3,7 @@
 <suite name="Suite Work In Progress" data-provider-thread-count="1">
     <test name="Work In Progress" enabled="true" parallel="none">
         <classes>
-            <class name="{{ cookiecutter.group }}.calculatorandroidcucumber.cucumber.runner.WipTestRunner"/>
+            <class name="{{ cookiecutter.group }}.apidemosandroidcucumber.cucumber.runner.WipTestRunner"/>
         </classes>
     </test>
 </suite>

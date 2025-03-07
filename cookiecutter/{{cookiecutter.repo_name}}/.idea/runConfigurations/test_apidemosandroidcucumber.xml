@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="test calculatorandroidcucumber" type="GradleRunConfiguration" factoryName="Gradle" folderName="calculatorandroidcucumber">
+  <configuration default="false" name="test apidemosandroidcucumber" type="GradleRunConfiguration" factoryName="Gradle" folderName="apidemosandroidcucumber">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,11 +10,11 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="calculatorandroidcucumber:clean" />
-          <option value="calculatorandroidcucumber:test" />
-          <option value="calculatorandroidcucumber:importAllureHistory" />
-          <option value="calculatorandroidcucumber:allureReport" />
-          <option value="calculatorandroidcucumber:allureCombine" />
+          <option value="apidemosandroidcucumber:clean" />
+          <option value="apidemosandroidcucumber:test" />
+          <option value="apidemosandroidcucumber:importAllureHistory" />
+          <option value="apidemosandroidcucumber:allureReport" />
+          <option value="apidemosandroidcucumber:allureCombine" />
         </list>
       </option>
       <option name="vmOptions" />
