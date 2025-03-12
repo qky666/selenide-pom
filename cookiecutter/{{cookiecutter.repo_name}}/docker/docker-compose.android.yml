@@ -3,8 +3,9 @@ services:
     image: budtmo/docker-android:emulator_9.0
     container_name: android
     ports:
-      - "6080:6080"
       - "4723:4723"
+      - "6080:6080"
+      - "9000:9000"
     restart:
       always
     devices:
@@ -12,6 +13,10 @@ services:
     environment:
       - EMULATOR_DEVICE=Samsung Galaxy S10
       - WEB_VNC=true
+      - WEB_VNC_PORT=6080
       - VNC_PASSWORD=MyAndroidPass
       - APPIUM=true
       - APPIUM_ADDITIONAL_ARGS=--allow-cors
+      # It seems that WEB_LOG=true is not working. Possible bug in budtmo/docker-android emulator
+      - WEB_LOG=false
+      - WEB_LOG_PORT=9000

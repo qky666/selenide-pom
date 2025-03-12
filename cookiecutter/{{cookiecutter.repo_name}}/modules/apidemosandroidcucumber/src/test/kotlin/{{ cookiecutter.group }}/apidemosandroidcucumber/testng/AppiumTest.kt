@@ -1,7 +1,3 @@
-/************
- * NOT USED!
- ************/
-
 package {{ cookiecutter.group }}.apidemosandroidcucumber.testng
 
 import com.codeborne.selenide.Condition.exactText
@@ -54,6 +50,7 @@ open class AppiumTest : Logging {
 
     @Test(description = "Drag and drop test")
     fun dragAndDropTest() {
+        // chooseApiDemosAccessPage.shouldLoadRequired().continueButton.click()
         apiDemosStartPage.shouldLoadRequired()
         apiDemosStartPage.views.click()
 
@@ -68,6 +65,7 @@ open class AppiumTest : Logging {
 
     @Test(description = "Drag and drop test - forced error")
     fun dragAndDropTestForcedError() {
+        // chooseApiDemosAccessPage.shouldLoadRequired().continueButton.click()
         apiDemosStartPage.shouldLoadRequired()
         apiDemosStartPage.views.click()
 

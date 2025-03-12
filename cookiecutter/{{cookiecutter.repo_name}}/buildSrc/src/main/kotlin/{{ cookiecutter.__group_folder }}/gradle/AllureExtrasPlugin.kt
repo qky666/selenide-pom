@@ -17,7 +17,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Input
 import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.task
+import org.gradle.kotlin.dsl.register
 import report
 import ru.vyarus.gradle.plugin.python.task.PythonTask
 import java.time.LocalDateTime
@@ -57,13 +57,14 @@ class AllureExtrasPlugin : Plugin<Project> {
     }
 
     private fun createImportAllureHistoryTask(project: Project, extension: AllureExtrasPluginExtension): Copy {
-        val task = project.task<Copy>("importAllureHistory") {
+        val provider = project.tasks.register<Copy>("importAllureHistory") {
             group = "verification"
             description = "Copy previous Allure history files from archived reports"
             from(extension.archivedReportsDir.dir("last/history").get().asFile)
             into(extension.allureResultsDir.dir("history").get().asFile)
             mustRunAfter(project.tasks.named("test"))
         }
+        val task = provider.get()
 
         project.tasks.findByName(AllureAggregateReportPlugin.REPORT_TASK_NAME)?.mustRunAfter(task)
         project.tasks.findByName(AllureAggregateReportPlugin.SERVE_TASK_NAME)?.mustRunAfter(task)
@@ -74,7 +75,7 @@ class AllureExtrasPlugin : Plugin<Project> {
     }
 
     private fun createAllureCombineTask(project: Project, extension: AllureExtrasPluginExtension): PythonTask {
-        return project.task<AllureCombineTask>("allureCombine") {
+        val provider = project.tasks.register<AllureCombineTask>("allureCombine") {
             group = "verification"
             description = "Combine Allure report in a single HTML file"
             reportDir = extension.allureReportDir.asFile.get().canonicalPath
@@ -85,14 +86,13 @@ class AllureExtrasPlugin : Plugin<Project> {
             project.tasks.findByName(AllureReportPlugin.REPORT_TASK_NAME)?.let { mustRunAfter(it) }
             project.tasks.findByName(AllureReportPlugin.SERVE_TASK_NAME)?.let { mustRunAfter(it) }
         }
+        return provider.get()
     }
 
     private fun createExportAllureHistoryTask(
-        project: Project,
-        extension: AllureExtrasPluginExtension,
-        allureCombineTask: PythonTask
+        project: Project, extension: AllureExtrasPluginExtension, allureCombineTask: PythonTask
     ): Copy {
-        return project.task<Copy>("exportAllureHistory") {
+        val provider = project.tasks.register<Copy>("exportAllureHistory") {
             group = "verification"
             description = "Copy generated Allure report and history files to archived reports"
             val now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
@@ -150,6 +150,7 @@ class AllureExtrasPlugin : Plugin<Project> {
                 Selenide.closeWebDriver()
             }
         }
+        return provider.get()
     }
 }
 
@@ -160,7 +161,6 @@ abstract class AllureCombineTask : PythonTask() {
     override fun getCommand(): Property<Any> {
         val combineCommand = project.objects.property(String::class.java)
         combineCommand.set("-m allure_combine.combine $reportDir --dest $combineDir --auto-create-folders --remove-temp-files")
-        @Suppress("UNCHECKED_CAST")
-        return combineCommand as Property<Any>
+        @Suppress("UNCHECKED_CAST") return combineCommand as Property<Any>
     }
 }

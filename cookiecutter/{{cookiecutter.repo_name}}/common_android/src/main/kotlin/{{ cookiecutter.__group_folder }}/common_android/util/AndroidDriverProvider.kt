@@ -12,7 +12,7 @@ import kotlin.test.assertNotEquals
 class AndroidDriverProvider : Logging {
     companion object : Logging {
         fun createDriver(
-            server: String = SPConfig.selenideConfig.remote(),
+            server: String = SPConfig.selenideConfig.remote() ?: "",
             appUrl: String = TestData.getString("project.app_url") ?: "",
             appPackage: String? = TestData.getString("project.app_package"),
             appActivity: String? = TestData.getString("project.app_activity"),
