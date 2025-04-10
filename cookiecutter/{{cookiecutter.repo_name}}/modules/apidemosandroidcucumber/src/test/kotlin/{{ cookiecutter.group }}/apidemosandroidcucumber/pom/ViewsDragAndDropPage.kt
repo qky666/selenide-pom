@@ -13,5 +13,3 @@ class ViewsDragAndDropPage : ApiDemosCommonFramePage() {
     @Required val dot3 = findAppium(id("io.appium.android.apis:id/drag_dot_3"))
     @Required val dragText = findAppium(id("io.appium.android.apis:id/drag_text"))
 }
-
-val viewsDragAndDropPage = ViewsDragAndDropPage()

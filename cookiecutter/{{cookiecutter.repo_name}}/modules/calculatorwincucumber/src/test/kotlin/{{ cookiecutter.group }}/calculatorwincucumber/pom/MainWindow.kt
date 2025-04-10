@@ -18,5 +18,3 @@ open class MainWindow : Page() {
         (if (value) visible else disappear).let { navPane.should(it) }
     }
 }
-
-val mainWindow = MainWindow()

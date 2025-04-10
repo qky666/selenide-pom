@@ -13,6 +13,7 @@ import com.github.qky666.selenidepom.pom.WidgetsCollection
 import io.appium.java_client.AppiumBy.id
 
 
+@Suppress("unused")
 class ChooseApiDemosAccessPage : Page() {
     @Required val title = LangConditionedAppiumElement(
         findAppium(id("com.android.permissioncontroller:id/permissions_message")),
@@ -34,5 +35,3 @@ class SingleAccessPermissionWidget(self: SelenideElement) : Widget(self) {
     @Required val summary = find(id("android:id/summary"))
     @Required val switch = find(id("android:id/switch_widget"))
 }
-
-@Suppress("unused") val chooseApiDemosAccessPage = ChooseApiDemosAccessPage()

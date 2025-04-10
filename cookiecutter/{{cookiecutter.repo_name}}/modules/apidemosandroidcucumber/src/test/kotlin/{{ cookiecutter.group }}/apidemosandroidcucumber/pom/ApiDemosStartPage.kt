@@ -16,5 +16,3 @@ class ApiDemosStartPage : ApiDemosCommonFramePage() {
     @Required val text = findAppium(accessibilityId("Text"))
     @Required val views = findAppium(accessibilityId("Views"))
 }
-
-val apiDemosStartPage = ApiDemosStartPage()

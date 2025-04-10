@@ -36,9 +36,9 @@ class MainPage : Page() {
             if (newLang.contentEquals("spa", true)) sidebar.sidebarTabs.toolsTabContent.languageChooser.esES.click()
             else sidebar.sidebarTabs.toolsTabContent.languageChooser.enGB.click()
             sidebar.sidebarTabs.toolsTabContent.languageChooser.should(disappear)
-            mainPage.shouldLoadRequired(lang = newLang)
+            shouldLoadRequired(lang = newLang)
             sidebar.sidebarTabs.openTabButton.click()
-            mainPage.shouldLoadRequired(lang = newLang)
+            shouldLoadRequired(lang = newLang)
         }
     }
 
@@ -53,5 +53,3 @@ class MainPage : Page() {
         }
     }
 }
-
-val mainPage = MainPage()

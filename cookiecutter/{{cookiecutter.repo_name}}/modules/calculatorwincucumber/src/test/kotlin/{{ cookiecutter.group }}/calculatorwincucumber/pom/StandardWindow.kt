@@ -28,5 +28,3 @@ class StandardWindow : MainWindow() {
         if (number < 0) negate.click()
     }
 }
-
-val standardWindow = StandardWindow()

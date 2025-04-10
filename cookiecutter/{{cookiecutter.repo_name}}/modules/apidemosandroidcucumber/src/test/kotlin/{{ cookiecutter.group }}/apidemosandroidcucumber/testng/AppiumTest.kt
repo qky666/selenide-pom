@@ -8,10 +8,11 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.appium.SelenideAppium
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
+import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.apiDemosStartPage
-import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsDragAndDropPage
-import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.viewsPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.ApiDemosStartPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.ViewsDragAndDropPage
+import {{ cookiecutter.group }}.apidemosandroidcucumber.pom.ViewsPage
 import {{ cookiecutter.group }}.common_android.util.AllureReportHelper
 import org.apache.logging.log4j.kotlin.Logging
 import org.testng.ITestResult
@@ -50,31 +51,30 @@ open class AppiumTest : Logging {
 
     @Test(description = "Drag and drop test")
     fun dragAndDropTest() {
-        // chooseApiDemosAccessPage.shouldLoadRequired().continueButton.click()
-        apiDemosStartPage.shouldLoadRequired()
-        apiDemosStartPage.views.click()
+        // Page.getInstance(ChooseApiDemosAccessPage::class).shouldLoadRequired().continueButton.click()
+        Page.getInstance(ApiDemosStartPage::class).shouldLoadRequired().views.click()
 
-        viewsPage.shouldLoadRequired()
-        viewsPage.dragAndDrop.click()
+        Page.getInstance(ViewsPage::class).shouldLoadRequired().dragAndDrop.click()
 
-        viewsDragAndDropPage.shouldLoadRequired()
-        viewsDragAndDropPage.dragText.shouldHave(exactText(""))
-        viewsDragAndDropPage.dot1.dragAndDrop(DragAndDropOptions.to(viewsDragAndDropPage.dot2).usingSeleniumActions())
-        viewsDragAndDropPage.dragText.shouldBe(visible).shouldHave(text("Dot"), text("DraggableDot"))
+        Page.getInstance(ViewsDragAndDropPage::class).let {
+            it.shouldLoadRequired().dragText.shouldHave(exactText(""))
+            it.dot1.dragAndDrop(DragAndDropOptions.to(it.dot2).usingSeleniumActions())
+            it.dragText.shouldBe(visible).shouldHave(text("Dot"), text("DraggableDot"))
+        }
     }
 
     @Test(description = "Drag and drop test - forced error")
     fun dragAndDropTestForcedError() {
-        // chooseApiDemosAccessPage.shouldLoadRequired().continueButton.click()
-        apiDemosStartPage.shouldLoadRequired()
-        apiDemosStartPage.views.click()
+        // Page.getInstance(ChooseApiDemosAccessPage::class).shouldLoadRequired().continueButton.click()
+        Page.getInstance(ApiDemosStartPage::class).shouldLoadRequired().views.click()
 
-        viewsPage.shouldLoadRequired()
-        viewsPage.dragAndDrop.click()
+        Page.getInstance(ViewsPage::class).shouldLoadRequired().dragAndDrop.click()
 
-        viewsDragAndDropPage.shouldLoadRequired()
-        viewsDragAndDropPage.dragText.shouldHave(exactText(""))
-        viewsDragAndDropPage.dot1.dragAndDrop(DragAndDropOptions.to(viewsDragAndDropPage.dot2).usingSeleniumActions())
-        viewsDragAndDropPage.dragText.shouldBe(visible).shouldHave(text("Dot"), text("Bad text"))
+        Page.getInstance(ViewsDragAndDropPage::class).let {
+            it.shouldLoadRequired()
+            it.dragText.shouldHave(exactText(""))
+            it.dot1.dragAndDrop(DragAndDropOptions.to(it.dot2).usingSeleniumActions())
+            it.dragText.shouldBe(visible).shouldHave(text("Dot"), text("Bad text"))
+        }
     }
 }

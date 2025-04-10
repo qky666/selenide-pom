@@ -44,5 +44,3 @@ class ViewsPage : ApiDemosCommonFramePage() {
     val visibility = findAppium(accessibilityId("Visibility"))
     val webView = findAppium(accessibilityId("WebView"))
 }
-
-val viewsPage = ViewsPage()
