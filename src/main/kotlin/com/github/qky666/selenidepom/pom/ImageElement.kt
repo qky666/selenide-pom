@@ -66,43 +66,25 @@ class ImageElement(
         }
     }
 
-    override fun isSelected(): Boolean {
-        return selected
-    }
+    override fun isSelected() = selected
 
-    override fun isEnabled(): Boolean {
-        return enabled
-    }
+    override fun isEnabled() = enabled
 
-    override fun findElements(by: By): List<WebElement> {
-        val elements = container.findElements(by)
-        return elements.filter { it.rect.isContainedIn(this.rect) }
-    }
+    override fun findElements(by: By) = container.findElements(by).filter { it.rect.isContainedIn(this.rect) }
 
-    override fun findElement(by: By): WebElement {
-        return findElements(by).first()
-    }
+    override fun findElement(by: By) = findElements(by).first()
 
-    override fun isDisplayed(): Boolean {
-        return true
-    }
+    override fun isDisplayed() = true
 
-    override fun getLocation(): Point {
-        return matchRect.point
-    }
+    override fun getLocation() = matchRect.point
 
-    override fun getSize(): Dimension {
-        return Dimension(matchRect.width, matchRect.height)
-    }
+    override fun getSize() = Dimension(matchRect.width, matchRect.height)
 
-    override fun getRect(): Rectangle {
-        return matchRect
-    }
+    override fun getRect() = matchRect
 
     override fun <X : Any> getScreenshotAs(target: OutputType<X>): X {
-        val containerScreenshotFile = container.getScreenshotAs(OutputType.FILE)
-        val containerScreenshot = imread(containerScreenshotFile.path.toString())
-        val matchScreenshot = Mat(containerScreenshot, matchRectInContainer)
+        val matchScreenshot =
+            Mat(imread(container.getScreenshotAs(OutputType.FILE).path.toString()), matchRectInContainer)
         val tempFile = kotlin.io.path.createTempFile("match", ".png")
         imwrite(tempFile.toAbsolutePath().toString(), matchScreenshot)
         val bytes = Files.readAllBytes(tempFile)

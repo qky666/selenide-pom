@@ -32,11 +32,7 @@ fun <T : SelenideElement> T.scrollToCenter(): T {
  */
 fun <T : SelenideElement> T.clickImage(clickOption: ClickOptions = ClickOptions.usingDefaultMethod()): T {
     val imageElement = this.toWebElement() as? ImageElement
-    if (imageElement != null) {
-        imageElement.clickImage(clickOption)
-    } else {
-        this.click(clickOption)
-    }
+    imageElement?.clickImage(clickOption) ?: this.click(clickOption)
     return this
 }
 
@@ -55,16 +51,13 @@ fun <T : SelenideElement> T.ocrText(
     language: String = SPConfig.lang,
     tessPageSegMode: Int = TessPageSegMode.PSM_SPARSE_TEXT_OSD,
     tessdata: String? = null,
-): String {
-    this.screenshotAsImage()?.let { screenshot ->
-        val tesseract = Tesseract()
-        tessdata?.let { tesseract.setDatapath(it) }
-        tesseract.setLanguage(language)
-        tesseract.setPageSegMode(tessPageSegMode)
-        return tesseract.doOCR(screenshot).trim()
-    }
-    return ""
-}
+) = this.screenshotAsImage()?.let { screenshot ->
+    val tesseract = Tesseract()
+    tessdata?.let { tesseract.setDatapath(it) }
+    tesseract.setLanguage(language)
+    tesseract.setPageSegMode(tessPageSegMode)
+    tesseract.doOCR(screenshot).trim()
+} ?: ""
 
 /**
  * Clicks on a [text] located using OCR in this [SelenideElement] screenshot.
@@ -88,14 +81,12 @@ fun <T : SelenideElement> T.clickOcrText(
     tessdata: String? = null,
 ): T {
     this.shouldHave(OcrTextCondition.ocrText(text, ignoreCase, language, tessPageSegMode, tessdata))
-
     val textWords = text.split(" ")
     val wordIndex = when {
         wordIndexToClick < 0 -> 0
         wordIndexToClick >= textWords.size -> textWords.size - 1
         else -> wordIndexToClick
     }
-
     this.screenshotAsImage()?.let { screenshot ->
         val tesseract = Tesseract()
         tessdata?.let { tesseract.setDatapath(it) }

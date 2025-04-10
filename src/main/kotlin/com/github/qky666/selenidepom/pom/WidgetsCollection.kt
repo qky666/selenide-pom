@@ -23,7 +23,7 @@ class WidgetsCollection<T : Widget>(
     /**
      * [CollectionSource] associated to this instance.
      */
-    val collectionSource: CollectionSource
+    val collectionSource
         get() = elementsCollection.getCollectionSource()
 
     // ElementsCollection overrides
@@ -34,9 +34,7 @@ class WidgetsCollection<T : Widget>(
      * @return the n-th element of collection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun get(index: Int): T {
-        return super.get(index).asWidget(factory)
-    }
+    override fun get(index: Int) = super.get(index).asWidget(factory)
 
     /**
      * Find the first element which met the given condition (lazy evaluation)
@@ -45,9 +43,7 @@ class WidgetsCollection<T : Widget>(
      * @return SelenideElement
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun find(condition: WebElementCondition): T {
-        return super.find(condition).asWidget(factory)
-    }
+    override fun find(condition: WebElementCondition) = super.find(condition).asWidget(factory)
 
     /**
      * Find the first element which met the given condition (lazy evaluation)
@@ -57,9 +53,7 @@ class WidgetsCollection<T : Widget>(
      * @see .find
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun findBy(condition: WebElementCondition): T {
-        return super.findBy(condition).asWidget(factory)
-    }
+    override fun findBy(condition: WebElementCondition) = super.findBy(condition).asWidget(factory)
 
     /**
      * Returns the first element of the collection (lazy evaluation)
@@ -69,9 +63,7 @@ class WidgetsCollection<T : Widget>(
      * @return the first element of the collection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun first(): T {
-        return super.first().asWidget(factory)
-    }
+    override fun first(): T = super.first().asWidget(factory)
 
     /**
      * Returns the last element of the collection (lazy evaluation)
@@ -79,9 +71,7 @@ class WidgetsCollection<T : Widget>(
      * @return the last element of the collection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun last(): T {
-        return super.last().asWidget(factory)
-    }
+    override fun last() = super.last().asWidget(factory)
 
     /**
      * returns the first n elements of the collection (lazy evaluation)
@@ -90,9 +80,7 @@ class WidgetsCollection<T : Widget>(
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
     @Suppress("GrazieInspection")
-    override fun first(elements: Int): WidgetsCollection<T> {
-        return WidgetsCollection(super.first(elements), factory)
-    }
+    override fun first(elements: Int) = WidgetsCollection(super.first(elements), factory)
 
     /**
      * returns the last n elements of the collection (lazy evaluation)
@@ -101,9 +89,7 @@ class WidgetsCollection<T : Widget>(
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
     @Suppress("GrazieInspection")
-    override fun last(elements: Int): WidgetsCollection<T> {
-        return WidgetsCollection(super.last(elements), factory)
-    }
+    override fun last(elements: Int) = WidgetsCollection(super.last(elements), factory)
 
     /**
      * Check if a collection matches given condition(s).
@@ -116,55 +102,46 @@ class WidgetsCollection<T : Widget>(
     ` *
     </pre> *
      */
-    override fun should(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.should(*conditions), factory)
-    }
+    override fun should(vararg conditions: WebElementsCondition) = WidgetsCollection(super.should(*conditions), factory)
 
     /**
      * Check if a collection matches a given condition within the given time period.
      *
      * @param timeout maximum waiting time
      */
-    override fun should(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
-        return WidgetsCollection(super.should(condition, timeout), factory)
-    }
+    override fun should(condition: WebElementsCondition, timeout: Duration) =
+        WidgetsCollection(super.should(condition, timeout), factory)
 
     override fun should(
         prefix: String,
         timeout: Duration,
         vararg conditions: WebElementsCondition,
-    ): WidgetsCollection<T> {
-        return WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
-    }
+    ) = WidgetsCollection(super.should(prefix, timeout, *conditions), factory)
 
     /**
      * For example: `$$(".error").shouldBe(empty)`
      */
-    override fun shouldBe(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.shouldBe(*conditions), factory)
-    }
+    override fun shouldBe(vararg conditions: WebElementsCondition) =
+        WidgetsCollection(super.shouldBe(*conditions), factory)
 
-    override fun shouldBe(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
-        return WidgetsCollection(super.shouldBe(condition, timeout), factory)
-    }
+    override fun shouldBe(condition: WebElementsCondition, timeout: Duration) =
+        WidgetsCollection(super.shouldBe(condition, timeout), factory)
 
     /**
      * For example:
      * `$$(".error").shouldHave(size(3))`
      * `$$(".error").shouldHave(texts("Error1", "Error2"))`
      */
-    override fun shouldHave(vararg conditions: WebElementsCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.shouldHave(*conditions), factory)
-    }
+    override fun shouldHave(vararg conditions: WebElementsCondition) =
+        WidgetsCollection(super.shouldHave(*conditions), factory)
 
     /**
      * Check if a collection matches given condition within given period
      *
      * @param timeout maximum waiting time
      */
-    override fun shouldHave(condition: WebElementsCondition, timeout: Duration): WidgetsCollection<T> {
-        return WidgetsCollection(super.shouldHave(condition, timeout), factory)
-    }
+    override fun shouldHave(condition: WebElementsCondition, timeout: Duration) =
+        WidgetsCollection(super.shouldHave(condition, timeout), factory)
 
     /**
      * Filters collection elements based on the given condition (lazy evaluation)
@@ -173,9 +150,7 @@ class WidgetsCollection<T : Widget>(
      * @return ElementsCollection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun filter(condition: WebElementCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.filter(condition), factory)
-    }
+    override fun filter(condition: WebElementCondition) = WidgetsCollection(super.filter(condition), factory)
 
     /**
      * Filters collection elements based on the given condition (lazy evaluation)
@@ -185,9 +160,7 @@ class WidgetsCollection<T : Widget>(
      * @see .filter
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun filterBy(condition: WebElementCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.filterBy(condition), factory)
-    }
+    override fun filterBy(condition: WebElementCondition) = WidgetsCollection(super.filterBy(condition), factory)
 
     /**
      * Filters elements excluding those which met the given condition (lazy evaluation)
@@ -196,9 +169,7 @@ class WidgetsCollection<T : Widget>(
      * @return ElementsCollection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun exclude(condition: WebElementCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.exclude(condition), factory)
-    }
+    override fun exclude(condition: WebElementCondition) = WidgetsCollection(super.exclude(condition), factory)
 
     /**
      * Filters elements excluding those which met the given condition (lazy evaluation)
@@ -208,9 +179,7 @@ class WidgetsCollection<T : Widget>(
      * @see .exclude
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    override fun excludeWith(condition: WebElementCondition): WidgetsCollection<T> {
-        return WidgetsCollection(super.excludeWith(condition), factory)
-    }
+    override fun excludeWith(condition: WebElementCondition) = WidgetsCollection(super.excludeWith(condition), factory)
 
     /**
      * Takes the snapshot of current state of this collection.
@@ -222,9 +191,7 @@ class WidgetsCollection<T : Widget>(
      * @return current state of this collection
      * @see .asFixedIterable
      */
-    override fun snapshot(): WidgetsCollection<T> {
-        return WidgetsCollection(super.snapshot(), factory)
-    }
+    override fun snapshot() = WidgetsCollection(super.snapshot(), factory)
 
     /**
      * Give this collection a human-readable name
@@ -238,9 +205,7 @@ class WidgetsCollection<T : Widget>(
      * @return this collection
      * @since 5.20.0
      */
-    override fun `as`(alias: String): WidgetsCollection<T> {
-        return WidgetsCollection(super.`as`(alias), factory)
-    }
+    override fun `as`(alias: String) = WidgetsCollection(super.`as`(alias), factory)
 }
 
 /**

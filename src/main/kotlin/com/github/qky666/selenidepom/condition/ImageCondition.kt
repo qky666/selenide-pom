@@ -25,10 +25,9 @@ object ImageCondition {
      * @param similarity threshold used to check if is considered that one image is contained in the screenshot. Default value: [DEFAULT_SIMILARITY]
      * @return the [WebElementCondition] that checks if a web element screenshot contains any of the images
      */
-    fun containsImage(images: List<String>, similarity: Double = DEFAULT_SIMILARITY): WebElementCondition {
-        return Condition.match("Web element image (screenshot) contains one of theses images: $images") { webElement ->
-            val screenshotFile = webElement.getScreenshotAs(OutputType.FILE)
-            val screenshot = imread(screenshotFile.absolutePath)
+    fun containsImage(images: List<String>, similarity: Double = DEFAULT_SIMILARITY) =
+        Condition.match("Web element image (screenshot) contains one of theses images: $images") { webElement ->
+            val screenshot = imread(webElement.getScreenshotAs(OutputType.FILE).absolutePath)
 
             images.forEach {
                 val pattern = imread(it)
@@ -39,7 +38,6 @@ object ImageCondition {
             }
             return@match false
         }
-    }
 
     /**
      * Creates a [WebElementCondition] that checks if a web element screenshot contains a predefined image.
@@ -48,9 +46,7 @@ object ImageCondition {
      * @param similarity threshold used to check if is considered that the image is contained in the screenshot. Default value: [DEFAULT_SIMILARITY]
      * @return the [WebElementCondition] that checks if a web element screenshot contains the image
      */
-    fun containsImage(img: String, similarity: Double = DEFAULT_SIMILARITY): WebElementCondition {
-        return containsImage(listOf(img), similarity)
-    }
+    fun containsImage(img: String, similarity: Double = DEFAULT_SIMILARITY) = containsImage(listOf(img), similarity)
 
     /**
      * Creates a [WebElementCondition] that checks if a web element screenshot contains a predefined image.
@@ -59,7 +55,6 @@ object ImageCondition {
      * @param similarity threshold used to check if is considered that the image is contained in the screenshot. Default value: [DEFAULT_SIMILARITY]
      * @return the [WebElementCondition] that checks if a web element screenshot contains the image
      */
-    fun containsImage(img: Path, similarity: Double = DEFAULT_SIMILARITY): WebElementCondition {
-        return containsImage(listOf(img.toString()), similarity)
-    }
+    fun containsImage(img: Path, similarity: Double = DEFAULT_SIMILARITY) =
+        containsImage(listOf(img.toString()), similarity)
 }

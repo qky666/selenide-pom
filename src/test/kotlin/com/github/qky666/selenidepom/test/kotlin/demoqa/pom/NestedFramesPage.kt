@@ -24,5 +24,3 @@ class ParentFrame(self: SelenideElement) : Iframe(self) {
 class ChildFrame(self: SelenideElement) : Iframe(self) {
     @Required val text = findX(".//p[text()='Child Iframe']")
 }
-
-val nestedFramesPage = NestedFramesPage()

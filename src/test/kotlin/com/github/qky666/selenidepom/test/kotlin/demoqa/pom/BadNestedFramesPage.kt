@@ -23,5 +23,3 @@ class BadParentFrame(self: SelenideElement) : Iframe(self) {
 class BadChildFrame(self: SelenideElement) : Iframe(self) {
     @Required val text = findX(".//p[text()='Bad Child Iframe']")
 }
-
-val badNestedFramesPage = BadNestedFramesPage()

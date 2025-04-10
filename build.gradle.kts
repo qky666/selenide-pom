@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.30.2"
+version = "0.30.3"
 
 val javaVersionNumber = 21
 
@@ -8,8 +8,8 @@ plugins {
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "2.1.10"
-    id("io.freefair.lombok") version "8.13"
+    kotlin("jvm") version "2.1.20"
+    id("io.freefair.lombok") version "8.13.1"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
@@ -29,12 +29,12 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.12.0"
+    val jUnitVersion = "5.12.1"
 
     implementation(kotlin("reflect"))
     implementation(kotlin("test"))
-    implementation("com.codeborne:selenide-appium:7.7.3")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.5")
+    implementation("com.codeborne:selenide-appium:7.8.1")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.6")
     implementation("org.bytedeco:javacv-platform:1.5.11")
     implementation("net.sourceforge.tess4j:tess4j:5.15.0")
 

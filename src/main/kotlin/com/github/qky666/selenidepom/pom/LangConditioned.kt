@@ -19,13 +19,10 @@ interface LangConditioned : SelenideElement, Loadable {
      * @param strict if strict is `true`, a [ConditionNotDefinedError] is thrown if no condition is found for given [lang]
      * @return true if the element meets the expected [WebElementCondition] for a given language [lang], false otherwise
      */
-    fun meetsCondition(lang: String = SPConfig.lang, strict: Boolean = this.strict): Boolean {
-        return try {
-            val condition = conditions.getValue(lang)
-            this.has(condition)
-        } catch (e: NoSuchElementException) {
-            !strict
-        }
+    fun meetsCondition(lang: String = SPConfig.lang, strict: Boolean = this.strict) = try {
+        this.has(conditions.getValue(lang))
+    } catch (e: NoSuchElementException) {
+        !strict
     }
 }
 

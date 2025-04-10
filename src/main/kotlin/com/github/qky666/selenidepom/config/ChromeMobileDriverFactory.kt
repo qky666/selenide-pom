@@ -16,16 +16,12 @@ class ChromeMobileDriverFactory : ChromeDriverFactory() {
     private val logger = KotlinLogging.logger {}
 
     companion object {
-        @JvmStatic
-        private val threadLocalDeviceName = ThreadLocal.withInitial {
-            DEFAULT_DEVICE_NAME
-        }
+        @JvmStatic private val threadLocalDeviceName = ThreadLocal.withInitial { DEFAULT_DEVICE_NAME }
 
         /**
          * The device name used for the mobile emulation. Default value: [DEFAULT_DEVICE_NAME].
          */
-        @JvmStatic
-        var deviceName: String
+        @JvmStatic var deviceName: String
             get() = threadLocalDeviceName.get()
             set(value) = threadLocalDeviceName.set(value)
     }

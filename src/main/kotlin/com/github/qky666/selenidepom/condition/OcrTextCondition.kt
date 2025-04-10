@@ -34,16 +34,13 @@ object OcrTextCondition {
         language: String = SPConfig.lang,
         tessPageSegMode: Int = TessPageSegMode.PSM_SPARSE_TEXT_OSD,
         tessdata: String? = null,
-    ): WebElementCondition {
-        return Condition.match("Web element screenshot text (obtained using OCR) contains '$text'") {
-            val extractedText = Selenide.element(it).ocrText(language, tessPageSegMode, tessdata)
-            val result = extractedText.contains(text, ignoreCase)
-            if (!result) {
-                logger.info { "Element extracted text '$extractedText'. Searched text: '$text'" }
-            }
-            return@match result
-        }
+    ) = Condition.match("Web element screenshot text (obtained using OCR) contains '$text'") {
+        val extractedText = Selenide.element(it).ocrText(language, tessPageSegMode, tessdata)
+        val result = extractedText.contains(text, ignoreCase)
+        if (!result) logger.info { "Element extracted text '$extractedText'. Searched text: '$text'" }
+        return@match result
     }
+
 
     /**
      * Creates a [WebElementCondition] that checks if a web element screenshot contains exactly
@@ -65,14 +62,10 @@ object OcrTextCondition {
         language: String = SPConfig.lang,
         tessPageSegMode: Int = TessPageSegMode.PSM_SPARSE_TEXT_OSD,
         tessdata: String? = null,
-    ): WebElementCondition {
-        return Condition.match("Web element screenshot text (obtained using OCR) is '$text'") {
-            val extractedText = Selenide.element(it).ocrText(language, tessPageSegMode, tessdata)
-            val result = extractedText.contentEquals(text, ignoreCase)
-            if (!result) {
-                logger.info { "Element extracted text '$extractedText'. Exact searched text: '$text'" }
-            }
-            return@match result
-        }
+    ) = Condition.match("Web element screenshot text (obtained using OCR) is '$text'") {
+        val extractedText = Selenide.element(it).ocrText(language, tessPageSegMode, tessdata)
+        val result = extractedText.contentEquals(text, ignoreCase)
+        if (!result) logger.info { "Element extracted text '$extractedText'. Exact searched text: '$text'" }
+        return@match result
     }
 }

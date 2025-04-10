@@ -16,13 +16,11 @@ private val logger = KotlinLogging.logger {}
  * @param other the other [Rectangle]
  * @return `true` if [this] is contained in [other], `false` otherwise.
  */
-fun Rectangle.isContainedIn(other: Rectangle): Boolean {
-    if (this.x < other.x) return false
-    if (this.y < other.y) return false
-    if (this.x + this.width > other.x + other.width) return false
-    if (this.y + this.height > other.y + other.height) return false
-    return true
-}
+fun Rectangle.isContainedIn(other: Rectangle) = if (this.x < other.x) false
+else if (this.y < other.y) false
+else if (this.x + this.width > other.x + other.width) false
+else if (this.y + this.height > other.y + other.height) false
+else true
 
 /**
  * Returns `true` if [this] [Rectangle] contains [other] [Rectangle], `false` otherwise.
@@ -30,9 +28,7 @@ fun Rectangle.isContainedIn(other: Rectangle): Boolean {
  * @param other the other [Rectangle]
  * @return `true` if [this] contains [other], `false` otherwise.
  */
-fun Rectangle.contains(other: Rectangle): Boolean {
-    return other.isContainedIn(this)
-}
+fun Rectangle.contains(other: Rectangle) = other.isContainedIn(this)
 
 /**
  * Returns the first point above given threshold in a [Mat]

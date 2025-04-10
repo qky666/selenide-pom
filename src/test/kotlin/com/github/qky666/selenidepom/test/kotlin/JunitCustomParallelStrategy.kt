@@ -9,28 +9,15 @@ import org.junit.platform.engine.support.hierarchical.ParallelExecutionConfigura
 // see https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ForkJoinPool.html#%3Cinit%3E(int,java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory,java.lang.Thread.UncaughtExceptionHandler,boolean,int,int,int,java.util.function.Predicate,long,java.util.concurrent.TimeUnit)
 class JunitCustomParallelStrategy : ParallelExecutionConfiguration, ParallelExecutionConfigurationStrategy {
     private val processors = Runtime.getRuntime().availableProcessors()
-    override fun getParallelism(): Int {
-        return processors
-    }
+    override fun getParallelism() = processors
 
-    override fun getCorePoolSize(): Int {
-        return parallelism
-    }
+    override fun getCorePoolSize() = parallelism
 
-    override fun getMaxPoolSize(): Int {
-//        return 256 + getParallelism();
-        return parallelism * 2
-    }
+    override fun getMaxPoolSize() = parallelism * 2
 
-    override fun getMinimumRunnable(): Int {
-        return 0
-    }
+    override fun getMinimumRunnable() = 0
 
-    override fun getKeepAliveSeconds(): Int {
-        return 60
-    }
+    override fun getKeepAliveSeconds() = 60
 
-    override fun createConfiguration(configurationParameters: ConfigurationParameters): ParallelExecutionConfiguration {
-        return this
-    }
+    override fun createConfiguration(configurationParameters: ConfigurationParameters) = this
 }

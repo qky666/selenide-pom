@@ -67,9 +67,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      *
      * @return the [ElementsCollection] found
      */
-    override fun getOptions(): ElementsCollection {
-        return self.options
-    }
+    override fun getOptions() = self.options
 
     /**
      * Same as [SelenideElement.execute] `(Command(command))`.
@@ -79,9 +77,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param command the command
      * @return the [ReturnType] obtained
      */
-    override fun <ReturnType : Any> execute(command: Command<ReturnType>): ReturnType? {
-        return self.execute(command)
-    }
+    override fun <ReturnType : Any> execute(command: Command<ReturnType>) = self.execute(command)
 
     /**
      * Same as [SelenideElement.execute] `(Command(command), (Duration(timeout))`.
@@ -92,9 +88,8 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param timeout the timeout
      * @return the [ReturnType] obtained
      */
-    override fun <ReturnType : Any> execute(command: Command<ReturnType>, timeout: Duration): ReturnType? {
-        return self.execute(command, timeout)
-    }
+    override fun <ReturnType : Any> execute(command: Command<ReturnType>, timeout: Duration) =
+        self.execute(command, timeout)
 
     /**
      * Same as [SelenideElement.execute] `(FluentCommand(command))`.
@@ -104,9 +99,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param command the command
      * @return the [ReturnType] obtained
      */
-    override fun <ReturnType : SelenideElement> execute(command: FluentCommand): ReturnType {
-        return self.execute(command)
-    }
+    override fun <ReturnType : SelenideElement> execute(command: FluentCommand): ReturnType = self.execute(command)
 
     /**
      * Same as [SelenideElement.find] `(By.xpath(xpathExpression))`.
@@ -114,9 +107,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param xpathExpression the xpath
      * @return the [SelenideElement] found
      */
-    fun findX(xpathExpression: String): SelenideElement {
-        return find(By.xpath(xpathExpression))
-    }
+    fun findX(xpathExpression: String) = find(By.xpath(xpathExpression))
 
     /**
      * Same as [SelenideElement.find] `(By.xpath(xpathExpression), index)`.
@@ -124,9 +115,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param xpathExpression the xpath
      * @return the [SelenideElement] found
      */
-    fun findX(xpathExpression: String, index: Int): SelenideElement {
-        return find(By.xpath(xpathExpression), index)
-    }
+    fun findX(xpathExpression: String, index: Int) = find(By.xpath(xpathExpression), index)
 
     /**
      * Same as [SelenideElement.findAll] `(By.xpath(xpathExpression))`.
@@ -134,9 +123,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param xpathExpression the xpath
      * @return the [ElementsCollection] found
      */
-    fun findXAll(xpathExpression: String): ElementsCollection {
-        return findAll(By.xpath(xpathExpression))
-    }
+    fun findXAll(xpathExpression: String) = findAll(By.xpath(xpathExpression))
 
     /**
      * Same as [SelenideElement.find] `(cssSelector)`.
@@ -145,9 +132,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param cssSelector the css selector
      * @return the [SelenideElement] found
      */
-    final override fun find(cssSelector: String): SelenideElement {
-        return container?.find(cssSelector) ?: Page.find(cssSelector)
-    }
+    final override fun find(cssSelector: String) = container?.find(cssSelector) ?: Page.find(cssSelector)
 
     /**
      * Same as [SelenideElement.find] `(seleniumSelector)`.
@@ -156,9 +141,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param seleniumSelector the selector
      * @return the [SelenideElement] found
      */
-    final override fun find(seleniumSelector: By): SelenideElement {
-        return container?.find(seleniumSelector) ?: Page.find(seleniumSelector)
-    }
+    final override fun find(seleniumSelector: By) = container?.find(seleniumSelector) ?: Page.find(seleniumSelector)
 
     /**
      * Same as [SelenideElement.find] `(cssSelector, index)`.
@@ -167,9 +150,8 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param cssSelector the css selector
      * @return the [SelenideElement] found
      */
-    final override fun find(cssSelector: String, index: Int): SelenideElement {
-        return container?.find(cssSelector, index) ?: Page.find(cssSelector, index)
-    }
+    final override fun find(cssSelector: String, index: Int) =
+        container?.find(cssSelector, index) ?: Page.find(cssSelector, index)
 
     /**
      * Same as [SelenideElement.find] `(seleniumSelector, index)`.
@@ -178,9 +160,8 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param seleniumSelector the selector
      * @return the [SelenideElement] found
      */
-    final override fun find(seleniumSelector: By, index: Int): SelenideElement {
-        return container?.find(seleniumSelector, index) ?: Page.find(seleniumSelector, index)
-    }
+    final override fun find(seleniumSelector: By, index: Int) =
+        container?.find(seleniumSelector, index) ?: Page.find(seleniumSelector, index)
 
     /**
      * Same as [SelenideElement.findAll] `(cssSelector)`.
@@ -189,9 +170,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param cssSelector the css selector
      * @return the [ElementsCollection] found
      */
-    final override fun findAll(cssSelector: String): ElementsCollection {
-        return container?.findAll(cssSelector) ?: Page.findAll(cssSelector)
-    }
+    final override fun findAll(cssSelector: String) = container?.findAll(cssSelector) ?: Page.findAll(cssSelector)
 
     /**
      * Same as [SelenideElement.findAll] `(seleniumSelector)`.
@@ -200,9 +179,8 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
      * @param seleniumSelector the selector
      * @return the [ElementsCollection] found
      */
-    final override fun findAll(seleniumSelector: By): ElementsCollection {
-        return container?.findAll(seleniumSelector) ?: Page.findAll(seleniumSelector)
-    }
+    final override fun findAll(seleniumSelector: By) =
+        container?.findAll(seleniumSelector) ?: Page.findAll(seleniumSelector)
 }
 
 /**
@@ -211,9 +189,8 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
  * @param factory method that obtains a [T] instance from a [SelenideElement] (usually a [T] constructor)
  * @return [T] instance based on provided [SelenideElement]
  */
-fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T): T {
-    @Suppress("UNCHECKED_CAST") return this as? T ?: factory(this)
-}
+@Suppress("UNCHECKED_CAST")
+fun <T : Widget> SelenideElement.asWidget(factory: (e: SelenideElement) -> T) = this as? T ?: factory(this)
 
 /**
  * Same as [SelenideElement.setValue], but returns a [Widget] subclass instance instead of [SelenideElement]

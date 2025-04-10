@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideConfig
 import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.WebDriverRunner
+import com.github.qky666.selenidepom.config.SPConfig.selenideConfig
 import com.github.qky666.selenidepom.data.ResourceHelper.Companion.getResourceFile
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.openqa.selenium.WebDriver
@@ -34,16 +35,14 @@ private val logger = KotlinLogging.logger {}
  */
 object SPConfig {
 
-    private val fileProperties = Properties()
-
-    init {
-        val resource = getResourceFile(SELENIDE_POM_PROPERTIES_FILENAME)
-        resource?.let {
-            InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> fileProperties.load(input) }
+    private val fileProperties = Properties().let {
+        getResourceFile(SELENIDE_POM_PROPERTIES_FILENAME)?.let { res ->
+            InputStreamReader(FileInputStream(res), StandardCharsets.UTF_8).use { input -> it.load(input) }
         }
+        it
     }
 
-    private val threadLocalModel: ThreadLocal<String> = ThreadLocal.withInitial {
+    private val threadLocalModel = ThreadLocal.withInitial {
         val default = fileProperties.getProperty("selenide-pom.model", DEFAULT_MODEL)
         val initial = System.getProperty("selenide-pom.model", default)
         logger.debug { "Initial value for SPConfig.model: $initial" }
@@ -63,7 +62,7 @@ object SPConfig {
             threadLocalModel.set(value)
         }
 
-    private val threadLocalLang: ThreadLocal<String> = ThreadLocal.withInitial {
+    private val threadLocalLang = ThreadLocal.withInitial {
         val default = fileProperties.getProperty("selenide-pom.lang", DEFAULT_LANG)
         val initial = System.getProperty("selenide-pom.lang", default)
         logger.debug { "Initial value for SPConfig.lang: $initial" }
@@ -83,7 +82,7 @@ object SPConfig {
             threadLocalLang.set(value)
         }
 
-    private val threadLocalSelenideConfig: ThreadLocal<SelenideConfig> = ThreadLocal.withInitial { SelenideConfig() }
+    private val threadLocalSelenideConfig = ThreadLocal.withInitial { SelenideConfig() }
 
     /**
      * The [SelenideConfig] (thread local value).
@@ -132,7 +131,7 @@ object SPConfig {
     @JvmOverloads
     fun setupBasicMobileBrowser(deviceName: String = DEFAULT_DEVICE_NAME, model: String = DEFAULT_MOBILE_MODEL) {
         ChromeMobileDriverFactory.deviceName = deviceName
-        selenideConfig.browser(ChromeMobileDriverFactory::class.qualifiedName!!)
+        selenideConfig.browser(ChromeMobileDriverFactory::class.qualifiedName ?: "null")
         SPConfig.model = model
     }
 
@@ -141,9 +140,7 @@ object SPConfig {
      *
      * @return created [Driver] instance
      */
-    fun createDriver(): Driver {
-        return SelenideDriver(selenideConfig).driver()
-    }
+    fun createDriver() = SelenideDriver(selenideConfig).driver()
 
     /**
      * Sets [newDriver] as the current thread [Driver] and returns it.
@@ -156,7 +153,6 @@ object SPConfig {
     @Synchronized
     fun setDriver(newDriver: Driver? = null): Driver {
         val driver = newDriver ?: createDriver()
-
         val webDriver = driver.getAndCheckWebDriver()
         setWebDriver(webDriver)
         return driver
@@ -177,12 +173,10 @@ object SPConfig {
      *
      * @return Current thread [WebDriver] or null if it does not exist
      */
-    fun getWebDriver(): WebDriver? {
-        return try {
-            WebDriverRunner.getWebDriver()
-        } catch (_: IllegalStateException) {
-            null
-        }
+    fun getWebDriver() = try {
+        WebDriverRunner.getWebDriver()
+    } catch (_: IllegalStateException) {
+        null
     }
 
     /**
@@ -210,9 +204,7 @@ object SPConfig {
      *
      * @return current thread Selenide timeout
      */
-    fun timeout(): Duration {
-        return Duration.ofMillis(selenideConfig.timeout())
-    }
+    fun timeout(): Duration = Duration.ofMillis(selenideConfig.timeout())
 
     /**
      * Returns a [LocalDateTime] object that represents the moment when current thread Selenide timeout is reached
@@ -220,7 +212,5 @@ object SPConfig {
      *
      * @return moment when current thread Selenide timeout is reached
      */
-    fun timeoutFromNow(): LocalDateTime {
-        return LocalDateTime.now() + timeout()
-    }
+    fun timeoutFromNow(): LocalDateTime = LocalDateTime.now() + timeout()
 }

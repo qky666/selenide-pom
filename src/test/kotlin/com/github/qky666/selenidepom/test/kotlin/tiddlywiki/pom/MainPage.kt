@@ -32,5 +32,3 @@ open class MainPage : Page() {
         if (hideSidebar.isDisplayed) sidebar.shouldLoadRequired(timeout, model, lang)
     }
 }
-
-val mainPage = MainPage()

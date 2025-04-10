@@ -17,6 +17,4 @@ private fun downloadFile(url: String, filename: String): File {
 }
 
 @Synchronized
-fun downloadTiddlywikiEs(): File {
-    return downloadFile(TIDDLYWIKI_URL, TIDDLYWIKI_FILENAME)
-}
+fun downloadTiddlywikiEs() = downloadFile(TIDDLYWIKI_URL, TIDDLYWIKI_FILENAME)

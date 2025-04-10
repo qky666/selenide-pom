@@ -18,14 +18,13 @@ object LangCondition {
      * @param strict If `true`, when current [SPConfig.lang] is not present in [conditions] keys, a [ConditionNotDefinedError] is thrown when the returned [WebElementCondition] is evaluated. If `false`, no error is thrown and the condition returned is considered to be always met. Default value: `true`
      * @return the [WebElementCondition] corresponding to current [SPConfig.lang] in [conditions]
      */
-    fun langCondition(conditions: Map<String, WebElementCondition>, strict: Boolean = true): WebElementCondition {
-        return Condition.match("Condition associated to current lang in `conditions`: $conditions") { webElement ->
+    fun langCondition(conditions: Map<String, WebElementCondition>, strict: Boolean = true) =
+        Condition.match("Condition associated to current lang in `conditions`: $conditions") { webElement ->
             val element = Page.find(webElement)
             conditions[SPConfig.lang]?.let { element.has(it) } ?: if (strict) throw ConditionNotDefinedError(
                 element, SPConfig.lang
             ) else true
         }
-    }
 
     /**
      * Returns the [WebElementCondition] created using [Condition.exactText] corresponding to current [SPConfig.lang] in [conditions].
@@ -36,7 +35,6 @@ object LangCondition {
      * @return the [WebElementCondition] created corresponding to current [SPConfig.lang] in [conditions]
      */
     @Suppress("RedundantValueArgument")
-    fun langCondition(conditions: Map<String, String>): WebElementCondition {
-        return langCondition(conditions.mapValues { Condition.exactText(it.value) }, true)
-    }
+    fun langCondition(conditions: Map<String, String>) =
+        langCondition(conditions.mapValues { Condition.exactText(it.value) }, true)
 }

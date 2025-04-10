@@ -16,15 +16,13 @@ const val PROJECT_PROPERTIES_FILENAME = "project.properties"
  * @constructor creates a new instance based on provided properties files
  */
 class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES_FILENAME)) {
-    private val properties = Properties()
-
-    init {
+    private val properties = Properties().let {
         propertiesFiles.forEach { fileName ->
-            val resource = getResourceFile(fileName)
-            resource?.let {
-                InputStreamReader(FileInputStream(it), StandardCharsets.UTF_8).use { input -> properties.load(input) }
+            getResourceFile(fileName)?.let { res ->
+                InputStreamReader(FileInputStream(res), StandardCharsets.UTF_8).use { input -> it.load(input) }
             }
         }
+        it
     }
 
     /**
@@ -35,7 +33,6 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
      * @param defaultValue default value returned if property does not exist in properties files
      */
     @JvmOverloads
-    fun getProperty(property: String, defaultValue: String? = null): String? {
-        return System.getProperty(property, properties.getProperty(property, defaultValue))
-    }
+    fun getProperty(property: String, defaultValue: String? = null): String? =
+        System.getProperty(property, properties.getProperty(property, defaultValue))
 }

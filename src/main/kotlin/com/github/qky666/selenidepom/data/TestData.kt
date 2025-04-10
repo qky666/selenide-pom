@@ -56,13 +56,11 @@ object TestData {
      * @param key the key to reset in output dictionary
      * @return previous `output[key]` if existed, `null` otherwise
      */
-    fun reset(key: String = ""): Any? {
-        if (key.isNotEmpty()) {
-            return output.remove(key)
-        } else {
-            threadLocalOutput.set(mutableMapOf())
-        }
-        return null
+    fun reset(key: String = "") = if (key.isNotEmpty()) {
+        output.remove(key)
+    } else {
+        threadLocalOutput.set(mutableMapOf())
+        null
     }
 
     /**
@@ -76,11 +74,10 @@ object TestData {
      * @throws RuntimeException
      */
     @Throws(RuntimeException::class)
-    fun get(key: String, default: Any? = Unit): Any? {
-        return output[key] ?: input.getProperty(key)
-        ?: if (default == Unit) throw RuntimeException("No value found for key $key")
-        else default
-    }
+    fun get(key: String, default: Any? = Unit) = output[key] ?: input.getProperty(key)
+    ?: if (default == Unit) throw RuntimeException("No value found for key $key")
+    else default
+
 
     /**
      * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
@@ -90,11 +87,9 @@ object TestData {
      * @param default the default value returned if no value is found
      * @return found value, or default value (if not found)
      */
-    fun getString(key: String, default: String? = null): String? {
-        return when (val value = get(key, default)) {
-            is String? -> value
-            else -> value.toString()
-        }
+    fun getString(key: String, default: String? = null) = when (val value = get(key, default)) {
+        is String? -> value
+        else -> value.toString()
     }
 
     /**
