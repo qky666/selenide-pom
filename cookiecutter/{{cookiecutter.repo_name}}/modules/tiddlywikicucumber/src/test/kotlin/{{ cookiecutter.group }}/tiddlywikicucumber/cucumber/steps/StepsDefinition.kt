@@ -100,11 +100,11 @@ class StepsDefinition : Es, Logging {
                 map[titleKey]?.let { title ->
                     edit.titleInput.value = title
                 }
-                map[bodyKey]?.let {
+                map[bodyKey]?.let { body ->
                     // Selenide helpers for shadow dom not working here (do not know why), so we do it the hard way with switchTo
                     val webdriver = SPConfig.getWebDriver()!!
                     webdriver.switchTo().frame(edit.bodyEditorIframe.wrappedElement)
-                    webdriver.findElement(By.cssSelector("textarea")).sendKeys(it)
+                    webdriver.findElement(By.cssSelector("textarea")).sendKeys(body)
                     webdriver.switchTo().defaultContent()
                 }
                 edit.save.click()
