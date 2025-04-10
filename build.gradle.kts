@@ -43,6 +43,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
+    testImplementation("com.google.code.findbugs:jsr305:3.0.2")
 }
 
 kotlin {
