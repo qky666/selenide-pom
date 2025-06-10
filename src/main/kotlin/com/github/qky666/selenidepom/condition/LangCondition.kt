@@ -9,13 +9,12 @@ import com.github.qky666.selenidepom.pom.Page
 /**
  * Some functions that create [WebElementCondition] related to current [SPConfig.lang].
  */
-@Suppress("unused")
 object LangCondition {
     /**
      * Returns the [WebElementCondition] corresponding to current [SPConfig.lang] in [conditions].
      *
      * @param conditions a [Map] where the keys are possible [SPConfig.lang] values, each of then have a [WebElementCondition] associated
-     * @param strict If `true`, when current [SPConfig.lang] is not present in [conditions] keys, a [ConditionNotDefinedError] is thrown when the returned [WebElementCondition] is evaluated. If `false`, no error is thrown and the condition returned is considered to be always met. Default value: `true`
+     * @param strict If `true`, when current [SPConfig.lang] is not present in [conditions] keys, a [ConditionNotDefinedError] is thrown when the returned [WebElementCondition] is evaluated. If `false`, no error is thrown, and the condition returned is considered to be always met. Default value: `true`
      * @return the [WebElementCondition] corresponding to current [SPConfig.lang] in [conditions]
      */
     fun langCondition(conditions: Map<String, WebElementCondition>, strict: Boolean = true) =

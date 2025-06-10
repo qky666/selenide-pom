@@ -272,8 +272,8 @@ class TiddlywikiTest {
     fun verifySidebarTabsTest(browserConfig: String, lang: String) {
         setupSite(browserConfig, lang)
 
-        // Populate Recent tab.
-        // newTiddler works better with javascript click
+        // Populate the Recent tab.
+        // newTiddler works better with JavaScript click
         val mainPage = Page.getInstance(MainPage::class)
         mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
         mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))
@@ -307,7 +307,7 @@ class TiddlywikiTest {
 
         setupSite(browserConfig, lang)
 
-        // newTiddler works better with javascript click
+        // newTiddler works better with JavaScript click
         val mainPage = Page.getInstance(MainPage::class)
         mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()
@@ -352,7 +352,7 @@ class TiddlywikiTest {
 
         setupSite(browserConfig, lang)
 
-        // newTiddler works better with javascript click
+        // newTiddler works better with JavaScript click
         val mainPage = Page.getInstance(MainPage::class)
         mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
         val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(1))[0].shouldLoadRequired()

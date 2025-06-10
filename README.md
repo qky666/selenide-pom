@@ -161,7 +161,7 @@ Some basic packages for Selenium/Selenide (and OCR):
 
 ## Check scoop
 
-To check potential problems in scoop:
+To check potential problems in `scoop`:
 
     scoop checkup
 
@@ -169,7 +169,7 @@ After executing this command, scoop will suggest you actions to fix problems fou
 
 ## Update packages
 
-To update scoop:
+To update `scoop`:
 
     scoop update
 

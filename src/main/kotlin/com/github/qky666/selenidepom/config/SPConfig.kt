@@ -53,7 +53,7 @@ object SPConfig {
      * The default [model] (thread local value) used in [com.github.qky666.selenidepom.pom.shouldLoadRequired]
      * and [com.github.qky666.selenidepom.pom.hasLoadedRequired] methods.
      * Default value: `selenide-pom.model` System property if defined,
-     * `selenide-pom.model` value in `selenide-pom.properties` if defined, or [DEFAULT_MODEL] in other case.
+     * `selenide-pom.model` value in `selenide-pom.properties` if defined, or [DEFAULT_MODEL] in another case.
      */
     var model: String
         get() = threadLocalModel.get()
@@ -73,7 +73,7 @@ object SPConfig {
      * The default `lang` (thread local value) used in some methods in
      * [com.github.qky666.selenidepom.pom.LangConditioned] and [com.github.qky666.selenidepom.pom.Loadable].
      * Default value: `selenide-pom.lang` System property if defined, `selenide-pom.lang` value
-     * in `selenide-pom.properties` if defined, or [DEFAULT_LANG] in other case.
+     * in `selenide-pom.properties` if defined, or [DEFAULT_LANG] in another case.
      */
     var lang: String
         get() = threadLocalLang.get()

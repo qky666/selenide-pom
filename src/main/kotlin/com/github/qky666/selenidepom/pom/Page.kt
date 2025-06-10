@@ -44,7 +44,7 @@ abstract class Page : Loadable {
         /**
          * Same as [Selenide.element] `(cssSelector)`.
          *
-         * @param cssSelector the css selector
+         * @param cssSelector the CSS selector
          * @return the [SelenideElement] found
          */
         fun find(cssSelector: String) = Selenide.element(cssSelector)
@@ -60,7 +60,7 @@ abstract class Page : Loadable {
         /**
          * Same as [Selenide.element] `(cssSelector, index)`.
          *
-         * @param cssSelector the css selector
+         * @param cssSelector the CSS selector
          * @param index the index
          * @return the [SelenideElement] found
          */
@@ -103,7 +103,7 @@ abstract class Page : Loadable {
         /**
          * Same as [Selenide.elements] `(cssSelector)`.
          *
-         * @param cssSelector the css selector
+         * @param cssSelector the CSS selector
          * @return the [ElementsCollection] found
          */
         fun findAll(cssSelector: String) = Selenide.elements(cssSelector)

@@ -3,12 +3,13 @@ package com.github.qky666.selenidepom.pom
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebElementCondition
+import org.openqa.selenium.SearchContext
 
 /**
  * Represents a [SelenideElement] with a 'Language (String) -> [Condition]' map associated, so it is possible to check
  * that the element meets the condition given a determined language.
  * It is intended to be used to verify that the element's text is correct.
- * Can be helpful in all kind of web pages, but specially in those that are available in more than one language.
+ * It can be helpful in all kinds of web pages, but specially in those that are available in more than one language.
  *
  * @param self the [SelenideElement]
  * @param conditions the 'Language (String) -> [Condition]' map with the expected [Condition] for [self] in each language
@@ -57,4 +58,24 @@ open class LangConditionedElement(
     constructor(self: SelenideElement, exactText: String, strict: Boolean = true) : this(
         self, mapOf<String, WebElementCondition>().withDefault { Condition.exactText(exactText) }, strict
     )
+
+    override fun getDomProperty(name: String): String? {
+        return self.getDomProperty(name)
+    }
+
+    override fun getDomAttribute(name: String): String? {
+        return self.getDomAttribute(name)
+    }
+
+    override fun getAriaRole(): String? {
+        return self.ariaRole
+    }
+
+    override fun getAccessibleName(): String? {
+        return self.accessibleName
+    }
+
+    override fun getShadowRoot(): SearchContext {
+        return self.shadowRoot
+    }
 }

@@ -13,6 +13,7 @@ import org.openqa.selenium.Dimension
 import org.openqa.selenium.OutputType
 import org.openqa.selenium.Point
 import org.openqa.selenium.Rectangle
+import org.openqa.selenium.SearchContext
 import org.openqa.selenium.WebElement
 import java.nio.file.Files
 import kotlin.io.path.deleteIfExists
@@ -49,6 +50,22 @@ class ImageElement(
         clickImage(optionMethod)
     }
 
+    override fun getDomProperty(name: String): String? {
+        return container.getDomProperty(name)
+    }
+
+    override fun getDomAttribute(name: String): String? {
+        return container.getDomAttribute(name)
+    }
+
+    override fun getAriaRole(): String? {
+        return container.ariaRole
+    }
+
+    override fun getAccessibleName(): String? {
+        return container.accessibleName
+    }
+
     /**
      * Clicks using the center of the detected image as reference, using provided [clickOption].
      *
@@ -73,6 +90,10 @@ class ImageElement(
     override fun findElements(by: By) = container.findElements(by).filter { it.rect.isContainedIn(this.rect) }
 
     override fun findElement(by: By) = findElements(by).first()
+
+    override fun getShadowRoot(): SearchContext {
+        return container.shadowRoot
+    }
 
     override fun isDisplayed() = true
 

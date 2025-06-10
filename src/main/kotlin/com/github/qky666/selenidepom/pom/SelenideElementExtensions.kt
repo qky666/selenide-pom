@@ -63,7 +63,7 @@ fun <T : SelenideElement> T.ocrText(
  * Clicks on a [text] located using OCR in this [SelenideElement] screenshot.
  *
  * @param text the text to find
- * @param wordIndexToClick the word number (zero based) inside [text] where click is performed. Default value: 0
+ * @param wordIndexToClick the word number (zero-based) inside [text] where click is performed. Default value: 0
  * @param ignoreCase if [text] case should be ignored or not. Default value: true
  * @param clickOption the [ClickOptions] used. Default value: `ClickOptions.usingDefaultMethod()`
  * @param language language used for OCR text recognition. Default value: [SPConfig.lang]

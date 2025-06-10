@@ -10,7 +10,7 @@ const val PROJECT_PROPERTIES_FILENAME = "project.properties"
 
 /**
  * Helps to use information stored in a given list of properties files.
- * The last files in list override information from previous files.
+ * The last files in the list override information from previous files.
  *
  * @param propertiesFiles list of properties files to use
  * @constructor creates a new instance based on provided properties files
@@ -27,7 +27,7 @@ class PropertiesHelper(propertiesFiles: List<String> = listOf(PROJECT_PROPERTIES
 
     /**
      * Returns the property value read from properties files.
-     * The last files in list override information from previous files.
+     * The last files in the list override information from previous files.
      *
      * @param property property name
      * @param defaultValue default value returned if property does not exist in properties files

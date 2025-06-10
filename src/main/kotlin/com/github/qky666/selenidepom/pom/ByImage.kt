@@ -31,7 +31,7 @@ import kotlin.test.assertTrue
  * A [By] subclass tha uses images (a list of [ImageElementDefinition]) to locate web elements in a web page.
  *
  * @param imageElementDefinitions list of images ([ImageElementDefinition]) used to locate the element
- * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+ * @param similarity the threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
  * @constructor created [By] instance
  */
 class ByImage(
@@ -43,7 +43,7 @@ class ByImage(
      * Same as default constructor, but uses a single image [Path] instead of a list of [ImageElementDefinition].
      *
      * @param imagePath the [Path] of the image used to search in web page
-     * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+     * @param similarity the threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
      */
     constructor(imagePath: Path, similarity: Double = DEFAULT_SIMILARITY) : this(
         listOf(ImageElementDefinition(imagePath)), similarity
@@ -53,7 +53,7 @@ class ByImage(
      * Same as default constructor, but uses a single image path ([String]) instead of a list of [ImageElementDefinition].
      *
      * @param imagePath the path ([String]) of the image used to search in web page
-     * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+     * @param similarity the threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
      */
     constructor(imagePath: String, similarity: Double = DEFAULT_SIMILARITY) : this(Path.of(imagePath), similarity)
 
@@ -143,7 +143,7 @@ class ByImage(
          * and [ImageElementDefinition.selected] property as `false`.
          *
          * @param value relative path to the folder in `resources/images`
-         * @param similarity threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
+         * @param similarity the threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]
          * @return the [ByImage] instance created
          */
         fun name(value: String, similarity: Double = DEFAULT_SIMILARITY): ByImage {

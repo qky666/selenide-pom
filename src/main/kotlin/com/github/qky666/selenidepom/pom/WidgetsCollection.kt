@@ -28,10 +28,10 @@ class WidgetsCollection<T : Widget>(
 
     // ElementsCollection overrides
     /**
-     * Gets the n-th element of collection (lazy evaluation)
+     * Gets the n-th element of the collection (lazy evaluation)
      *
      * @param index 0..N
-     * @return the n-th element of collection
+     * @return the n-th element of the collection
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
     override fun get(index: Int) = super.get(index).asWidget(factory)
@@ -76,19 +76,17 @@ class WidgetsCollection<T : Widget>(
     /**
      * returns the first n elements of the collection (lazy evaluation)
      *
-     * @param elements number of elements 1..N
+     * @param elements number of elements 1...N
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    @Suppress("GrazieInspection")
     override fun first(elements: Int) = WidgetsCollection(super.first(elements), factory)
 
     /**
      * returns the last n elements of the collection (lazy evaluation)
      *
-     * @param elements number of elements 1..N
+     * @param elements number of elements 1...N
      * @see [Lazy loading](https://github.com/selenide/selenide/wiki/lazy-loading)
      */
-    @Suppress("GrazieInspection")
     override fun last(elements: Int) = WidgetsCollection(super.last(elements), factory)
 
     /**
@@ -136,7 +134,7 @@ class WidgetsCollection<T : Widget>(
         WidgetsCollection(super.shouldHave(*conditions), factory)
 
     /**
-     * Check if a collection matches given condition within given period
+     * Check if a collection matches given condition within the given period
      *
      * @param timeout maximum waiting time
      */
@@ -183,7 +181,7 @@ class WidgetsCollection<T : Widget>(
 
     /**
      * Takes the snapshot of current state of this collection.
-     * Succeeding calls to this object WILL NOT RELOAD collection element from browser.
+     * Succeeding calls to this object WILL NOT RELOAD the collection element from the browser.
      *
      *
      * Use it to speed up your tests - but only if you know that collection will not be changed during the test.
@@ -211,7 +209,7 @@ class WidgetsCollection<T : Widget>(
 /**
  * Returns the [CollectionSource] associated with this [ElementsCollection].
  *
- * Note: It is a private field, so we have to obtain it through reflexion.
+ * Note: It is a private field, so we have to get it through reflexion.
  *
  * @return The [CollectionSource] associated
  */

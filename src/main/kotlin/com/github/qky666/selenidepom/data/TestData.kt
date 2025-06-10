@@ -50,7 +50,7 @@ object TestData {
 
     /**
      * If key is empty, output data is reset to an empty [MutableMap] and `null` is returned.
-     * If key is not empty, the key in output data is removed and the previous value is returned
+     * If key is not empty, the key in output data is removed, and the previous value is returned
      * (if previous value did not exist, `null` is returned).
      *
      * @param key the key to reset in output dictionary
@@ -65,7 +65,7 @@ object TestData {
 
     /**
      * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
-     * If none of them exists, default value is returned.
+     * If none of them exists, the default value is returned.
      * If no value is found, and no default value is provided (default = `Unit`), a RuntimeException is thrown.
      *
      * @param key the key
@@ -81,7 +81,7 @@ object TestData {
 
     /**
      * Returns `output[key]` if exists. If not, `input.getProperty(key)` is returned.
-     * If none of them exists, default value is returned.
+     * If none of them exists, the default value is returned.
      *
      * @param key the key
      * @param default the default value returned if no value is found
@@ -120,7 +120,7 @@ object TestData {
      * When an `env` is provided, [propertiesFiles] is set to a list with two elements:
      * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/$env.properties`.
      *
-     * For example: if `env` is `prod`, [propertiesFiles] is set to a list of files containing
+     * For example, if `env` is `prod`, [propertiesFiles] is set to a list of files containing
      * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/prod.properties`.
      * If `env` is `test`, [propertiesFiles] is set to a list of files containing
      * [DEFAULT_DATA_PROPERTIES_FILENAME] and `data/test.properties`.

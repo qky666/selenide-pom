@@ -31,7 +31,7 @@ else true
 fun Rectangle.contains(other: Rectangle) = other.isContainedIn(this)
 
 /**
- * Returns the first point above given threshold in a [Mat]
+ * Returns the first point above the given threshold in a [Mat]
  *
  * @param m the [Mat]
  * @param t the threshold
@@ -51,7 +51,7 @@ fun getFirstPointFromMatAboveThreshold(m: Mat, t: Float): CVPoint? {
 }
 
 /**
- * Returns all points above given threshold in a [Mat]
+ * Returns all points above the given threshold in a [Mat]
  *
  * @param m the [Mat]
  * @param t the threshold

@@ -11,6 +11,7 @@ import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.TypeOptions
 import com.codeborne.selenide.WebElementCondition
 import org.openqa.selenium.By
+import org.openqa.selenium.SearchContext
 import java.time.Duration
 
 /**
@@ -127,16 +128,16 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
 
     /**
      * Same as [SelenideElement.find] `(cssSelector)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
-     * @param cssSelector the css selector
+     * @param cssSelector the CSS selector
      * @return the [SelenideElement] found
      */
     final override fun find(cssSelector: String) = container?.find(cssSelector) ?: Page.find(cssSelector)
 
     /**
      * Same as [SelenideElement.find] `(seleniumSelector)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
      * @param seleniumSelector the selector
      * @return the [SelenideElement] found
@@ -145,9 +146,9 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
 
     /**
      * Same as [SelenideElement.find] `(cssSelector, index)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
-     * @param cssSelector the css selector
+     * @param cssSelector the CSS selector
      * @return the [SelenideElement] found
      */
     final override fun find(cssSelector: String, index: Int) =
@@ -155,7 +156,7 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
 
     /**
      * Same as [SelenideElement.find] `(seleniumSelector, index)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
      * @param seleniumSelector the selector
      * @return the [SelenideElement] found
@@ -165,22 +166,42 @@ abstract class Widget(private val self: SelenideElement) : SelenideElement by se
 
     /**
      * Same as [SelenideElement.findAll] `(cssSelector)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
-     * @param cssSelector the css selector
+     * @param cssSelector the CSS selector
      * @return the [ElementsCollection] found
      */
     final override fun findAll(cssSelector: String) = container?.findAll(cssSelector) ?: Page.findAll(cssSelector)
 
     /**
      * Same as [SelenideElement.findAll] `(seleniumSelector)`.
-     * Note: method override to make it final and avoid IDE warnings.
+     * Note: method overrides to make it final and avoid IDE warnings.
      *
      * @param seleniumSelector the selector
      * @return the [ElementsCollection] found
      */
     final override fun findAll(seleniumSelector: By) =
         container?.findAll(seleniumSelector) ?: Page.findAll(seleniumSelector)
+
+    override fun getDomProperty(name: String): String? {
+        return self.getDomProperty(name)
+    }
+
+    override fun getDomAttribute(name: String): String? {
+        return self.getDomAttribute(name)
+    }
+
+    override fun getAriaRole(): String? {
+        return self.ariaRole
+    }
+
+    override fun getAccessibleName(): String? {
+        return self.accessibleName
+    }
+
+    override fun getShadowRoot(): SearchContext {
+        return self.shadowRoot
+    }
 }
 
 /**
