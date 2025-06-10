@@ -12,6 +12,7 @@ import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
+import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import io.cucumber.datatable.DataTable
 import io.cucumber.java8.Es
@@ -73,7 +74,7 @@ class StepsDefinition : Es, Logging {
             Page.getInstance(MainPage::class).let {
                 it.showHideSidebar()
                 it.sidebar.sidebarTabs.tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
-                    tabButton.click()
+                    tabButton.scrollToCenter().click()
                     tabContent.shouldLoadRequired()
                 }
             }
