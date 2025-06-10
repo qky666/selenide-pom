@@ -29,7 +29,7 @@
   "_min_python_version_url": "https://www.python.org/downloads/",
   "_min_python_version": "3.13.4",
   "_min_pip_version_url": "https://pypi.org/project/pip/",
-  "_min_pip_version": "25.1.1",
+  "_min_pip_version": "25.0.1",
   "_min_virtualenv_version_url": "https://pypi.org/project/virtualenv/",
   "_min_virtualenv_version": "20.31.2",
   "_allure_combine_version_url": "https://pypi.org/project/allure-combine/",
