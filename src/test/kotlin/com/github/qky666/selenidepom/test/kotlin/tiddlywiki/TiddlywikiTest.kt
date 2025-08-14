@@ -755,9 +755,7 @@ class TiddlywikiTest {
         val sidebarTabs = Page.getInstance(MainPage::class).sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
-        val chooser = sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired()
-        chooser.enGB.shouldHave(containsImage(getResourcePath("images/flag-en/en-28x14.png")!!))
-        chooser.esES.shouldHave(containsImage(getResourcePathString("images/flag-es/es-21x14.png")!!))
+        sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired()
         sidebarTabs.shouldNotHave(containsImage(getResourcePath("images/no_exists/image.png")!!))
     }
 

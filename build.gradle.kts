@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.30.4"
+version = "0.30.5"
 
 val javaVersionNumber = 21
 
@@ -8,9 +8,10 @@ plugins {
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "2.1.21"
-    id("io.freefair.lombok") version "8.13.1"
+    kotlin("jvm") version "2.2.10"
+    id("io.freefair.lombok") version "8.14"
     id("com.github.ben-manes.versions") version "0.52.0"
+    id("org.bytedeco.gradle-javacpp-platform") version "1.5.10"
 }
 
 publishing {
@@ -29,13 +30,13 @@ repositories {
 }
 
 dependencies {
-    val jUnitVersion = "5.13.1"
+    val jUnitVersion = "5.13.4"
 
     implementation(kotlin("reflect"))
     implementation(kotlin("test"))
-    implementation("com.codeborne:selenide-appium:7.9.3")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.7")
-    implementation("org.bytedeco:javacv-platform:1.5.11")
+    implementation("com.codeborne:selenide-appium:7.9.4")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.12")
+    implementation("org.bytedeco:javacv-platform:1.5.12")
     implementation("net.sourceforge.tess4j:tess4j:5.16.0")
 
     testImplementation(kotlin("test"))
@@ -44,6 +45,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
     testImplementation("com.google.code.findbugs:jsr305:3.0.2")
+    testImplementation("org.bytedeco:javacv-platform:1.5.12")
 }
 
 kotlin {
@@ -78,4 +80,22 @@ tasks.compileJava {
 
 tasks.compileTestJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
+}
+
+tasks {
+    withType<Jar> {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
+        // Otherwise you'll get a "No main manifest attribute" error
+        manifest {
+            attributes["Main-Class"] = "org.bytedeco.javacv.samples.Demo"
+        }
+
+        // To add all the dependencies otherwise a "NoClassDefFoundError" error
+        from(sourceSets.main.get().output)
+
+        dependsOn(configurations.runtimeClasspath)
+        from({
+                 configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+             })
+    }
 }

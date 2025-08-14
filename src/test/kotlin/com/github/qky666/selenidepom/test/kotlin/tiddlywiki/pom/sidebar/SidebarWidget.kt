@@ -49,25 +49,25 @@ class SidebarTabsWidget(self: SelenideElement) : Widget(self) {
     @Required val selectedTabButton = find("div.tc-tab-buttons button.tc-tab-selected")
 
     @Required val openTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 0), mapOf(
+        find("div.tc-tab-buttons button[data-tab-title*=Open]"), mapOf(
             "eng" to "Open", "spa" to "Abiertos"
         )
     )
 
     @Required val recentTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 1), mapOf(
+        find("div.tc-tab-buttons button[data-tab-title*=Recent]"), mapOf(
             "eng" to "Recent", "spa" to "Recientes"
         )
     )
 
     @Required val toolsTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 2), mapOf(
+        find("div.tc-tab-buttons button[data-tab-title*=Tools]"), mapOf(
             "eng" to "Tools", "spa" to "Herramientas"
         )
     )
 
     @Required val moreTabButton = LangConditionedElement(
-        find("div.tc-tab-buttons button", 3), mapOf(
+        find("div.tc-tab-buttons button[data-tab-title*=More]"), mapOf(
             "eng" to "More", "spa" to "Más"
         )
     )
