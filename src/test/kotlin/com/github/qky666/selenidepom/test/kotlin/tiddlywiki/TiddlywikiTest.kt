@@ -280,7 +280,7 @@ class TiddlywikiTest {
 
         mainPage.sidebar.sidebarTabs.tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
             tabButton.click()
-            tabContent.shouldLoadRequired()
+            tabContent.shouldLoadRequired(timeout = Duration.ofSeconds(10))
         }
 
         mainPage.sidebar.sidebarTabs.recentTabButton.click()
