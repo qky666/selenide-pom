@@ -1,12 +1,7 @@
-import {{ cookiecutter.group }}.gradle.AllureExtrasPlugin
-
-repositories {
-    mavenCentral()
-}
+package buildsrc.convention
 
 plugins {
-    id("base-build")
     id("io.qameta.allure-report")
+    id("buildsrc.convention.AllureExtras")
+    id("buildsrc.convention.base-build")
 }
-
-apply<AllureExtrasPlugin>()

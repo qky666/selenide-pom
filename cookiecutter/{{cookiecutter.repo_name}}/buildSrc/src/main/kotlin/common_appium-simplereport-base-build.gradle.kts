@@ -1,10 +1,12 @@
+package buildsrc.convention
+
 repositories {
     mavenCentral()
     maven("https://jitpack.io")
 }
 
 plugins {
-    id("simplereport-base-build")
+    id("buildsrc.convention.simplereport-base-build")
 }
 
 dependencies {

@@ -1,13 +1,16 @@
-repositories {
-    mavenCentral()
-}
+package buildsrc.convention
+
+// The code in this file is a convention plugin - a Gradle mechanism for sharing reusable build logic.
+// `buildSrc` is a Gradle-recognized directory and every plugin there will be easily available in the rest of the build.
 
 plugins {
-    idea
+    // Apply the Kotlin JVM plugin to add support for Kotlin in JVM projects.
     kotlin("jvm")
+    idea
     id("com.github.ben-manes.versions")
     id("io.qameta.allure-adapter")
     id("ru.vyarus.use-python")
+    id("buildsrc.convention.AllureExtras")
 }
 
 dependencies {
@@ -27,6 +30,7 @@ dependencies {
 }
 
 kotlin {
+    // Use a specific Java version to make it easier to work in different environments.
     jvmToolchain({{ cookiecutter._jvm_toolchain }})
 }
 
@@ -67,4 +71,3 @@ tasks.compileTestKotlin {
 tasks.compileTestJava {
     options.compilerArgs.addAll(listOf("-encoding", "UTF-8"))
 }
-

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21" />
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-encoding UTF-8" />
-  </component>
+    <component name="CompilerConfiguration">
+        <bytecodeTargetLevel target="21" />
+    </component>
+    <component name="JavacSettings">
+        <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+            <module name="sptemplate.apidemosandroidcucumber.test" options="-encoding UTF-8" />
+            <module name="sptemplate.calculatorwincucumber.test" options="-encoding UTF-8" />
+            <module name="sptemplate.common_android.test" options="-encoding UTF-8" />
+            <module name="sptemplate.common_web.test" options="-encoding UTF-8" />
+            <module name="sptemplate.common_win.test" options="-encoding UTF-8" />
+            <module name="sptemplate.test" options="-encoding UTF-8" />
+            <module name="sptemplate.tiddlywikicucumber.test" options="-encoding UTF-8" />
+            <module name="sptemplate.tiddlywikitestng.test" options="-encoding UTF-8" />
+        </option>
+    </component>
 </project>
