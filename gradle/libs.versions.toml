@@ -1,0 +1,25 @@
+# Version catalog is a central place for you to declare and version dependencies
+# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+java = "21"
+kotlin = "2.2.10"
+lombok = "8.14"
+versions = "0.52.0"
+gradleJavacppPlatform = "1.5.10"
+selenide = "7.9.4"
+
+[libraries]
+selenide-appium = { module = "com.codeborne:selenide-appium", version.ref = "selenide" }
+
+# Libraries can be bundled together for easier import
+[bundles]
+selenidePomEcosystem = ["selenide-appium"]
+# kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+gradleJavacppPlatform = { id = "org.bytedeco.gradle-javacpp-platform", version.ref = "gradleJavacppPlatform" }

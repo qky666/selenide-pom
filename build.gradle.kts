@@ -1,17 +1,15 @@
 group = "com.github.qky666"
-version = "0.30.7"
-
-val javaVersionNumber = 21
+version = "0.30.8"
 
 plugins {
     idea
     `java-library`
     // jitpack needs maven-publish plugin
     `maven-publish`
-    kotlin("jvm") version "2.2.10"
-    id("io.freefair.lombok") version "8.14"
-    id("com.github.ben-manes.versions") version "0.52.0"
-    id("org.bytedeco.gradle-javacpp-platform") version "1.5.10"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.versions)
+    alias(libs.plugins.gradleJavacppPlatform)
 }
 
 publishing {
@@ -23,10 +21,6 @@ publishing {
             from(components["java"])
         }
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -48,13 +42,13 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(javaVersionNumber)
+    jvmToolchain(libs.versions.java.get().toInt())
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersionNumber))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get().toInt()))
     // This is redundant, but jitpack.io seems to need it
-    val javaVersion = JavaVersion.toVersion(javaVersionNumber)
+    val javaVersion = JavaVersion.toVersion(libs.versions.java.get().toInt())
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 }
