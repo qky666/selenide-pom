@@ -24,31 +24,24 @@ publishing {
 }
 
 dependencies {
-    val jUnitVersion = "5.13.4"
-
     implementation(kotlin("reflect"))
     implementation(kotlin("test"))
-    implementation("com.codeborne:selenide-appium:7.9.4")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.12")
-    implementation("org.bytedeco:javacv-platform:1.5.12")
-    implementation("net.sourceforge.tess4j:tess4j:5.16.0")
+    implementation(libs.bundles.selenidePomEcosystem)
 
     testImplementation(kotlin("test"))
-    testImplementation("org.slf4j:slf4j-simple:2.0.17")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$jUnitVersion")
-    testImplementation("com.google.code.findbugs:jsr305:3.0.2")
+    testImplementation(libs.bundles.selenidePomTestEcosystem)
 }
 
+val javaVersionNumber = libs.versions.java.get().toInt()
+val javaVersion = JavaVersion.toVersion(javaVersionNumber)
+
 kotlin {
-    jvmToolchain(libs.versions.java.get().toInt())
+    jvmToolchain(javaVersionNumber)
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get().toInt()))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersionNumber))
     // This is redundant, but jitpack.io seems to need it
-    val javaVersion = JavaVersion.toVersion(libs.versions.java.get().toInt())
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 }
