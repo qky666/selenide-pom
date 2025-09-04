@@ -120,5 +120,6 @@ If you want both:
 
 ## Known bugs
 
+- Sometimes android container does not work correctly. In that case, you can try: `docker system prune`
 - FlaUI.Webdriver not responding when used inside docker container.
 - Appium `images` plugin is not working with `geckodriver` (appium version 2.12.0).
