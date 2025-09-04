@@ -8,16 +8,18 @@ import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
+import com.codeborne.selenide.ScrollDirection
+import com.codeborne.selenide.ScrollOptions
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
+import es.qky.sptemplate.tiddlywikicucumber.pom.MainPage
+import es.qky.sptemplate.tiddlywikicucumber.pom.storyriver.GettingStartedTiddlerViewWidget
 import io.cucumber.datatable.DataTable
 import io.cucumber.java8.Es
-import {{ cookiecutter.group }}.tiddlywikicucumber.pom.MainPage
-import {{ cookiecutter.group }}.tiddlywikicucumber.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.apache.logging.log4j.kotlin.Logging
 import org.openqa.selenium.By
 import org.testng.Assert.assertEquals
@@ -74,6 +76,7 @@ class StepsDefinition : Es, Logging {
             Page.getInstance(MainPage::class).let {
                 it.showHideSidebar()
                 it.sidebar.sidebarTabs.tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
+                    tabButton.scroll(ScrollOptions.direction(ScrollDirection.UP))
                     tabButton.scrollToCenter().click()
                     tabContent.shouldLoadRequired()
                 }

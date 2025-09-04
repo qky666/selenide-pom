@@ -10,36 +10,29 @@ plugins {
     id("com.github.ben-manes.versions")
     id("io.qameta.allure-adapter")
     id("ru.vyarus.use-python")
-    id("buildsrc.convention.AllureExtras")
+    id("buildsrc.convention.allure-extras")
 }
 
-dependencies {
-    val log4jVersion = "{{ cookiecutter._log4j_version }}"
-    val cucumberVersion = "{{ cookiecutter._cucumber_version }}"
+// Access the version catalog
+val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
-    implementation("org.testng:testng:{{ cookiecutter._testng_version }}")
-    implementation("io.cucumber:cucumber-java8:$cucumberVersion")
-    implementation("io.cucumber:cucumber-testng:$cucumberVersion")
-    implementation(platform("io.qameta.allure:allure-bom:{{ cookiecutter._allure_bom_version }}"))
-    implementation("io.qameta.allure:allure-cucumber7-jvm")
-    implementation("io.qameta.allure:allure-testng")
-    implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
-    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
-    implementation("org.apache.logging.log4j:log4j-api-kotlin:{{ cookiecutter._log4j_api_kotlin_version }}")
+dependencies {
+    implementation(libs.findBundle("baseBuildEcosystem").get())
     implementation(kotlin("test"))
 }
 
 kotlin {
     // Use a specific Java version to make it easier to work in different environments.
-    jvmToolchain({{ cookiecutter._jvm_toolchain }})
+    jvmToolchain(libs.findVersion("java").get().toString().toInt())
 }
 
 python {
-    minPythonVersion = "{{ cookiecutter._min_python_version }}"
-    minPipVersion = "{{ cookiecutter._min_pip_version }}"
+    minPythonVersion = libs.findVersion("minPython").get().toString()
+    minPipVersion = libs.findVersion("minPip").get().toString()
     // Run 'pip.exe install -U virtualenv' manually if virtualenv throws any error
-    minVirtualenvVersion = "{{ cookiecutter._min_virtualenv_version }}"
-    pip("allure-combine:{{ cookiecutter._allure_combine_version }}")
+    minVirtualenvVersion = libs.findVersion("minVirtualenv").get().toString()
+    val allureCombineVersion = libs.findVersion("allureCombine").get().toString()
+    pip("allure-combine:$allureCombineVersion")
 }
 
 tasks.test {

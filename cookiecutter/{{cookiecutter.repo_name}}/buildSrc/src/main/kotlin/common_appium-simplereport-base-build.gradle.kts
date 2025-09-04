@@ -1,16 +1,12 @@
 package buildsrc.convention
 
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
-}
-
 plugins {
     id("buildsrc.convention.simplereport-base-build")
 }
 
+// Access the version catalog
+val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+
 dependencies {
-    // Selenium
-    implementation("com.github.qky666:selenide-pom:{{ cookiecutter._selenide_pom_version }}")
-    implementation("com.codeborne:selenide-appium:{{ cookiecutter._selenide_version }}")
+    implementation(libs.findBundle("commonAppiumSimplereportBaseBuildEcosystem").get())
 }

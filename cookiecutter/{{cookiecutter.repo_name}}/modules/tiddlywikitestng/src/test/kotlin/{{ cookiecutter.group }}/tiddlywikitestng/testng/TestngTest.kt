@@ -6,16 +6,18 @@ import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.disappear
 import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
+import com.codeborne.selenide.ScrollDirection
+import com.codeborne.selenide.ScrollOptions
 import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
-import {{ cookiecutter.group }}.common_web.testng.Retry
-import {{ cookiecutter.group }}.common_web.util.AllureReportHelper
-import {{ cookiecutter.group }}.tiddlywikitestng.pom.MainPage
-import {{ cookiecutter.group }}.tiddlywikitestng.pom.storyriver.GettingStartedTiddlerViewWidget
+import es.qky.sptemplate.common_web.testng.Retry
+import es.qky.sptemplate.common_web.util.AllureReportHelper
+import es.qky.sptemplate.tiddlywikitestng.pom.MainPage
+import es.qky.sptemplate.tiddlywikitestng.pom.storyriver.GettingStartedTiddlerViewWidget
 import org.apache.logging.log4j.kotlin.Logging
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeOptions
@@ -99,6 +101,7 @@ class TestngTest : Logging {
             it.storyRiver.tiddlerEdits.shouldHave(size(1))
             it.storyRiver.tiddlerViews.shouldHave(size(1))
             it.sidebar.sidebarTabs.tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
+                tabButton.scroll(ScrollOptions.direction(ScrollDirection.UP))
                 tabButton.scrollToCenter().click()
                 tabContent.shouldLoadRequired()
             }

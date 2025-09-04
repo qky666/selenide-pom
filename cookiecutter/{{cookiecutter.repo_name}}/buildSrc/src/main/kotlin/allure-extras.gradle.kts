@@ -1,6 +1,9 @@
 package buildsrc.convention
 
 import com.codeborne.selenide.Condition
+import com.codeborne.selenide.ScrollIntoViewOptions
+import com.codeborne.selenide.ScrollIntoViewOptions.Block
+import com.codeborne.selenide.ScrollIntoViewOptions.Inline
 import com.codeborne.selenide.Selenide
 import io.qameta.allure.gradle.base.AllureExtension
 import io.qameta.allure.gradle.report.AllureAggregateReportPlugin
@@ -19,15 +22,11 @@ plugins {
     id("ru.vyarus.use-python")
 }
 
-repositories {
-    mavenCentral()
-    gradlePluginPortal() // so that external plugins can be resolved in dependencies section
-}
+// Access the version catalog
+val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
 dependencies {
-    implementation("io.qameta.allure.gradle.allure:allure-plugin:{{ cookiecutter._allure_version }}")
-    implementation("com.codeborne:selenide:{{ cookiecutter._selenide_version }}")
-    implementation("ru.vyarus:gradle-use-python-plugin:{{ cookiecutter._use_python_version }}")
+    implementation(libs.findBundle("allureExtrasEcosystem").get())
 }
 
 
@@ -135,10 +134,11 @@ fun createExportAllureHistoryTask(
             // Switch to desired language
             val lang = extension.summaryLang.get()
             Selenide.element("div.side-nav__footer div.side-nav__item:first-child button").click()
-            Selenide.element("div.language-select li[data-id=$lang]").scrollIntoView(true).click()
+            Selenide.element("div.language-select li[data-id=$lang]")
+                .scrollIntoView(ScrollIntoViewOptions.instant().block(Block.center).inline(Inline.center)).click()
             val overview = Selenide.element("div.app__content")
                 .should(Condition.be(Condition.visible), Condition.not(Condition.have(Condition.text("Loading"))))
-                .scrollIntoView(true)
+                .scrollIntoView(ScrollIntoViewOptions.instant().block(Block.center).inline(Inline.center))
             TimeUnit.SECONDS.sleep(2)
             overview.screenshotAsImage()?.let {
                 val summaryFileName = "summary_$now.png"
@@ -157,6 +157,7 @@ fun createExportAllureHistoryTask(
 abstract class AllureCombineTask : PythonTask() {
     @Input
     var reportDir = "reportDir"
+
     @Input
     var combineDir = "combineDir"
 

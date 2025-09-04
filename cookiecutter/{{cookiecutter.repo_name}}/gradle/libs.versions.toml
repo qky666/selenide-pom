@@ -1,0 +1,95 @@
+# Version catalog is a central place for you to declare and version dependencies
+# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+java = "21"
+kotlin = "2.2.10"
+versions = "0.52.0"
+selenide = "7.10.0"
+selenide-pom = "libs_versions-SNAPSHOT"
+gradleUsePythonPlugin = "4.1.0"
+commonsCompress = "1.28.0"
+commonsLang3 = "3.18.0"
+allurePlugin = "2.12.0"
+testNg = "7.11.0"
+cucumber = "7.27.2"
+log4j = "2.25.1"
+log4j-api-kotlin = "1.5.0"
+#noinspection UnusedVersionCatalogEntry
+minPython = "3.13.7"
+#noinspection UnusedVersionCatalogEntry
+minPip = "25.2"
+#noinspection UnusedVersionCatalogEntry
+minVirtualenv = "20.34.0"
+#noinspection UnusedVersionCatalogEntry
+allureCombine = "1.0.11"
+allure-cucumber7-jvm = "2.29.1"
+testRetry = "1.6.2"
+# Not used
+# allureBom = "x.x.x"
+# wsdl2javaPlugin = "x.x.x"
+# mssqlJdbc = "x.x.x"
+# jaxwsRi = "x.x.x"
+# jPowerShell = "x.x.x"
+# restAssured = "x.x.x"
+# commonsCodec = "x.x.x"
+# hamcrest = "x.x.x"
+
+[libraries]
+selenide = { module = "com.codeborne:selenide", version.ref = "selenide" }
+selenide-appium = { module = "com.codeborne:selenide-appium", version.ref = "selenide" }
+selenide-pom = { module = "com.github.qky666:selenide-pom", version.ref = "selenide-pom" }
+gradleUsePythonPlugin = { module = "ru.vyarus:gradle-use-python-plugin", version.ref = "gradleUsePythonPlugin" }
+# Vulnerable dependency for gradle-use-python-plugin:4.1.0: org.apache.commons:commons-compress:1.24.0. Upgrade to: 1.26.0
+commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commonsCompress" }
+# Vulnerable dependency for gradle-use-python-plugin:4.1.0: org.apache.commons:commons-lang3:3.14.0 . Upgrade to: 3.18.0
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradleVersionsPlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versions" }
+allurePlugin = { module = "io.qameta.allure.gradle.allure:allure-plugin", version.ref = "allurePlugin" }
+testNg = { module = "org.testng:testng", version.ref = "testNg" }
+cucumber-java8 = { module = "io.cucumber:cucumber-java8", version.ref = "cucumber" }
+cucumber-testng = { module = "io.cucumber:cucumber-testng", version.ref = "cucumber" }
+allure-cucumber7-jvm = { module = "io.qameta.allure:allure-cucumber7-jvm", version.ref = "allure-cucumber7-jvm" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
+log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j" }
+log4j-api-kotlin = { module = "org.apache.logging.log4j:log4j-api-kotlin", version.ref = "log4j-api-kotlin" }
+# Not used
+# allureBom = { module = "io.qameta.allure:allure-bom", version.ref = "allureBom" }
+# Not used: Webservice
+# wsdl2javaPlugin = { module = "com.github.bjornvester.wsdl2java:com.github.bjornvester.wsdl2java.gradle.plugin", version.ref = "wsdl2javaPlugin" }
+# Not used: BBDD
+# mssqlJdbc = { module = "com.microsoft.sqlserver:mssql-jdbc", version.ref = "mssqlJdbc" }
+# jaxwsRi = { module = "com.sun.xml.ws:jaxws-ri", version.ref = "jaxwsRi" }
+# Not used: Powershell
+# jPowerShell = { module = "com.profesorfalken:jPowerShell", version.ref = "jPowerShell" }
+# Not used: API
+# restAssured = { module = "io.rest-assured:rest-assured", version.ref = "restAssured" }
+# restAssuredKotlinExtensions = { module = "io.rest-assured:kotlin-extensions", version.ref = "restAssured" }
+# commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+# hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
+
+# Libraries can be bundled together for easier import
+[bundles]
+vulDepGradleUsePythonPlugin = ["commons-compress", "commons-lang3"]
+buildSrcEcosystem = ["gradleUsePythonPlugin", "commons-compress", "commons-lang3", "kotlinGradlePlugin", "gradleVersionsPlugin", "allurePlugin", "selenide"]
+# Not used: buildSrcEcosystem with webservice test support
+# buildSrcEcosystem = ["gradleUsePythonPlugin", "commons-compress", "commons-lang3", "kotlinGradlePlugin", "gradleVersionsPlugin", "allurePlugin", "selenide", "wsdl2java"]
+#noinspection UnusedVersionCatalogEntry
+allureExtrasEcosystem = ["allurePlugin", "selenide", "gradleUsePythonPlugin"]
+#noinspection UnusedVersionCatalogEntry
+baseBuildEcosystem = ["testNg", "cucumber-java8", "cucumber-testng", "log4j-core", "log4j-slf4j2-impl", "log4j-api-kotlin", "allure-cucumber7-jvm"]
+#noinspection UnusedVersionCatalogEntry
+commonAppiumSimplereportBaseBuildEcosystem = ["selenide-appium", "selenide-pom"]
+#noinspection UnusedVersionCatalogEntry
+commonWebSimplereportBaseBuildEcosystem = ["selenide", "selenide-pom"]
+# Not used
+# bbdd = ["mssqlJdbc", "jaxwsRi"]
+# powershell = ["jPowerShell"]
+# api = ["restAssured", "restAssuredKotlinExtensions", "commonsCodec", "hamcrest"]
+
+[plugins]
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+#noinspection UnusedVersionCatalogEntry
+testRetry = { id = "org.gradle.test-retry", version.ref = "testRetry" }
