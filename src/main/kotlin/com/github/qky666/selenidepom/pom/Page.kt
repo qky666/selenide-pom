@@ -5,8 +5,10 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.appium.SelenideAppium
 import com.codeborne.selenide.appium.SelenideAppiumElement
+import com.github.qky666.selenidepom.config.SPConfig
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import java.time.Duration
 import kotlin.reflect.KClass
 
 /**
@@ -15,6 +17,23 @@ import kotlin.reflect.KClass
  * See [Loadable].
  */
 abstract class Page : Loadable {
+
+    fun scrollToBottom(
+        scrollAmount: Int = 100,
+        maxRepetitions: Int = 1000,
+        requiredTimeout: Duration = SPConfig.timeout(),
+        model: String = SPConfig.model,
+        lang: String = SPConfig.lang,
+    ): Boolean {
+        var repetition = 0
+        while (!Selenide.atBottom() && repetition < maxRepetitions) {
+            Selenide.actions().scrollByAmount(0, scrollAmount).perform()
+            shouldLoadRequired(requiredTimeout, model, lang)
+            repetition++
+        }
+        return Selenide.atBottom()
+    }
+
     companion object {
         private val instances = mutableMapOf<KClass<out Page>, Page>()
 

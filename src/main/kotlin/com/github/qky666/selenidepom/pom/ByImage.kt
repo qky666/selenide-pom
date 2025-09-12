@@ -28,7 +28,7 @@ import kotlin.test.assertTrue
 
 
 /**
- * A [By] subclass tha uses images (a list of [ImageElementDefinition]) to locate web elements in a web page.
+ * A [By] subclass that uses images (a list of [ImageElementDefinition]) to locate web elements in a web page.
  *
  * @param imageElementDefinitions list of images ([ImageElementDefinition]) used to locate the element
  * @param similarity the threshold used to check if is considered that one image is contained in the web page. Default value: [DEFAULT_SIMILARITY]

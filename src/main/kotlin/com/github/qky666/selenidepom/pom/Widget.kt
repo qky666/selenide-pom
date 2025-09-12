@@ -6,6 +6,7 @@ import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.FluentCommand
 import com.codeborne.selenide.HoverOptions
+import com.codeborne.selenide.ScrollIntoViewOptions
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
 import com.codeborne.selenide.TypeOptions
@@ -392,16 +393,8 @@ fun <T : Widget> T.scrollToWidget(): T {
 /**
  * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
  */
-fun <T : Widget> T.scrollWidgetIntoView(scrollIntoViewOptions: String): T {
-    this.scrollIntoView(scrollIntoViewOptions)
-    return this
-}
-
-/**
- * Same as [SelenideElement.scrollIntoView], but returns a [Widget] subclass instance instead of [SelenideElement]
- */
-fun <T : Widget> T.scrollWidgetIntoView(alignToTop: Boolean): T {
-    this.scrollIntoView(alignToTop)
+fun <T : Widget> T.scrollWidgetIntoView(options: ScrollIntoViewOptions): T {
+    this.scrollIntoView(options)
     return this
 }
 

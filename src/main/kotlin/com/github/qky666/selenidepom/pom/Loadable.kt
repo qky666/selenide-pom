@@ -4,6 +4,7 @@ import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Container
 import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.ScrollIntoViewOptions
 import com.codeborne.selenide.SelenideElement
 import com.github.qky666.selenidepom.config.SPConfig
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -95,10 +96,13 @@ interface Loadable {
                             }
                             val annotation = annotations.first()
                             val scroll = annotation.scroll
-                            val scrollString = annotation.scrollString
+                            val behavior = ScrollIntoViewOptions.Behavior.valueOf(annotation.scrollBehavior)
+                            val block = ScrollIntoViewOptions.Block.valueOf(annotation.scrollBlock)
+                            val inline = ScrollIntoViewOptions.Inline.valueOf(annotation.scrollInline)
+                            val options = ScrollIntoViewOptions(behavior, block, inline)
                             val name = it.name
                             errors.addAll(
-                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, scrollString)
+                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, options)
                             )
                         }
                     }
@@ -137,10 +141,13 @@ interface Loadable {
                             val element = it.callBy(mapOf(it.parameters[0] to obj))
                             val annotation = annotations.first()
                             val scroll = annotation.scroll
-                            val scrollString = annotation.scrollString
+                            val behavior = ScrollIntoViewOptions.Behavior.valueOf(annotation.scrollBehavior)
+                            val block = ScrollIntoViewOptions.Block.valueOf(annotation.scrollBlock)
+                            val inline = ScrollIntoViewOptions.Inline.valueOf(annotation.scrollInline)
+                            val options = ScrollIntoViewOptions(behavior, block, inline)
                             val name = it.name
                             errors.addAll(
-                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, scrollString)
+                                elementShouldLoad(element, end, model, lang, objKlassName, name, scroll, options)
                             )
                         }
                     }
@@ -175,35 +182,35 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ): List<Throwable> {
             val errors = when (element) {
                 null -> return listOf()
-                is By -> byShouldLoad(element, end, model, lang, klassName, elementName, scroll, scrollString)
+                is By -> byShouldLoad(element, end, model, lang, klassName, elementName, scroll, options)
                 is Iframe -> iframeShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 is LangConditioned -> langConditionedShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 is SelenideElement -> selenideElementShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 is WidgetsCollection<*> -> widgetsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 is ElementsCollection -> elementsCollectionShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 is Container -> objectShouldLoadRequired(element, end, model, lang)
                 is Page -> objectShouldLoadRequired(element, end, model, lang)
                 is WebElement -> webElementShouldLoad(
-                    element, end, model, lang, klassName, elementName, scroll, scrollString
+                    element, end, model, lang, klassName, elementName, scroll, options
                 )
 
                 else -> objectShouldLoadRequired(element, end, model, lang)
@@ -234,10 +241,10 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
             val element = Page.find(by)
-            if (scroll) element.scrollIntoView(scrollString)
+            if (scroll) element.scrollIntoView(options)
             element.shouldBe(visible, calculateTimeout(end))
             val elementLog = by.toString().replace("\n", "\\n")
             logger.debug { "Checked element $elementName in $klassName is visible (By): $elementLog" }
@@ -254,9 +261,9 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
-            if (scroll) iframe.scrollIntoView(scrollString)
+            if (scroll) iframe.scrollIntoView(options)
             iframe.shouldBe(visible, calculateTimeout(end))
             val elementLog = iframe.toString().replace("\n", "\\n")
             logger.debug { "Checked element $elementName in $klassName is visible (Iframe): $elementLog" }
@@ -273,10 +280,10 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
             val timeout = calculateTimeout(end)
-            if (scroll) element.scrollIntoView(scrollString)
+            if (scroll) element.scrollIntoView(options)
             element.shouldBe(visible, timeout)
             val elementLog = element.toString().replace("\n", "\\n")
             logger.debug { "Checked element $elementName in $klassName is visible (LangConditioned): $elementLog" }
@@ -294,9 +301,9 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
-            if (scroll) element.scrollIntoView(scrollString)
+            if (scroll) element.scrollIntoView(options)
             element.shouldBe(visible, calculateTimeout(end))
             val elementLog = element.toString().replace("\n", "\\n")
             logger.debug { "Checked element $elementName in $klassName is visible (SelenideElement): $elementLog" }
@@ -313,9 +320,9 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
-            if (scroll) collection.first().scrollIntoView(scrollString)
+            if (scroll) collection.first().scrollIntoView(options)
             val filtered = collection.filter(visible).shouldBe(sizeGreaterThan(0), calculateTimeout(end))
             val filteredSize = filtered.size()
             val checked = "Checked at least one element $elementName in $klassName is visible (ElementsCollection)"
@@ -326,7 +333,7 @@ interface Loadable {
             var i = 0
             while (i < filtered.size() && i < filteredSize) {
                 val element = filtered[i]
-                if (scroll) element.scrollIntoView(scrollString)
+                if (scroll) element.scrollIntoView(options)
                 errors.addAll(objectShouldLoadRequired(element, end, model, lang))
                 i += 1
             }
@@ -343,9 +350,9 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
-            if (scroll) widgetsCollection.first().scrollIntoView(scrollString)
+            if (scroll) widgetsCollection.first().scrollIntoView(options)
             val filteredElements = widgetsCollection.filter(visible).shouldBe(sizeGreaterThan(0), calculateTimeout(end))
             val filteredElementsSize = filteredElements.size()
             val checked = "Checked at least one element $elementName in $klassName is visible (WidgetsCollection)"
@@ -356,7 +363,7 @@ interface Loadable {
             var i = 0
             while (i < filteredElements.size() && i < filteredElementsSize) {
                 val widget = filteredElements[i]
-                if (scroll) widget.scrollIntoView(scrollString)
+                if (scroll) widget.scrollIntoView(options)
                 errors.addAll(objectShouldLoadRequired(widget, end, model, lang))
                 i += 1
             }
@@ -373,10 +380,10 @@ interface Loadable {
             klassName: String,
             elementName: String,
             scroll: Boolean,
-            scrollString: String,
+            options: ScrollIntoViewOptions,
         ) = try {
             val selenideElement = Page.find(element)
-            if (scroll) selenideElement.scrollIntoView(scrollString)
+            if (scroll) selenideElement.scrollIntoView(options)
             selenideElement.shouldBe(visible, calculateTimeout(end))
             val elementLog = element.toString().replace("\n", "\\n")
             logger.debug { "Checked element $elementName in $klassName is visible (WebElement): $elementLog" }
@@ -391,12 +398,12 @@ private fun <T : Loadable> T.errorsLoadingRequired(
     timeout: Duration, model: String,
     lang: String,
     scroll: Boolean,
-    scrollString: String,
+    options: ScrollIntoViewOptions,
 ): List<Throwable> {
     val className = this::class.simpleName ?: "null"
     logger.debug { "Starting errorsLoadingRequired in class $className" }
     val end = LocalDateTime.now().plus(timeout)
-    return Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", scroll, scrollString)
+    return Loadable.elementShouldLoad(this, end, model, lang, className, "class_$className", scroll, options)
 }
 
 /**
@@ -408,20 +415,20 @@ private fun <T : Loadable> T.errorsLoadingRequired(
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param options the [ScrollIntoViewOptions] passed to [SelenideElement.scrollIntoView]. Default value: [instantCenter]
  * @throws RequiredError error can occur during validations (mostly, validation failures)
  * @return `this`, so it can be chained
  */
 @Throws(RequiredError::class)
 @JvmOverloads
 fun <T : Loadable> T.shouldLoadRequired(
-    timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
+    timeout: Duration = SPConfig.timeout(),
     model: String = SPConfig.model,
     lang: String = SPConfig.lang,
     scroll: Boolean = false,
-    scrollString: String = "{behavior: \"auto\", block: \"center\", inline: \"center\"}",
+    options: ScrollIntoViewOptions = instantCenter,
 ): T {
-    val errors = this.errorsLoadingRequired(timeout, model, lang, scroll, scrollString)
+    val errors = this.errorsLoadingRequired(timeout, model, lang, scroll, options)
     if (errors.isNotEmpty()) throw RequiredError(errors)
     return this
 }
@@ -435,15 +442,15 @@ fun <T : Loadable> T.shouldLoadRequired(
  * @param model the `model` used to check visibility. Default value: [SPConfig.model]
  * @param lang the `language` used to check visibility. Default value: [SPConfig.lang]
  * @param scroll if browser scrolls to the element before checking it. Default value: false
- * @param scrollString the string passed to [SelenideElement.scrollIntoView]. Default value: {behavior: "auto", block: "center", inline: "center"}
+ * @param options the [ScrollIntoViewOptions] passed to [SelenideElement.scrollIntoView]. Default value: [instantCenter]
  * @return `true` if [shouldLoadRequired] returns without throwing any exception, `false` otherwise
  */
 @Suppress("BooleanMethodIsAlwaysInverted")
 @JvmOverloads
 fun <T : Loadable> T.hasLoadedRequired(
-    timeout: Duration = Duration.ofMillis(SPConfig.selenideConfig.timeout()),
+    timeout: Duration = SPConfig.timeout(),
     model: String = SPConfig.model,
     lang: String = SPConfig.lang,
     scroll: Boolean = false,
-    scrollString: String = "{behavior: \"auto\", block: \"center\", inline: \"center\"}",
-) = this.errorsLoadingRequired(timeout, model, lang, scroll, scrollString).isEmpty()
+    options: ScrollIntoViewOptions = instantCenter,
+) = this.errorsLoadingRequired(timeout, model, lang, scroll, options).isEmpty()

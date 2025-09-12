@@ -13,17 +13,6 @@ import kotlin.test.assertTrue
 private val logger = KotlinLogging.logger {}
 
 /**
- * Same as [SelenideElement.scrollIntoView] ("{behavior: \"auto\", block: \"center\", inline: \"center\"}").
- * See also [SelenideElement.scrollIntoCenter].
- *
- * @return `this`
- */
-fun <T : SelenideElement> T.scrollToCenter(): T {
-    this.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}")
-    return this
-}
-
-/**
  * If `this` is an [ImageElement], click is performed correcting [clickOption] offset to use center of image as reference.
  * If not, usual [SelenideElement.click] is performed.
  *

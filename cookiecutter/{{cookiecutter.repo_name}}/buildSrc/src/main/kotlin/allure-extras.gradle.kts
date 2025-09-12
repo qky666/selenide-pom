@@ -135,10 +135,10 @@ fun createExportAllureHistoryTask(
             val lang = extension.summaryLang.get()
             Selenide.element("div.side-nav__footer div.side-nav__item:first-child button").click()
             Selenide.element("div.language-select li[data-id=$lang]")
-                .scrollIntoView(ScrollIntoViewOptions.instant().block(Block.center).inline(Inline.center)).click()
+                .scrollIntoView(instantCenter).click()
             val overview = Selenide.element("div.app__content")
                 .should(Condition.be(Condition.visible), Condition.not(Condition.have(Condition.text("Loading"))))
-                .scrollIntoView(ScrollIntoViewOptions.instant().block(Block.center).inline(Inline.center))
+                .scrollIntoView(instantCenter)
             TimeUnit.SECONDS.sleep(2)
             overview.screenshotAsImage()?.let {
                 val summaryFileName = "summary_$now.png"

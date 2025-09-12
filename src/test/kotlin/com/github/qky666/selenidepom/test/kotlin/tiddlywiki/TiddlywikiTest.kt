@@ -11,6 +11,8 @@ import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Container
 import com.codeborne.selenide.DragAndDropOptions
 import com.codeborne.selenide.HoverOptions
+import com.codeborne.selenide.ScrollIntoViewOptions
+import com.codeborne.selenide.ScrollIntoViewOptions.Block
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SetValueOptions
@@ -48,7 +50,6 @@ import com.github.qky666.selenidepom.pom.ocrText
 import com.github.qky666.selenidepom.pom.pressEnterInWidget
 import com.github.qky666.selenidepom.pom.pressEscapeInWidget
 import com.github.qky666.selenidepom.pom.pressTabInWidget
-import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.scrollToWidget
 import com.github.qky666.selenidepom.pom.scrollWidgetIntoView
 import com.github.qky666.selenidepom.pom.setSelectedWidget
@@ -561,14 +562,16 @@ class TiddlywikiTest {
         mainPage.shouldLoadRequired()
         mainPage.sidebar.sidebarTabs.toolsTabButton.click()
         mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
-        fake.scrollToWidget().scrollWidgetIntoView(true).scrollWidgetIntoView("{block: \"end\"}")
+        fake.scrollToWidget()
+            .scrollWidgetIntoView(ScrollIntoViewOptions.instant().block(Block.start))
+            .scrollWidgetIntoView(ScrollIntoViewOptions.instant().block(Block.end))
     }
 
     @Test
     fun selenideElementScrollToCenterTest() {
         setupSite("chrome")
         val mainPage = Page.getInstance(MainPage::class).shouldLoadRequired()
-        mainPage.sidebar.sidebarTabs.toolsTabButton.scrollToCenter().click()
+        mainPage.sidebar.sidebarTabs.toolsTabButton.scrollIntoCenter().click()
         mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
     }
 
