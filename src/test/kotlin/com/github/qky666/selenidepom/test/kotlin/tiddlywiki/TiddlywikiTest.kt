@@ -568,11 +568,26 @@ class TiddlywikiTest {
     }
 
     @Test
-    fun selenideElementScrollToCenterTest() {
+    fun selenideElementScrollIntoCenterTest() {
         setupSite("chrome")
         val mainPage = Page.getInstance(MainPage::class).shouldLoadRequired()
         mainPage.sidebar.sidebarTabs.toolsTabButton.scrollIntoCenter().click()
         mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
+    }
+
+    @Test
+    fun scrollToBottomTest() {
+        setupSite("chrome")
+        val mainPage = Page.getInstance(MainPage::class).shouldLoadRequired()
+        mainPage.sidebar.sidebarTabs.toolsTabButton.scrollIntoCenter().click()
+        mainPage.sidebar.sidebarTabs.toolsTabContent.shouldLoadRequired()
+
+        for (i in 1..5) {
+            mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
+            val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(i))[0].shouldLoadRequired()
+            mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
+        }
+        assertTrue { mainPage.scrollToBottom() }
     }
 
     @Test
@@ -760,6 +775,11 @@ class TiddlywikiTest {
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
         sidebarTabs.toolsTabContent.languageChooser.shouldLoadRequired()
         sidebarTabs.shouldNotHave(containsImage(getResourcePath("images/no_exists/image.png")!!))
+        sidebarTabs.shouldNotHave(
+            containsImage(
+                getResourcePath("images/no_exists/image.png")!!.toAbsolutePath().toString()
+            )
+        )
     }
 
     @Test

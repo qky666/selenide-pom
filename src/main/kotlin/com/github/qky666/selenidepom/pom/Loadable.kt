@@ -44,6 +44,7 @@ interface Loadable {
      * @param lang the `language` that should be used for the validations. The internal logic of the method
      * should be aware of this `language`
      */
+    @Suppress("EmptyMethod")
     @Throws(Throwable::class)
     fun customShouldLoadRequired(timeout: Duration, model: String, lang: String) {
     }
