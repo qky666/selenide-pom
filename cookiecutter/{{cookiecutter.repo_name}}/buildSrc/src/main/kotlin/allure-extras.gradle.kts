@@ -1,9 +1,6 @@
 package buildsrc.convention
 
 import com.codeborne.selenide.Condition
-import com.codeborne.selenide.ScrollIntoViewOptions
-import com.codeborne.selenide.ScrollIntoViewOptions.Block
-import com.codeborne.selenide.ScrollIntoViewOptions.Inline
 import com.codeborne.selenide.Selenide
 import io.qameta.allure.gradle.base.AllureExtension
 import io.qameta.allure.gradle.report.AllureAggregateReportPlugin

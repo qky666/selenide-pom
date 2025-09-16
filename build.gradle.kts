@@ -1,5 +1,5 @@
 group = "com.github.qky666"
-version = "0.30.9"
+version = "0.31.0"
 
 plugins {
     idea

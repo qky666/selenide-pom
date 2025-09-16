@@ -7,13 +7,13 @@ java = "21"
 kotlin = "2.2.20"
 versions = "0.52.0"
 selenide = "7.10.0"
-selenide-pom = "0.30.9"
+selenide-pom = "0.31.0"
 gradleUsePythonPlugin = "4.1.0"
 commonsCompress = "1.28.0"
 commonsLang3 = "3.18.0"
 allurePlugin = "3.0.0"
 testNg = "7.11.0"
-cucumber = "7.28.1"
+cucumber = "7.28.2"
 log4j = "2.25.1"
 log4j-api-kotlin = "1.5.0"
 #noinspection UnusedVersionCatalogEntry
@@ -24,7 +24,7 @@ minPip = "25.2"
 minVirtualenv = "20.34.0"
 #noinspection UnusedVersionCatalogEntry
 allureCombine = "1.0.11"
-allure-cucumber7-jvm = "2.29.1"
+allure-cucumber7-jvm = "2.30.0"
 testRetry = "1.6.2"
 # Not used
 # allureBom = "x.x.x"
@@ -73,7 +73,7 @@ log4j-api-kotlin = { module = "org.apache.logging.log4j:log4j-api-kotlin", versi
 # Libraries can be bundled together for easier import
 [bundles]
 vulDepGradleUsePythonPlugin = ["commons-compress", "commons-lang3"]
-buildSrcEcosystem = ["gradleUsePythonPlugin", "commons-compress", "commons-lang3", "kotlinGradlePlugin", "gradleVersionsPlugin", "allurePlugin", "selenide"]
+buildSrcEcosystem = ["gradleUsePythonPlugin", "commons-compress", "commons-lang3", "kotlinGradlePlugin", "gradleVersionsPlugin", "allurePlugin", "selenide", "selenide-pom"]
 # Not used: buildSrcEcosystem with webservice test support
 # buildSrcEcosystem = ["gradleUsePythonPlugin", "commons-compress", "commons-lang3", "kotlinGradlePlugin", "gradleVersionsPlugin", "allurePlugin", "selenide", "wsdl2java"]
 #noinspection UnusedVersionCatalogEntry
