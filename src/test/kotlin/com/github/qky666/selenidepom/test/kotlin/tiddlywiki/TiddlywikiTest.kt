@@ -584,7 +584,7 @@ class TiddlywikiTest {
 
         for (i in 1..5) {
             mainPage.sidebar.newTiddler.click(ClickOptions.usingJavaScript())
-            val newTiddlerEdit = mainPage.storyRiver.tiddlerEdits.shouldHave(size(i))[0].shouldLoadRequired()
+            mainPage.storyRiver.tiddlerEdits.shouldHave(size(i))[0].shouldLoadRequired()
             mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
         }
         assertTrue { mainPage.scrollToBottom() }

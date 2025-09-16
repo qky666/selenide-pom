@@ -4,7 +4,7 @@
 
 [versions]
 java = "21"
-kotlin = "2.2.10"
+kotlin = "2.2.20"
 versions = "0.52.0"
 selenide = "7.10.0"
 selenide-pom = "0.30.9"
