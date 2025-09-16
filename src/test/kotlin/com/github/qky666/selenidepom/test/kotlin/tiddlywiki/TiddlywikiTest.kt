@@ -766,10 +766,12 @@ class TiddlywikiTest {
         val ocrTitle = title.ocrText()
         logger.info { "Title found using OCR: $ocrTitle" }
         assertEquals("Mi TiddlyWiki", ocrTitle)
-        title.shouldHave(text("Mi TiddlyWiki"))
-            .shouldHave(exactOcrText("Mi TiddlyWiki"))
-            .shouldHave(ocrText("TiddlyWiki"))
-            .shouldNotHave(ocrText("Other text"))
+        title.shouldHave(
+            text("Mi TiddlyWiki"),
+            exactOcrText("Mi TiddlyWiki"),
+            ocrText("TiddlyWiki"),
+            not(ocrText("Other text"))
+        )
         val sidebarTabs = Page.getInstance(MainPage::class).sidebar.sidebarTabs
         sidebarTabs.toolsTabButton.click()
         sidebarTabs.toolsTabContent.shouldLoadRequired().language.button.click()
