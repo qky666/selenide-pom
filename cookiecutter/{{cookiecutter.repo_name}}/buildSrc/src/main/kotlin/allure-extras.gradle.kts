@@ -2,6 +2,7 @@ package buildsrc.convention
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
+import com.github.qky666.selenidepom.pom.instantCenter
 import io.qameta.allure.gradle.base.AllureExtension
 import io.qameta.allure.gradle.report.AllureAggregateReportPlugin
 import io.qameta.allure.gradle.report.AllureReportPlugin
