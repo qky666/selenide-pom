@@ -1,12 +1,15 @@
 package com.github.qky666.selenidepom.test.kotlin.demoqa.pom
 
 import com.codeborne.selenide.SelenideElement
+import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Iframe
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.Widget
+import java.net.URL
 
 class NestedFramesPage : Page() {
+    override val url = TestData.getString("data.url")!!
     @Required val framesWrapper = FramesWrapper(find("div#framesWrapper"))
 }
 

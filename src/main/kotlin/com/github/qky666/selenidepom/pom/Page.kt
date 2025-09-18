@@ -13,10 +13,12 @@ import kotlin.reflect.KClass
 
 /**
  * Instances represent a whole web page.
- * A [Page] can contain [com.codeborne.selenide.SelenideElement] and [Widget] that can be annotated as [Required].
+ * A [Page] can contain [SelenideElement] and [Widget] that can be annotated as [Required].
  * See [Loadable].
  */
 abstract class Page : Loadable {
+
+    open val url: String = ""
 
     fun scrollToBottom(
         scrollAmount: Int = 100,
@@ -58,6 +60,12 @@ abstract class Page : Loadable {
         fun <T : Page> getInstance(klass: KClass<out T>): T {
             @Suppress("UNCHECKED_CAST")
             return instances[klass] as? T ?: setInstance(klass)
+        }
+
+        fun <T : Page> load(klass: KClass<out T>): T {
+            val page = getInstance(klass)
+            page.load()
+            return page
         }
 
         /**
@@ -188,4 +196,9 @@ abstract class Page : Loadable {
         @Suppress("unused")
         fun findAppium(xpathExpression: String, index: Int) = SelenideAppium.`$`(By.xpath(xpathExpression), index)
     }
+}
+
+fun <T : Page> T.load(): T {
+    Selenide.open(this.url)
+    return this
 }
