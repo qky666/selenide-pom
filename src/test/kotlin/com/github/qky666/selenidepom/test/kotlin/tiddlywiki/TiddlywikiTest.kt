@@ -588,6 +588,8 @@ class TiddlywikiTest {
             mainPage.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
         }
         assertTrue { mainPage.scrollToBottom() }
+        assertTrue { mainPage.scrollToBottom(loadRequired = true) }
+        mainPage.shouldLoadRequired()
     }
 
     @Test

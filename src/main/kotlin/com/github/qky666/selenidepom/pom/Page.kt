@@ -18,19 +18,36 @@ import kotlin.reflect.KClass
  */
 abstract class Page : Loadable {
 
+    /**
+     * The URL of the page. you should override it to provide the correct URL.
+     */
     open val url: String = ""
 
+    /**
+     * Scroll to the bottom of the page. This is accomplished doing several scroll iterations.
+     * If [loadRequired], every scroll iteration, [shouldLoadRequired] is called.
+     *
+     * @param scrollAmount Number of pixels scrolled down each scroll iteration. Default value: 100
+     * @param maxRepetitions Maximum number of scroll iterations before giving up. Default value: 1000
+     * @param loadRequired If `true`, [shouldLoadRequired] is called every scroll iteration. Default value: `false`
+     * @param requiredTimeout Timeout used in [shouldLoadRequired] call. Ignored if [loadRequired] is `false`. Default value: [SPConfig.timeout]
+     * @param model Model used in [shouldLoadRequired] calls. Ignored if [loadRequired] is `false`. Default value: [SPConfig.model]
+     * @param lang Language used in [shouldLoadRequired] calls. Ignored if [loadRequired] is `false`. Default value: [SPConfig.lang]
+     * @return `true` if the bottom of the page has been reached
+     */
     fun scrollToBottom(
         scrollAmount: Int = 100,
         maxRepetitions: Int = 1000,
+        loadRequired: Boolean = false,
         requiredTimeout: Duration = SPConfig.timeout(),
         model: String = SPConfig.model,
         lang: String = SPConfig.lang,
     ): Boolean {
         var repetition = 0
+        if (loadRequired) shouldLoadRequired(requiredTimeout, model, lang)
         while (!Selenide.atBottom() && repetition < maxRepetitions) {
             Selenide.actions().scrollByAmount(0, scrollAmount).perform()
-            shouldLoadRequired(requiredTimeout, model, lang)
+            if (loadRequired) shouldLoadRequired(requiredTimeout, model, lang)
             repetition++
         }
         return Selenide.atBottom()
@@ -62,6 +79,12 @@ abstract class Page : Loadable {
             return instances[klass] as? T ?: setInstance(klass)
         }
 
+        /**
+         * Selenide loads the [url] associated to the [klass] page.
+         *
+         * @param klass Page [KClass].
+         * @return [klass] instance for chaining
+         */
         fun <T : Page> load(klass: KClass<out T>): T {
             val page = getInstance(klass)
             page.load()
@@ -198,6 +221,11 @@ abstract class Page : Loadable {
     }
 }
 
+/**
+ * Selenide loads the [Page.url] associated to the page.
+ *
+ * @return [Page] instance for chaining
+ */
 fun <T : Page> T.load(): T {
     Selenide.open(this.url)
     return this
