@@ -5,9 +5,9 @@
 [versions]
 java = "21"
 kotlin = "2.2.20"
-versions = "0.52.0"
-selenide = "7.10.0"
-selenide-pom = "0.31.0"
+versions = "0.53.0"
+selenide = "7.11.1"
+selenide-pom = "0.32.0"
 gradleUsePythonPlugin = "4.1.0"
 commonsCompress = "1.28.0"
 commonsLang3 = "3.18.0"
