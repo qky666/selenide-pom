@@ -5,15 +5,15 @@
 [versions]
 java = "21"
 kotlin = "2.2.20"
-lombok = "8.14.2"
-versions = "0.52.0"
+lombok = "9.0.0"
+versions = "0.53.0"
 gradleJavacppPlatform = "1.5.10"
-selenide = "7.10.0"
+selenide = "7.11.1"
 kotlinLoggingJvm = "7.0.13"
 javacv = "1.5.12"
 tess4j = "5.16.0"
 slf4j = "2.0.17"
-junit = "5.13.4"
+junit = "6.0.0"
 findbugs = "3.0.2"
 
 [libraries]

@@ -37,6 +37,9 @@ val javaVersion = JavaVersion.toVersion(javaVersionNumber)
 
 kotlin {
     jvmToolchain(javaVersionNumber)
+    compilerOptions {
+        freeCompilerArgs.add("-Xjvm-default=all")
+    }
 }
 
 java {
@@ -46,18 +49,18 @@ java {
     targetCompatibility = javaVersion
 }
 
+testing {
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.add("-Xjvm-default=all")
+        }
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
     jvmArgs = listOf("-ea", "-Xmx512m")
     systemProperties["file.encoding"] = "UTF-8"
-}
-
-tasks.compileKotlin {
-    compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
-}
-
-tasks.compileTestKotlin {
-    compilerOptions.freeCompilerArgs.add("-Xjvm-default=all")
 }
 
 tasks.compileJava {

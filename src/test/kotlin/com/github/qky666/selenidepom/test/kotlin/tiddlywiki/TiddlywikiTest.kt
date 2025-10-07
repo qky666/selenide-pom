@@ -92,7 +92,6 @@ class TiddlywikiTest {
 
     companion object {
         private val logger = KotlinLogging.logger {}
-        private lateinit var url: URL
 
         @JvmStatic
         fun browserConfigAndLangSource() = listOf(
@@ -125,7 +124,7 @@ class TiddlywikiTest {
             @Required val doExistsBy = By.cssSelector("body")
         }), Arguments.of("chromeMobile", "eng", true, object : MainPage() {
             inner class MyWidget(self: SelenideElement) : Widget(self) {
-                @Required val noExists = Companion.find("no-exists")
+                @Required val noExists = find("no-exists")
             }
 
             @Required val widgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
@@ -133,7 +132,7 @@ class TiddlywikiTest {
             @Suppress("unused") val notRequiredWidgetsCollection = WidgetsCollection(findAll("body"), ::MyWidget)
         }), Arguments.of("firefox", "spa", true, object : MainPage() {
             inner class MyWidget(self: SelenideElement) : Widget(self) {
-                @Required val doExists = Companion.find("body")
+                @Required val doExists = find("body")
             }
 
             @Required val widgetsCollection = WidgetsCollection(findAll("no-exists"), ::MyWidget)
@@ -200,11 +199,11 @@ class TiddlywikiTest {
             }
         }))
 
-        @JvmStatic
-        @BeforeAll
-        fun beforeAll() {
-            url = downloadTiddlywikiEs().toURI().toURL()
-        }
+//        @JvmStatic
+//        @BeforeAll
+//        fun beforeAll() {
+//            url = downloadTiddlywikiEs().toURI().toURL()
+//        }
     }
 
     @BeforeEach
@@ -228,7 +227,7 @@ class TiddlywikiTest {
         else SPConfig.setupBasicDesktopBrowser(browserConfig)
         SPConfig.setDriver()
         SPConfig.lang = lang
-        Selenide.open(url)
+        Page.load(MainPage::class)
         changeSiteLanguageIfNeeded()
     }
 

@@ -3,7 +3,9 @@ package com.github.qky666.selenidepom.test.java.tiddlywiki;
 import com.codeborne.selenide.Selenide;
 import com.github.qky666.selenidepom.config.SPConfig;
 import com.github.qky666.selenidepom.data.TestData;
+import com.github.qky666.selenidepom.pom.Page;
 import com.github.qky666.selenidepom.test.java.tiddlywiki.pom.MainPage;
+import kotlin.jvm.JvmClassMappingKt;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,19 +26,10 @@ import static com.github.qky666.selenidepom.test.kotlin.DownloadKt.downloadTiddl
 
 public class TiddlywikiJavaTest {
 
-    private static URL url;
-
-    final MainPage mainPage = new MainPage();
-
     @SuppressWarnings("unused")
     @NotNull
     public static List<Arguments> browserConfigSource() {
         return Arrays.asList(Arguments.of("chrome"), Arguments.of("firefox"), Arguments.of("chromeMobile"));
-    }
-
-    @BeforeAll
-    public static void beforeAll() throws MalformedURLException {
-        url = downloadTiddlywikiEs().toURI().toURL();
     }
 
     @BeforeEach
@@ -55,13 +48,14 @@ public class TiddlywikiJavaTest {
         else SPConfig.INSTANCE.setupBasicDesktopBrowser(browserConfig);
         SPConfig.INSTANCE.setDriver();
         SPConfig.INSTANCE.setLang("spa");
-        Selenide.open(url);
+        Page.Companion.load(JvmClassMappingKt.getKotlinClass(MainPage.class));
     }
 
     @ParameterizedTest
     @MethodSource("browserConfigSource")
     public void showHideSidebarTest(@NotNull String browserConfig) {
         setupSite(browserConfig);
+        MainPage mainPage = Page.Companion.getInstance(JvmClassMappingKt.getKotlinClass(MainPage.class));
 
         shouldLoadRequired(mainPage);
         mainPage.getHideSidebar().shouldBe(visible).click();
