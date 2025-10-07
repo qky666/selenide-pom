@@ -2,6 +2,7 @@ package {{ cookiecutter.group }}.tiddlywikicucumber.pom
 
 import com.codeborne.selenide.Condition.disappear
 import com.github.qky666.selenidepom.config.SPConfig
+import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.Required
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
@@ -12,6 +13,8 @@ import java.time.Duration
 
 @Suppress("MemberVisibilityCanBePrivate")
 class MainPage : Page() {
+    override val url = TestData.getString("project.baseUrl")!!
+
     @Required(model = "desktop") val storyRiver = StoryRiverWidget(find("section.tc-story-river"))
     val hideSidebar = find("button.tc-hide-sidebar-btn")
     val showSidebar = find("button.tc-show-sidebar-btn")

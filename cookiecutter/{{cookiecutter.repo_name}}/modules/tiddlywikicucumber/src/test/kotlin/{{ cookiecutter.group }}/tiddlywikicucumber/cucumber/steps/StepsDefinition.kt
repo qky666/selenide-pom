@@ -10,9 +10,7 @@ import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.ScrollDirection
 import com.codeborne.selenide.ScrollOptions
-import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
-import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import es.qky.sptemplate.tiddlywikicucumber.pom.MainPage
@@ -27,8 +25,7 @@ class StepsDefinition : Es, Logging {
 
     init {
         Dado("Se accede a la web de TiddlyWiki en español") {
-            Selenide.open(TestData.getString("project.baseUrl")!!)
-            Page.getInstance(MainPage::class).let {
+            Page.load(MainPage::class).let {
                 it.shouldLoadRequired(lang = "spa").changeSiteLanguageIfNeeded()
                 val firstTiddler = it.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
                 GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired()

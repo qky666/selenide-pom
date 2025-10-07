@@ -8,11 +8,9 @@ import com.codeborne.selenide.Condition.exactText
 import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.ScrollDirection
 import com.codeborne.selenide.ScrollOptions
-import com.codeborne.selenide.Selenide
 import com.github.qky666.selenidepom.config.SPConfig
 import com.github.qky666.selenidepom.data.TestData
 import com.github.qky666.selenidepom.pom.Page
-import com.github.qky666.selenidepom.pom.scrollToCenter
 import com.github.qky666.selenidepom.pom.shouldLoadRequired
 import es.qky.sptemplate.common_web.testng.Retry
 import es.qky.sptemplate.common_web.util.AllureReportHelper
@@ -56,14 +54,10 @@ class TestngTest : Logging {
             config.browserCapabilities(merge)
         }
 
+        // Open URL and setup site
         SPConfig.setDriver()
-
-        // Open URL
         SPConfig.lang = lang
-        Selenide.open(TestData.getString("project.baseUrl")!!)
-
-        // Set up site
-        Page.getInstance(MainPage::class).let {
+        Page.load(MainPage::class).let {
             it.shouldLoadRequired(lang = "spa").changeSiteLanguageIfNeeded()
             val firstTiddler = it.storyRiver.tiddlerViews.shouldHave(size(1))[0].shouldLoadRequired()
             GettingStartedTiddlerViewWidget(firstTiddler).shouldLoadRequired()
@@ -102,7 +96,7 @@ class TestngTest : Logging {
             it.storyRiver.tiddlerViews.shouldHave(size(1))
             it.sidebar.sidebarTabs.tabButtonToTabContentMap.forEach { (tabButton, tabContent) ->
                 tabButton.scroll(ScrollOptions.direction(ScrollDirection.UP))
-                tabButton.scrollToCenter().click()
+                tabButton.scrollIntoCenter().click()
                 tabContent.shouldLoadRequired()
             }
             it.sidebar.sidebarTabs.recentTabButton.click()
